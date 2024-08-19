@@ -1,0 +1,13 @@
+<mat-tab-group
+  animationDuration="0"
+  mat-align-tabs="start"
+  mat-stretch-tabs="false"
+>
+  @for (file of files(); track file.name) {
+    <mat-tab label="{{ file.name | uppercase }}">
+      <div class="p-5">
+        <app-code-block [language]="file.name === 'scss' ? 'css' : file.name" [code]="file.content"></app-code-block>
+      </div>
+    </mat-tab>
+  }
+</mat-tab-group>

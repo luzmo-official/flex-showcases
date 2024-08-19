@@ -1,0 +1,69 @@
+<mat-toolbar>
+  <div class="flex w-full items-center">
+    <div class="grow flex justify-center items-center">
+      <span class="mr-3">Dashboard with filter panel</span>
+    </div>
+
+    <button mat-icon-button (click)="openDialog()" class="mr-5">
+      <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
+    </button>
+    <button mat-flat-button (click)="sidenav.toggle()">Open filter panel</button>
+  </div>
+</mat-toolbar>
+<div class="dashboard-with-filter-panel">
+  <mat-sidenav-container class="example-container" [hasBackdrop]="panelBackdrop">
+    <mat-sidenav [position]="panelPosition === 'right' ? 'end' : 'start'" #sidenav class="sidenav-container border"
+      [class.left-panel]="panelPosition === 'left'" [mode]="panelMode">
+      <div class="py-5">
+        <div class="flex items-center justify-between px-5 pb-5 mb-5 border-b-[1px]">
+          <div>Filter</div>
+          <button mat-stroked-button id="exit" (click)="sidenav.toggle()">x</button>
+        </div>
+        <luzmo-viz-item type="donut-chart" style="height: 300px" [slots]='[{"name":"category",
+         "content":[
+         {
+           "type":"hierarchy",
+           "label":"For",
+           "column": donutColumn,
+           "set": datasetId
+         }]}]' canFilter="all"></luzmo-viz-item>
+
+
+
+        <luzmo-viz-item type="bar-chart" style="height: 300px" canFilter="all" [slots]='[
+        {
+          "name": "measure",
+          "content": [
+            {
+              "label": {
+                "en": "Total Amount"
+              },
+              "set": datasetId,
+              "column": amountColumn,
+              "type": "numeric",
+              "format": ".2f"
+            }
+          ]
+        },
+        {
+          "name": "y-axis",
+          "content": [
+            {
+              "label": {
+                "en": "Phase"
+              },
+              "set": datasetId,
+              "column": phaseColumn,
+              "type": "hierarchy"
+            }
+          ]
+        }
+      ]'></luzmo-viz-item>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <luzmo-dashboard [dashboardId]="dashboardId" [experimental]="true" id="mainDashboard"></luzmo-dashboard>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

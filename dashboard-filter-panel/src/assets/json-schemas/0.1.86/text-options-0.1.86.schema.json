@@ -1,0 +1,549 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "display": {
+            "description": "Display options of the text item",
+            "properties": {
+                "hideScrollbar": {
+                    "default": false,
+                    "description": "Hides the scrollbar of the text item",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "html": {
+            "description": "Content of the text item. The key is the language code and the value is the content in that language.",
+            "examples": [
+                {
+                    "de": "Hallo Welt",
+                    "en": "Hello World"
+                }
+            ],
+            "type": "object"
+        },
+        "padding": {
+            "description": "Padding of the text item",
+            "properties": {
+                "bottom": {
+                    "default": 30,
+                    "description": "Bottom padding of the text item in pixels",
+                    "type": "number"
+                },
+                "left": {
+                    "default": 24,
+                    "description": "Left padding of the text item in pixels",
+                    "type": "number"
+                },
+                "right": {
+                    "default": 24,
+                    "description": "Right padding of the text item in pixels",
+                    "type": "number"
+                },
+                "top": {
+                    "default": 30,
+                    "description": "Top padding of the text item in pixels",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "theme": {
+            "description": "Theme configuration",
+            "properties": {
+                "axis": {
+                    "description": "Axis styling",
+                    "examples": [
+                        {
+                            "fontSize": 12
+                        },
+                        {
+                            "fontSize": 10
+                        }
+                    ],
+                    "type": "object"
+                },
+                "background": {
+                    "description": "Background color",
+                    "examples": [
+                        "dark",
+                        "light",
+                        "rgb(245, 245, 245)",
+                        "rgb(61, 61, 61)"
+                    ],
+                    "type": "string"
+                },
+                "baseFontSize": {
+                    "type": "number"
+                },
+                "borders": {
+                    "description": "Border styling",
+                    "properties": {
+                        "border-bottom-width": {
+                            "description": "Border bottom width",
+                            "examples": [
+                                "0px",
+                                "1px",
+                                "3px"
+                            ],
+                            "type": "string"
+                        },
+                        "border-color": {
+                            "description": "Border color",
+                            "examples": [
+                                "rgba(216, 216, 216, 1)",
+                                "rgb(147, 146, 148)"
+                            ],
+                            "type": "string"
+                        },
+                        "border-left-width": {
+                            "description": "Border left width",
+                            "examples": [
+                                "0px",
+                                "1px",
+                                "3px"
+                            ],
+                            "type": "string"
+                        },
+                        "border-radius": {
+                            "description": "Border radius",
+                            "examples": [
+                                "0",
+                                "12px",
+                                "20px"
+                            ],
+                            "type": "string"
+                        },
+                        "border-right-width": {
+                            "description": "Border right width",
+                            "examples": [
+                                "0px",
+                                "1px",
+                                "3px"
+                            ],
+                            "type": "string"
+                        },
+                        "border-style": {
+                            "description": "Border style",
+                            "examples": [
+                                "none",
+                                "solid",
+                                "dotted",
+                                "dashed"
+                            ],
+                            "type": "string"
+                        },
+                        "border-top-width": {
+                            "description": "Border top width",
+                            "examples": [
+                                "0px",
+                                "1px",
+                                "3px"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "boxShadow": {
+                    "description": "Shadow styling",
+                    "properties": {
+                        "color": {
+                            "description": "Shadow color",
+                            "examples": [
+                                "rgb(0, 0, 0)",
+                                "rgb(100, 100, 103)"
+                            ],
+                            "type": "string"
+                        },
+                        "size": {
+                            "description": "Shadow size",
+                            "enum": [
+                                "L",
+                                "M",
+                                "S",
+                                "none"
+                            ],
+                            "examples": [
+                                "none",
+                                "S",
+                                "M",
+                                "L"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "colors": {
+                    "description": "A list of theme colors",
+                    "examples": [
+                        [
+                            "rgb(122, 112, 112)",
+                            "rgb(175, 169, 169)",
+                            "rgb(228, 226, 226)"
+                        ],
+                        [
+                            "rgb(48, 36, 179)",
+                            "rgb(105, 93, 255)",
+                            "rgb(199, 194, 255)",
+                            "rgb(134, 4, 129)",
+                            "rgb(204, 55, 198)",
+                            "rgb(236, 180, 234)",
+                            "rgb(220, 141, 0)",
+                            "rgb(249, 206, 61)",
+                            "rgb(253, 237, 182)",
+                            "rgb(6, 142, 84)",
+                            "rgb(58, 213, 147)",
+                            "rgb(181, 239, 215)",
+                            "rgb(85, 78, 78)",
+                            "rgb(149, 141, 141)",
+                            "rgb(215, 212, 212)"
+                        ]
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "darkOrLight": {
+                    "description": "Dark or light theme",
+                    "enum": [
+                        "dark",
+                        "light"
+                    ],
+                    "examples": [
+                        "dark",
+                        "light"
+                    ],
+                    "type": "string"
+                },
+                "editBackground": {
+                    "description": "Edit background",
+                    "examples": [
+                        "rgb(228, 228, 228)",
+                        "rgb(245, 245, 245)",
+                        "rgb(61, 61, 61)"
+                    ],
+                    "type": "string"
+                },
+                "editDarkOrLight": {
+                    "description": "Dark or light theme for edit",
+                    "enum": [
+                        "dark-edit",
+                        "light-edit"
+                    ],
+                    "examples": [
+                        "dark-edit",
+                        "light-edit"
+                    ],
+                    "type": "string"
+                },
+                "editModeBackground": {
+                    "description": "Edit mode background",
+                    "examples": [
+                        "rgb(245, 245, 245)"
+                    ],
+                    "type": "string"
+                },
+                "font": {
+                    "description": "Font styling",
+                    "properties": {
+                        "font-style": {
+                            "const": "normal",
+                            "description": "Font style",
+                            "examples": [
+                                "normal",
+                                "italic",
+                                "oblique"
+                            ],
+                            "type": "string"
+                        },
+                        "font-weight": {
+                            "description": "Font weight",
+                            "examples": [
+                                400,
+                                700
+                            ],
+                            "type": "number"
+                        },
+                        "fontFamily": {
+                            "description": "Font family",
+                            "examples": [
+                                "Lato",
+                                "Montserrat",
+                                "Roboto Mono",
+                                "Arial",
+                                "Times New Roman"
+                            ],
+                            "type": "string"
+                        },
+                        "fontSize": {
+                            "description": "Font size in px",
+                            "examples": [
+                                10,
+                                15,
+                                18
+                            ],
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "id": {
+                    "description": "Id of the theme, like \"seasonal\", \"urban\", etc.",
+                    "examples": [
+                        "seasonal",
+                        "urban"
+                    ],
+                    "type": "string"
+                },
+                "itemSpecific": {
+                    "description": "Item specific styling",
+                    "properties": {
+                        "padding": {
+                            "description": "Padding of the item",
+                            "examples": [
+                                0,
+                                4,
+                                8,
+                                10
+                            ],
+                            "type": "number"
+                        },
+                        "rounding": {
+                            "description": "Rounding of the item",
+                            "examples": [
+                                0,
+                                8,
+                                12
+                            ],
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "itemsBackground": {
+                    "description": "Item background color",
+                    "examples": [
+                        "rgb(255, 255, 255)",
+                        "rgb(71, 69, 69)",
+                        "rgb(195, 191, 191)"
+                    ],
+                    "type": "string"
+                },
+                "legend": {
+                    "description": "Legend styling",
+                    "properties": {
+                        "fontSize": {
+                            "description": "Legend font size in px",
+                            "examples": [
+                                12,
+                                16
+                            ],
+                            "type": "number"
+                        },
+                        "lineHeight": {
+                            "description": "Legend line height in px",
+                            "examples": [
+                                12,
+                                16,
+                                20
+                            ],
+                            "type": "number"
+                        },
+                        "type": {
+                            "description": "Legend type",
+                            "enum": [
+                                "circle",
+                                "line",
+                                "normal"
+                            ],
+                            "examples": [
+                                "normal",
+                                "line",
+                                "circle"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "mainColor": {
+                    "description": "Theme main color",
+                    "examples": [
+                        "rgb(123, 144, 255)",
+                        "rgb(255, 174, 52)",
+                        "rgb(123, 144, 255)"
+                    ],
+                    "type": "string"
+                },
+                "margins": {
+                    "description": "Dashboard vertical and horizontal margins",
+                    "examples": [
+                        [
+                            16,
+                            16
+                        ],
+                        [
+                            20,
+                            20
+                        ]
+                    ],
+                    "items": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "name": {
+                    "description": "Theme name",
+                    "examples": [
+                        "manual"
+                    ],
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title styling",
+                    "properties": {
+                        "align": {
+                            "description": "Title align",
+                            "enum": [
+                                "center",
+                                "left",
+                                "right"
+                            ],
+                            "examples": [
+                                "left",
+                                "center",
+                                "right"
+                            ],
+                            "type": "string"
+                        },
+                        "bold": {
+                            "description": "Is title bold",
+                            "examples": [
+                                true,
+                                false
+                            ],
+                            "type": "boolean"
+                        },
+                        "border": {
+                            "description": "Is title a border",
+                            "examples": [
+                                true,
+                                false
+                            ],
+                            "type": "boolean"
+                        },
+                        "fontSize": {
+                            "description": "Title's font size in px",
+                            "examples": [
+                                16,
+                                20
+                            ],
+                            "type": "number"
+                        },
+                        "italic": {
+                            "description": "Is title italic",
+                            "examples": [
+                                true,
+                                false
+                            ],
+                            "type": "boolean"
+                        },
+                        "lineHeight": {
+                            "description": "Title's line height in px",
+                            "examples": [
+                                30,
+                                42,
+                                50
+                            ],
+                            "type": "number"
+                        },
+                        "underline": {
+                            "description": "Is title underline",
+                            "examples": [
+                                true,
+                                false
+                            ],
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "tooltip": {
+                    "description": "Tooltip styling",
+                    "properties": {
+                        "background": {
+                            "description": "Tooltip's background",
+                            "examples": [
+                                "rgb(248, 248, 248)",
+                                "rgb(248, 248, 248)",
+                                "rgb(130, 128, 128)",
+                                "rgb(61, 61, 61)"
+                            ],
+                            "type": "string"
+                        },
+                        "fontSize": {
+                            "description": "Tooltip's font size in px",
+                            "examples": [
+                                12,
+                                16,
+                                20
+                            ],
+                            "type": "number"
+                        },
+                        "lineHeight": {
+                            "description": "Tooltip's line height in px",
+                            "examples": [
+                                12,
+                                16,
+                                20
+                            ],
+                            "type": "number"
+                        },
+                        "opacity": {
+                            "description": "Tooltip's opacity",
+                            "examples": [
+                                0.5,
+                                0.8,
+                                1
+                            ],
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Theme type",
+                    "examples": [
+                        "custom"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "title": {
+            "description": "Title in format {locale: \"title\"}, for example, {en: \"Title\"}",
+            "examples": [
+                {
+                    "en": "Title"
+                }
+            ],
+            "type": [
+                "string",
+                "object"
+            ]
+        }
+    },
+    "type": "object"
+}
+

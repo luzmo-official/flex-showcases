@@ -1,0 +1,184 @@
+<h2 mat-dialog-title>Authenticate to try out</h2>
+<mat-dialog-content>
+  <p>
+    Use you <u (click)="switchType('api')" class="cursor-pointer">API key & token</u> or
+    <u (click)="switchType('login')" class="cursor-pointer">log in</u> to quickly test with your own data.<br>You can generate your API key & token
+    <a [href]="(region === 'us' ? 'https://app.us.luzmo.com' : 'https://app.luzmo.com/') + 'profile/api-tokens'" target="_blank" class="link"
+      >here</a
+    >.
+  </p>
+  <div>
+    <ul class="tabs flex gap-4 mb-5">
+      <li
+        class="py-3"
+        [class.active]="authType === 'api'"
+        (click)="switchType('api')"
+      >
+        API key / Token
+      </li>
+      <li
+        class="py-3"
+        [class.active]="authType === 'login'"
+        (click)="switchType('login')"
+      >
+        App Login
+      </li>
+    </ul>
+    <form
+      class="form-log-in"
+      [formGroup]="authForm"
+      (ngSubmit)="attemptAuthentication()"
+    >
+      <ng-template #regionPicker>
+        <div mat-icon-button [matMenuTriggerFor]="menu" aria-label="Region menu" class="flex cursor-pointer py-4 mr-2" (click)="$event.stopPropagation()">
+          @if (region === 'eu') {
+            <img class="region-icon me-2" src="assets/images/europe-icon.svg" />
+          } @else if (region === 'us') {
+            <img class="region-icon me-2" src="assets/images/usa-icon.svg" />
+          } @else {
+            Custom / VPC
+          }
+          <mat-icon fontSet="material-symbols-outlined">expand_more</mat-icon>
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="switchRegion('eu')">
+            <div class="flex items-center px-4">
+              <img
+                  class="region-icon mr-2"
+                  src="assets/images/europe-icon.svg"
+                />
+              EU tenancy
+            </div>
+          </button>
+          <button mat-menu-item (click)="switchRegion('us')">
+            <div class="flex items-center px-4">
+              <img
+                  class="region-icon mr-2"
+                  src="assets/images/usa-icon.svg"
+                />
+              US tenancy
+            </div>
+          </button>
+          <button mat-menu-item (click)="switchRegion('custom')">
+            <span class="px-4">Custom / VPC</span>
+          </button>
+        </mat-menu>
+      </ng-template>
+      <div class="login-form mb-7">
+        @if (authForm.get('errorMsg').value) {
+        <div class="rounded text-red-700 bg-red-200 mt-7 mb-7 p-3">
+          {{ authForm.get('errorMsg').value }}
+        </div>
+        } @if (authType === 'login' && mode !== '2FA') {
+        <div>
+          <div class="mb-5">
+            <div class="flex items-center mb-5">
+              <ng-container *ngTemplateOutlet="regionPicker"></ng-container>
+              <mat-form-field class="grow" subscriptSizing="dynamic">
+                <mat-label>App baseurl</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="baseAppUrl"
+                />
+              </mat-form-field>
+            </div>
+            <div class="mb-5">
+              <mat-form-field subscriptSizing="dynamic" class="w-full">
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                />
+              </mat-form-field>
+            </div>
+            <div class="mb-5">
+              <mat-form-field subscriptSizing="dynamic" class="w-full">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        } @if (authType === 'login' && mode === '2FA') {
+        <div>
+          <div class="mb-5">
+            <mat-form-field subscriptSizing="dynamic" class="w-full">
+              <mat-label>Two-factor code</mat-label>
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                autocomplete="off"
+                formControlName="totp"
+                [maxlength]="6"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        } @if (authType === 'api') {
+        <div>
+          <div class="mb-5">
+            <div class="flex items-center mb-5">
+              <ng-container *ngTemplateOutlet="regionPicker"></ng-container>
+              <mat-form-field class="grow" subscriptSizing="dynamic">
+                <mat-label>Api baseurl</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="baseApiUrl"
+                />
+              </mat-form-field>
+            </div>
+            <div class="mb-5">
+              <mat-form-field subscriptSizing="dynamic" class="w-full">
+                <mat-label>Your API key</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control"
+                  formControlName="key"
+                />
+              </mat-form-field>
+            </div>
+            <div class="mb-5">
+              <mat-form-field subscriptSizing="dynamic" class="w-full">
+                <mat-label>Your API token</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  class="form-control"
+                  formControlName="token"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  @if (mode === '2FA') {
+  <button mat-flat-button class="mr-5" (click)="cancel2FA()">Cancel</button>
+  } @else {
+  <button mat-button (click)="cancel()">Cancel</button>
+  }
+  <button mat-flat-button (click)="attemptAuthentication()">
+    @if (authForm.get('busy').value) {
+    Logging in ...
+    } @if (!authForm.get('busy').value) {
+    <span> Login </span>
+    }
+  </button>
+</mat-dialog-actions>

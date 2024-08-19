@@ -1,0 +1,15 @@
+@import 'material-symbols/outlined.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.icon-20 {
+  font-size: 20px !important;
+  height: 20px !important;
+  width: 20px !important;
+}

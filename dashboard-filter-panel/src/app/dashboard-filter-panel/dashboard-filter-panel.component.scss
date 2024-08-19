@@ -1,0 +1,9 @@
+.top-panel, .bottom-panel {
+  display: none;
+  &.opened {
+    display: block;
+  }
+}
+.dashboard-with-filter-panel {
+  width: 100%;
+}

@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Configure</h2>
+<mat-dialog-content>
+  <div class="mb-5">
+    <mat-form-field class="mr-4" subscriptSizing="dynamic">
+      <mat-label>Mode</mat-label>
+      <mat-select [(value)]="data.panelMode">
+        @for (mode of modes; track mode) {
+          <mat-option [value]="mode">{{ mode }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="mb-5">
+    <mat-form-field class="mr-4" subscriptSizing="dynamic">
+      <mat-label>Position</mat-label>
+      <mat-select [(value)]="data.panelPosition">
+        @for (position of positions; track position) {
+          <mat-option [value]="position">{{ position }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="mr-4" subscriptSizing="dynamic">
+      <mat-label>Backdrop</mat-label>
+      <mat-select [(value)]="data.panelBackdrop">
+        @for (backdrop of backdrops; track backdrop.key) {
+          <mat-option [value]="backdrop.key">{{ backdrop.value }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

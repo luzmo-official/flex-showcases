@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+
+// Create a theme with the specified color type and density.
+@function create-theme($type: light, $density: 0) {
+  @return mat.define-theme(
+    (
+      color: (
+        theme-type: $type,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (
+        scale: $density,
+      ),
+    )
+  );
+}
+
+$light-theme: create-theme(
+  $type: light,
+);
+$dark-theme: create-theme(
+  $type: dark,
+);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat.core();
+
+html {
+  @include mat.all-component-themes($light-theme);
+}
+
+@include mat.typography-hierarchy($light-theme);
