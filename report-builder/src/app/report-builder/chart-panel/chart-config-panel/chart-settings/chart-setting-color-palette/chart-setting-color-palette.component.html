@@ -1,0 +1,19 @@
+<mat-form-field class="w-full">
+  <mat-label>Color palette</mat-label>
+  <mat-select [(value)]="selected">
+    @for (palette of values(); track palette.key) {
+      <mat-option [value]="palette.key" (click)="setValue(palette.key)">
+        <div class="flex items-center">
+          <div class="h-4 w-4 flex mr-3">
+            <div class="h-4 w-2" [style.background]="palette.colors[0]"></div>
+            <div class="flex flex-col">
+              <div class="h-2 w-2" [style.background]="palette.colors[1]"></div>
+              <div class="h-2 w-2" [style.background]="palette.colors[2]"></div>
+            </div>
+          </div>
+          <div>{{ palette.label}}</div>
+        </div>
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

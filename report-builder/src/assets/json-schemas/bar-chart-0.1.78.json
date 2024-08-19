@@ -1,0 +1,638 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Bar chart item",
+  "properties": {
+    "type": {
+      "description": "Type of the item",
+      "const": "bar-chart"
+    },
+    "options": {
+      "description": "Options of the bar chart item",
+      "type": "object",
+      "properties": {
+        "display": {
+          "type": "object",
+          "description": "General display options of the Bar chart: title, legend and mode option",
+          "properties": {
+            "title": {
+              "type": "boolean",
+              "description": "Show or hide the title",
+              "default": true
+            },
+            "legend": {
+              "type": "boolean",
+              "description": "Show or hide the legend",
+              "default": true
+            },
+            "modeOption": {
+              "type": "boolean",
+              "description": "Show or hide the mode option. Only available when there is a legend.",
+              "default": false
+            }
+          }
+        },
+        "mode": {
+          "description": "Mode of the Bar chart: grouped, stacked or 100% stacked",
+          "enum": ["100", "grouped", "stacked"],
+          "type": "string"
+        },
+        "bars": {
+          "properties": {
+            "label": {
+              "description": "Bar label options",
+              "enum": [
+                "none",
+                "percentage",
+                "percentageCategory",
+                "percentageLegend",
+                "percentageMax"
+              ],
+              "type": "string"
+            },
+            "roundedCorners": {
+              "description": "Rounded corners of the bars",
+              "type": "number",
+              "examples": [0, 5, 10]
+            }
+          },
+          "type": "object"
+        },
+        "categories": {
+          "description": "Category options",
+          "properties": {
+            "colored": {
+              "description": "Bar color by category. Only has effect if there is no legend, but there is a y-axis.",
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "type": "object"
+        },
+        "legend": {
+          "description": "Legend options",
+          "properties": {
+            "position": {
+              "description": "Position of the legend. Only available when the legend is shown.",
+              "enum": [
+                "bottom",
+                "bottomLeft",
+                "bottomRight",
+                "left",
+                "middle",
+                "right",
+                "top",
+                "topLeft",
+                "topRight"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "axis": {
+          "description": "Axes options",
+          "properties": {
+            "x": {
+              "description": "X-axis options",
+              "properties": {
+                "color": {
+                  "description": "X-axis color",
+                  "type": "string",
+                  "examples": ["#000000", "black", "rgba(0,0,0,1)"]
+                },
+                "scale": {
+                  "description": "X-axis scale type",
+                  "enum": ["linear", "logarithmic"],
+                  "type": "string"
+                },
+                "scaleLogBase": {
+                  "description": "Base of the logarithmic scale. Only applies if the scale is logarithmic.",
+                  "type": "number",
+                  "examples": [2, 10]
+                },
+                "ticksDensity": {
+                  "description": "Density of the ticks on the X-axis",
+                  "enum": ["compact", "normal", "sparse"],
+                  "type": "string"
+                },
+                "ticksMode": {
+                  "description": "Ticks mode of the X-axis",
+                  "enum": ["gridlines", "hide", "ticks"],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "y": {
+              "description": "Y-axis options",
+              "properties": {
+                "color": {
+                  "description": "Y-axis color",
+                  "type": "string",
+                  "examples": ["#000000", "black", "rgba(0,0,0,1)"]
+                },
+                "ticksMode": {
+                  "description": "Ticks mode of the Y-axis",
+                  "enum": ["gridlines", "hide", "ticks"],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "axislabels": {
+          "description": "Axes labels options",
+          "properties": {
+            "x": {
+              "description": "X-axis label options",
+              "properties": {
+                "enabled": {
+                  "description": "Show or hide the X-axis labels",
+                  "type": "boolean",
+                  "default": false
+                },
+                "position": {
+                  "description": "Position of the X-axis labels",
+                  "enum": [
+                    "center",
+                    "left",
+                    "right"
+                  ],
+                  "type": "string",
+                  "default": "center"
+                }
+              },
+              "type": "object"
+            },
+            "y": {
+              "description": "Y-axis label options",
+              "properties": {
+                "enabled": {
+                  "description": "Show or hide the Y-axis labels",
+                  "type": "boolean",
+                  "default": false
+                },
+                "position": {
+                  "description": "Position of the Y-axis labels",
+                  "enum": [
+                    "bottom",
+                    "middle",
+                    "top"
+                  ],
+                  "type": "string",
+                  "default": "middle"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "grid": {
+          "description": "Chart grid options",
+          "properties": {
+            "x": {
+              "description": "X-axis grid options",
+              "properties": {
+                "enabled": {
+                  "description": "Show or hide the X-axis grid",
+                  "type": "boolean",
+                  "default": false
+                },
+                "opacity": {
+                  "description": "Opacity of the X-axis grid",
+                  "type": "number",
+                  "examples": [1, 0.5, 0.1]
+                },
+                "style": {
+                  "description": "Style of the X-axis grid",
+                  "enum": ["dashed", "dotted", "solid"],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "y": {
+              "description": "Y-axis grid options",
+              "properties": {
+                "enabled": {
+                  "description": "Show or hide the Y-axis grid",
+                  "type": "boolean",
+                  "default": false
+                },
+                "opacity": {
+                  "description": "Opacity of the Y-axis grid",
+                  "type": "number",
+                  "examples": [1, 0.5, 0.1]
+                },
+                "style": {
+                  "description": "Style of the Y-axis grid",
+                  "enum": ["dashed", "dotted", "solid"],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "manualAxesRange": {
+          "description": "Manual axis range options",
+          "items": [
+            {
+              "description": "Minimum value of the axis range",
+              "type": "number",
+              "examples": [-15, 0, 0.1, 10, 100]
+            },
+            {
+              "description": "Maximum value of the axis range",
+              "type": "number",
+              "examples": [-10, 0, 0.1, 10, 100]
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "guidelines": {
+          "description": "Guidelines options",
+          "type": "object",
+          "properties": {
+            "lines": {
+              "description": "Guidelines definitions",
+              "items": {
+                "properties": {
+                  "color": {
+                    "description": "Color of the guideline",
+                    "type": "string",
+                    "examples": ["#000000", "black", "rgba(0,0,0,1)"]
+                  },
+                  "type": {
+                    "description": "Value type of the guideline",
+                    "enum": [
+                      "average",
+                      "average close",
+                      "average open",
+                      "median",
+                      "value"
+                    ],
+                    "default": "value",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Value of the guideline",
+                    "type": "number",
+                    "examples": [-10, 0, 0.1, 10, 100]
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "style": {
+              "description": "Style of the guidelines",
+              "properties": {
+                "type": {
+                  "description": "Dashed/dotted definition of the guideline",
+                  "enum": ["0", "1,2", "3,3"],
+                  "type": "string"
+                },
+                "width": {
+                  "description": "Width of the guideline",
+                  "type": "string",
+                  "examples": ["1px", "2px", "3.5px"]
+                }
+              },
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "slots": {
+      "description": "Data definition of the Bar chart",
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "object",
+          "description": "Measure slot definition of the bar chart. A bar chart can contain up to two measures. If it contains 2 measures the bar chart cannot use a legend column.",
+          "properties": {
+            "name": {
+              "description": "Name of the slot",
+              "type": "string",
+              "const": "measure"
+            },
+            "content": {
+              "description": "Measure slot definition",
+              "type": "array",
+              "maxItems": 2,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "description": "Label",
+                    "type": "object"
+                  },
+                  "set": {
+                    "description": "Dataset id",
+                    "type": "string"
+                  },
+                  "column": {
+                    "description": "Column id",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Column type",
+                    "enum": ["datetime", "hierarchy", "numeric", "spatial"],
+                    "type": "string"
+                  },
+                  "subtype": {
+                    "description": "Column subtype",
+                    "type": ["string", "null"]
+                  },
+                  "format": {
+                    "description": "Column format. Used when the column type is datetime or numeric.",
+                    "type": "string"
+                  },
+                  "level": {
+                    "description": "Hierarchy or datetime level",
+                    "type": ["number", "null"]
+                  },
+                  "lowestLevel": {
+                    "description": "Lowest hierarchy or datetime level",
+                    "type": ["null", "number"]
+                  },
+                  "aggregationFunc": {
+                    "description": "Aggregation function",
+                    "enum": [
+                      "average",
+                      "count",
+                      "cumulativesum",
+                      "distinctcount",
+                      "histogram",
+                      "max",
+                      "median",
+                      "min",
+                      "rate",
+                      "stddev",
+                      "sum",
+                      "weightedaverage"
+                    ],
+                    "type": "string"
+                  },
+                  "aggregationWeight": {
+                    "description": "Aggregation weight",
+                    "properties": {
+                      "set": {
+                        "description": "Dataset id",
+                        "type": "string"
+                      },
+                      "column": {
+                        "description": "Column id",
+                        "type": "string"
+                      },
+                      "columnSubType": {
+                        "description": "Column subtype",
+                        "type": "string",
+                        "enum": [
+                          "coordinates",
+                          "currency",
+                          "duration",
+                          "hierarchy_element_expression",
+                          "topography"
+                        ]
+                      }                      
+                    },
+                    "type": "object"
+                  },
+                  "currency": {
+                    "description": "Currency code. Is only used when the column subtype is currency.",
+                    "type": ["null", "string"]
+                  },
+                  "duration": {
+                    "description": "Duration definition. Is only used when the column subtype is duration.",
+                    "properties": {
+                      "format": {
+                        "description": "Duration format",
+                        "enum": ["long", "short", "time"],
+                        "type": "string"
+                      },
+                      "levels": {
+                        "description": "Duration levels used",
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "sortOrder": {
+                    "description": "Sort order",
+                    "type": ["string", "number"]
+                  },
+                  "color": {
+                    "description": "Color of the column. Only used when multiple measures are defined.",
+                    "type": ["null", "string"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "description": "Category slot definition of the bar chart. This defines the bars on the Y-axis.",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "Name of the slot",
+              "type": "string",
+              "const": "y-axis"
+            },
+            "content": {
+              "description": "Category slot definition",
+              "type": "array",
+              "maxItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "description": "Label",
+                    "type": "object"
+                  },
+                  "set": {
+                    "description": "Dataset id",
+                    "type": "string"
+                  },
+                  "column": {
+                    "description": "Column id",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Column type",
+                    "enum": ["datetime", "hierarchy", "numeric", "spatial"],
+                    "type": "string"
+                  },
+                  "format": {
+                    "description": "Column format. Used when the column type is datetime or numeric.",
+                    "type": "string"
+                  },
+                  "subtype": {
+                    "description": "Column subtype",
+                    "type": ["string", "null"]
+                  },
+                  "level": {
+                    "description": "Hierarchy or datetime level",
+                    "type": ["number", "null"]
+                  },
+                  "lowestLevel": {
+                    "description": "Lowest hierarchy or datetime level",
+                    "type": ["null", "number"]
+                  },
+                  "bins": {
+                    "description": "Bin definition. Can be used when a numeric column is used as a category.",
+                    "properties": {
+                      "enabled": {
+                        "description": "Enable or disable binning",
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "description": "Defines the range of the bins",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "currency": {
+                    "description": "Currency code. Is only used when the column subtype is currency.",
+                    "type": ["null", "string"]
+                  },
+                  "duration": {
+                    "description": "Duration definition. Is only used when the column subtype is duration.",
+                    "properties": {
+                      "format": {
+                        "description": "Duration format",
+                        "enum": ["long", "short", "time"],
+                        "type": "string"
+                      },
+                      "levels": {
+                        "description": "Duration levels used",
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "sortOrder": {
+                    "description": "Sort order",
+                    "type": ["string", "number"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "description": "Legend slot definition of the bar chart. This defines the legend of the bar chart. If 2 measures are used, the legend cannot be used.",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "Name of the slot",
+              "type": "string",
+              "const": "legend"
+            },
+            "content": {
+              "description": "Legend slot definition",
+              "type": "array",
+              "maxItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "description": "Label",
+                    "type": "object"
+                  },
+                  "set": {
+                    "description": "Dataset id",
+                    "type": "string"
+                  },
+                  "column": {
+                    "description": "Column id",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Column type",
+                    "enum": ["datetime", "hierarchy", "numeric", "spatial"],
+                    "type": "string"
+                  },
+                  "format": {
+                    "description": "Column format. Used when the column type is datetime or numeric.",
+                    "type": "string"
+                  },
+                  "subtype": {
+                    "description": "Column subtype",
+                    "type": ["string", "null"]
+                  },
+                  "level": {
+                    "description": "Hierarchy or datetime level",
+                    "type": ["number", "null"]
+                  },
+                  "lowestLevel": {
+                    "description": "Lowest hierarchy or datetime level",
+                    "type": ["null", "number"]
+                  },
+                  "bins": {
+                    "description": "Bin definition. Can be used when a numeric column is used as a category.",
+                    "properties": {
+                      "enabled": {
+                        "description": "Enable or disable binning",
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "description": "Defines the range of the bins",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "currency": {
+                    "description": "Currency code. Is only used when the column subtype is currency.",
+                    "type": ["null", "string"]
+                  },
+                  "duration": {
+                    "description": "Duration definition. Is only used when the column subtype is duration.",
+                    "properties": {
+                      "format": {
+                        "description": "Duration format",
+                        "enum": ["long", "short", "time"],
+                        "type": "string"
+                      },
+                      "levels": {
+                        "description": "Duration levels used",
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "sortOrder": {
+                    "description": "Sort order",
+                    "type": ["string", "number"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "items": false
+    }
+  }
+}

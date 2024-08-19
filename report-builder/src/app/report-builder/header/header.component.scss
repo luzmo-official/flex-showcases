@@ -1,0 +1,9 @@
+::ng-deep mat-toolbar {
+  background-color: rgb(237 233 254 / 0.33) !important;
+  border-bottom: 1px solid rgb(229, 231, 235);
+}
+
+mat-form-field {
+  --mat-form-field-container-vertical-padding: .5rem;
+  --mat-form-field-container-height: 32px;
+}

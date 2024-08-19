@@ -1,0 +1,10 @@
+@if (_status.generating) {
+  <mat-progress-bar class="mb-3" mode="indeterminate"></mat-progress-bar>
+}
+<mat-form-field class="w-full mt-0 rounded-0" floatLabel="always">
+  <mat-label>Generate chart</mat-label>
+  <textarea matInput placeholder="What do you want to see..." [(ngModel)]="question"></textarea>
+</mat-form-field>
+<div class="flex justify-end">
+  <button mat-flat-button color="primary" (click)="generateChart()" [disabled]="(question ?? '').length === 0 || _status.generating">Generate</button>
+</div>

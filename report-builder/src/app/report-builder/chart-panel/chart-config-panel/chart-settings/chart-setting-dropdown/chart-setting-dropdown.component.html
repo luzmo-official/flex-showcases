@@ -1,0 +1,8 @@
+<mat-form-field class="w-full">
+  <mat-label>{{ label() }}</mat-label>
+  <mat-select [(value)]="selected">
+    @for (item of values(); track item.key) {
+      <mat-option [value]="item.key" (click)="setValue(item.key)">{{item.label}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

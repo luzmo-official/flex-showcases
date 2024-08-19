@@ -1,0 +1,1 @@
+export type ColumnType = 'numeric' | 'datetime' | 'hierarchy' | 'spatial';

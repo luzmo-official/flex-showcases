@@ -1,0 +1,53 @@
+<h2 mat-dialog-title class="pt-2">
+    <mat-icon fontSet="material-symbols-outlined" class="mr-2">
+        {{ columnTypeIcons[data.columnType] }}
+    </mat-icon>
+    {{ data.columnName }}
+</h2>
+<mat-dialog-content>
+    <mat-label>Choose a filter type:</mat-label>
+    <mat-radio-group [(ngModel)]="currentFilterExpression" class="flex flex-col"  aria-label="Select an option">
+        @for (filterOption of filterOptions; track filterOption) {
+            <mat-radio-button value="{{filterOption.value}}">{{ filterOption.label }}</mat-radio-button>
+            @if (currentFilterExpression() === filterOption.value) {
+                @if (currentFilterArgumentArity() === 'one-arg') {
+                    <mat-form-field class="w-full mt-2 mb-[-2]">
+                        <mat-label>Argument</mat-label>
+                        <input #singleArgField class="argument-input" matInput [value]="singleArg()" (input)="singleArg.set(singleArgField.value)" [type]="inputType">
+                    </mat-form-field>
+                } @else if (currentFilterArgumentArity() === 'multiple-args') {
+                    <mat-form-field class="w-full mt-2">
+                        <mat-label>Arguments</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="Enter arguments">
+                            @for (arg of multipleArgs(); track arg) {
+                                <mat-chip-row
+                                        (removed)="removeMultipleArg(arg)"
+                                        [editable]="true"
+                                        (edited)="edit(arg, $event)"
+                                        [aria-description]="'press enter to edit ' + arg"
+                                >
+                                    {{arg}}
+                                    <button matChipRemove [attr.aria-label]="'remove ' + arg">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </mat-chip-row>
+                            }
+                            <input
+                                    placeholder="Add argument..."
+                                    [type]="inputType"
+                                    [matChipInputFor]="chipGrid"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur"
+                                    (matChipInputTokenEnd)="addMultipleArg($event)"
+                            />
+                        </mat-chip-grid>
+                    </mat-form-field>
+                }
+            }
+        }
+    </mat-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button [disabled]="currentFilterExpression() === null" mat-button [mat-dialog-close]="getDialogResult()">Apply</button>
+</mat-dialog-actions>

@@ -1,0 +1,41 @@
+<mat-toolbar>
+  <div class="flex w-full items-center justify-end">
+    <div>
+      <mat-form-field subscriptSizing="dynamic" class="mr-5">
+        <input matInput placeholder="Enter report name..." [(ngModel)]="reportName">
+      </mat-form-field>
+      <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+        Manage reports
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #menu xPosition="before">
+        <button mat-menu-item (click)="saveReport()" [disabled]="!saveButtonEnabled || reportName.trim().length === 0">
+          <mat-icon fontSet="material-symbols-outlined">
+            save
+          </mat-icon>
+          Save current report
+        </button>
+        @if (savedReports.length > 0) {
+          <mat-divider></mat-divider>
+
+          @for (report of savedReports; track report) {
+            <button mat-menu-item (click)="loadReport(report)">
+              <mat-icon fontSet="material-symbols-outlined">
+                upload
+              </mat-icon>
+              {{ report.name }}
+            </button>
+          }
+
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="deleteAllReports()">
+            <mat-icon fontSet="material-symbols-outlined">
+              delete
+            </mat-icon>
+            Delete all reports
+          </button>
+        }
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>

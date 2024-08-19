@@ -1,0 +1,58 @@
+<div class="px-4 py-2 flex align-center">
+  <button mat-stroked-button class="mr-3" [disabled]="chartIsEmpty()" (click)="undo()">
+    <mat-icon fontSet="material-symbols-outlined">undo</mat-icon>
+    Undo
+  </button>
+  <button mat-stroked-button class="mr-3" [disabled]="chartIsEmpty()" (click)="redo()">
+    <mat-icon fontSet="material-symbols-outlined">redo</mat-icon>
+    Redo
+  </button>
+  <div class="grow"></div>
+  <button mat-stroked-button class="mr-3" [disabled]="chartIsEmpty()" (click)="export()">
+    <mat-icon fontSet="material-symbols-outlined">download</mat-icon>
+    Export
+  </button>
+</div>
+<div
+  style="height: 40vh; max-width: 80rem"
+  class="flex justify-center w-full p-5"
+>
+  <luzmo-viz-item
+    #chart
+    [class.empty]="chartIsEmpty()"
+    [authKey]="authKey"
+    [authToken]="authToken"
+    [type]="chartService.type()"
+    [options]="chartService.options()"
+    [slots]="chartService.slots()"
+    [filters]="chartService.filtersForFlexChart()"
+  >
+  </luzmo-viz-item>
+</div>
+<hr class="my-5" />
+<div>
+  <div class="flex justify-around mb-4">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle
+        [disabled]="chartIsEmpty()"
+        [checked]="true"
+        (click)="switchDataSummarization(false)"
+        >Unsummarized data</mat-button-toggle
+      >
+      <mat-button-toggle [disabled]="chartIsEmpty()" (click)="switchDataSummarization(true)"
+        >Summarized data</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
+  <div style="height: 40vh" class="p-5">
+    <luzmo-viz-item
+      [class.empty]="chartIsEmpty()"
+      [type]="chartService.tableType()"
+      [authKey]="authKey"
+      [authToken]="authToken"
+      [filters]="chartService.filtersForFlexChart()"
+      [options]="tableOptions"
+      [slots]="chartService.tableSlots()"
+    ></luzmo-viz-item>
+  </div>
+</div>

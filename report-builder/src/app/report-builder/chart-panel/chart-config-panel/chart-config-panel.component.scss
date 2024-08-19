@@ -1,0 +1,15 @@
+.cdk-drop-list {
+  transition: all 0.15s ease-in-out;
+}
+
+::ng-deep {
+  .cdk-drop-list-receiving,
+  .cdk-drop-list-dragging {
+    border: 0.0625rem dashed var(--violet);
+    background-color: var(--violet-50);
+    color: #333;
+    .cdk-drag-placeholder {
+      display: none;
+    }
+  }
+}

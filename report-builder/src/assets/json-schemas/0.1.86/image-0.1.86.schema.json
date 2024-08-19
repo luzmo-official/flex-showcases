@@ -1,0 +1,19 @@
+
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Image item",
+      "properties": {
+        "type": {
+          "description": "Type of the item",
+          "type": "string",
+          "const": "image"
+        },
+        "options": {
+          "description": "Options of the Image item",
+          "$ref": "/assets/json-schemas/0.1.86/image-options-0.1.86.schema.json"
+        }
+        
+      }
+    }
+  

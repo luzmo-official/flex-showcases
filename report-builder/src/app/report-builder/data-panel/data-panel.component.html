@@ -1,0 +1,82 @@
+<div class="p-4 data-panel-content" [class.collapsed]="collapsed">
+  <div mat-button class="flex text-violet-700 px-2 cursor-pointer justify-end mb-4">
+    <mat-icon fontSet="material-symbols-outlined" class="ml-2" (click)="collapsed = !collapsed" [class.flipped-horizontal]="collapsed">keyboard_double_arrow_left</mat-icon>
+  </div>
+  @if (!collapsed) {
+          <div>
+              @if(hasSearchTerm) {
+                  <mat-form-field class="w-full">
+                      <mat-label>Source</mat-label>
+                      <mat-select [formControl]="selectedDatasets" multiple>
+                          <mat-select-trigger>
+                              @if ((selectedDatasets.value?.length || 0) === 0) {
+                                  No sources selected
+                              } @else if ((selectedDatasets.value?.length || 0) === 1) {
+                                  {{ selectedDatasets.value?.[0].name }}
+                              } @else {
+                                  {{ selectedDatasets.value?.length }} sources
+                              }
+                          </mat-select-trigger>
+                          @for (dataset of datasets; track dataset) {
+                              <mat-option [value]="dataset">{{ dataset.name }}</mat-option>
+                          }
+                      </mat-select>
+                  </mat-form-field>
+              } @else {
+                  <mat-form-field class="w-full">
+                      <mat-label>Source</mat-label>
+                      <mat-select [formControl]="selectedDataset">
+                          @for (dataset of datasets; track dataset) {
+                              <mat-option [value]="dataset">{{ dataset.name }}</mat-option>
+                          }
+                      </mat-select>
+                  </mat-form-field>
+              }
+          </div>
+        <mat-form-field class="w-full">
+          <mat-label>Search columns</mat-label>
+          <input matInput [formControl]="searchControl">
+            @if(hasSearchTerm) {
+              <button mat-icon-button matSuffix aria-label="Clear" (click)="clearSearchInput()">
+                <mat-icon>clear</mat-icon>
+              </button>
+            }
+        </mat-form-field>
+      <div class="flex flex-row-reverse mat-body-small" [class.invisible]="isLoading">
+          {{ filteredColumns.length }} column(s)
+      </div>
+    <hr class="mb-3 mt-1">
+    <div>
+        @if(isLoading) {
+            <div class="flex justify-center">
+                <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+        } @else {
+          <div class="column-list"
+            cdkDropList
+            [cdkDropListData]="availableColumns"
+            cdkDropListSortingDisabled
+            [cdkDropListConnectedTo]="cdkDropLists"
+            id="column-list">
+            @for(column of filteredColumns; track column.name) {
+              <div class="flex items-center text-md py-2 column-item gap-2" cdkDrag [cdkDragData]="column">
+                <mat-icon fontSet="material-symbols-outlined" class="icon-20">{{ columnTypeIcons[column.type] }}</mat-icon>
+                <div class="truncate flex-grow">{{ column.name.en }}</div>
+
+                <div *cdkDragPreview [style.width.px]="250">
+                  <div class="flex items-center border border-violet-300 rounded-md text-violet-700 text-sm p-2 mb-1 bg-violet-100 select-none">
+                    <div class="flex items-center grow truncate">
+                      <mat-icon fontSet="material-symbols-outlined" class="icon-20 mr-2">
+                        {{ columnTypeIcons[column.type] }}
+                      </mat-icon>
+                      <div class="truncate">{{ column.name.en }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+    </div>
+  }
+</div>

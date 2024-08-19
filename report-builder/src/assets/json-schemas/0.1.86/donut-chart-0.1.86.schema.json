@@ -1,0 +1,24 @@
+
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Donut Chart item",
+      "properties": {
+        "type": {
+          "description": "Type of the item",
+          "type": "string",
+          "const": "donut-chart"
+        },
+        "options": {
+          "description": "Options of the Donut Chart item",
+          "$ref": "/assets/json-schemas/0.1.86/donut-chart-options-0.1.86.schema.json"
+        },
+        
+        "slots": {
+          "description": "Data definition of the Donut Chart item",
+          "$ref": "/assets/json-schemas/0.1.86/donut-chart-slots-0.1.86.schema.json"
+        }
+    
+      }
+    }
+  

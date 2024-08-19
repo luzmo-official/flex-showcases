@@ -1,0 +1,24 @@
+<div class="grid grid-cols-5 gap-2 py-5">
+  @if (!hideAI()) {
+    <div
+      class="flex border rounded-md text-violet-700 hover:bg-violet-50 items-center justify-center cursor-pointer py-2"
+      (click)="clickAIMode()"
+      matTooltip="Generate chart"
+    >
+      <mat-icon fontSet="material-symbols-outlined">auto_awesome</mat-icon>
+    </div>
+  }
+  @for (chart of availableCharts; track chart.name) {
+  <div
+    class="flex border rounded-md text-violet-700 hover:bg-violet-50 items-center justify-center cursor-pointer py-2"
+    [class.bg-violet-100]="chartService.name() === chart.name"
+    [class.border-violet-300]="chartService.name() === chart.name"
+    (click)="changeChart(chart)"
+    [matTooltip]="chart.name"
+  >
+    <mat-icon fontSet="material-symbols-outlined" [style.transform]="chart.type === 'bar-chart' ? 'rotate(90deg)' : ''">
+      {{ chart.icon }}
+    </mat-icon>
+  </div>
+  }
+</div>

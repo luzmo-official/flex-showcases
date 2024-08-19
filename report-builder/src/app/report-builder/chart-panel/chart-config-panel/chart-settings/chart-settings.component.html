@@ -1,0 +1,45 @@
+@for (key of settingsKeys; track key) {
+  @switch (chartSettings[key].type) {
+    @case ('checkbox') {
+      <app-chart-setting-checkbox
+        [label]="chartSettings[key]?.label"
+        [value]="chartSettings[key]?.default"
+        (valueChange)="setChartOption($event, chartSettings[key]?.transformFn)"
+      ></app-chart-setting-checkbox>
+    }
+    @case ('colors') {
+      <app-chart-setting-colors></app-chart-setting-colors>
+    }
+    @case ('colorPalette') {
+      <app-chart-setting-color-palette
+        class="w-full"
+        [label]="chartSettings[key]?.label"
+        [values]="chartSettings[key]?.values"
+        [value]="chartSettings[key]?.default"
+        (valueChange)="setChartOption($event, chartSettings[key]?.transformFn)"
+      ></app-chart-setting-color-palette>
+    }
+    @case ('dropdown') {
+      <app-chart-setting-dropdown
+        class="w-full"
+        [label]="chartSettings[key]?.label"
+        [values]="chartSettings[key]?.values"
+        [value]="chartSettings[key]?.default"
+        (valueChange)="setChartOption($event, chartSettings[key]?.transformFn)"
+      ></app-chart-setting-dropdown>
+    }
+    @case ('variableAxisInput') {
+      <app-chart-setting-variable-axis-input
+        [label]="chartSettings[key]?.label"
+        [value]="chartSettings[key]?.default"
+        (valueChange)="setChartOption($event, chartSettings[key]?.transformFn)"
+      ></app-chart-setting-variable-axis-input>
+    }
+    @case ('textInput') {
+      <app-chart-setting-text-input></app-chart-setting-text-input>
+    }
+  }
+}
+
+
+

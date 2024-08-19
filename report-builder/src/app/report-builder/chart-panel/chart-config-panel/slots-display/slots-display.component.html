@@ -1,0 +1,31 @@
+<div>
+  @for (slot of chartService.slots(); track slot) {
+  <div class="mb-4">
+    <div class="mb-1">{{ slot.formattedName }}</div>
+    @for (slotContent of slot.content; track slotContent) {
+      <div class="flex items-center border border-violet-300 rounded-md text-violet-700 text-sm p-2 mb-1 bg-violet-50 select-none">
+        <div class="flex items-center grow truncate">
+          <mat-icon fontSet="material-symbols-outlined" class="icon-20 mr-2 flex-shrink-0">
+            {{ columnTypeIcons[slotContent.type] }}
+          </mat-icon>
+          <div class="truncate">{{ slotContent.label['en'] }}</div>
+        </div>
+        <mat-icon 
+          fontSet="material-symbols-outlined"
+          class="cursor-pointer icon-20 flex-shrink-0"
+          (click)="removeColumnFromSlot(slot.name, $index)">delete</mat-icon>
+      </div>
+    }
+    @if (slot.acceptsMultiple || (slot.content.length === 0 && !slot.acceptsMultiple)) {
+      <div
+        class="border border-dashed border-slate-300 rounded-sm bg-slate-100 text-slate-400 py-2 text-sm text-center select-none"
+        id="data-drop-{{slot.name}}"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        cdkDropListConnectedTo="column-list">
+        <div>Drag fields here</div>
+      </div>
+    }
+  </div>
+  }
+</div>

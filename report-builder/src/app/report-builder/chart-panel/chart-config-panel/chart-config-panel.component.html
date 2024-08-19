@@ -1,0 +1,63 @@
+<div class="p-4 px-5">
+  @if (mode === 'slots') {
+    <div class="flex justify-between">
+      @if (showAI) {
+        <div class="mb-3">
+          <mat-icon fontSet="material-symbols-outlined" class="cursor-pointer icon-20" (click)="showAI = false">arrow_back</mat-icon>
+        </div>
+      } @else {
+        <div>Chart data</div>
+      }
+      <div class="cursor-pointer text-sm text-violet-900"
+        (click)="switchMode('options')">
+        Chart settings
+      </div>
+    </div>
+    <div>
+      @if (showAI) {
+        <app-ai-chart (status)="setStatus($event)"></app-ai-chart>
+      }
+      @if (showAI === false || (!status.generating && status.generated)) {
+        <app-chart-picker
+          [hideAI]="showAI"
+          (aiClick)="showAI = $event">
+        </app-chart-picker>
+        <app-slots-display></app-slots-display>
+      }
+      <!-- 
+      <div>
+        <div>
+          <div class="text-sm mb-3">Compare by</div>
+          <div
+            class="border border-dashed border-slate-300 rounded-sm bg-slate-100 text-slate-400 py-2 text-sm text-center"
+            cdkDropList>
+            Drag fields here
+          </div>
+        </div>
+      </div>
+      <hr class="my-4" />
+      <div>
+        <div class="mb-4">
+          <div class="text-sm mb-3">Fields</div>
+          <div
+            class="border border-dashed border-slate-300 rounded-sm bg-slate-100 text-slate-400 py-2 text-sm text-center"
+            cdkDropList>
+            Drag fields here
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  } @else {
+    <div class="flex justify-between mb-5">
+      <div (click)="switchMode('slots')">
+        <mat-icon fontSet="material-symbols-outlined" class="cursor-pointer icon-20">arrow_back</mat-icon>
+      </div>
+      <div class="cursor-pointer text-sm text-violet-900"
+        (click)="switchMode('slots')">
+        Chart data
+      </div>
+    </div>
+    <app-chart-settings></app-chart-settings>
+  }
+</div>

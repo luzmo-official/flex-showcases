@@ -1,0 +1,30 @@
+.data-panel-content {
+  width: 18rem;
+  padding: 1rem;
+  &.collapsed {
+    width: 4rem;
+    padding: .5rem;
+  }
+}
+.column-item {
+  cursor: move;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}
+.rotated {
+  transform: rotate(-90deg);
+}
+.flipped-horizontal {
+  transform: rotate(180deg);
+}
+
+::ng-deep .mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+.column-list {
+  overflow-y: scroll;
+  max-height: 75vh;
+}

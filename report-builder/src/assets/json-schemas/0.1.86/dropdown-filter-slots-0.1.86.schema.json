@@ -1,0 +1,288 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "ColumnSubtype": {
+            "enum": [
+                "coordinates",
+                "currency",
+                "duration",
+                "hierarchy_element_expression",
+                "topography"
+            ],
+            "type": "string"
+        },
+        "DashboardContentVizItemSlotContent": {
+            "properties": {
+                "aggregationFunc": {
+                    "description": "Aggregation function",
+                    "enum": [
+                        "average",
+                        "count",
+                        "cumulativesum",
+                        "distinctcount",
+                        "histogram",
+                        "max",
+                        "median",
+                        "min",
+                        "rate",
+                        "stddev",
+                        "sum",
+                        "weightedaverage"
+                    ],
+                    "type": "string"
+                },
+                "aggregationWeight": {
+                    "description": "Aggregation weight",
+                    "properties": {
+                        "column": {
+                            "description": "Column id",
+                            "format": "uuid",
+                            "type": "string"
+                        },
+                        "columnSubType": {
+                            "$ref": "#/definitions/ColumnSubtype",
+                            "description": "Column subtype"
+                        },
+                        "set": {
+                            "description": "Dataset id",
+                            "format": "uuid",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "bins": {
+                    "description": "Bin definition. Can be used when a numeric column is used as a category.",
+                    "properties": {
+                        "enabled": {
+                            "description": "Enable or disable binning",
+                            "type": "boolean"
+                        },
+                        "number": {
+                            "description": "Defines the range of the bins",
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "cardinality": {
+                    "type": "number"
+                },
+                "color": {
+                    "description": "Color of the column. Only used when multiple measures are defined.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "column": {
+                    "description": "Column id",
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "currency": {
+                    "description": "Currency code. Is only used when the column subtype is currency.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "datetimeDisplayMode": {
+                    "enum": [
+                        "day_in_month",
+                        "day_in_year",
+                        "default",
+                        "hour_in_day",
+                        "minute_in_hour",
+                        "month_name",
+                        "month_number",
+                        "quarter_number",
+                        "second_in_minute",
+                        "week_number",
+                        "weekday_name",
+                        "weekday_number"
+                    ],
+                    "type": "string"
+                },
+                "drilldownColumn": {
+                    "$ref": "#/definitions/DashboardContentVizItemSlotContent"
+                },
+                "drilldownLevel": {
+                    "type": "number"
+                },
+                "duration": {
+                    "description": "Duration definition. Is only used when the column subtype is duration.",
+                    "properties": {
+                        "format": {
+                            "description": "Duration format",
+                            "enum": [
+                                "long",
+                                "short",
+                                "time"
+                            ],
+                            "type": "string"
+                        },
+                        "levels": {
+                            "description": "Duration levels used",
+                            "items": {
+                                "type": "number"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "format": {
+                    "description": "Column format. Used when the column type is datetime or numeric.",
+                    "type": "string"
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "grandTotals": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "include_nonoccurring": {
+                    "type": "boolean"
+                },
+                "index": {
+                    "type": "number"
+                },
+                "label": {
+                    "description": "Label in format {locale: \"label\"}, for example, {en: \"Total Revenue\"}",
+                    "type": "object"
+                },
+                "level": {
+                    "description": "Hierarchy or datetime level",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "lowestLevel": {
+                    "description": "Lowest hierarchy or datetime level",
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "model": {},
+                "monthNameFormat": {
+                    "description": "Month name format",
+                    "enum": [
+                        "letter",
+                        "long",
+                        "short"
+                    ],
+                    "type": "string"
+                },
+                "multi": {
+                    "type": "boolean"
+                },
+                "set": {
+                    "description": "Dataset id",
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "slotName": {
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "description": "Sort order",
+                    "type": [
+                        "string",
+                        "number"
+                    ]
+                },
+                "sortableIndex": {
+                    "type": "number"
+                },
+                "sortableSelected": {
+                    "type": "boolean"
+                },
+                "subtype": {
+                    "anyOf": [
+                        {
+                            "enum": [
+                                "coordinates",
+                                "currency",
+                                "date",
+                                "datetime",
+                                "duration",
+                                "hierarchy_element_expression",
+                                "topography"
+                            ],
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Column subtype"
+                },
+                "type": {
+                    "description": "Column / Formula type",
+                    "enum": [
+                        "datetime",
+                        "hierarchy",
+                        "numeric",
+                        "spatial"
+                    ],
+                    "type": "string"
+                },
+                "weekDayNameFormat": {
+                    "description": "Week day name format",
+                    "enum": [
+                        "letter",
+                        "long",
+                        "short"
+                    ],
+                    "type": "string"
+                },
+                "weekStart": {
+                    "description": "Week start day, 'sunday' or 'monday'",
+                    "enum": [
+                        "monday",
+                        "sunday"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "DimensionSlot": {
+            "description": "Dimension slot definition of the Dropdown filter. Dimension slot is a required slot and it can have multiple columns.",
+            "properties": {
+                "content": {
+                    "description": "Dimension slot definition",
+                    "items": {
+                        "$ref": "#/definitions/DashboardContentVizItemSlotContent"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "const": "dimension",
+                    "description": "Name of the slot",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "description": "Data definition of the Dropdown filter",
+    "items": {
+        "$ref": "#/definitions/DimensionSlot"
+    },
+    "maxItems": 1,
+    "type": "array"
+}
+
