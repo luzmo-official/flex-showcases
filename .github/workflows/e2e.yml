@@ -15,12 +15,9 @@ jobs:
         working-directory: ./e2e
     steps:
       - uses: actions/checkout@v4
-      - name: Read .nvmrc
-        id: nvmrc
-        run: echo "NODE_VERSION=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ NODE_VERSION }}
+          node-version-file: .nvmrc
       - name: Cache node modules
         uses: actions/cache@v2
         with:
