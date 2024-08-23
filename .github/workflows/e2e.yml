@@ -1,5 +1,7 @@
 name: E2E tests
 on:
+  workflow_call:
+  workflow_dispatch:
   push:
     branches: [ main, feat/workflow-for-e2e ]
   pull_request:
