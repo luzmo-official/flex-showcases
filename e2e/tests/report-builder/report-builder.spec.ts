@@ -12,6 +12,6 @@ test.describe('Report builder', () => {
     await reportBuilderPage.chartOneBar().waitFor({ state: 'visible' });
 
     // then
-    await expect(page).toHaveScreenshot('init-page.png', { threshold: 0.45 });
+    await expect(page).toHaveScreenshot('init-page.png', { threshold: 0.35 });
   });
 });
