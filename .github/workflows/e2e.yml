@@ -19,7 +19,7 @@ jobs:
         with:
           node-version-file: .nvmrc
       - name: Cache restore
-        uses: actions/cache/restore@v2
+        uses: actions/cache/restore@v4
         id: cache-restore
         with:
           path: |
@@ -41,7 +41,7 @@ jobs:
             e2e/test-results/
           retention-days: 10
       - name: Cache save
-        uses: actions/cache/save@v2
+        uses: actions/cache/save@v4
         with:
           path: |
             e2e/node_modules
