@@ -20,7 +20,7 @@ jobs:
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v4
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ NODE_VERSION }}
       - name: Cache node modules
         uses: actions/cache@v2
         with:
