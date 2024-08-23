@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
-        run: npm run pw install --with-deps
+        run: npm run pw install chromium --with-deps
       - name: Run Playwright tests
         run: npm test
       - uses: actions/upload-artifact@v4
