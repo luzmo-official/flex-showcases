@@ -8,6 +8,8 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: pw-browsers/
     defaults:
       run:
         working-directory: ./e2e
@@ -15,14 +17,24 @@ jobs:
       - uses: actions/checkout@v4
       - name: Read .nvmrc
         id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+          node-version: $NODE_VERSION
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: e2e/node_modules
+          key: "${{ runner.os }}-node-${{ hashFiles('e2e/package-lock.json') }}"
+      - name: Cache browser
+        uses: actions/cache@v2
+        with:
+          path: $PLAYWRIGHT_BROWSERS_PATH
+          key: "${{ runner.os }}-node-${{ hashFiles('e2e/package-lock.json') }}"
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
-        run: npm run pw install chromium --with-deps
+        run: npm run pw install chromium --with-deps --force
       - name: Run Playwright tests
         run: npm test
       - uses: actions/upload-artifact@v4
