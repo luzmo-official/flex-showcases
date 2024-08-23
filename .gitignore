@@ -2,3 +2,4 @@
 .angular/
 .nx/
 node_modules/
+**/dist/
