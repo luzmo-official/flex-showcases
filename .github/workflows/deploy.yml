@@ -1,0 +1,78 @@
+name: "Build and Deploy"
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        include:
+          - name: dashboard-filter-panel
+            outputFolder: dist/dashboard-filter-panel/browser/
+          - name: drag-n-drop-chart-library
+            outputFolder: build/
+          - name: report-builder
+            outputFolder:  dist/report-builder/browser/
+          - name: wearables-dashboard
+            outputFolder: dist/
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ${{ matrix.name }}/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.name }}-${{ hashFiles(format('{0}/{1}', matrix.name, 'package-lock.json')) }}
+
+      - name: Build front end
+        run: |
+          cd ${{ matrix.name }}
+          npm ci
+          npm run build:ci
+
+      - name: Copy Folder
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        if: github.event_name != 'pull_request'
+        with:
+          command: cp
+          source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
+          destination: s3://showcases.luzmo.com/${{ matrix.name }}/
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: eu-west-1
+          flags: --recursive
+
+  Invalidate_Cloudfront:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: Build
+    # if: github.event_name != 'pull_request'
+
+    steps:
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
+          PATHS: "/*"
+          AWS_REGION: "us-east-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
