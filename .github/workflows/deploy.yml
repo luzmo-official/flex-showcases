@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
-    # if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request'
 
     steps:
       - name: Invalidate CloudFront
