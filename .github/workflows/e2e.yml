@@ -2,10 +2,11 @@ name: E2E tests
 on:
   workflow_call:
   workflow_dispatch:
-  push:
-    branches: [ main, feat/workflow-for-e2e ]
+  schedule:
+    - cron: "30 9 * * *"
   pull_request:
-    branches: [ main ]
+    types: [ opened, synchronize ]
+
 jobs:
   test:
     timeout-minutes: 60
@@ -41,3 +42,42 @@ jobs:
             e2e/playwright-report/
             e2e/test-results/
           retention-days: 10
+      - name: Run CTRF results
+        if: always()
+        run: |
+          npx github-actions-ctrf tests ctrf/ctrf-report.json --pr-comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set test result outputs
+        id: set_test_outputs
+        if: always()
+        run: |
+          echo "TEST_COUNT=`jq '.results.summary.passed' < ./ctrf/ctrf-report.json`" >> $GITHUB_OUTPUT
+          echo "PASSED_TESTS=`jq '.results.summary.passed' < ./ctrf/ctrf-report.json`" >> $GITHUB_OUTPUT
+          echo "FAILED_TESTS=`jq '.results.summary.failed' < ./ctrf/ctrf-report.json`" >> $GITHUB_OUTPUT
+ 
+      - name: Add github branch name & SHA to environment
+        if: always()
+        run: |
+          if [ "$GITHUB_HEAD_REF" != "" ]; then
+            echo "GITHUB_BRANCH_NAME=$(echo $GITHUB_HEAD_REF)" >> $GITHUB_ENV
+          else
+            echo "GITHUB_BRANCH_NAME=$(echo $GITHUB_REF_NAME)" >> $GITHUB_ENV
+          fi
+          echo "GITHUB_COMMIT_SHA=${GITHUB_SHA:0:10}" >> $GITHUB_ENV
+
+
+      - name: Slack Notification on failure
+        uses: rtCamp/action-slack-notify@v2
+        if: github.event_name !== 'pull_request' && steps.set_test_outputs.outputs.FAILED_TESTS > 0
+        env:
+          SLACK_CHANNEL: engineering-alerts
+          SLACK_COLOR: failure
+          SLACK_MESSAGE: "
+            <https://github.com/luzmo-official/flex-showcases/commit/${{ github.sha }}/checks|*Workflow*> \n
+            :warning: ${{ steps.set_test_outputs.outputs.FAILED_TESTS }} out of ${{ steps.set_test_outputs.outputs.TEST_COUNT }} e2e tests failed for luzmo showcases \n"
+          SLACK_TITLE: ":git: luzmo-official/flex-showcases - ${{ env.GITHUB_BRANCH_NAME }} - `${{ env.GITHUB_COMMIT_SHA }}`"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_ALERTS_WEBHOOK }}
+          MSG_MINIMAL: true
+          SLACK_FOOTER: ""
+
