@@ -76,3 +76,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: Pause to let invalidation complete
+        run: |
+          sleep 180
+
+  Run_e2e_Tests:
+    needs: Invalidate_Cloudfront
+    uses: ./.github/workflows/e2e.yml
+    secrets: inherit
