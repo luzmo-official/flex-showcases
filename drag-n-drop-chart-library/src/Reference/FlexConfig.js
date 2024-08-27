@@ -1,9 +1,4 @@
 const flexConfig = {
-  authorization: {
-    authKey: "4d68bdd1-78fd-4568-ae83-668bf5c2e98d",
-    authToken:
-      "JguF61WZwDOXB8j1lkAYoa98nftW2Z8CvEQllldunQ8hI6ho5DLuO275HwQbR2n8UiexIwfc5Jbxn4rJ5CN9hblTkaYzTYnS3X3UTCJiYixwgG97qYZVZ1TJr29xcfsvweh1gCYXGMsbwlEPUMShed",
-  },
   chartList: [
     {
       title: "Total Sales Volume",

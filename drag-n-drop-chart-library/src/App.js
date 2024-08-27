@@ -48,7 +48,6 @@ export default function App() {
                 minHeight={50}
                 bounds="window">
                 <FlexComponent
-                  flexAuthorization={flexConfig.authorization}
                   flexOptions={flexOptions}
                 />
               </Rnd>
