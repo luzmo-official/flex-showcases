@@ -1,11 +1,9 @@
 
 import { LuzmoVizItemComponent } from "@luzmo/react-embed";
 
-export default function FlexComponent ({ flexAuthorization, flexOptions }) {
+export default function FlexComponent ({ flexOptions }) {
     return (
           <LuzmoVizItemComponent
-            authKey={flexAuthorization.authKey}
-            authToken={flexAuthorization.authToken}
             type={flexOptions.type}
             options={flexOptions.options}
         slots={flexOptions.slots}

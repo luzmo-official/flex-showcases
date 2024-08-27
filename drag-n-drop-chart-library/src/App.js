@@ -1,5 +1,4 @@
 import * as React from "react";
-import flexConfig from "./Reference/FlexConfig";
 import FlexComponent from "./Components/FlexComponent";
 import { Rnd } from "react-rnd";
 import ChartDrawer from "./Components/ChartDrawer";
@@ -48,7 +47,6 @@ export default function App() {
                 minHeight={50}
                 bounds="window">
                 <FlexComponent
-                  flexAuthorization={flexConfig.authorization}
                   flexOptions={flexOptions}
                 />
               </Rnd>
