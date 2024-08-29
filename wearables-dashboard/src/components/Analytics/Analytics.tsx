@@ -38,7 +38,6 @@ import {
 import { useUser } from "../../services/UserService";
 
 const LUZMO_VIZ_ITEM_SMALL_STYLE = { width: "100%", height: "10rem" };
-const LUZMO_VIZ_ITEM_MEDIUM_STYLE = { width: "100%", height: "20rem" };
 const LUZMO_VIZ_ITEM_LARGE_STYLE = { width: "100%", height: "40rem" };
 
 interface TabPanelProps {
@@ -81,21 +80,12 @@ export default function Analytics() {
   const hasSleepData = sleepDevice !== undefined;
 
   let stepDatetimeLevel = "day";
-  let sleepDatetimeLevel = "day";
 
   if (stepDevice) {
     stepDatetimeLevel =
       stepDevice.intervalInSeconds > 1800
         ? "day"
         : stepDevice.intervalInSeconds > 60
-        ? "hour"
-        : "minute";
-  }
-  if (sleepDevice) {
-    sleepDatetimeLevel =
-      sleepDevice.intervalInSeconds > 1800
-        ? "day"
-        : sleepDevice.intervalInSeconds > 60
         ? "hour"
         : "minute";
   }
@@ -106,35 +96,37 @@ export default function Analytics() {
    * This is a mock implementation, which performs the filtering on the client side.
    * In a real-world scenario, the filtering must be done server side in the Authorization request for security purposes!
    */
-  const filtersToApply: FilterGroup[] = [
-    {
-      condition: "and",
-      filters: [
-        // Steps filter on Patient ID column
+  const filtersToApply: FilterGroup[] = user
+    ? [
         {
-          expression: "? = ?",
-          parameters: [
+          condition: "and",
+          filters: [
+            // Steps filter on Patient ID column
             {
-              column_id: "572740ed-aeed-4aeb-b318-d059e8be35a6",
-              dataset_id: "1c759996-74fd-438d-bcba-eb58838a5b03",
+              expression: "? = ?",
+              parameters: [
+                {
+                  column_id: "572740ed-aeed-4aeb-b318-d059e8be35a6",
+                  dataset_id: "1c759996-74fd-438d-bcba-eb58838a5b03",
+                },
+                user.id,
+              ],
             },
-            user.id,
+            // Sleep filter on Patient ID column
+            {
+              expression: "? = ?",
+              parameters: [
+                {
+                  column_id: "695b3aee-6772-4aa6-bb50-a67a88bfc26b",
+                  dataset_id: "f0e0df8c-87fc-4bdc-ab7f-8cd744146284",
+                },
+                user.id,
+              ],
+            },
           ],
         },
-        // Sleep filter on Patient ID column
-        {
-          expression: "? = ?",
-          parameters: [
-            {
-              column_id: "695b3aee-6772-4aa6-bb50-a67a88bfc26b",
-              dataset_id: "f0e0df8c-87fc-4bdc-ab7f-8cd744146284",
-            },
-            user.id,
-          ],
-        },
-      ],
-    },
-  ];
+      ]
+    : [];
 
   const handleSleepTabChange = (_: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -145,7 +137,7 @@ export default function Analytics() {
       ...widgetOptions,
       theme: {
         font: {
-          fontFamily: "Lato",
+          fontFamily: theme.typography.fontFamily,
         },
         mainColor: theme.palette.primary.main,
       },
@@ -213,7 +205,6 @@ export default function Analytics() {
                 type="heat-table"
                 style={LUZMO_VIZ_ITEM_LARGE_STYLE}
                 contextId="heat-table-sleep"
-                canFilter="all"
                 filters={filtersToApply}
               ></LuzmoVizItemComponent>
             </CustomTabPanel>
