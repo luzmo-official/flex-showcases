@@ -10,20 +10,19 @@ import {
   Menu,
   MenuItem,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import DevicesIcon from "@mui/icons-material/Devices";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import "./Topnav.css";
 import { mockUsers, useUser } from "../../services/UserService";
 
 const TAB_STYLING = {
-  "&:hover": {
-    color: "#fff",
-    opacity: 0.6,
-  },
-  "&.Mui-selected": {
-    color: "#fff",
-  },
   "&.Mui-focusVisible": {
     backgroundColor: "rgba(100, 95, 228, 0.32)",
   },
@@ -54,17 +53,38 @@ export default function Topnav({
   };
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        position: "sticky",
-        top: 0,
-        zIndex: 1,
-      }}
-      paddingBottom={2}
-    >
-      <AppBar position="static">
+    <Box>
+      <AppBar
+        color="secondary"
+        elevation={0}
+        style={{
+          position: "relative",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+        }}
+      >
         <Toolbar>
+          <Box style={{ display: "flex" }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="logo"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+                "&:active": {
+                  backgroundColor: "transparent",
+                },
+                cursor: "default",
+                pointerEvents: "none",
+              }}
+            >
+              <DirectionsRunIcon />
+              <Typography variant="h5" component="i">
+                Healthosia
+              </Typography>
+            </IconButton>
+          </Box>
           <Tabs
             value={selectedTab}
             onChange={handleChange}
@@ -81,9 +101,34 @@ export default function Topnav({
                 backgroundColor: "#635ee7",
               },
             }}
+            centered={true}
           >
-            <Tab value="analytics" label="Analytics" sx={TAB_STYLING} />
-            <Tab value="settings" label="Settings" sx={TAB_STYLING} />
+            <Tab
+              value="analytics"
+              label="Analytics"
+              sx={TAB_STYLING}
+              icon={<AnalyticsIcon />}
+            />
+            <Tab
+              value="connect"
+              label="Connect"
+              sx={TAB_STYLING}
+              icon={<DevicesIcon />}
+              disabled
+            />
+            <Tab
+              value="upload"
+              label="Upload"
+              sx={TAB_STYLING}
+              icon={<CloudUploadIcon />}
+              disabled
+            />
+            <Tab
+              value="settings"
+              label="Settings"
+              sx={TAB_STYLING}
+              icon={<SettingsIcon />}
+            />
           </Tabs>
           <Box>
             <Tooltip title={user?.name} arrow>

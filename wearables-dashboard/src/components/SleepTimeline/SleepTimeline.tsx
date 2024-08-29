@@ -78,11 +78,11 @@ export function SleepTimeline() {
       </TimelineItem>
       <TimelineItem sx={TIMELINE_ITEM_SX}>
         <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: "secondary.main" }} />
-          <TimelineDot color="secondary" variant="outlined">
+          <TimelineConnector sx={{ bgcolor: "primary.main" }} />
+          <TimelineDot color="primary" variant="outlined">
             <HotelIcon />
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: "secondary.main" }} />
+          <TimelineConnector sx={{ bgcolor: "primary.main" }} />
         </TimelineSeparator>
         <TimelineContent sx={TIMELINE_CONTENT_SX}>
           <Typography variant="h6" component="span">
