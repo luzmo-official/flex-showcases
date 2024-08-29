@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../assets/logos/smartco-logo.svg">
+    </div>
+    <nav>
+      <ul>
+        @for (subpage of subpages; track subpage.key) {
+          <li [class.active]="activeSubpage?.key === subpage.key">
+            @if (activeSubpage?.key === subpage.key) {
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <circle cx="5" cy="5" r="5" fill="white"/>
+              </svg>
+            }
+            <a [routerLink]="'/embedded-chart-generator'" [queryParams]="{ dataset: subpage.key }">{{ subpage.value }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+    <a href="https://www.luzmo.com/" target="_blank" class="powered-by">
+      <span>Powered by</span>
+      <img src="./../assets/logos/luzmo-logo.svg">
+    </a>
+  </div>
+  <div class="main-content">
+    <div class="top-bar">
+      <div class="title">AI Insights</div>
+      <div class="user-info">
+        <app-user-avatar type="user"></app-user-avatar>
+        <div class="user-name">William</div>
+      </div>
+      <mat-icon>logout</mat-icon>
+    </div>
+    <div class="content-container">
+      @if (messages.length === 0) {
+        <div class="example-questions-container">
+          @for (question of activeSubpage?.exampleQuestions; track $index) {
+            <div class="example-question" (click)="sendMessage(question)">{{ question }}</div>
+          }
+        </div>
+      }
+      @else {
+        <div class="messages-container" #messagesContainer>
+          <div class="time-indicator">{{ chatStartTimestamp }}</div>
+
+          @for (message of messages; track $index) {
+            <div class="chat-row" [ngClass]="message.type">
+              <app-user-avatar class="user-avatar" [type]="message.type"></app-user-avatar>
+              <div class="chat-message">
+                <div class="chat-text-bubble">{{ message.text }}</div>
+                @if (message.chart) {
+                  <div class="luzmo-chart" [style.height.px]="300" [style.width.%]="100">
+                    <luzmo-viz-item
+                      [type]="message.chart.type"
+                      [options]="message.chart.options"
+                      [slots]="message.chart.slots"
+                      [authKey]="authorization?.id"
+                      [authToken]="authorization?.token">
+                    </luzmo-viz-item>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+  
+          <!-- Loading/typing indicator, shown only during chart generation -->
+          @if (status.generatingChart) {
+            <div class="chat-row robot">
+              <app-user-avatar class="user-avatar" type="robot"></app-user-avatar>
+              <div class="chat-message">
+                <div class="chat-text-bubble">
+                  <div class="typing-indicator">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div> 
+      }
+      <div class="input-container" [class.disabled]="status.generatingChart || status.loading">
+        <input #chatInput
+          [disabled]="status.generatingChart || status.loading"
+          type="text"
+          placeholder="What chart do you want to see?"
+          (keyup.enter)="sendMessage(chatInput.value)"/>
+        <mat-icon class="send-button" (click)="sendMessage(chatInput.value)">send</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

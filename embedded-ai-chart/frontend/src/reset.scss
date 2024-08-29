@@ -1,0 +1,91 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$first-app-primary: mat.define-palette(mat.$indigo-palette);
+$first-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$first-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$first-app-theme: mat.define-light-theme((
+  color: (
+    primary: $first-app-primary,
+    accent: $first-app-accent,
+    warn: $first-app-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($first-app-theme);
+
+*, *::before, *::after {
+  box-sizing: border-box; 
+}
+
+* {
+  margin: 0; 
+  padding: 0; 
+}
+
+body, html {
+  height: 100%; 
+  scroll-behavior: smooth; 
+}
+
+ul[role='list'], ol[role='list'], li {
+  list-style: none; 
+}
+
+html:focus-within {
+  scroll-behavior: smooth; 
+}
+
+a {
+  text-decoration: inherit;
+  text-decoration-skip-ink: auto; 
+}
+
+img, picture, svg, video, canvas {
+  max-width: 100%;
+  height: auto; 
+  vertical-align: middle; 
+  font-style: italic; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+
+input, button, textarea, select {
+  font: inherit; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+      scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+      transition: none;
+  }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
