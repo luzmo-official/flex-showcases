@@ -1,0 +1,271 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* Container for the entire layout */
+.container {
+  display: flex;
+  height: 100%;
+  max-width: 100%;
+  font-family: "Manrope";
+
+  /* Sidebar styles */
+  .sidebar {
+    display: flex;
+    width: 20rem;
+    padding: 2.5rem;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 6.25rem;
+    background: #262626;
+
+    nav {
+      width: 100%;
+      flex-grow: 1;
+      ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2.25rem;
+        li {
+          padding: 0.75rem 1rem;
+          &.active {
+            display: flex;
+            padding: 0.75rem 0.9375rem;
+            align-items: center;
+            gap: 0.9375rem;
+            align-self: stretch;
+            border-radius: 0.5rem;
+            background: #444;
+          }
+          a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            text-decoration: none;
+            color: #E5E5E5;
+            font-size: 1.25rem;
+            font-family: "Space Grotesk";
+          }
+          svg {
+            width: 0.625rem;
+            height: 0.625rem;
+            fill: #FFF;
+          }
+        }
+      }
+    }
+    .powered-by {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fffc;
+      text-align: center;
+      font-size: 0.875rem;
+      user-select: none;
+      width: 100%;
+      img {
+        margin-top: 0.25rem;
+        height: 1.5rem;
+      }
+    }
+  }
+
+  /* Main content styles */
+  .main-content {
+    display: flex;
+    padding: 1.875rem 2.1875rem;
+    flex-direction: column;
+    border-radius: 1rem;
+    background: #FFF;
+    flex-grow: 1;
+    gap: 2rem;
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      .title {
+        font-family: "Space Grotesk";
+        font-size: 2rem;
+        font-weight: 500;
+        flex-grow: 1;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        .user-name {
+          font-size: 1.375rem;
+          font-weight: 500;
+        }
+      }
+    }
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 2rem;
+      overflow: hidden;
+    }
+    .example-questions-container {
+      border-radius: 0.75rem;
+      background: #F7F7F7;
+      flex-grow: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      display: grid;
+      grid-template-columns: 250px 250px;
+      grid-column-gap: 16px;
+      grid-row-gap: 16px;
+      justify-content: center;
+      align-content: center;
+      .example-question {
+        border: 0.0625rem solid #CFCFCD;
+        border-radius: 12px;
+        padding: 16px;
+        width: 100%;
+        background-color: #e9e9e9;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.25s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+    .messages-container {
+      border-radius: 0.75rem;
+      background: #F7F7F7;
+      flex-grow: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow-y: scroll;
+      .time-indicator {
+        color: #8F8F8F;
+        font-size: 1rem;
+        text-align: center;
+        width: 100%;
+      }
+      .chat-row {
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+        .user-avatar {
+          width: 3.125rem;
+          height: 3.125rem;
+          margin-top: 0.3125rem;
+          position: relative;
+        }
+        .chat-message {
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          .chat-text-bubble {
+            display: flex;
+            padding: 1.125rem 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            .typing-indicator {
+              display: flex;
+              align-items: center;
+              height: 1.5rem;
+              .dot {
+                width: 0.5rem;
+                height: 0.5rem;
+                margin: 0 0.25rem;
+                background-color: #262626;
+                border-radius: 50%;
+                animation: typing 1.5s infinite ease-in-out;
+                &:nth-child(1) {
+                  animation-delay: 0s;
+                }
+                &:nth-child(2) {
+                  animation-delay: 0.25s;
+                }
+                &:nth-child(3) {
+                  animation-delay: 0.5s;
+                }
+              }
+            }
+          }
+          .luzmo-chart {
+            border-radius: 1rem;
+            border: 0.0625rem solid #CFCFCD;
+          }
+        }
+        &.robot {
+          .chat-message {
+            align-items: start;
+            .chat-text-bubble {
+              border-radius: 1rem 1rem 1rem 0rem;
+              background: #CAD0F4;
+              color: #262626;
+            }
+          }
+        }
+        &.user {
+          flex-flow: row-reverse;
+          .chat-message {
+            align-items: end;
+            .chat-text-bubble {
+              border-radius: 1rem 1rem 0rem 1rem;
+              background: #7B90FF;
+              color: #FFF;
+            }
+          }
+        }
+      }
+    }
+
+    .input-container {
+      position: relative;
+      input {
+        outline: none;
+        padding: 1rem;
+        width: 100%;
+        border-radius: 0.375rem;
+        border: 0.0625rem solid #8F8F8F;
+        &:focus {
+          outline: none;
+          border-color: #7B90FF;
+        }
+      }
+
+      .send-button {
+        position: absolute;
+        right: 0.75rem;
+        top: calc(50% - 0.75rem);
+        cursor: pointer;
+      }
+      &.disabled {
+        .send-button {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}
+
+@keyframes typing {
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.5);
+  }
+}

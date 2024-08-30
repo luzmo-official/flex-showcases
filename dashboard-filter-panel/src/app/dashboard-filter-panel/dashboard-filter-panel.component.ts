@@ -14,6 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { DashboardFilterPanelSettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 
+// Userflow is only necessary for the Luzmo hosted showcases
+import userflow from 'userflow.js'
+userflow.init('ct_65z5oczamna45bveai47cpcbpe');
+userflow.identifyAnonymous();
+
 @Component({
   selector: 'app-dashboard-filter-panel',
   standalone: true,

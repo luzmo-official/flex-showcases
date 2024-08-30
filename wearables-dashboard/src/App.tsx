@@ -4,6 +4,11 @@ import { Grid, Box, createTheme, ThemeProvider } from "@mui/material";
 
 import { Topnav } from "./components";
 
+// Userflow is only necessary for the Luzmo hosted showcases
+import userflow from "userflow.js";
+userflow.init("ct_65z5oczamna45bveai47cpcbpe");
+userflow.identifyAnonymous();
+
 const theme = createTheme({
   typography: {
     fontFamily: "Lato",
@@ -40,7 +45,11 @@ function App() {
     <>
       <UserContext.Provider value={{ user, switchUser }}>
         <ThemeProvider theme={theme}>
-          <Box bgcolor="background.default" minHeight="100vh">
+          <Box
+            className="userflow-wearables"
+            bgcolor="background.default"
+            minHeight="100vh"
+          >
             <Topnav selectedTab={selectedTab} onTabChange={setSelectedTab} />
             <Grid container spacing={2} padding={2}>
               {selectedTab === "analytics" && <Analytics />}
