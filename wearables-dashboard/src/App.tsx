@@ -39,7 +39,7 @@ function App() {
             spacing={2}
             paddingX={2}
             paddingBottom={2}
-            class="userflow-wearables"
+            className="userflow-wearables"
           >
             {selectedTab === "analytics" && <Analytics />}
             {selectedTab === "settings" && (
