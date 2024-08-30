@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ReportBuilderPage } from './report-builder.po';
+import { ReportBuilderPage } from './report-builder.po.ts';
 
 test.describe('Report builder', () => {
   test('should have working initial screen', async ({ page }) => {
@@ -12,6 +12,6 @@ test.describe('Report builder', () => {
     await reportBuilderPage.chartOneBar().waitFor({ state: 'visible' });
 
     // then
-    await expect(page).toHaveScreenshot('init-page.png', { threshold: 0.35 });
+    await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.05, fullPage: true});
   });
 });
