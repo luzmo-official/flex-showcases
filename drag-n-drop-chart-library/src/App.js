@@ -2,14 +2,13 @@ import * as React from "react";
 import FlexComponent from "./Components/FlexComponent";
 import { Rnd } from "react-rnd";
 import ChartDrawer from "./Components/ChartDrawer";
-import { Button, Box} from "@mui/material";
-import './App.css';
+import { Button, Box } from "@mui/material";
+import "./App.css";
 
 // Userflow is only necessary for the Luzmo hosted showcases
-import userflow from 'userflow.js'
-userflow.init('ct_65z5oczamna45bveai47cpcbpe');
+import userflow from "userflow.js";
+userflow.init("ct_65z5oczamna45bveai47cpcbpe");
 userflow.identifyAnonymous();
-
 
 export default function App() {
   const [open, setOpen] = React.useState(false);
@@ -25,13 +24,14 @@ export default function App() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <div class="userflow-drag-n-drop"
+      <div
+        class="userflow-drag-n-drop"
         style={{
           maxWidth: "fit-content",
           marginInline: "auto",
         }}>
-        <Button onClick={toggleDrawer(true)}>Add Charts</Button>
-        <Button onClick={handleClearCharts}>Clear Charts</Button>
+        <Button onClick={toggleDrawer(true)}>Add/Remove Charts</Button>
+        <Button onClick={handleClearCharts}>Clear All Charts</Button>
         <ChartDrawer
           open={open}
           toggleDrawer={toggleDrawer}
@@ -53,9 +53,7 @@ export default function App() {
                 minWidth={50}
                 minHeight={50}
                 bounds="window">
-                <FlexComponent
-                  flexOptions={flexOptions}
-                />
+                <FlexComponent flexOptions={flexOptions} />
               </Rnd>
             );
           })
