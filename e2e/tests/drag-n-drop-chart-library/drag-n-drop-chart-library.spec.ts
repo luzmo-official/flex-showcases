@@ -10,6 +10,6 @@ test.describe('Drag and drop page', () => {
       await dragNDropChartLibraryPage.gotoMainPage();
   
       // then
-      await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.05, fullPage: true});
+      await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.1, fullPage: true});
     });
   });

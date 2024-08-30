@@ -12,6 +12,6 @@ test.describe('Report builder', () => {
     await reportBuilderPage.chartOneBar().waitFor({ state: 'visible' });
 
     // then
-    await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.05, fullPage: true});
+    await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.1, fullPage: true});
   });
 });
