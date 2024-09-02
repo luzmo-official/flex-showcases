@@ -25,6 +25,15 @@ const theme = createTheme({
       default: "#f4f5fd",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 900,
+      md: 1200,
+      lg: 1536,
+      xl: 1920,
+    },
+  },
 });
 
 import "./App.css";
