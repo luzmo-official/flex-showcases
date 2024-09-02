@@ -168,9 +168,7 @@ export default function Analytics() {
       ? "evening"
       : "night";
 
-  const [defaultTab, setDefaultTab] = useState(
-    hasSleepData ? (hourOfDay < 15 ? 1 : 0) : 0
-  );
+  const [defaultTab, setDefaultTab] = useState(1);
 
   // Create the necessary filters to filter to the user's data
   /*
