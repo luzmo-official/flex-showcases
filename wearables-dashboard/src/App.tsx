@@ -13,6 +13,27 @@ const theme = createTheme({
   typography: {
     fontFamily: "Lato",
   },
+  palette: {
+    primary: {
+      main: "#6440EB",
+    },
+    secondary: {
+      main: "#fefefe",
+    },
+    // background color for the entire app
+    background: {
+      default: "#f4f5fd",
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 900,
+      md: 1200,
+      lg: 1536,
+      xl: 1920,
+    },
+  },
 });
 
 import "./App.css";
@@ -33,23 +54,23 @@ function App() {
     <>
       <UserContext.Provider value={{ user, switchUser }}>
         <ThemeProvider theme={theme}>
-          <Topnav selectedTab={selectedTab} onTabChange={setSelectedTab} />
-          <Grid
-            container
-            spacing={2}
-            paddingX={2}
-            paddingBottom={2}
+          <Box
             className="userflow-wearables"
+            bgcolor="background.default"
+            minHeight="100vh"
           >
-            {selectedTab === "analytics" && <Analytics />}
-            {selectedTab === "settings" && (
-              <Grid item xs={12}>
-                <Box padding={2}>
-                  <Settings />
-                </Box>
-              </Grid>
-            )}
-          </Grid>
+            <Topnav selectedTab={selectedTab} onTabChange={setSelectedTab} />
+            <Grid container spacing={2} padding={2}>
+              {selectedTab === "analytics" && <Analytics />}
+              {selectedTab === "settings" && (
+                <Grid item xs={12}>
+                  <Box padding={2}>
+                    <Settings />
+                  </Box>
+                </Grid>
+              )}
+            </Grid>
+          </Box>
         </ThemeProvider>
       </UserContext.Provider>
     </>

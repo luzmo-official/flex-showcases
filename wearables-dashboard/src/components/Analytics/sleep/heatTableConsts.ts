@@ -92,7 +92,7 @@ export const heattableOptions: VizItemOptions = {
     spacing: null,
   },
   interactivity: {
-    select: true,
+    select: false,
     urlConfig: {
       target: "_blank",
       url: null,

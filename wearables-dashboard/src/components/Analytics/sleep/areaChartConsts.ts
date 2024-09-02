@@ -2,7 +2,7 @@ import { VizItemOptions } from "@luzmo/react-embed";
 import { Slots } from "@luzmo/react-embed";
 
 export const areaChartOptions: VizItemOptions = {
-  interpolation: "step-after",
+  interpolation: "step-before",
   interactivity: {
     brush: true,
     urlConfig: {
