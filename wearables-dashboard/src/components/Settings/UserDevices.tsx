@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -6,9 +5,12 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListSubheader,
+  ListItemIcon,
   Divider,
 } from "@mui/material";
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 
 import { User } from "../../types/types";
 
@@ -38,18 +40,19 @@ export const UserDevices = ({ user }: { user: User }) => {
     <Card sx={{ maxWidth: 400, margin: "auto", mt: 5 }}>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          {user.name}'s Devices
+          Your devices
         </Typography>
         <Divider />
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Devices
-            </ListSubheader>
-          }
-        >
+        <List>
           {user.devices.map((device, index) => (
             <ListItem key={index}>
+              <ListItemIcon>
+                {device.type === "sleep" && <NightsStayIcon />}
+                {device.type === "steps" && <DirectionsWalkIcon />}
+                {!["steps", "sleep"].includes(device.type) && (
+                  <DeviceUnknownIcon />
+                )}
+              </ListItemIcon>
               <ListItemText
                 primary={device.name}
                 secondary={`Type: ${device.type} - Interval: ${formatInterval(
