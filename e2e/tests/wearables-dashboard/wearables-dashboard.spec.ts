@@ -14,3 +14,4 @@ test.describe('Wearables dashboard', () => {
       await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.1, fullPage: true});
     });
   });
+  

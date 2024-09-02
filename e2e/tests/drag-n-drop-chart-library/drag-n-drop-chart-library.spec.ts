@@ -13,3 +13,4 @@ test.describe('Drag and drop page', () => {
       await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.1, fullPage: true});
     });
   });
+  
