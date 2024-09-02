@@ -12,7 +12,7 @@ export function getStepNumberWidgetSlots(datetimeLevel: string): Slot[] {
         column: "27978dfd-7218-40a4-88cf-59de2df91935",
         set: "1c759996-74fd-438d-bcba-eb58838a5b03",
         label: {
-          en: `Number of steps by ${datetimeLevel}`,
+          en: `Number of steps per ${datetimeLevel}`,
         },
         type: "numeric",
         format: ",.3as",
@@ -81,7 +81,7 @@ export const stepNumberWidgetSlots: Slot[] = [
         column: "27978dfd-7218-40a4-88cf-59de2df91935",
         set: "1c759996-74fd-438d-bcba-eb58838a5b03",
         label: {
-          en: "Number of steps by day",
+          en: "Total steps per day",
         },
         type: "numeric",
         format: ",.3as",

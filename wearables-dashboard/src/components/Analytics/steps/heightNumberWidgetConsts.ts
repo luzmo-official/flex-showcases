@@ -56,7 +56,7 @@ export function getHeightNumberWidgetSlots(datetimeLevel: string): Slot[] {
         column: "24bf0c70-5464-4131-81af-9281e6d3c4f0",
         set: "1c759996-74fd-438d-bcba-eb58838a5b03",
         label: {
-          en: `Height meters per ${datetimeLevel}`,
+          en: `Height meters climbed per ${datetimeLevel}`,
         },
         type: "numeric",
         format: ",.3as",
