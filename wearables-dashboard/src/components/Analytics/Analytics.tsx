@@ -1,4 +1,5 @@
-import { Grid, Box, Tabs, Tab } from "@mui/material";
+import { useState, SyntheticEvent, useEffect } from "react";
+import { Grid, Box, Tabs, Tab, Typography, Stack, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import {
@@ -6,6 +7,8 @@ import {
   LuzmoVizItemComponent,
   VizItemOptions,
 } from "@luzmo/react-embed";
+
+import { useUser } from "../../services/UserService";
 
 import { SleepTimeline } from "../SleepTimeline/SleepTimeline";
 
@@ -28,17 +31,26 @@ import {
   areaChartOptions as stepsAreaChartOptions,
   areaChartSlots as stepsAreaChartSlots,
 } from "./steps/areaChartConsts";
+import {
+  circleGaugeOptions,
+  circleGaugeSlots,
+} from "./sleep/circleGaugeConsts";
 
 import "./Analytics.css";
-import { useState, SyntheticEvent } from "react";
 import {
-  numberWidgetOptions,
-  numberWidgetSlots,
-} from "./sleep/numberWidgetConsts";
-import { useUser } from "../../services/UserService";
+  getSleepScoreLastNight,
+  getStepsPerDay,
+} from "../../services/DataService";
 
 const LUZMO_VIZ_ITEM_SMALL_STYLE = { width: "100%", height: "10rem" };
+const LUZMO_VIZ_ITEM_MEDIUM_STYLE = { width: "100%", height: "20rem" };
 const LUZMO_VIZ_ITEM_LARGE_STYLE = { width: "100%", height: "40rem" };
+
+const TEXTUAL_INSIGHTS_STYLE = {
+  textAlign: "center",
+  paddingY: "0.5rem",
+  paddingX: "0.2rem",
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,11 +75,67 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export default function Analytics() {
-  const [value, setValue] = useState(0);
-
-  const theme = useTheme();
-
   const { user } = useUser();
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
+  const [sleepScoreYesterday, setSleepScoreYesterday] = useState<
+    number | undefined
+  >(undefined);
+  const [sleepScoreDayBefore, setSleepScoreDayBefore] = useState<
+    number | undefined
+  >(undefined);
+  const [averageKcalBurned, setAverageKcalBurned] = useState<
+    number | undefined
+  >(undefined);
+  const [stepsToday, setStepsToday] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setSleepScoreYesterday(undefined);
+
+    // Fetch sleep score from yesterday
+    getSleepScoreLastNight(user.id).then((sleepScores) => {
+      setSleepScoreYesterday(
+        sleepScores.lastNightSleepScore > -1
+          ? Math.round(sleepScores.lastNightSleepScore * 100)
+          : undefined
+      );
+
+      setSleepScoreDayBefore(
+        sleepScores.previousNightSleepScore > -1
+          ? Math.round(sleepScores.previousNightSleepScore * 100)
+          : undefined
+      );
+    });
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setStepsToday(undefined);
+
+    // Fetch sleep score from yesterday
+    getStepsPerDay(user.id).then((stepsPerDay) => {
+      // Check if the first entry is from today & set the steps
+      setStepsToday(
+        stepsPerDay[0].date ===
+          new Date(new Date().toISOString().split("T")[0]).toISOString()
+          ? stepsPerDay[0].steps
+          : 0
+      );
+
+      // Calculate the average steps per day to estimate the kcal burned
+      const totalSteps = stepsPerDay.reduce(
+        (acc, current) => acc + current.steps,
+        0
+      );
+
+      setAverageKcalBurned(
+        Math.round((totalSteps / stepsPerDay.length) * 0.04)
+      );
+    });
+  }, [user]);
 
   const stepDevice = user
     ? user.devices.find((d) => d.type === "steps")
@@ -84,11 +152,25 @@ export default function Analytics() {
   if (stepDevice) {
     stepDatetimeLevel =
       stepDevice.intervalInSeconds > 1800
-        ? "day"
+        ? "week"
         : stepDevice.intervalInSeconds > 60
-        ? "hour"
-        : "minute";
+        ? "day"
+        : "hour";
   }
+
+  const hourOfDay = new Date().getHours();
+  const timeOfDay =
+    hourOfDay > 6 && hourOfDay < 12
+      ? "morning"
+      : hourOfDay >= 12 && hourOfDay < 18
+      ? "afternoon"
+      : hourOfDay < 22
+      ? "evening"
+      : "night";
+
+  const [defaultTab, setDefaultTab] = useState(
+    hasSleepData ? (hourOfDay < 15 ? 1 : 0) : 0
+  );
 
   // Create the necessary filters to filter to the user's data
   /*
@@ -158,67 +240,158 @@ export default function Analytics() {
     <>
       {/* Create Luzmo number evolution widget with steps info */}
       {hasStepsData && (
-        <Grid item sm={hasSleepData ? 6 : 12} xs={12}>
-          <LuzmoVizItemComponent
-            options={applyTheme(stepNumberWidgetOptions)}
-            slots={getStepNumberWidgetSlots(stepDatetimeLevel)}
-            type="evolution-number"
-            style={LUZMO_VIZ_ITEM_SMALL_STYLE}
-            contextId="evolution-number-steps-step"
-            filters={filtersToApply}
-          ></LuzmoVizItemComponent>
+        <Grid
+          item
+          sm={hasSleepData ? 9 : 12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+          }}
+        >
+          <Box
+            sx={{
+              textAlign: "left",
+              overflow: "auto",
+            }}
+          >
+            <Typography variant="h4">
+              Good {timeOfDay} {user?.name}!
+            </Typography>
+            <Stack
+              direction="column"
+              spacing={2}
+              marginY={1}
+              sx={{
+                justifyContent: "flex-start",
+                alignItems: "stretch",
+              }}
+            >
+              {hasSleepData && sleepScoreYesterday && sleepScoreDayBefore && (
+                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                  Your sleep score was <strong>{sleepScoreYesterday}%</strong>{" "}
+                  last night, which is{" "}
+                  {sleepScoreDayBefore > sleepScoreYesterday
+                    ? "less than"
+                    : sleepScoreDayBefore < sleepScoreYesterday
+                    ? "more than"
+                    : "equal to"}{" "}
+                  the night before (<i>{sleepScoreDayBefore}%</i>).
+                </Paper>
+              )}
+              {hasSleepData && !sleepScoreYesterday && (
+                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                  Loading sleep insights...
+                </Paper>
+              )}
+              {hasStepsData && stepsToday && (
+                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                  Based on your walking history, you should have used about{" "}
+                  <strong>{averageKcalBurned} kcal</strong> by the end of today
+                  (<i>currently at {stepsToday} steps today</i>).
+                </Paper>
+              )}
+              {hasStepsData && !stepsToday && (
+                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                  Loading step insights...
+                </Paper>
+              )}
+            </Stack>
+          </Box>
+          <Paper elevation={2} sx={{ flexGrow: 3 }}>
+            <LuzmoVizItemComponent
+              options={applyTheme(stepNumberWidgetOptions)}
+              slots={getStepNumberWidgetSlots(stepDatetimeLevel)}
+              type="evolution-number"
+              contextId="evolution-number-steps-step"
+              filters={filtersToApply}
+            ></LuzmoVizItemComponent>
+          </Paper>
         </Grid>
       )}
       {hasSleepData && (
         <>
-          {/* Create Luzmo number evolution widget with sleep info */}
-          <Grid item sm={hasStepsData ? 6 : 12} xs={12}>
-            <LuzmoVizItemComponent
-              options={applyTheme(numberWidgetOptions)}
-              slots={numberWidgetSlots}
-              type="evolution-number"
-              style={LUZMO_VIZ_ITEM_SMALL_STYLE}
-              contextId="evolution-number-sleep"
-              filters={filtersToApply}
-            ></LuzmoVizItemComponent>
+          {/* Create Luzmo circular gauge widget with sleep info */}
+          <Grid item sm={hasStepsData ? 3 : 12} xs={12}>
+            <Paper elevation={2}>
+              <LuzmoVizItemComponent
+                options={applyTheme(circleGaugeOptions)}
+                slots={circleGaugeSlots}
+                type="circular-gauge"
+                style={LUZMO_VIZ_ITEM_MEDIUM_STYLE}
+                contextId="circle-gauge-sleep"
+                filters={filtersToApply}
+              ></LuzmoVizItemComponent>
+            </Paper>
           </Grid>
           {/* Create sleep timeline */}
-          <Grid item sm={4} xs={12} sx={LUZMO_VIZ_ITEM_LARGE_STYLE}>
-            <SleepTimeline />
+          <Grid item sm={4} xs={12}>
+            <Paper
+              elevation={2}
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
+              <SleepTimeline
+                selected={defaultTab}
+                onSelectedChange={setDefaultTab}
+              />
+            </Paper>
           </Grid>
           {/* Create Luzmo sleep insights with custom tabs element */}
+
           <Grid item sm={8} xs={12}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                value={value}
-                onChange={handleSleepTabChange}
-                aria-label="Chart type switch"
-              >
-                <Tab label="Sleep scores" />
-                <Tab label="Amount of sleep" />
-              </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-              <LuzmoVizItemComponent
-                options={applyTheme(heattableOptions)}
-                slots={heatTableSlots}
-                type="heat-table"
-                style={LUZMO_VIZ_ITEM_LARGE_STYLE}
-                contextId="heat-table-sleep"
-                filters={filtersToApply}
-              ></LuzmoVizItemComponent>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              <LuzmoVizItemComponent
-                options={applyTheme(areaChartOptions)}
-                slots={areaChartSlots}
-                type="area-chart"
-                style={LUZMO_VIZ_ITEM_LARGE_STYLE}
-                contextId="area-chart-sleep"
-                canFilter="all"
-                filters={filtersToApply}
-              ></LuzmoVizItemComponent>
-            </CustomTabPanel>
+            <Paper elevation={2}>
+              {defaultTab === 0 && (
+                <LuzmoVizItemComponent
+                  options={applyTheme(stepsAreaChartOptions)}
+                  slots={stepsAreaChartSlots}
+                  type="line-chart"
+                  style={LUZMO_VIZ_ITEM_LARGE_STYLE}
+                  contextId="line-chart-steps-movement-inner"
+                  canFilter="all"
+                  filters={filtersToApply}
+                ></LuzmoVizItemComponent>
+              )}
+              {defaultTab === 1 && (
+                <>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <Tabs
+                      value={value}
+                      onChange={handleSleepTabChange}
+                      aria-label="Chart type switch"
+                    >
+                      <Tab label="Sleep scores" />
+                      <Tab label="Amount of sleep" />
+                    </Tabs>
+                  </Box>
+                  <CustomTabPanel value={value} index={0}>
+                    <Paper elevation={2}>
+                      <LuzmoVizItemComponent
+                        options={applyTheme(heattableOptions)}
+                        slots={heatTableSlots}
+                        type="heat-table"
+                        style={LUZMO_VIZ_ITEM_LARGE_STYLE}
+                        contextId="heat-table-sleep"
+                        filters={filtersToApply}
+                      ></LuzmoVizItemComponent>
+                    </Paper>
+                  </CustomTabPanel>
+                  <CustomTabPanel value={value} index={1}>
+                    <Paper elevation={2}>
+                      <LuzmoVizItemComponent
+                        options={applyTheme(areaChartOptions)}
+                        slots={areaChartSlots}
+                        type="area-chart"
+                        style={LUZMO_VIZ_ITEM_LARGE_STYLE}
+                        contextId="area-chart-sleep"
+                        canFilter="all"
+                        filters={filtersToApply}
+                      ></LuzmoVizItemComponent>
+                    </Paper>
+                  </CustomTabPanel>
+                </>
+              )}
+            </Paper>
           </Grid>
         </>
       )}
@@ -226,37 +399,44 @@ export default function Analytics() {
       {hasStepsData && (
         <>
           <Grid item sm={6} xs={12}>
-            <LuzmoVizItemComponent
-              options={applyTheme(calorieNumberWidgetOptions)}
-              slots={getCaloriesNumberWidgetSlots(stepDatetimeLevel)}
-              type="evolution-number"
-              style={LUZMO_VIZ_ITEM_SMALL_STYLE}
-              contextId="evolution-number-steps-calories"
-              filters={filtersToApply}
-            ></LuzmoVizItemComponent>
+            <Paper elevation={2}>
+              <LuzmoVizItemComponent
+                options={applyTheme(calorieNumberWidgetOptions)}
+                slots={getCaloriesNumberWidgetSlots(stepDatetimeLevel)}
+                type="evolution-number"
+                style={LUZMO_VIZ_ITEM_SMALL_STYLE}
+                contextId="evolution-number-steps-calories"
+                filters={filtersToApply}
+              ></LuzmoVizItemComponent>
+            </Paper>
           </Grid>
           <Grid item sm={6} xs={12}>
-            <LuzmoVizItemComponent
-              options={applyTheme(heightNumberWidgetOptions)}
-              slots={getHeightNumberWidgetSlots(stepDatetimeLevel)}
-              type="evolution-number"
-              style={LUZMO_VIZ_ITEM_SMALL_STYLE}
-              contextId="evolution-number-steps-height"
-              filters={filtersToApply}
-            ></LuzmoVizItemComponent>
+            <Paper elevation={2}>
+              <LuzmoVizItemComponent
+                options={applyTheme(heightNumberWidgetOptions)}
+                slots={getHeightNumberWidgetSlots(stepDatetimeLevel)}
+                type="evolution-number"
+                style={LUZMO_VIZ_ITEM_SMALL_STYLE}
+                contextId="evolution-number-steps-height"
+                filters={filtersToApply}
+              ></LuzmoVizItemComponent>
+            </Paper>
           </Grid>
-          <Grid item sm={12} xs={12}>
-            {/* Create Luzmo line chart with steps info */}
-            <LuzmoVizItemComponent
-              options={applyTheme(stepsAreaChartOptions)}
-              slots={stepsAreaChartSlots}
-              type="line-chart"
-              style={LUZMO_VIZ_ITEM_LARGE_STYLE}
-              contextId="line-chart-steps-movement"
-              canFilter="all"
-              filters={filtersToApply}
-            ></LuzmoVizItemComponent>
-          </Grid>
+          {!hasSleepData && (
+            <Grid item sm={12} xs={12}>
+              <Paper elevation={2}>
+                <LuzmoVizItemComponent
+                  options={applyTheme(stepsAreaChartOptions)}
+                  slots={stepsAreaChartSlots}
+                  type="line-chart"
+                  style={LUZMO_VIZ_ITEM_LARGE_STYLE}
+                  contextId="line-chart-steps-movement-bottom"
+                  canFilter="all"
+                  filters={filtersToApply}
+                ></LuzmoVizItemComponent>
+              </Paper>
+            </Grid>
+          )}
         </>
       )}
     </>
