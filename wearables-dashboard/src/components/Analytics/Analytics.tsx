@@ -266,31 +266,33 @@ export default function Analytics() {
                 alignItems: "stretch",
               }}
             >
-              {hasSleepData && sleepScoreYesterday && sleepScoreDayBefore && (
-                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
-                  Your sleep score was <strong>{sleepScoreYesterday}%</strong>{" "}
-                  last night, which is{" "}
-                  {sleepScoreDayBefore > sleepScoreYesterday
-                    ? "less than"
-                    : sleepScoreDayBefore < sleepScoreYesterday
-                    ? "more than"
-                    : "equal to"}{" "}
-                  the night before (<i>{sleepScoreDayBefore}%</i>).
-                </Paper>
-              )}
-              {hasSleepData && !sleepScoreYesterday && (
+              {hasSleepData &&
+                sleepScoreYesterday !== undefined &&
+                sleepScoreDayBefore !== undefined && (
+                  <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                    Your sleep score was <strong>{sleepScoreYesterday}%</strong>{" "}
+                    last night, which is{" "}
+                    {sleepScoreDayBefore > sleepScoreYesterday
+                      ? "less than"
+                      : sleepScoreDayBefore < sleepScoreYesterday
+                      ? "more than"
+                      : "equal to"}{" "}
+                    the night before (<i>{sleepScoreDayBefore}%</i>).
+                  </Paper>
+                )}
+              {hasSleepData && sleepScoreYesterday === undefined && (
                 <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
                   Loading sleep insights...
                 </Paper>
               )}
-              {hasStepsData && stepsToday && (
+              {hasStepsData && stepsToday !== undefined && (
                 <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
                   Based on your walking history, you should have used about{" "}
                   <strong>{averageKcalBurned} kcal</strong> by the end of today
                   (<i>currently at {stepsToday} steps today</i>).
                 </Paper>
               )}
-              {hasStepsData && !stepsToday && (
+              {hasStepsData && stepsToday === undefined && (
                 <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
                   Loading step insights...
                 </Paper>
