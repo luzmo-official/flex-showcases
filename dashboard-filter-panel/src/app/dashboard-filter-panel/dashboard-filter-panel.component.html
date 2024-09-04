@@ -16,9 +16,75 @@
       [class.left-panel]="panelPosition === 'left'" [mode]="panelMode">
       <div class="py-5">
         <div class="flex items-center justify-between px-5 pb-5 mb-5 border-b-[1px]">
-          <div>Filter</div>
-          <button mat-stroked-button id="exit" (click)="sidenav.toggle()">x</button>
+          <div>Filter panel</div>
+          <button mat-stroked-button id="exit" (click)="sidenav.toggle()">Close</button>
         </div>
+        <luzmo-viz-item style="height: 100px;" [slots]='
+        [{"name": "dimension",
+          "content": [
+            {
+              "label": {
+                "en": "Employee"
+              },
+              "set": "e2217802-c66a-4571-bd60-4846eb15871e",
+              "column": "0024ee0d-c965-4027-a905-3c6118118b63",
+              "type": "hierarchy"
+            }
+          ]
+        }]' [options]="{ display: { label: true } }" type="dropdown-filter" canFilter="all"></luzmo-viz-item>
+
+        <luzmo-viz-item type="date-filter" style="height: 100px" [slots]='[
+        {
+          name: "time",
+          content: [
+            {
+              label: {
+                en: "Date",
+              },
+              set: "e2217802-c66a-4571-bd60-4846eb15871e",
+              column: "1e998623-cca9-4423-9fe0-f41fad3aa5c4",
+              type: "datetime",
+              format: "%d-%m-%Y %H:%M:%S.%L",
+              lowestLevel: 9,
+              level: 7,
+            },
+          ],
+        },
+      ]' canFilter="all"></luzmo-viz-item>
+
+      <luzmo-viz-item type="slider-filter" style="height: 100px" [slots]='[
+        {
+          name: "slidermetric",
+          content: [
+            {
+              label: {
+                en: "Amount"
+              },
+              set: "e2217802-c66a-4571-bd60-4846eb15871e",
+              column: "f3b270b4-fe0f-4ac4-b5f3-69280c396735",
+              type: "numeric",
+              format: "($.0f"
+            }
+          ]
+        }]' [options]="{ display: { title: true }, title: {en: 'Total amount excluding VAT'} }" canFilter="all"> </luzmo-viz-item>
+
+
+<luzmo-viz-item type="slicer-filter" style="height: 400px" [slots]='[
+{
+  "name": "dimension",
+  "content": [
+    {
+      "label": {
+        "en": "Customer"
+      },
+      "set": "e2217802-c66a-4571-bd60-4846eb15871e",
+      "column": "36cc1d13-89bb-4f44-9771-13149af1c81f",
+      "type": "hierarchy"
+    }
+  ]
+}
+]' [options] = "" canFilter="all"></luzmo-viz-item>
+
         <luzmo-viz-item type="donut-chart" style="height: 300px" [slots]='[{"name":"category",
          "content":[
          {
