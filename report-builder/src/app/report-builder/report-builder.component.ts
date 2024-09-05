@@ -6,6 +6,11 @@ import { HeaderComponent } from './header/header.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
+// Userflow is only necessary for the Luzmo hosted showcases
+import userflow from 'userflow.js'
+userflow.init('ct_65z5oczamna45bveai47cpcbpe');
+userflow.identifyAnonymous();
+
 @Component({
   selector: 'app-report-builder',
   standalone: true,

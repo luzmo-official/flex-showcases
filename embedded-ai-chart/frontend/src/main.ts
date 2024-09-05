@@ -11,6 +11,11 @@ import routeConfig from './app/app.routes';
 import { ConfigService } from './app/shared/services/config.service';
 import { environment } from './environments/environment';
 
+// Userflow is only necessary for the Luzmo hosted showcases
+import userflow from 'userflow.js'
+userflow.init('ct_65z5oczamna45bveai47cpcbpe');
+userflow.identifyAnonymous();
+
 export function initializeApp(configService: ConfigService) {
   return () => configService.loadConfig().toPromise();
 }
