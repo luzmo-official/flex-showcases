@@ -134,7 +134,7 @@ const flexConfig = {
     {
       title: "Bar Chart - Sales by Product & Location",
       type: "bar-chart",
-      layout: { x: 0, y: 0, w: 6, h: 6, resizeHandles },
+      layout: { x: 0, y: 0, w: 6, h: 14, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -197,7 +197,7 @@ const flexConfig = {
     {
       title: "Line Chart - Sales Volume by Product & Location",
       type: "line-chart",
-      layout: { x: 0, y: 0, w: 6, h: 6, resizeHandles },
+      layout: { x: 0, y: 0, w: 6, h: 14, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -255,7 +255,7 @@ const flexConfig = {
     {
       title: "Donut - Sales Volume by Product",
       type: "donut-chart",
-      layout: { x: 0, y: 0, w: 4, h: 4, resizeHandles },
+      layout: { x: 0, y: 0, w: 4, h: 10, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -298,7 +298,7 @@ const flexConfig = {
     {
       title: "Bubble Chart - Sales Volume by Product & Location",
       type: "bubble-chart",
-      layout: { x: 0, y: 0, w: 6, h: 6, resizeHandles },
+      layout: { x: 0, y: 0, w: 6, h: 14, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -354,7 +354,7 @@ const flexConfig = {
     {
       title: "Bullet - Sales Volume by Product",
       type: "bullet-chart",
-      layout: { x: 0, y: 0, w: 6, h: 4, resizeHandles },
+      layout: { x: 0, y: 0, w: 6, h: 10, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -405,7 +405,7 @@ const flexConfig = {
     {
       title: "Table - Product, Volume & Location",
       type: "regular-table",
-      layout: { x: 0, y: 0, w: 12, h: 6, resizeHandles },
+      layout: { x: 0, y: 0, w: 12, h: 10, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -544,7 +544,7 @@ const flexConfig = {
     {
       title: "Product Filter",
       type: "slicer-filter",
-      layout: { x: 0, y: 0, w: 4, h: 3, resizeHandles },
+      layout: { x: 0, y: 0, w: 4, h: 5, resizeHandles },
       options: {
         theme: {
           id: "default_dark",
@@ -588,7 +588,7 @@ const flexConfig = {
     {
       title: "Card Type Filter",
       type: "slicer-filter",
-      layout: { x: 0, y: 0, w: 4, h: 3, resizeHandles },
+      layout: { x: 0, y: 0, w: 4, h: 13, resizeHandles },
       options: {
         theme: {
           id: "default_dark",

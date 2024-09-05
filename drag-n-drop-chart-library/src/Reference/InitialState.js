@@ -2,41 +2,75 @@ import resizeHandles from "./ResizeHandles";
 
 const initialState = {
   layout: [
-    { i: "Date Filter", x: 0, y: 0, w: 4, h: 3, resizeHandles },
-    { i: "Brand Filter", x: 4, y: 0, w: 4, h: 3, resizeHandles },
-    { i: "Product Filter", x: 8, y: 0, w: 4, h: 3, resizeHandles },
-    { i: "Total Sales Volume", x: 4, y: 3, w: 4, h: 3, resizeHandles },
     {
-      i: "Bar Chart - Sales by Product & Location",
+      w: 4,
+      h: 3,
+      x: 4,
+      y: 0,
+      i: "Date Filter",
+      resizeHandles: resizeHandles,
+    },
+    {
+      w: 4,
+      h: 3,
+      x: 8,
+      y: 0,
+      i: "Brand Filter",
+      resizeHandles: resizeHandles,
+    },
+    {
+      w: 4,
+      h: 5,
+      x: 0,
+      y: 0,
+      i: "Product Filter",
+      resizeHandles: resizeHandles,
+    },
+    {
+      w: 4,
+      h: 4,
+      x: 0,
+      y: 5,
+      i: "Total Sales Volume",
+      resizeHandles: resizeHandles,
+    },
+    {
+      w: 4,
+      h: 10,
+      x: 0,
+      y: 9,
+      i: "Donut - Sales Volume by Product",
+      resizeHandles: resizeHandles,
+    },
+    {
+      w: 8,
+      h: 16,
       x: 4,
       y: 3,
-      w: 4,
-      h: 3,
-      resizeHandles,
+      i: "Bar Chart - Sales by Product & Location",
+      resizeHandles: resizeHandles,
     },
     {
-      i: "Donut - Sales Volume by Product",
-      x: 4,
-      y: 0,
-      w: 4,
-      h: 3,
-      resizeHandles,
-    },
-    {
-      i: "Table - Product, Volume & Location",
-      x: 4,
-      y: 0,
       w: 12,
-      h: 6,
-      resizeHandles,
+      h: 10,
+      x: 0,
+      y: 19,
+      i: "Table - Product, Volume & Location",
+      resizeHandles: resizeHandles,
     },
   ],
   activeCharts: [
     {
       title: "Date Filter",
       type: "date-filter",
-      width: 300,
-      height: 60,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 3,
+        resizeHandles: ["s", "e", "se"],
+        i: "Date Filter",
+      },
       options: {
         theme: {
           id: "default_dark",
@@ -72,8 +106,14 @@ const initialState = {
     {
       title: "Brand Filter",
       type: "dropdown-filter",
-      width: 300,
-      height: 60,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 3,
+        resizeHandles: ["s", "e", "se"],
+        i: "Brand Filter",
+      },
       options: {
         theme: {
           id: "default_dark",
@@ -81,7 +121,9 @@ const initialState = {
         display: {
           title: false,
         },
-        placeholder: { en: "Select Brand" },
+        placeholder: {
+          en: "Select Brand",
+        },
       },
       slots: [
         {
@@ -102,8 +144,14 @@ const initialState = {
     {
       title: "Product Filter",
       type: "slicer-filter",
-      width: 300,
-      height: 200,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 5,
+        resizeHandles: ["s", "e", "se"],
+        i: "Product Filter",
+      },
       options: {
         theme: {
           id: "default_dark",
@@ -147,8 +195,14 @@ const initialState = {
     {
       title: "Total Sales Volume",
       type: "evolution-number",
-      width: "20%",
-      height: 150,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 4,
+        resizeHandles: ["s", "e", "se"],
+        i: "Total Sales Volume",
+      },
       options: {
         theme: {
           id: "default_dark",
@@ -177,10 +231,68 @@ const initialState = {
       ],
     },
     {
+      title: "Donut - Sales Volume by Product",
+      type: "donut-chart",
+      layout: {
+        x: 0,
+        y: 0,
+        w: 4,
+        h: 10,
+        resizeHandles: ["s", "e", "se"],
+        i: "Donut - Sales Volume by Product",
+      },
+      options: {
+        theme: {
+          id: "default_dark",
+        },
+        display: {
+          title: false,
+        },
+        legend: {
+          position: "bottom",
+        },
+      },
+      slots: [
+        {
+          name: "measure",
+          content: [
+            {
+              label: {
+                en: "Volume",
+              },
+              set: "5047ccf3-b7ba-4ad7-a1d8-0c48e07eda9f",
+              column: "8e4d004e-8c16-44e2-995f-f5b797354efe",
+              type: "numeric",
+              format: ".3s",
+            },
+          ],
+        },
+        {
+          name: "category",
+          content: [
+            {
+              label: {
+                en: "Product",
+              },
+              set: "5047ccf3-b7ba-4ad7-a1d8-0c48e07eda9f",
+              column: "0f9b5cb0-0354-4147-b73c-463d26da8c75",
+              type: "hierarchy",
+            },
+          ],
+        },
+      ],
+    },
+    {
       title: "Bar Chart - Sales by Product & Location",
       type: "bar-chart",
-      width: "50%",
-      height: 500,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 6,
+        h: 14,
+        resizeHandles: ["s", "e", "se"],
+        i: "Bar Chart - Sales by Product & Location",
+      },
       options: {
         theme: {
           id: "default_dark",
@@ -193,7 +305,9 @@ const initialState = {
           label: "percentage",
           roundedCorners: 5,
         },
-        legend: { position: "bottom" },
+        legend: {
+          position: "bottom",
+        },
       },
       slots: [
         {
@@ -241,54 +355,16 @@ const initialState = {
       ],
     },
     {
-      title: "Donut - Sales Volume by Product",
-      type: "donut-chart",
-      width: "30%",
-      height: 300,
-      options: {
-        theme: {
-          id: "default_dark",
-        },
-        display: {
-          title: false,
-        },
-        legend: { position: "bottom" },
-      },
-      slots: [
-        {
-          name: "measure",
-          content: [
-            {
-              label: {
-                en: "Volume",
-              },
-              set: "5047ccf3-b7ba-4ad7-a1d8-0c48e07eda9f",
-              column: "8e4d004e-8c16-44e2-995f-f5b797354efe",
-              type: "numeric",
-              format: ".3s",
-            },
-          ],
-        },
-        {
-          name: "category",
-          content: [
-            {
-              label: {
-                en: "Product",
-              },
-              set: "5047ccf3-b7ba-4ad7-a1d8-0c48e07eda9f",
-              column: "0f9b5cb0-0354-4147-b73c-463d26da8c75",
-              type: "hierarchy",
-            },
-          ],
-        },
-      ],
-    },
-    {
       title: "Table - Product, Volume & Location",
       type: "regular-table",
-      width: "100%",
-      height: 200,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 12,
+        h: 10,
+        resizeHandles: ["s", "e", "se"],
+        i: "Table - Product, Volume & Location",
+      },
       options: {
         theme: {
           id: "default_dark",

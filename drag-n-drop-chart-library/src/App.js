@@ -6,6 +6,7 @@ import { Button, Box } from "@mui/material";
 import "./App.css";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import initialState from "./Reference/InitialState";
 
 // Userflow is only necessary for the Luzmo hosted showcases
 import userflow from "userflow.js";
@@ -14,9 +15,12 @@ userflow.identifyAnonymous();
 
 export default function App() {
   const [open, setOpen] = React.useState(false);
-  const [layout, setLayout] = React.useState([]);
-  const [activeCharts, setActiveCharts] = React.useState([]);
+  const [layout, setLayout] = React.useState(initialState.layout);
+  const [activeCharts, setActiveCharts] = React.useState(
+    initialState.activeCharts
+  );
   console.log("layout", layout);
+  console.log("activeCharts", activeCharts);
 
   const ReactGridLayout = WidthProvider(RGL);
 
