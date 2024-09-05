@@ -38,7 +38,7 @@ export class AiChartInputComponent {
   generateChart() {
     this._status.generating = true;
     this.status.emit(this._status);
-    this.dataService.generateChart(this.question, '30ee4df6-b311-4774-bbbd-3bdc52753f4a')
+    this.dataService.generateChart(this.question)
     .pipe(
         takeUntilDestroyed(this.destroyRef),
         tap((data) => {
