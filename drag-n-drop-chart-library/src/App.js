@@ -7,7 +7,6 @@ import "./App.css";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import initialState from "./Reference/InitialState";
-import DragHandle from "./Components/DragHandle";
 
 // Userflow is only necessary for the Luzmo hosted showcases
 import userflow from "userflow.js";
@@ -59,9 +58,6 @@ export default function App() {
         cols={12}
         rowHeight={30}
         draggableHandle=".drag-handle"
-        // resizeHandle={(handleAxis, ref) => (
-        //   <DragHandle ref={ref} handleAxis={handleAxis} />
-        // )}
         draggableCancel=".luzmo-viz-item">
         {activeCharts.length > 0
           ? activeCharts.map((flexOptions) => {
