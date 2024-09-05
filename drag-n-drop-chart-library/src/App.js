@@ -83,6 +83,7 @@ export default function App() {
         cols={12}
         rowHeight={30}
         draggableHandle=".drag-handle"
+        resizeHandles={["n", "ne", "e", "se", "s", "sw", "w"]}
         draggableCancel=".luzmo-viz-item">
         {activeCharts.length > 0
           ? activeCharts.map((flexOptions) => {

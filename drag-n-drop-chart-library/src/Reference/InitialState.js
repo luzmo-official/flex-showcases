@@ -1,5 +1,3 @@
-import resizeHandles from "./ResizeHandles";
-
 const initialState = {
   layout: [
     {
@@ -8,7 +6,6 @@ const initialState = {
       x: 4,
       y: 0,
       i: "Date Filter",
-      resizeHandles: resizeHandles,
     },
     {
       w: 4,
@@ -16,7 +13,6 @@ const initialState = {
       x: 8,
       y: 0,
       i: "Brand Filter",
-      resizeHandles: resizeHandles,
     },
     {
       w: 4,
@@ -24,7 +20,6 @@ const initialState = {
       x: 0,
       y: 0,
       i: "Product Filter",
-      resizeHandles: resizeHandles,
     },
     {
       w: 4,
@@ -32,7 +27,6 @@ const initialState = {
       x: 0,
       y: 5,
       i: "Total Sales Volume",
-      resizeHandles: resizeHandles,
     },
     {
       w: 4,
@@ -40,7 +34,6 @@ const initialState = {
       x: 0,
       y: 9,
       i: "Donut - Sales Volume by Product",
-      resizeHandles: resizeHandles,
     },
     {
       w: 8,
@@ -48,7 +41,6 @@ const initialState = {
       x: 4,
       y: 3,
       i: "Bar Chart - Sales by Product & Location",
-      resizeHandles: resizeHandles,
     },
     {
       w: 12,
@@ -56,7 +48,6 @@ const initialState = {
       x: 0,
       y: 19,
       i: "Table - Product, Volume & Location",
-      resizeHandles: resizeHandles,
     },
   ],
   activeCharts: [
@@ -68,7 +59,6 @@ const initialState = {
         y: 0,
         w: 4,
         h: 3,
-        resizeHandles: ["s", "e", "se"],
         i: "Date Filter",
       },
       options: {
@@ -111,7 +101,6 @@ const initialState = {
         y: 0,
         w: 4,
         h: 3,
-        resizeHandles: ["s", "e", "se"],
         i: "Brand Filter",
       },
       options: {
@@ -149,7 +138,6 @@ const initialState = {
         y: 0,
         w: 4,
         h: 5,
-        resizeHandles: ["s", "e", "se"],
         i: "Product Filter",
       },
       options: {
@@ -200,7 +188,6 @@ const initialState = {
         y: 0,
         w: 4,
         h: 4,
-        resizeHandles: ["s", "e", "se"],
         i: "Total Sales Volume",
       },
       options: {
@@ -238,7 +225,6 @@ const initialState = {
         y: 0,
         w: 4,
         h: 10,
-        resizeHandles: ["s", "e", "se"],
         i: "Donut - Sales Volume by Product",
       },
       options: {
@@ -290,7 +276,6 @@ const initialState = {
         y: 0,
         w: 6,
         h: 14,
-        resizeHandles: ["s", "e", "se"],
         i: "Bar Chart - Sales by Product & Location",
       },
       options: {
@@ -362,7 +347,6 @@ const initialState = {
         y: 0,
         w: 12,
         h: 10,
-        resizeHandles: ["s", "e", "se"],
         i: "Table - Product, Volume & Location",
       },
       options: {
