@@ -24,6 +24,7 @@
     "material-symbols": "^0.17.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "userflow.js": "^2.12.1",
     "zone.js": "~0.14.0"
   },
   "devDependencies": {
