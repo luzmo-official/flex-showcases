@@ -7,18 +7,38 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import FlexConfig from "../Reference/FlexConfig";
 
-export default function ChartDrawer({open, toggleDrawer, activeCharts, setActiveCharts}) {
-
-    const handleChartClick = (chart) => { 
-        const newActiveCharts = [ ...activeCharts ];
-        const chartIndex = newActiveCharts.findIndex((activeChart) => activeChart.title === chart.title);
-        if (chartIndex > -1) {
-          newActiveCharts.splice(chartIndex, 1);
-        } else {
-          newActiveCharts.push(chart);
-        }
-        setActiveCharts(newActiveCharts);
+export default function ChartDrawer({
+  open,
+  toggleDrawer,
+  activeCharts,
+  setActiveCharts,
+  layout,
+  setLayout,
+}) {
+  const handleChartClick = (chart) => {
+    const newActiveCharts = [...activeCharts];
+    const newLayout = [...layout];
+    const chartLayout = chart.layout;
+    chartLayout.i = chart.title;
+    const chartIndex = newActiveCharts.findIndex(
+      (activeChart) => activeChart.title === chart.title
+    );
+    if (chartIndex > -1) {
+      newActiveCharts.splice(chartIndex, 1);
+    } else {
+      newActiveCharts.push(chart);
     }
+    const layoutIndex = newLayout.findIndex(
+      (activeLayout) => activeLayout.i === chart.title
+    );
+    if (layoutIndex > -1) {
+      newLayout.splice(layoutIndex, 1);
+    } else {
+      newLayout.push(chartLayout);
+    }
+    setActiveCharts(newActiveCharts);
+    setLayout(newLayout);
+  };
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
@@ -59,7 +79,6 @@ export default function ChartDrawer({open, toggleDrawer, activeCharts, setActive
                   (activeChart) => activeChart.title === chart.title
                 ) > -1
               }>
-              
               <ListItemText
                 primary={chart.title}
                 primaryTypographyProps={{
@@ -76,11 +95,8 @@ export default function ChartDrawer({open, toggleDrawer, activeCharts, setActive
   );
 
   return (
-        <Drawer
-            open={open}
-            onClose={toggleDrawer(false)}
-            >
-        {DrawerList}
-      </Drawer>
+    <Drawer open={open} onClose={toggleDrawer(false)}>
+      {DrawerList}
+    </Drawer>
   );
 }

@@ -11,23 +11,12 @@ import "react-resizable/css/styles.css";
 import userflow from "userflow.js";
 userflow.init("ct_65z5oczamna45bveai47cpcbpe");
 userflow.identifyAnonymous();
-const resizeHandles = ["s", "e", "se"];
 
 export default function App() {
   const [open, setOpen] = React.useState(false);
-  const [layout, setLayout] = React.useState([
-    { i: "a", x: 0, y: 0, w: 1, h: 2, resizeHandles: resizeHandles },
-    {
-      i: "b",
-      x: 1,
-      y: 0,
-      w: 3,
-      h: 2,
-      resizeHandles: resizeHandles,
-    },
-    { i: "c", x: 4, y: 0, w: 1, h: 2, resizeHandles: resizeHandles },
-  ]);
-  const [activeCharts, setActiveCharts] = React.useState(["a", "b", "c"]);
+  const [layout, setLayout] = React.useState([]);
+  const [activeCharts, setActiveCharts] = React.useState([]);
+  console.log("layout", layout);
 
   const ReactGridLayout = WidthProvider(RGL);
 
@@ -37,6 +26,7 @@ export default function App() {
 
   const handleClearCharts = () => {
     setActiveCharts([]);
+    setLayout([]);
   };
 
   return (
@@ -54,6 +44,8 @@ export default function App() {
           toggleDrawer={toggleDrawer}
           activeCharts={activeCharts}
           setActiveCharts={setActiveCharts}
+          layout={layout}
+          setLayout={setLayout}
         />
       </div>
       <ReactGridLayout
@@ -62,14 +54,11 @@ export default function App() {
         onLayoutChange={(currentLayout) => setLayout(currentLayout)}
         cols={12}
         rowHeight={30}>
-        {activeCharts.map((item) => {
-          return <div key={item}>{item}</div>;
-        })}
         {activeCharts.length > 0
           ? activeCharts.map((flexOptions) => {
               return (
                 <FlexComponent
-                  key={flexOptions.type}
+                  key={flexOptions.title}
                   flexOptions={flexOptions}
                 />
               );
