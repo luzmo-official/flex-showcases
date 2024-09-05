@@ -99,13 +99,13 @@ export default function Analytics() {
       setSleepScoreYesterday(
         sleepScores.lastNightSleepScore > -1
           ? Math.round(sleepScores.lastNightSleepScore * 100)
-          : undefined
+          : -1
       );
 
       setSleepScoreDayBefore(
         sleepScores.previousNightSleepScore > -1
           ? Math.round(sleepScores.previousNightSleepScore * 100)
-          : undefined
+          : -1
       );
     });
   }, [user]);
@@ -115,7 +115,7 @@ export default function Analytics() {
 
     setStepsToday(undefined);
 
-    // Fetch sleep score from yesterday
+    // Fetch number of steps per day
     getStepsPerDay(user.id).then((stepsPerDay) => {
       // Check if the first entry is from today & set the steps
       setStepsToday(
@@ -268,6 +268,7 @@ export default function Analytics() {
             >
               {hasSleepData &&
                 sleepScoreYesterday !== undefined &&
+                sleepScoreYesterday !== -1 &&
                 sleepScoreDayBefore !== undefined && (
                   <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
                     Your sleep score was <strong>{sleepScoreYesterday}%</strong>{" "}
@@ -283,6 +284,11 @@ export default function Analytics() {
               {hasSleepData && sleepScoreYesterday === undefined && (
                 <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
                   Loading sleep insights...
+                </Paper>
+              )}
+              {hasSleepData && sleepScoreYesterday === -1 && (
+                <Paper elevation={2} sx={TEXTUAL_INSIGHTS_STYLE}>
+                  No sleep insights yet for yesterday's night
                 </Paper>
               )}
               {hasStepsData && stepsToday !== undefined && (

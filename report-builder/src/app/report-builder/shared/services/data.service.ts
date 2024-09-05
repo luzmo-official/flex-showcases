@@ -11,6 +11,7 @@ export class DataService {
   private readonly authService = inject(AuthService);
   authKey: string;
   authToken?: string;
+  datasetIdForAI = '70902e57-8c32-4890-a728-650c686c1f5d';
   // cache: Record<string, any> = {};
 
   client: Luzmo;
@@ -27,10 +28,14 @@ export class DataService {
     });
   }
 
-  generateChart(question: string, datasetId: string): Observable<any> {
+  setDatasetIdForAI(datasetId: string) {
+    this.datasetIdForAI = datasetId;
+  }
+
+  generateChart(question: string): Observable<any> {
     return from(this.client.create(('aichart' as any), {
       type: 'generate-chart',
-      dataset_id: datasetId,
+      dataset_id: this.datasetIdForAI,
       question: question,
       model_preference: 'performance'
     }));

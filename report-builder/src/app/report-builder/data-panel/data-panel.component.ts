@@ -134,6 +134,7 @@ export class DataPanelComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((dataset) => {
         this.updateColumnList([dataset.datasetId]);
+        this.dataService.setDatasetIdForAI(dataset.datasetId);
       });
 
     this.selectedDatasets.valueChanges
