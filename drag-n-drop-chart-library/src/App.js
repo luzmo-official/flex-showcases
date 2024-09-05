@@ -15,21 +15,48 @@ userflow.init("ct_65z5oczamna45bveai47cpcbpe");
 userflow.identifyAnonymous();
 
 export default function App() {
+  // initialize state
   const [open, setOpen] = React.useState(false);
   const [layout, setLayout] = React.useState(initialState.layout);
   const [activeCharts, setActiveCharts] = React.useState(
     initialState.activeCharts
   );
-
+  // initialize RGL
   const ReactGridLayout = WidthProvider(RGL);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
+  // App functions
   const handleClearCharts = () => {
     setActiveCharts([]);
     setLayout([]);
+  };
+
+  const handleChartClick = (chart) => {
+    const newActiveCharts = [...activeCharts];
+    const newLayout = [...layout];
+    const chartLayout = chart.layout;
+    chartLayout.i = chart.title;
+    const chartIndex = newActiveCharts.findIndex(
+      (activeChart) => activeChart.title === chart.title
+    );
+    if (chartIndex > -1) {
+      newActiveCharts.splice(chartIndex, 1);
+    } else {
+      newActiveCharts.push(chart);
+    }
+    const layoutIndex = newLayout.findIndex(
+      (activeLayout) => activeLayout.i === chart.title
+    );
+    if (layoutIndex > -1) {
+      newLayout.splice(layoutIndex, 1);
+    } else {
+      newLayout.push(chartLayout);
+    }
+    setActiveCharts(newActiveCharts);
+    setLayout(newLayout);
+  };
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
   };
 
   return (
@@ -46,9 +73,7 @@ export default function App() {
           open={open}
           toggleDrawer={toggleDrawer}
           activeCharts={activeCharts}
-          setActiveCharts={setActiveCharts}
-          layout={layout}
-          setLayout={setLayout}
+          handleChartClick={handleChartClick}
         />
       </div>
       <ReactGridLayout

@@ -11,35 +11,8 @@ export default function ChartDrawer({
   open,
   toggleDrawer,
   activeCharts,
-  setActiveCharts,
-  layout,
-  setLayout,
+  handleChartClick,
 }) {
-  const handleChartClick = (chart) => {
-    const newActiveCharts = [...activeCharts];
-    const newLayout = [...layout];
-    const chartLayout = chart.layout;
-    chartLayout.i = chart.title;
-    const chartIndex = newActiveCharts.findIndex(
-      (activeChart) => activeChart.title === chart.title
-    );
-    if (chartIndex > -1) {
-      newActiveCharts.splice(chartIndex, 1);
-    } else {
-      newActiveCharts.push(chart);
-    }
-    const layoutIndex = newLayout.findIndex(
-      (activeLayout) => activeLayout.i === chart.title
-    );
-    if (layoutIndex > -1) {
-      newLayout.splice(layoutIndex, 1);
-    } else {
-      newLayout.push(chartLayout);
-    }
-    setActiveCharts(newActiveCharts);
-    setLayout(newLayout);
-  };
-
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>

@@ -28,7 +28,7 @@ const FlexComponent = React.forwardRef(
         <OpenWithIcon
           className="drag-handle"
           color="secondary"
-          style={{ position: "absolute", top: 0, left: 0, zIndex: 1000 }}
+          style={{ position: "absolute", top: 2, left: 2, zIndex: 1000 }}
         />
         <LuzmoVizItemComponent
           className="luzmo-viz-item"
