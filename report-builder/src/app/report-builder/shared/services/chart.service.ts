@@ -2,7 +2,6 @@ import { computed, Injectable } from '@angular/core';
 import { patchState, signalState } from '@ngrx/signals';
 import { CHARTS } from '../constants/charts.constant';
 import { Chart, Slot } from '../models/models';
-import { Subject } from "rxjs";
 import { FilterSlot, Value } from "../../chart-panel/filters-panel/filters-panel.component";
 
 type ChartState = {
@@ -81,6 +80,7 @@ export class ChartService {
 
   setTableType(tableType: 'regular-table' | 'pivot-table'): void {
     patchState(this.state, { tableType });
+    this.updateSlots([...this.slots()]);
   }
 
   private transformSlotsToTableSlots() {
