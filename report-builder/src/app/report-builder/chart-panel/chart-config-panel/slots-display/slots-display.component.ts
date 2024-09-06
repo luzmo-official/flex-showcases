@@ -41,6 +41,28 @@ export class SlotsDisplayComponent {
     }
   }
 
+  replace(event: CdkDragDrop<string[]>, index: number) {
+    const column = event.item.data;
+    const slotNameTemp = event.container.id.replace('data-replace-', '');
+    const slotName = slotNameTemp.substring(0, slotNameTemp.lastIndexOf('-')) as Slot['name'];
+    
+    const slotContent: Slot['content'][number] = {
+      label: column.name,
+      set: column.securable_id,
+      column: column.id,
+      type: column.type,
+      subtype: column.subtype,
+      format: column.format
+    };
+
+    const slot = this.chartService.slots().find(slot => slot.name === slotName);
+
+    if (slot?.content?.[index]) {
+      slot.content[index] = slotContent;
+      this.chartService.updateSlots((this.chartService.slots() ?? []));
+    }
+  }
+
   removeColumnFromSlot(slotName: string, indexToRemove: number): void {
     const slot = this.chartService.slots().find(slot => slot.name === slotName);
 

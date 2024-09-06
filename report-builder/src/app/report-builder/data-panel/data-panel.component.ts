@@ -9,8 +9,6 @@ import {
   CdkDrag,
   CdkDropList,
   CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
   CdkDragPlaceholder,
 } from '@angular/cdk/drag-drop';
 import { DataService } from '../shared/services/data.service';
@@ -75,17 +73,6 @@ export class DataPanelComponent implements OnInit {
     },
   ] satisfies Dataset[];
 
-  /*datasets = [
-    {
-      name: 'Team Stats',
-      datasetId: '30ee4df6-b311-4774-bbbd-3bdc52753f4a',
-    },
-    {
-      name: 'Player Stats',
-      datasetId: '97fb82d0-e7aa-4221-8f6e-a410014291b7',
-    }
-  ] satisfies Dataset[];*/
-
   panelOpenState = false;
   collapsed = false;
   columnTypeIcons = COLUMN_TYPE_ICONS;
@@ -107,8 +94,15 @@ export class DataPanelComponent implements OnInit {
   constructor() {
     effect(() => {
       // Update names of CDK drop fields, based on slot names
-      this.cdkDropLists = CHARTS().find((chart) => chart.type === this.chartService.type())?.slots?.map((slot) => `data-drop-${slot.name}`) ?? [];
-      this.cdkDropLists.push('data-drop-filter');
+      this.cdkDropLists = []
+      for (const slot of this.chartService.slots()) {
+        this.cdkDropLists.push(`data-drop-${slot.name}`);
+        if ((slot?.content ?? []).length > 0) {
+          for (let i = 0; i < slot.content.length; i++) {
+            this.cdkDropLists.push(`data-replace-${slot.name}-${i}`);
+          }
+        }
+      }
     });
   }
 

@@ -3,7 +3,11 @@
   <div class="mb-4">
     <div class="mb-1">{{ slot.formattedName }}</div>
     @for (slotContent of slot.content; track slotContent) {
-      <div class="flex items-center border border-violet-300 rounded-md text-violet-700 text-sm p-2 mb-1 bg-violet-50 select-none">
+      <div class="flex items-center border border-violet-300 rounded-md text-violet-700 text-sm p-2 mb-1 bg-violet-50 select-none"
+        id="data-replace-{{slot.name}}-{{$index}}"
+        cdkDropList
+        (cdkDropListDropped)="replace($event, $index)"
+        cdkDropListConnectedTo="column-list">
         <div class="flex items-center grow truncate">
           <mat-icon fontSet="material-symbols-outlined" class="icon-20 mr-2 flex-shrink-0">
             {{ columnTypeIcons[slotContent.type] }}
