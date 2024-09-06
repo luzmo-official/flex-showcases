@@ -2,14 +2,14 @@ const initialState = {
   layout: [
     {
       w: 4,
-      h: 3,
+      h: 2,
       x: 4,
       y: 0,
       i: "Date Filter",
     },
     {
       w: 4,
-      h: 3,
+      h: 2,
       x: 8,
       y: 0,
       i: "Brand Filter",
@@ -37,9 +37,9 @@ const initialState = {
     },
     {
       w: 8,
-      h: 16,
+      h: 17,
       x: 4,
-      y: 3,
+      y: 2,
       i: "Bar Chart - Sales by Product & Location",
     },
     {
