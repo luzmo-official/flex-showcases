@@ -6,6 +6,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import FlexConfig from "../Reference/FlexConfig";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 export default function ChartDrawer({
   open,
@@ -14,7 +16,7 @@ export default function ChartDrawer({
   handleChartClick,
 }) {
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation">
       <List>
         {FlexConfig.filterList.map((filter) => (
           <ListItem
@@ -68,7 +70,17 @@ export default function ChartDrawer({
   );
 
   return (
-    <Drawer open={open} onClose={toggleDrawer(false)}>
+    <Drawer open={open} variant="persistent" onClose={toggleDrawer(false)}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}>
+        <IconButton onClick={toggleDrawer(false)}>
+          <ChevronLeftIcon color="secondary" />
+        </IconButton>
+      </div>
       {DrawerList}
     </Drawer>
   );

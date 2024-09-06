@@ -67,7 +67,7 @@ export default function App() {
           maxWidth: "fit-content",
           marginInline: "auto",
         }}>
-        <Button onClick={toggleDrawer(true)}>Add/Remove Charts</Button>
+        <Button onClick={toggleDrawer(!open)}>Add/Remove Charts</Button>
         <Button onClick={handleClearCharts}>Clear All Charts</Button>
         <ChartDrawer
           open={open}
