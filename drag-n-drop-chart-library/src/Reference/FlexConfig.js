@@ -3,8 +3,7 @@ const flexConfig = {
     {
       title: "Total Sales Volume",
       type: "evolution-number",
-      width: "20%",
-      height: 150,
+      layout: { x: 0, y: 0, w: 4, h: 4 },
       options: {
         theme: {
           id: "default_dark",
@@ -35,8 +34,7 @@ const flexConfig = {
     {
       title: "Total Sales - Inner Planets",
       type: "evolution-number",
-      width: "20%",
-      height: 150,
+      layout: { x: 0, y: 0, w: 4, h: 4 },
       options: {
         theme: {
           id: "default_dark",
@@ -85,8 +83,7 @@ const flexConfig = {
     {
       title: "Total Sales - Outer Planets",
       type: "evolution-number",
-      width: "20%",
-      height: 150,
+      layout: { x: 0, y: 0, w: 4, h: 4 },
       options: {
         theme: {
           id: "default_dark",
@@ -135,8 +132,7 @@ const flexConfig = {
     {
       title: "Bar Chart - Sales by Product & Location",
       type: "bar-chart",
-      width: "50%",
-      height: 500,
+      layout: { x: 0, y: 0, w: 6, h: 14 },
       options: {
         theme: {
           id: "default_dark",
@@ -199,8 +195,7 @@ const flexConfig = {
     {
       title: "Line Chart - Sales Volume by Product & Location",
       type: "line-chart",
-      width: "50%",
-      height: 400,
+      layout: { x: 0, y: 0, w: 6, h: 14 },
       options: {
         theme: {
           id: "default_dark",
@@ -258,8 +253,7 @@ const flexConfig = {
     {
       title: "Donut - Sales Volume by Product",
       type: "donut-chart",
-      width: "30%",
-      height: 300,
+      layout: { x: 0, y: 0, w: 4, h: 10 },
       options: {
         theme: {
           id: "default_dark",
@@ -302,8 +296,7 @@ const flexConfig = {
     {
       title: "Bubble Chart - Sales Volume by Product & Location",
       type: "bubble-chart",
-      width: "50%",
-      height: 400,
+      layout: { x: 0, y: 0, w: 6, h: 14 },
       options: {
         theme: {
           id: "default_dark",
@@ -359,8 +352,7 @@ const flexConfig = {
     {
       title: "Bullet - Sales Volume by Product",
       type: "bullet-chart",
-      width: "50%",
-      height: 300,
+      layout: { x: 0, y: 0, w: 6, h: 10 },
       options: {
         theme: {
           id: "default_dark",
@@ -411,8 +403,7 @@ const flexConfig = {
     {
       title: "Table - Product, Volume & Location",
       type: "regular-table",
-      width: "100%",
-      height: 200,
+      layout: { x: 0, y: 0, w: 12, h: 10 },
       options: {
         theme: {
           id: "default_dark",
@@ -486,8 +477,7 @@ const flexConfig = {
     {
       title: "Date Filter",
       type: "date-filter",
-      width: 300,
-      height: 60,
+      layout: { x: 0, y: 0, w: 4, h: 3 },
       options: {
         theme: {
           id: "default_dark",
@@ -523,8 +513,7 @@ const flexConfig = {
     {
       title: "Brand Filter",
       type: "dropdown-filter",
-      width: 300,
-      height: 60,
+      layout: { x: 0, y: 0, w: 4, h: 3 },
       options: {
         theme: {
           id: "default_dark",
@@ -553,8 +542,7 @@ const flexConfig = {
     {
       title: "Product Filter",
       type: "slicer-filter",
-      width: 300,
-      height: 200,
+      layout: { x: 0, y: 0, w: 4, h: 5 },
       options: {
         theme: {
           id: "default_dark",
@@ -598,8 +586,7 @@ const flexConfig = {
     {
       title: "Card Type Filter",
       type: "slicer-filter",
-      width: 300,
-      height: 200,
+      layout: { x: 0, y: 0, w: 4, h: 13 },
       options: {
         theme: {
           id: "default_dark",

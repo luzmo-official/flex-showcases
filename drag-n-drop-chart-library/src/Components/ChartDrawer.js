@@ -6,22 +6,17 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import FlexConfig from "../Reference/FlexConfig";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-export default function ChartDrawer({open, toggleDrawer, activeCharts, setActiveCharts}) {
-
-    const handleChartClick = (chart) => { 
-        const newActiveCharts = [ ...activeCharts ];
-        const chartIndex = newActiveCharts.findIndex((activeChart) => activeChart.title === chart.title);
-        if (chartIndex > -1) {
-          newActiveCharts.splice(chartIndex, 1);
-        } else {
-          newActiveCharts.push(chart);
-        }
-        setActiveCharts(newActiveCharts);
-    }
-
+export default function ChartDrawer({
+  open,
+  toggleDrawer,
+  activeCharts,
+  handleChartClick,
+}) {
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation">
       <List>
         {FlexConfig.filterList.map((filter) => (
           <ListItem
@@ -59,7 +54,6 @@ export default function ChartDrawer({open, toggleDrawer, activeCharts, setActive
                   (activeChart) => activeChart.title === chart.title
                 ) > -1
               }>
-              
               <ListItemText
                 primary={chart.title}
                 primaryTypographyProps={{
@@ -76,11 +70,18 @@ export default function ChartDrawer({open, toggleDrawer, activeCharts, setActive
   );
 
   return (
-        <Drawer
-            open={open}
-            onClose={toggleDrawer(false)}
-            >
-        {DrawerList}
-      </Drawer>
+    <Drawer open={open} variant="persistent" onClose={toggleDrawer(false)}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}>
+        <IconButton onClick={toggleDrawer(false)}>
+          <ChevronLeftIcon color="secondary" />
+        </IconButton>
+      </div>
+      {DrawerList}
+    </Drawer>
   );
 }

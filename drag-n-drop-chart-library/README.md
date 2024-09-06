@@ -12,9 +12,8 @@ npm install
 npm start
 ```
 
-The application will be launched on `http://localhost:3000` 
+The application will be launched on `http://localhost:3000`
 
 ## Known Issues
-* RND move command takes precedence over brush filter completion, which locks user's mouse in moving charts but unable to finalize the brush filter.
-* RND does not support collision detection / break points.
-    * To Do: Migrate to a grid layout library like [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout/tree/master)
+
+- React-Grid-Layout library is causing all flex components to reload on layout change
