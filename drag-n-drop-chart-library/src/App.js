@@ -14,6 +14,9 @@ import userflow from "userflow.js";
 userflow.init("ct_65z5oczamna45bveai47cpcbpe");
 userflow.identifyAnonymous();
 
+// initialize RGL
+const ReactGridLayout = WidthProvider(RGL);
+
 export default function App() {
   // initialize state
   const [open, setOpen] = React.useState(false);
@@ -21,8 +24,6 @@ export default function App() {
   const [activeCharts, setActiveCharts] = React.useState(
     initialState.activeCharts
   );
-  // initialize RGL
-  const ReactGridLayout = WidthProvider(RGL);
 
   // App functions
   const handleClearCharts = () => {
