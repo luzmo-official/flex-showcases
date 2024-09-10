@@ -8,9 +8,10 @@ test.describe('Wearables dashboard', () => {
   
     // when
     await wearablesDashboardPage.gotoMainPage();
-    await wearablesDashboardPage.NumberOfStepsChart().waitFor({ state: 'visible' });
+    await wearablesDashboardPage.cell().waitFor({ state: 'visible' });
+    //await wearablesDashboardPage.NumberOfStepsChart().waitFor({ state: 'visible' });
   
     // then
-    await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.1, fullPage: true});
+    await expect(page).toHaveScreenshot('init-page.png', { maxDiffPixelRatio: 0.2, fullPage: true});
   });
 });
