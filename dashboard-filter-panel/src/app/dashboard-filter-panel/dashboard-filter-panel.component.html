@@ -33,26 +33,7 @@
           ]
         }]' [options]="{ display: { label: true } }" type="dropdown-filter" canFilter="all"></luzmo-viz-item>
 
-        <luzmo-viz-item type="date-filter" style="height: 100px" [slots]='[
-        {
-          name: "time",
-          content: [
-            {
-              label: {
-                en: "Date",
-              },
-              set: "e2217802-c66a-4571-bd60-4846eb15871e",
-              column: "1e998623-cca9-4423-9fe0-f41fad3aa5c4",
-              type: "datetime",
-              format: "%d-%m-%Y %H:%M:%S.%L",
-              lowestLevel: 9,
-              level: 7,
-            },
-          ],
-        },
-      ]' canFilter="all"></luzmo-viz-item>
-
-      <luzmo-viz-item type="slider-filter" style="height: 100px" [slots]='[
+        <luzmo-viz-item type="slider-filter" style="height: 100px" [slots]='[
         {
           name: "slidermetric",
           content: [
@@ -66,10 +47,11 @@
               format: "($.0f"
             }
           ]
-        }]' [options]="{ display: { title: true }, title: {en: 'Total amount excluding VAT'} }" canFilter="all"> </luzmo-viz-item>
+        }]' [options]="{ display: { title: true }, title: {en: 'Total amount excluding VAT'} }" canFilter="all">
+        </luzmo-viz-item>
 
 
-<luzmo-viz-item type="slicer-filter" style="height: 400px" [slots]='[
+        <luzmo-viz-item type="slicer-filter" style="height: 400px" [slots]='[
 {
   "name": "dimension",
   "content": [
@@ -83,13 +65,13 @@
     }
   ]
 }
-]' [options] = "" canFilter="all"></luzmo-viz-item>
+]' [options]="" canFilter="all"></luzmo-viz-item>
 
         <luzmo-viz-item type="donut-chart" style="height: 300px" [slots]='[{"name":"category",
          "content":[
          {
            "type":"hierarchy",
-           "label":"For",
+           "label":{"en":"For"},
            "column": donutColumn,
            "set": datasetId
          }]}]' canFilter="all"></luzmo-viz-item>
