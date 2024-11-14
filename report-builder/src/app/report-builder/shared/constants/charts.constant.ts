@@ -36,7 +36,7 @@ export const COLORPALETTES = () => {
     default: 'default',
     transformFn: (value: any) => {
       const palette = PALETTES.find(p => p.key === value);
-      return { 
+      return {
         theme: {
           mainColor: palette ? palette.colors[0] : PALETTES[0].colors[0],
           colors: palette ? palette.colors : PALETTES[0].colors
@@ -158,24 +158,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'x-axis',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'legend',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]
@@ -212,24 +212,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'y-axis',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'legend',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]
@@ -250,24 +250,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'x-axis',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'legend',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]
@@ -294,24 +294,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'x-axis',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'legend',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]
@@ -330,17 +330,17 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'category',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         }
       ]
@@ -364,17 +364,17 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'category',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: true,
+          type: 'numeric',
+          canAcceptMultipleColumns: true,
           content: []
         }
       ]
@@ -405,24 +405,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'category',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: false,
+          type: 'numeric',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'color',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]
@@ -453,24 +453,24 @@ export const CHARTS = (): Chart[] => {
       },
       slots: [
         {
-          formattedName: 'Category',
+          label: 'Category',
           name: 'category',
-          type: 'category',
-          acceptsMultiple: false,
+          type: 'categorical',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Measure',
+          label: 'Measure',
           name: 'measure',
-          type: 'measure',
-          acceptsMultiple: false,
+          type: 'numeric',
+          canAcceptMultipleColumns: false,
           content: []
         },
         {
-          formattedName: 'Group by',
+          label: 'Group by',
           name: 'color',
-          type: 'legend',
-          acceptsMultiple: false,
+          type: 'mixed',
+          canAcceptMultipleColumns: false,
           content: []
         }
       ]

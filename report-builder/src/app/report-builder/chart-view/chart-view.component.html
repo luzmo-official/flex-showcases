@@ -17,6 +17,7 @@
   style="height: 40vh; max-width: 80rem"
   class="flex justify-center w-full p-5"
 >
+  <!-- Remove $any when dashboard-content-schema has correct types for slot.  -->
   <luzmo-viz-item
     #chart
     [class.empty]="chartIsEmpty()"
@@ -24,7 +25,7 @@
     [authToken]="authToken"
     [type]="chartService.type()"
     [options]="chartService.options()"
-    [slots]="chartService.slots()"
+    [slots]="$any(chartService.slots())"
     [filters]="chartService.filtersForFlexChart()"
   >
   </luzmo-viz-item>
@@ -45,6 +46,7 @@
     </mat-button-toggle-group>
   </div>
   <div style="height: 40vh" class="p-5">
+    <!-- Remove $any when dashboard-content-schema has correct types for slot.  -->
     <luzmo-viz-item
       [class.empty]="chartIsEmpty()"
       [type]="chartService.tableType()"
@@ -52,7 +54,7 @@
       [authToken]="authToken"
       [filters]="chartService.filtersForFlexChart()"
       [options]="tableOptions"
-      [slots]="chartService.tableSlots()"
+      [slots]="$any(chartService.tableSlots())"
     ></luzmo-viz-item>
   </div>
 </div>
