@@ -393,7 +393,7 @@ export type Slot = {
    * Whether you can add multiple columns to the slot
    */
   canAcceptMultipleColumns?: boolean;
-  requiredMinimumColumns?: number;
+  requiredMinimumColumnsCount?: number;
   /**
    * Whether this slot needs to be filled in order to show information
    */
