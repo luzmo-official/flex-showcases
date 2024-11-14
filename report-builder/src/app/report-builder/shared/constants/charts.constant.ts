@@ -10,6 +10,15 @@
 // pivot table
 // speedometer
 
+import {
+  areaChartSlotsConfig,
+  barChartSlotsConfig,
+  bubbleChartSlotsConfig,
+  columnChartSlotsConfig,
+  donutChartSlotsConfig,
+  lineChartSlotsConfig,
+  treemapChartSlotsConfig
+} from '../../../shared/configs';
 import { Chart } from '../models/models';
 import { PALETTES } from './color-palettes.constant';
 
@@ -156,29 +165,7 @@ export const CHARTS = (): Chart[] => {
         colorPalette: COLORPALETTES(),
         colors: [],
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'x-axis',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'legend',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: columnChartSlotsConfig
     },
     {
       type: 'bar-chart',
@@ -210,29 +197,7 @@ export const CHARTS = (): Chart[] => {
         colorPalette: COLORPALETTES(),
         colors: [],
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'y-axis',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'legend',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: barChartSlotsConfig
     },
     {
       type: 'line-chart',
@@ -248,29 +213,7 @@ export const CHARTS = (): Chart[] => {
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'x-axis',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'legend',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: lineChartSlotsConfig
     },
     // {
     //   type: 'scatter-plot',
@@ -292,29 +235,7 @@ export const CHARTS = (): Chart[] => {
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'x-axis',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'legend',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: areaChartSlotsConfig
     },
     {
       type: 'donut-chart',
@@ -328,22 +249,7 @@ export const CHARTS = (): Chart[] => {
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'category',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        }
-      ]
+      slots: donutChartSlotsConfig
     },
     {
       type: 'donut-chart',
@@ -362,22 +268,7 @@ export const CHARTS = (): Chart[] => {
         variableAxis: MANUALAXISRANGE(),
         colorPalette: COLORPALETTES()
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'category',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: true,
-          content: []
-        }
-      ]
+      slots: donutChartSlotsConfig
     },
     {
       type: 'bubble-chart',
@@ -403,29 +294,7 @@ export const CHARTS = (): Chart[] => {
         colorPalette: COLORPALETTES(),
         colors: [],
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'category',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'color',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: bubbleChartSlotsConfig
     },
     {
       type: 'treemap-chart',
@@ -451,29 +320,7 @@ export const CHARTS = (): Chart[] => {
         colorPalette: COLORPALETTES(),
         colors: [],
       },
-      slots: [
-        {
-          label: 'Category',
-          name: 'category',
-          type: 'categorical',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Measure',
-          name: 'measure',
-          type: 'numeric',
-          canAcceptMultipleColumns: false,
-          content: []
-        },
-        {
-          label: 'Group by',
-          name: 'color',
-          type: 'mixed',
-          canAcceptMultipleColumns: false,
-          content: []
-        }
-      ]
+      slots: treemapChartSlotsConfig
     },
     // {
     //   type: 'evolution-number',
@@ -505,5 +352,8 @@ export const CHARTS = (): Chart[] => {
     //   icon: 'speed',
     //   settings: {},
     // },
-  ];
+  ].map(chart => ({
+    ...chart,
+    slots: chart.slots.map(slot => ({ ...slot, content: [] }))
+  } as Chart));
 }
