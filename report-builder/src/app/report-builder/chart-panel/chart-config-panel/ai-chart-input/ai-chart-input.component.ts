@@ -11,8 +11,8 @@ import { tap } from 'rxjs/operators';
 import { CHARTS } from '../../../shared/constants/charts.constant';
 import { SlotsDisplayComponent } from '../slots-display/slots-display.component';
 import { ChartPickerComponent } from '../chart-picker/chart-picker.component';
-import { Slot } from '../../../shared/models/models';
 import { ItemType } from '@luzmo/ngx-embed';
+import { Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
   selector: 'app-ai-chart',
@@ -55,9 +55,9 @@ export class AiChartInputComponent {
             generatedChartDef.slots.forEach((slot) => {
               const slotFound = slots.find((s: Slot) => s.name === slot.name);
               if (slotFound) {
-                slotFound.formattedName = slot?.formattedName;
+                slotFound.label = slot?.label;
                 slotFound.type = slot?.type;
-                slotFound.acceptsMultiple = slot?.acceptsMultiple;
+                slotFound.canAcceptMultipleColumns = slot?.canAcceptMultipleColumns;
               }
               else {
                 slots.push(slot);

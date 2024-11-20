@@ -1,8 +1,9 @@
 import { computed, Injectable } from '@angular/core';
 import { patchState, signalState } from '@ngrx/signals';
 import { CHARTS } from '../constants/charts.constant';
-import { Chart, Slot } from '../models/models';
+import { Chart } from '../models/models';
 import { FilterSlot, Value } from "../../chart-panel/filters-panel/filters-panel.component";
+import { Slot } from '@luzmo/dashboard-contents-types';
 
 type ChartState = {
   name: Chart['name'];
@@ -124,7 +125,7 @@ export class ChartService {
   }
 
   undo(): void {
-    
+
   }
 
   redo(): void {
@@ -176,4 +177,3 @@ export class ChartService {
     ] as any;
   }
 }
-

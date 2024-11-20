@@ -7,8 +7,8 @@ import {
   CdkDropListGroup
 } from '@angular/cdk/drag-drop';
 import { ChartService } from '../../../shared/services/chart.service';
-import { Slot } from '../../../shared/models/models';
 import { COLUMN_TYPE_ICONS } from '../../../shared/constants/charts.constant';
+import { GenericSlotContent, Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
   selector: 'app-slots-display',
@@ -24,7 +24,7 @@ export class SlotsDisplayComponent {
   drop(event: CdkDragDrop<string[]>) {
     const column = event.item.data;
     const slotName: Slot['name'] = event.container.id.replace('data-drop-', '') as Slot['name'];
-    const slotContent: Slot['content'][number] = {
+    const slotContent: GenericSlotContent = {
       label: column.name,
       set: column.securable_id,
       column: column.id,
@@ -45,7 +45,7 @@ export class SlotsDisplayComponent {
     const column = event.item.data;
     const slotNameTemp = event.container.id.replace('data-replace-', '');
     const slotName = slotNameTemp.substring(0, slotNameTemp.lastIndexOf('-')) as Slot['name'];
-    
+
     const slotContent: Slot['content'][number] = {
       label: column.name,
       set: column.securable_id,
