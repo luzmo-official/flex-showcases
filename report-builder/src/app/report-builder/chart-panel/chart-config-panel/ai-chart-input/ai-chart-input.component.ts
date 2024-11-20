@@ -12,7 +12,7 @@ import { CHARTS } from '../../../shared/constants/charts.constant';
 import { SlotsDisplayComponent } from '../slots-display/slots-display.component';
 import { ChartPickerComponent } from '../chart-picker/chart-picker.component';
 import { ItemType } from '@luzmo/ngx-embed';
-import { Slot } from 'src/app/shared/models/slots';
+import { Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
   selector: 'app-ai-chart',

@@ -18,7 +18,7 @@ import {
   donutChartSlotsConfig,
   lineChartSlotsConfig,
   treemapChartSlotsConfig
-} from '../../../shared/configs';
+} from '@luzmo/dashboard-contents-types';
 import { Chart } from '../models/models';
 import { PALETTES } from './color-palettes.constant';
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { ChartService } from '../../../shared/services/chart.service';
 import { COLUMN_TYPE_ICONS } from '../../../shared/constants/charts.constant';
-import { GenericSlotContent, Slot } from 'src/app/shared/models/slots';
+import { GenericSlotContent, Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
   selector: 'app-slots-display',

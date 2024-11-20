@@ -1,5 +1,5 @@
 import { ItemType } from "@luzmo/ngx-embed";
-import { Slot } from "src/app/shared/models/slots";
+import { Slot } from "@luzmo/dashboard-contents-types";
 
 export type Chart = {
   type: ItemType,

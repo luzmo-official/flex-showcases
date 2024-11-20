@@ -3,7 +3,7 @@ import { patchState, signalState } from '@ngrx/signals';
 import { CHARTS } from '../constants/charts.constant';
 import { Chart } from '../models/models';
 import { FilterSlot, Value } from "../../chart-panel/filters-panel/filters-panel.component";
-import { Slot } from 'src/app/shared/models/slots';
+import { Slot } from '@luzmo/dashboard-contents-types';
 
 type ChartState = {
   name: Chart['name'];
