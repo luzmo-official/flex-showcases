@@ -1,4 +1,14 @@
-# Luzmo Flex showcase: Report builder
+---
+title: "Collapsible data filters"
+description: "A filter panel that works like a pop-out window. Expand it to interact with your data, and collapse it when no longer needed."
+tags:
+  - filter
+  - flex
+author: "Luzmo"
+image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66cf4162aecd817a80bdbe3c_dashboard-filter-panel.png"
+---
+
+# Luzmo Flex showcase: Collapsible data filters
 
 ## Installation
 ```
