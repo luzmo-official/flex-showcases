@@ -1,3 +1,14 @@
+---
+title: "Embedded AI Chart Generator"
+description: "Click on a sample question or ask your own to create a chart, powered by AI."
+tags:
+  - ai
+  - chart
+  - flex
+author: "Luzmo"
+image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66d84032abfc71dbb38bbcd7_embedded_ai_chart_generator.png"
+---
+
 # ai-showcases
 A demo of an embedded AI chart generator using the Luzmo API and composability.
 
