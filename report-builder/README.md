@@ -1,6 +1,6 @@
 ---
 title: "Report Builder"
-description: "A report builder designed to create custom charts, built with Luzmo Flex."
+description: "Use your own datasets and give your end-users the ability to create their own custom report."
 tags:
   - report
   - dashboard
