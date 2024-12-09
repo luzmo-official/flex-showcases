@@ -5,6 +5,7 @@ tags:
   - flex
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66cf414014a4d42e3957cf87_wearables-dashboard.png"
+url: "https://showcases.luzmo.com/wearables-dashboard"
 ---
 
 # Luzmo Flex showcase: wearables insights
