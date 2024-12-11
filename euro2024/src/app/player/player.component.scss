@@ -1,0 +1,37 @@
+.metric {
+  height: 8rem;
+}
+.radar-chart {
+  @media (min-width: 768px) {
+    height: 30rem;
+  }
+  height: 20rem
+}
+.player {
+  background: rgba(0,0,0,.05);
+  width: 15rem;
+  height: 15rem;
+  padding-top: 1rem;
+  border-radius: 50%;
+  position: relative;
+  svg {
+    position: absolute;
+    width: 12rem;
+    height: 14rem;
+    left: 1.5rem;
+    top: 1rem; 
+  }
+  .jersey-number {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 4.8rem;
+    width: 2rem;
+    text-align: center;
+  }
+  .country-flag {
+    position: absolute;
+    bottom: 1rem;
+    right: 4.5rem;
+    z-index: 2;
+  }
+}

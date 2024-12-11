@@ -1,0 +1,79 @@
+
+<div class="pt-5 pb-3 px-5 lg:px-0">
+  <div class="octopus-container flex justify-center gap-3 pt-0 lg:pt-3 pb-1">
+    <img src="/assets/octopus.svg" class="w-16 h-16 lg:w-24 lg:h-24">
+    <div class="octopus-answer rounded-lg p-3">
+      <b class="text-xl mr-2">AI Octopus:</b>
+      <span class="type-effect" [style]="'--n:'+explanation.length" [innerHTML]="explanation"></span>
+    </div>
+  </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-6">
+  @if (probabilityDates.length > 1) {
+    <div class="col-span-1 md:col-span-8 lg:col-span-6 flex justify-center px-5 py-3 mb-3">
+      <div class="flex items-center border rounded-lg pl-1 pr-3">
+        <button mat-icon-button class="mr-1" (click)="status.playing ? pause() : play()">
+          @if (status.playing) {
+            <mat-icon fontSet="material-symbols-outlined">pause</mat-icon>
+          } @else {
+            <mat-icon fontSet="material-symbols-outlined">play_arrow</mat-icon>
+          }
+        </button>
+        <div class="mr-3">Slide<span class="hidden lg:inline"> over time:</span></div>
+        <mat-slider #probabilityDateSlider min="0" [max]="probabilityDates.length -1" step="1" showTickMarks class="slider">
+          <input [value]="activeDate.index" matSliderThumb (dragEnd)="setActiveProbabilityDate($event)">
+        </mat-slider>
+        <div class="ml-5 hidden lg:block">{{ activeDate.dateString }}</div>
+        <div class="ml-5 block lg:hidden">{{ activeDate.shortDateString }}</div>
+      </div>
+    </div>
+  }
+  <div class="col-span-1 md:col-span-5 lg:col-span-4">
+    <div class="text-center font-light"><span class="hidden lg:inline">Win probablity: </span><span class="font-bold">Select a country</span> to display it's win probability</div>
+    <luzmo-viz-item
+      class="probability-table"
+      [authKey]="authKey"
+      [authToken]="authToken"
+      [type]="probabilityHeatTable.type"
+      [filters]="probabilityHeatTable.filters"
+      [options]="probabilityHeatTable.options"
+      [slots]="probabilityHeatTable.slots"
+      (customEvent)="onCustomEvent($event)"
+      (rendered)="onRenderedProbabilitiesDate($event)"
+    ></luzmo-viz-item>
+  </div>
+  <div class="col-span-1 md:col-span-3 lg:col-span-2 pt-5 md:pt-0" id="funnel">
+    @if (status.displayPicker) {
+      <div class="flex items-center justify-center">
+        <div class="block md:hidden lg:block">Win probability per stage:</div>
+        <div class="hidden md:block lg:hidden">Probabilities:</div>
+        <div class="flex-none mr-3">
+          <button [matMenuTriggerFor]="menu" class="flex items-center py-1 px-3">
+            <div [ngClass]="'rounded-full overflow-hidden h-6 w-6 fib fis fi-' + activeCountry.iso.toLocaleLowerCase()"></div>
+            <span class="ml-3 mr-1">{{ activeCountry.title }}</span>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            @for (country of countriesList; track country.key) {
+              <div mat-menu-item (click)="setActiveCountry(country)" class="flex" [class.selected]="activeCountry.key === country.key">
+                <div class="flex items-center">
+                  <div [ngClass]="'rounded-full overflow-hidden h-6 w-6 fib fis fi-' + country.iso.toLocaleLowerCase()"></div>
+                  <div class="ml-2">{{ country.title }}</div>
+                </div>
+              </div>
+            }
+          </mat-menu>
+        </div>
+      </div>
+    }
+    <luzmo-viz-item
+      class="chart"
+      [authKey]="authKey"
+      [authToken]="authToken"
+      [type]="funnelProbabilityChart.type"
+      [filters]="funnelProbabilityChart.filters"
+      [options]="funnelProbabilityChart.options"
+      [slots]="funnelProbabilityChart.slots"
+      (rendered)="onRendered($event)"
+    ></luzmo-viz-item>
+  </div>
+</div>

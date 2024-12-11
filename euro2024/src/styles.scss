@@ -1,0 +1,144 @@
+@use '@angular/material' as mat;
+@use './styles/m3-theme';
+
+@import "material-symbols/outlined.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* This is how you apply the border-color for both light and dark mode */
+  .border {
+    @apply border-slate-300 dark:border-slate-600;
+  }
+}
+
+@include mat.core();
+
+html {
+  @include mat.core-theme(m3-theme.$light-theme);
+  @include mat.button-theme(m3-theme.$light-theme);
+  @include mat.toolbar-theme(m3-theme.$light-theme);
+  @include mat.menu-theme(m3-theme.$light-theme);
+  @include mat.icon-theme(m3-theme.$light-theme);
+  @include mat.sidenav-theme(m3-theme.$light-theme);
+  @include mat.tooltip-theme(m3-theme.$light-theme);
+  @include mat.select-theme(m3-theme.$light-theme);
+  @include mat.input-theme(m3-theme.$light-theme);
+  @include mat.form-field-theme(m3-theme.$light-theme);
+  @include mat.dialog-theme(m3-theme.$light-theme);
+  @include mat.progress-bar-theme(m3-theme.$light-theme);
+  @include mat.progress-spinner-theme(m3-theme.$light-theme);
+  @include mat.slider-theme(m3-theme.$light-theme);
+  --background-color: rgb(255, 255, 255, 1);
+  --border-color: #e0e0e0;
+  --primary: #003399;
+  --font-color: #333333;
+  --menu-background-color: #edeaef;
+  --mat-menu-item-label-text-size: 0.875rem;
+  --mat-menu-item-label-text-weight: 500;
+  --mat-menu-item-hover-state-layer-color: rgba(26, 27, 31, .08);
+  --mat-menu-item-active-state-layer-color: rgba(26, 27, 31, .15);
+  --gradient: linear-gradient(144deg, rgb(14, 48, 139) 0%, rgb(58, 104, 226) 34%, rgb(205, 0, 255) 100%);
+  --hover-gradient: linear-gradient(144deg, rgb(14, 48, 139) 0%, rgb(58, 104, 226) 54%, rgb(205, 0, 255) 100%);
+  --mdc-slider-inactive-track-color: #000000;
+}
+html[data-theme="dark"] {
+  @include mat.core-color(m3-theme.$dark-theme);
+  @include mat.button-color(m3-theme.$dark-theme);
+  @include mat.toolbar-color(m3-theme.$dark-theme);
+  @include mat.menu-color(m3-theme.$dark-theme);
+  @include mat.icon-color(m3-theme.$dark-theme);
+  @include mat.sidenav-color(m3-theme.$dark-theme);
+  @include mat.tooltip-color(m3-theme.$dark-theme);
+  @include mat.select-color(m3-theme.$dark-theme);
+  @include mat.input-color(m3-theme.$dark-theme);
+  @include mat.form-field-color(m3-theme.$dark-theme);
+  @include mat.dialog-color(m3-theme.$dark-theme);
+  @include mat.progress-bar-color(m3-theme.$dark-theme);
+  @include mat.progress-spinner-color(m3-theme.$dark-theme);
+  @include mat.slider-color(m3-theme.$dark-theme);
+  --background-color: rgb(15,23,42);
+  --border-color: #5a5a5a;
+  --primary: #416cc2;
+  --font-color: #f0f0f0;
+  --menu-background-color: #1e293b;
+  --mat-menu-item-hover-state-layer-color: rgba(255, 255, 255, 0.08);
+  --mat-menu-item-active-state-layer-color: rgba(255, 255, 255, 0.15);
+  --gradient: linear-gradient(144deg, rgb(93, 135, 250) 0%, rgb(107, 135, 213) 34%, rgb(231, 149, 252) 100%);
+  --hover-gradient: linear-gradient(144deg, rgb(93, 135, 250) 0%, rgb(107, 135, 213) 54%, rgb(231, 149, 252) 100%);
+  --mdc-slider-inactive-track-color: #ffffff;
+}
+
+.link-gradient {
+  background: #003399;
+  background-image: var(--gradient);
+  background-clip: text;
+  color: transparent;
+  animation: all ease-in-out 0.3s;
+  &:hover {
+    background-image: var(--hover-gradient);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.cdk-overlay-pane {
+  max-height: 20rem;
+}
+
+.mat-mdc-menu-panel {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  background-color: var(--menu-background-color) !important;
+  border: 1px solid var(--border-color);
+}
+
+.mat-mdc-menu-item {
+  font-size: .75rem;
+  &.selected {
+    background-color: var(--mat-menu-item-active-state-layer-color);
+  }
+}
+
+.type-effect {
+  color: #0000;
+  background: linear-gradient(-90deg, #fff 5px, #0000 0) 10px 0,
+    linear-gradient(#fff 0 0) 0 0;
+  background-size: calc(var(--n) * 1ch) 200%;
+  -webkit-background-clip: padding-box, text;
+  background-clip: padding-box, text;
+  background-repeat: no-repeat;
+  animation: b 0.08s infinite steps(1),
+    t calc(var(--n) * 0.01s) steps(var(--n)) forwards;
+}
+
+@keyframes t {
+  from {
+    background-size: 0 200%;
+  }
+}
+@keyframes b {
+  50% {
+    background-position: 0 -100%, 0 0;
+  }
+}
+
+.userflow-euro2024 {}

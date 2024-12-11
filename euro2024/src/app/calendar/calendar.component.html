@@ -1,0 +1,62 @@
+<div class="px-5 lg:px-0 mt-5 lg:pt-5 pb-5">
+  <h1 class="text-lg">Game Calendar</h1>
+  @if (status.loading) {
+    <div class="py-5">
+      Loading games...
+    </div>
+  } @else {
+    <div restoreScrollPosition>
+      @for (day of perDay; track day.date) {
+        <div class="text-xl bold py-3 mt-5" [id]="'d-' + day.date">{{ day.dateStr }}</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          @for (game of day.games; track game.id) {
+            <a [routerLink]="['/compare', game.homeTeamCountryCode + '-vs-' + game.awayTeamCountryCode]" [queryParams]="{ gameId: game.id }" class="border rounded-lg px-5 py-3">
+              <div>{{game.group}}</div>
+              <div class="flex items-center">
+                <div class="flex-none">
+                  <div
+                    [class.font-bold]="game.homeTeamGoals > game.awayTeamGoals || ( game.homeTeamGoals === game.awayTeamGoals && game.homeTeamPenalties > game.awayTeamPenalties)"
+                    class="flex items-center mb-2">
+                    <div [ngClass]="'border rounded-full h-8 w-8 mr-3 fib fis fi-' + game.homeTeamIsoCode?.toLocaleLowerCase()"></div>
+                    <div>{{game.homeTeamName}}</div>
+                  </div>
+                  <div
+                    [class.font-bold]="game.homeTeamGoals < game.awayTeamGoals || ( game.homeTeamGoals === game.awayTeamGoals && game.homeTeamPenalties < game.awayTeamPenalties)"
+                    class="flex items-center">
+                    <div [ngClass]="'border rounded-full h-8 w-8 mr-3 fib fis fi-' + game.awayTeamIsoCode?.toLocaleLowerCase()"></div>
+                    <div>{{game.awayTeamName}}</div>
+                  </div>
+                </div>
+                <div class="grow px-4">
+                  @if (game.homeTeamGoals !== null && game.awayTeamGoals !== null) {
+                    <div
+                      [class.font-bold]="game.homeTeamGoals > game.awayTeamGoals || ( game.homeTeamGoals === game.awayTeamGoals && game.homeTeamPenalties > game.awayTeamPenalties)"
+                      class="py-2">
+                      {{ game.homeTeamGoals }}
+                      @if (game.homeTeamPenalties !== null) {
+                        <span class="ml-2">({{ game.homeTeamPenalties }})</span>
+                      }
+                    </div>
+                    <div
+                      [class.font-bold]="game.homeTeamGoals < game.awayTeamGoals || ( game.homeTeamGoals === game.awayTeamGoals && game.homeTeamPenalties < game.awayTeamPenalties)"
+                      class="py-2">
+                      {{ game.awayTeamGoals }}
+                      @if (game.awayTeamPenalties !== null) {
+                        <span class="ml-2">({{ game.awayTeamPenalties }})</span>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="flex-none border-l-[1px] pl-5">
+                  <div class="mb-3" [innerText]="game.homeTeamGoals !== null && game.awayTeamGoals !== null ? ( game.status === 'LIVE' ? 'Live' : '&nbsp;') : game.time"></div>
+                  <div><button class="head-to-head-btn border rounded py-1 px-2">Head to head</button></div>
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+    

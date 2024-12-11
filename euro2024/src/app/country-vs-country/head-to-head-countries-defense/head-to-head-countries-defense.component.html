@@ -1,0 +1,22 @@
+<div class="grid grid-cols-2 lg:gap-3">
+  <div class="lg:border lg:rounded">
+    <app-number-metrics [metrics]="numberMetrics" [country]="left()"></app-number-metrics>
+    @if (!smallScreen) {
+      <app-metric-selector [metrics]="metrics" [country]="left()"></app-metric-selector>
+    }
+  </div>
+  <div class="lg:border border-l-[1px] lg:rounded">
+    <app-number-metrics [metrics]="numberMetrics" [country]="right()"></app-number-metrics>
+    @if (!smallScreen) {
+      <app-metric-selector [metrics]="metrics" [country]="right()"></app-metric-selector>
+    }
+  </div>
+</div>
+@if (smallScreen) {
+  <div>
+    <app-metric-selector [metrics]="metrics" [countries]="[left(), right()]"></app-metric-selector>
+  </div>
+}
+<div class="text-right pb-2">
+  <small>* p.g. = per game </small>
+</div>

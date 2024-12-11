@@ -1,0 +1,13 @@
+<div class="pt-5">
+  <h2>Countries</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4 pt-3">
+    @for (country of countries; track country.key) {
+      <a class="country-option flex items-center mb-5" [routerLink]="['/country', country.key]">
+        <div class="flag overflow-hidden border rounded-full flex items-center justify-center mb-2">
+          <div [class]="'flag-icon-squared fi fis fi-' + country?.iso?.toLocaleLowerCase()"></div>
+        </div>
+        <div class="name">{{ country.title }}</div>
+      </a>
+    }
+  </div>
+</div>

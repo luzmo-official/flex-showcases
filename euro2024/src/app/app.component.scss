@@ -1,0 +1,67 @@
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+mat-sidenav-container {
+  height: 100%;
+}
+mat-sidenav {
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+}
+mat-sidenav-content{
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+      padding-top: 4rem;
+  }
+}
+.container.resp-w-full {
+  width: 100%;
+  max-width: 100% !important;
+  @media (min-width: 1024px) {
+    max-width: 1024px !important;
+  }
+  @media (min-width: 1280px) {
+    max-width: 1280px !important;
+  }
+  @media (min-width: 1536px) {
+    max-width: 1536px !important;
+  }
+}
+.mat-toolbar {
+  background-color: var(--background-color);
+}
+.mat-drawer.hidden {
+  display: none !important;
+}
+.side-navigation {
+  width: 15rem;
+  background: var(--background-color);
+  border-right: 1px solid var(--border-color);
+}
+.menu-button {
+  margin-left: -.75rem;
+}
+.navbar-link,
+.sidenav-link {
+  opacity: .7;
+  &.active {
+    opacity: 1;
+    font-weight: 500;
+  }
+}
+.header-link.active {
+  border-bottom: 1px solid var(--primary);
+}
+.logo-text {
+  font-family: 'Roboto Slab';
+  font-weight: 600;
+  font-size: 1rem;
+}
+.logo path {
+  fill: var(--font-color);
+}

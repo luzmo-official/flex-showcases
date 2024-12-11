@@ -1,0 +1,20 @@
+h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.head-to-head-btn {
+  background: rgb(14, 48, 139);
+  background-image: var(--gradient);
+  background-clip: text;
+  color: #0000;
+  transition: all ease-in-out .3s;
+  font-size: .875rem;
+  &:hover {
+    color: white;
+    background: rgb(14, 48, 139);
+    background-image: var(--hover-gradient);
+    background-clip: none;
+    border-color: var(--background-color);
+  }
+}

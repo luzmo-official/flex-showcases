@@ -1,0 +1,67 @@
+.onOff {
+  height: 35rem
+}
+.on-off {
+  @media (min-width: 768px) {
+    height: 30rem;
+  }
+  @media (min-width: 992px) {
+    height: 35rem;
+  }
+  height: 25rem
+}
+
+.dim-1-1 {
+  @media (min-width: 768px) {
+    height: 30rem;
+  }
+  @media (min-width: 992px) {
+    height: 35rem;
+  }
+  height: 25rem
+}
+.dim-4-3 {
+  @media (min-width: 768px) {
+    height: 25rem;
+  }
+  @media (min-width: 992px) {
+    height: 30rem;
+  }
+  height: 20rem
+}
+.dim-5-3 {
+  @media (min-width: 768px) {
+    height: 20rem;
+  }
+  @media (min-width: 992px) {
+    height: 25rem;
+  }
+  height: 15rem
+}
+.dim-6-3 {
+  @media (min-width: 768px) {
+    height: 12rem;
+  }
+  @media (min-width: 992px) {
+    height: 15rem;
+  }
+  height: 10rem
+}
+.dim-3-4 {
+  @media (min-width: 768px) {
+    height: 32rem;
+  }
+  @media (min-width: 992px) {
+    height: 35rem;
+  }
+  height: 30rem
+}
+.dim-3-5 {
+  @media (min-width: 768px) {
+    height: 35rem;
+  }
+  @media (min-width: 992px) {
+    height: 40rem;
+  }
+  height: 35rem
+}

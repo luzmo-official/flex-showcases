@@ -1,0 +1,49 @@
+<div class="px-3 lg:px-0">
+  <div class="flex flex-nowrap items-center pt-0 lg:pt-3 mb-5 lg:mb-3">
+    <a [routerLink]="'/calendar'" class="link-gradient">Countries</a>
+    <div class="px-0 md:px-3 flex items-center">
+      <mat-icon fontSet="material-symbols-outlined" class="breadcrumb-arrow">chevron_right</mat-icon>
+    </div>
+    <span class="text-ellipsis overflow-hidden whitespace-nowrap">
+      <span>Qualifiers & Tournament</span>
+      <span class="max-md:hidden ml-1">stats</span>
+    </span>
+  </div>
+  <div class="flex items-center justify-center px-3 mb-5">
+    <div class="flex flex-col items-center px-5 gap-3">
+      <div [class]="'flag mb-3 rounded-full border fi fis fi-' + country.iso.toLocaleLowerCase()"></div>
+      <div>
+        <button [matMenuTriggerFor]="menuFirstCountry" class="flex items-center py-1 px-3 mb-2">
+          <div class="pl-5">{{ country.title }}</div>
+          <mat-icon fontSet="material-symbols-outlined" class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menuFirstCountry="matMenu" xPosition="before">
+          @for (country of countries; track country.key) {
+            <div mat-menu-item (click)="onCountryChanged(country)" [class.selected]="country.key === country.key">
+              <div class="flex items-center gap-3">
+                <div [ngClass]="'rounded-full overflow-hidden h-6 w-6 fib fis fi-' + country.iso.toLocaleLowerCase()"></div>
+                <div>{{ country.title }}</div>
+              </div>
+            </div>
+          }
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tab flex gap-2 lg:gap-3 my-5">
+    @for (tab of tabs; track tab.key) {
+      <div class="cursor-pointer border rounded py-2 px-3" [class.active]="activeTab === tab.key" (click)="setTab(tab.key)">{{ tab.title }}</div>
+    }
+  </div>
+</div>
+
+@if (activeTab === 'team') {
+  <app-country-stats-team [country]="country.key"></app-country-stats-team>
+} @else if (activeTab === 'offense') {
+  <app-country-stats-offense [country]="country.key"></app-country-stats-offense>
+} @else if ( activeTab === 'defense') {
+  <app-country-stats-defense [country]="country.key"></app-country-stats-defense>
+} @else if ( activeTab === 'keeper') {
+  <app-country-stats-keeper [country]="country.key"></app-country-stats-keeper>
+}

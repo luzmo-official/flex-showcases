@@ -1,0 +1,89 @@
+<div class="px-5 pt-5 lg:px-0">
+  <!--div class="fixed bottom-0 right-0 z-10 p-5">
+    <img src="/assets/octopus.svg" class="w-24 h-24 lg:w-32 lg:h-32">
+  </div-->
+  <div class="flex flex-nowrap items-center pt-0 lg:pt-3 mb-5 lg:mb-3">
+    <a [routerLink]="'/calendar'" class="link-gradient">Games</a>
+    <div class="px-0 md:px-3 flex items-center">
+      <mat-icon fontSet="material-symbols-outlined" class="breadcrumb-arrow">chevron_right</mat-icon>
+    </div>
+    <span class="text-ellipsis overflow-hidden whitespace-nowrap">
+      <span>Qualifiers & Tournament</span>
+      <span class="max-md:hidden ml-1">stats</span>
+    </span>
+  </div>
+   
+  <div class="flex items-center justify-center px-3 mb-5">
+    <div class="flex flex-col items-center px-5 gap-3">
+      <div [class]="'flag mb-3 rounded-full border fi fis fi-' + firstCountry.iso.toLocaleLowerCase()"></div>
+      <div>
+        <button [matMenuTriggerFor]="menuFirstCountry" class="flex items-center py-1 px-3 mb-2">
+          <div class="pl-5">{{ firstCountry.title }}</div>
+          <mat-icon fontSet="material-symbols-outlined" class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menuFirstCountry="matMenu" xPosition="before">
+          @for (country of countries; track country.key) {
+            @if (country.key !== secondCountry.key) {
+              <div mat-menu-item (click)="onCountryChanged(country, 'first')" [class.selected]="firstCountry.key === country.key">
+                <div class="flex items-center gap-3">
+                  <div [ngClass]="'rounded-full overflow-hidden h-6 w-6 fib fis fi-' + country.iso.toLocaleLowerCase()"></div>
+                  <div>{{ country.title }}</div>
+                </div>
+              </div>
+            }
+          }
+        </mat-menu>
+      </div>
+    </div>
+    <div class="px-5 pb-5">vs</div>
+    <div class="flex flex-col items-center px-5 gap-3">
+      <div [class]="'flag mb-3 rounded-full border fi fis fi-' + secondCountry.iso.toLocaleLowerCase()"></div>
+      <div>
+        <button [matMenuTriggerFor]="menuSecondCountry" class="flex items-center py-1 px-3 mb-2">
+          <div class="pl-5">{{ secondCountry.title }}</div>
+          <mat-icon fontSet="material-symbols-outlined" class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menuSecondCountry="matMenu" xPosition="before">
+          @for (country of countries; track country.key) {
+            @if (country.key !== firstCountry.key) {
+              <div mat-menu-item (click)="onCountryChanged(country, 'second')" [class.selected]="secondCountry.key === country.key">
+                <div class="flex items-center gap-3">
+                  <div [ngClass]="'rounded-full overflow-hidden h-6 w-6 fib fis fi-' + country.iso.toLocaleLowerCase()"></div>
+                  <div>{{ country.title }}</div>
+                </div>
+              </div>
+            }
+          }
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center gap-3 pb-3">
+    <img src="/assets/octopus.svg" class="w-16 h-16 lg:w-24 lg:h-24">
+    <div class="octopus-answer rounded-lg p-3">
+      <b class="text-xl mr-2">AI Octopus:</b>
+      @if (status.loading) {
+        thinking
+        <div class="loader"></div>
+      } @else {
+        <span class="type-effect" [style]="'--n:'+aiPrediction.length" [innerHTML]="aiPrediction"></span>
+      }
+    </div>
+  </div>
+  
+  <div class="tab flex gap-2 lg:gap-3 my-5">
+    @for (tab of tabs; track tab.key) {
+      <div class="cursor-pointer border rounded py-2 px-3" [class.active]="activeTab === tab.key" (click)="setTab(tab.key)">{{ tab.title }}</div>
+    }
+  </div>
+</div>
+
+@if (activeTab === 'team') {
+  <app-head-to-head-countries-team [left]="firstCountry.key" [right]="secondCountry.key"></app-head-to-head-countries-team>
+} @else if (activeTab === 'offense') {
+  <app-head-to-head-countries-offense [left]="firstCountry.key" [right]="secondCountry.key"></app-head-to-head-countries-offense>
+} @else if ( activeTab === 'defense') {
+  <app-head-to-head-countries-defense [left]="firstCountry.key" [right]="secondCountry.key"></app-head-to-head-countries-defense>
+} @else if ( activeTab === 'keeper') {
+  <app-head-to-head-countries-keeper [left]="firstCountry.key" [right]="secondCountry.key"></app-head-to-head-countries-keeper>
+}

@@ -1,0 +1,15 @@
+.metric {
+  @media (min-width: 768px) {
+    height: 6.5rem;
+  }
+  @media (min-width: 992px) {
+    height: 8rem;
+  }
+  height: 5rem;
+}
+.germany-no-stats {
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

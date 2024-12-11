@@ -1,0 +1,42 @@
+@if (!showGermanyNoGames || countries()?.length > 0) {
+  <div class="px-0 lg:px-4">
+    <div class="flex flex-row-reverse pt-5 px-3 lg:px-0">
+      <div class="flex-shrink">
+        <button [matMenuTriggerFor]="menu" class="flex border rounded items-center py-1 px-3 mb-2">
+          <div class="text-ellipsis overflow-hidden whitespace-nowrap mr-2">{{ activeMetric?.title }}</div>
+          <mat-icon fontSet="material-symbols-outlined" class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          @for (metric of metricsArray; track metric.key) {
+            <div mat-menu-item (click)="setActiveMetric(metric)" [class.selected]="activeMetric.key === metric.key">{{ metric.title }}</div>
+          }
+        </mat-menu>
+      </div>
+      @if (countries()?.length > 1) {
+        <div class="flex-none mr-3">
+          <button [matMenuTriggerFor]="menu" class="flex border rounded items-center py-1 px-3 mb-2">
+            <span class="mr-2">{{ activeCountry?.title }}</span>
+            <mat-icon fontSet="material-symbols-outlined" class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            @for (country of countriesList; track country.key) {
+              <div mat-menu-item (click)="setActiveCountry(country)" [class.selected]="activeCountry.key === country.key">{{ country.title }}</div>
+            }
+          </mat-menu>
+        </div>
+      }
+    </div>
+    @if (activeMetric?.chart) {
+      <luzmo-viz-item
+        [class]="activeMetric.class"
+        [type]="activeMetric.chart.type"
+        [authKey]="authKey"
+        [authToken]="authToken"
+        [filters]="activeMetric.chart.filters"
+        [slots]="activeMetric.chart.slots"
+        [options]="activeMetric.chart.options"
+        (customEvent)="onCustomEvent($event)"
+      ></luzmo-viz-item>
+    }
+  </div>
+}

@@ -1,0 +1,19 @@
+@if (showGermanyNoGames) {
+  <div class="germany-no-stats text-lg p-5 italic">
+    Germany is the organizing country and hasn't played any qualifier games.<br>No stats to display yet.
+  </div>
+} @else {
+  <div class="grid lg:grid-cols-3">
+    @for (metric of metrics(); track metric) {
+      <luzmo-viz-item
+        class="metric"
+        [type]="metric.type"
+        [authKey]="authKey"
+        [authToken]="authToken"
+        [filters]="teamCountryFilter"
+        [slots]="metric.slots"
+        [options]="metric.options"
+      ></luzmo-viz-item>
+    }
+  </div>
+}
