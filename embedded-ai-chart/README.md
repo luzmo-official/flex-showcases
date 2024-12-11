@@ -10,8 +10,8 @@ image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66d84032abfc
 url: "https://ai-showcases.luzmo.com/embedded-chart-generator"
 ---
 
-# ai-showcases
-A demo of an embedded AI chart generator using the Luzmo API and composability.
+# Luzmo Flex showcase: AI chart generator
+A demo of an embedded AI chart generator using the Luzmo API and Luzmo Flex.
 
 ## Usage
 To use this project, follow these steps:
@@ -32,5 +32,5 @@ module.exports = {
   },
 };
 ```
-4. Run the backend `cd backend && node index.js`
-5. Run the frontend `cd frontend && ng serve`
+5. Run the backend `cd backend && node index.js`
+6. Run the frontend `cd frontend && ng serve`

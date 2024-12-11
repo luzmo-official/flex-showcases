@@ -8,7 +8,7 @@ image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66cf414014a4
 url: "https://showcases.luzmo.com/wearables-dashboard"
 ---
 
-# Luzmo Flex showcase: wearables insights
+# Luzmo Flex showcase: Personal health tracker
 
 ## About the Application
 
@@ -63,27 +63,3 @@ npm start
 ## Accessing the Application
 
 Once the application is running, you can access it in your web browser at `http://localhost:5173`.
-
-# (_**to be checked if useful or not**_) Default README content
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json", "./tsconfig.app.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

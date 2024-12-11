@@ -1,0 +1,43 @@
+.property-table {
+  width: 100%;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table td:nth-of-type(1) {
+  width: 100px;
+} /*Setting the width of label column.*/
+table td:nth-of-type(2) {
+  width: 30px;
+} /*Setting the width of count column.*/
+
+tr {
+  border-top: 1px solid #ebecef;
+  border-bottom: 1px solid #ebecef;
+}
+
+td {
+  padding: 6px 2px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.progress-bar {
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 14px;
+}
