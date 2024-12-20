@@ -28,6 +28,7 @@
     "@codemirror/state": "^6.4.0",
     "@codemirror/theme-one-dark": "^6.1.2",
     "@codemirror/view": "^6.23.0",
+    "@luzmo/analytics-components-kit": "^1.0.1-alpha.3",
     "@luzmo/dashboard-contents-types": "^1.0.5",
     "@luzmo/ngx-embed": "6.3.8",
     "@luzmo/nodejs-sdk": "^1.2.2",

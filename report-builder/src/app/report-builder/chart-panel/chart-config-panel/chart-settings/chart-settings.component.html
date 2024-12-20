@@ -20,13 +20,15 @@
       ></app-chart-setting-color-palette>
     }
     @case ('dropdown') {
-      <app-chart-setting-dropdown
+      <luzmo-edit-option-picker
+        size="m"
         class="w-full"
         [label]="chartSettings[key]?.label"
         [values]="chartSettings[key]?.values"
-        [value]="chartSettings[key]?.default"
-        (valueChange)="setChartOption($event, chartSettings[key]?.transformFn)"
-      ></app-chart-setting-dropdown>
+        [key]="chartSettings[key]?.default"
+        (change)="setChartOption($any($event).detail, chartSettings[key]?.transformFn)"
+      >
+      </luzmo-edit-option-picker>
     }
     @case ('variableAxisInput') {
       <app-chart-setting-variable-axis-input
@@ -40,6 +42,3 @@
     }
   }
 }
-
-
-

@@ -66,15 +66,15 @@ export const MANUALAXISRANGE = (label?: string, transformFn?: Function) => {
     }),
   };
 }
-export const AXISSCALE = (label?: string, axisPath?: string ) => {
+export const AXISSCALE = (label?: string, axisPath?: string) => {
   return {
     type: 'dropdown',
     label: label ?? 'Axis scale type',
-    values: [
-      { key: 'linear', label: 'Linear' },
-      { key: 'logarithmic_2', label: 'Logarithmic (2)' },
-      { key: 'logarithmic_10', label: 'Logarithmic (10)' }
-    ],
+    values: {
+      linear: 'Linear',
+      logarithmic_2: 'Logarithmic (2)',
+      logarithmic_10: 'Logarithmic (10)'
+    },
     default: 'linear',
     transformFn: ((value: any) => {
       const scale: any = {};
@@ -106,29 +106,29 @@ export const LEGENDPOSITION = () => {
   return {
     type: 'dropdown',
     label: 'Legend Position',
-    values: [
-      { key: 'top', label: 'Top' },
-      { key: 'topRight', label: 'Top right' },
-      { key: 'right', label: 'Right' },
-      { key: 'bottomRight', label: 'Bottom right' },
-      { key: 'bottom', label: 'Bottom' },
-      { key: 'bottomLeft', label: 'Bottom left' },
-      { key: 'left', label: 'Left' },
-      { key: 'topLeft', label: 'Top left' },
-    ],
+    values: {
+      top: 'Top',
+      topRight: 'Top right',
+      right: 'Right',
+      bottomRight: 'Bottom right',
+      bottom: 'Bottom',
+      bottomLeft: 'Bottom left',
+      left: 'Left',
+      topLeft: 'Top left',
+    },
     default: 'topRight',
-    transformFn: (value: any) => ({ legend: { position: value }}),
+    transformFn: (value: any) => ({ legend: { position: value } }),
   };
 };
 export const BARCOLUMNCHARTMODE = () => {
   return {
     type: 'dropdown',
     label: 'Mode',
-    values: [
-      { key: 'grouped', label: 'Grouped' },
-      { key: 'stacked', label: 'Stacked' },
-      { key: '100', label: '100% Stacked' },
-    ],
+    values: {
+      grouped: 'Grouped',
+      stacked: 'Stacked',
+      '100': '100% Stacked',
+    },
     default: 'grouped',
     transformFn: (value: any) => ({ mode: value }),
   };
@@ -144,22 +144,22 @@ export const CHARTS = (): Chart[] => {
         labels: {
           type: 'dropdown',
           label: 'Display values',
-          values: [
-            { key: 'none', label: 'No values' },
-            { key: 'absolute', label: 'Absolute' },
-            { key: 'percentage', label: 'Percentage' },
-            { key: 'percentageCategory', label: 'Percentage of Category' },
-            { key: 'percentageLegend', label: 'Percentage of Legend' },
-            { key: 'percentageMax', label: 'Percentage of Maximum' }
-          ],
+          values: {
+            none: 'No values',
+            absolute: 'Absolute',
+            percentage: 'Percentage',
+            percentageCategory: 'Percentage of Category',
+            percentageLegend: 'Percentage of Legend',
+            percentageMax: 'Percentage of Maximum'
+          },
           default: 'none',
-          transformFn: (value: any) => ({ bars: { label: value }}),
+          transformFn: (value: any) => ({ bars: { label: value } }),
         },
         yAxisScale: AXISSCALE('Measure scale', 'axis.y'),
         yAxisLabel: {
           type: 'input',
         },
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         variableAxis: MANUALAXISRANGE(),
         colorPalette: COLORPALETTES(),
@@ -176,23 +176,23 @@ export const CHARTS = (): Chart[] => {
         labels: {
           type: 'dropdown',
           label: 'Display values',
-          values: [
-            { key: 'none', label: 'No values' },
-            { key: 'absolute', label: 'Absolute' },
-            { key: 'percentage', label: 'Percentage' },
-            { key: 'percentageCategory', label: 'Percentage of Category' },
-            { key: 'percentageLegend', label: 'Percentage of Legend' },
-            { key: 'percentageMax', label: 'Percentage of Maximum' }
-          ],
+          values: {
+            none: 'No values',
+            absolute: 'Absolute',
+            percentage: 'Percentage',
+            percentageCategory: 'Percentage of Category',
+            percentageLegend: 'Percentage of Legend',
+            percentageMax: 'Percentage of Maximum'
+          },
           default: 'none',
-          transformFn: (value: any) => ({ bars: { label: value }}),
+          transformFn: (value: any) => ({ bars: { label: value } }),
         },
         xAxisScale: AXISSCALE('Measure scale', 'axis.x'),
         variableAxis: MANUALAXISRANGE(),
         yAxisLabel: {
           type: 'input',
         },
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES(),
         colors: [],
@@ -209,7 +209,7 @@ export const CHARTS = (): Chart[] => {
           type: 'input',
         },
         variableAxis: MANUALAXISRANGE(),
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
@@ -231,7 +231,7 @@ export const CHARTS = (): Chart[] => {
           type: 'input',
         },
         variableAxis: MANUALAXISRANGE(),
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
@@ -245,7 +245,7 @@ export const CHARTS = (): Chart[] => {
         mode: 'donut'
       },
       settings: {
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES()
       },
@@ -263,7 +263,7 @@ export const CHARTS = (): Chart[] => {
         yAxisLabel: {
           type: 'input',
         },
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         variableAxis: MANUALAXISRANGE(),
         colorPalette: COLORPALETTES()
@@ -278,18 +278,18 @@ export const CHARTS = (): Chart[] => {
         labels: {
           type: 'dropdown',
           label: 'Display values',
-          values: [
-            { key: 'none', label: 'No values' },
-            { key: 'absolute', label: 'Absolute' },
-            { key: 'percentage', label: 'Percentage' },
-            { key: 'percentageCategory', label: 'Percentage of Category' },
-            { key: 'percentageLegend', label: 'Percentage of Legend' },
-            { key: 'percentageMax', label: 'Percentage of Maximum' }
-          ],
+          values: {
+            none: 'No values',
+            absolute: 'Absolute',
+            percentage: 'Percentage',
+            percentageCategory: 'Percentage of Category',
+            percentageLegend: 'Percentage of Legend',
+            percentageMax: 'Percentage of Maximum',
+          },
           default: 'none',
-          transformFn: (value: any) => ({ bars: { label: value }}),
+          transformFn: (value: any) => ({ bars: { label: value } }),
         },
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES(),
         colors: [],
@@ -304,18 +304,18 @@ export const CHARTS = (): Chart[] => {
         labels: {
           type: 'dropdown',
           label: 'Display values',
-          values: [
-            { key: 'none', label: 'No values' },
-            { key: 'absolute', label: 'Absolute' },
-            { key: 'percentage', label: 'Percentage' },
-            { key: 'percentageCategory', label: 'Percentage of Category' },
-            { key: 'percentageLegend', label: 'Percentage of Legend' },
-            { key: 'percentageMax', label: 'Percentage of Maximum' }
-          ],
+          values: {
+            none: 'No values',
+            absolute: 'Absolute',
+            percentage: 'Percentage',
+            percentageCategory: 'Percentage of Category',
+            percentageLegend: 'Percentage of Legend',
+            percentageMax: 'Percentage of Maximum',
+          },
           default: 'none',
-          transformFn: (value: any) => ({ bars: { label: value }}),
+          transformFn: (value: any) => ({ bars: { label: value } }),
         },
-        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value }})),
+        showLegend: CHECKBOX('Show Legend', true, (value: any) => ({ display: { legend: value } })),
         legendPosition: LEGENDPOSITION(),
         colorPalette: COLORPALETTES(),
         colors: [],

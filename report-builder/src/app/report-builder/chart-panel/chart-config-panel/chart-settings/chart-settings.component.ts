@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,6 +14,7 @@ import { ChartSettingVariableAxisInputComponent } from './chart-setting-variable
 import { ChartSettingTextInputComponent } from './chart-setting-text-input/chart-setting-text-input.component';
 import { ChartSettingColorsComponent } from './chart-setting-colors/chart-setting-colors.component';
 import { ChartSettingColorPaletteComponent } from './chart-setting-color-palette/chart-setting-color-palette.component';
+import '@luzmo/analytics-components-kit/edit-option-picker';
 
 @Component({
   selector: 'app-chart-settings',
@@ -33,6 +34,7 @@ import { ChartSettingColorPaletteComponent } from './chart-setting-color-palette
   ],
   templateUrl: './chart-settings.component.html',
   styleUrl: './chart-settings.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ChartSettingsComponent {
   private readonly chartService = inject(ChartService);
@@ -69,7 +71,7 @@ export class ChartSettingsComponent {
   }
 
   setChartOption(event: any, transformFn: any) {
-    this.chartService.updateOptions({ ...this.currentChartOptions, ...transformFn(event)});
+    this.chartService.updateOptions({ ...this.currentChartOptions, ...transformFn(event) });
   }
 
   applyChartOptions(options: any) {
