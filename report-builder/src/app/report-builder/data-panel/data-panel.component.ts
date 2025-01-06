@@ -103,6 +103,9 @@ export class DataPanelComponent implements OnInit {
           }
         }
       }
+      
+      // Support for dropping filter columns
+      this.cdkDropLists.push('data-drop-filter');
     });
   }
 
