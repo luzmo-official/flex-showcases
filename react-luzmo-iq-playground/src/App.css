@@ -1,0 +1,31 @@
+/* Styles for the Luzmo IQ chat interface and container layout */
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: #111111;
+}
+
+.chat-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.chat-container luzmo-iq-chat-component {
+  --luzmo-iq-messages-container-background: transparent;
+  --luzmo-iq-prompt-container-background: transparent;
+  --luzmo-iq-messages-container-horizontal-padding: max(
+    1rem,
+    calc((100% - 42rem) / 2)
+  );
+  --luzmo-iq-prompt-container-horizontal-padding: max(
+    1rem,
+    calc((100% - 42rem) / 2)
+  );
+  --luzmo-iq-chart-config-background-color: rgba(226, 232, 240, 0.5);
+}
