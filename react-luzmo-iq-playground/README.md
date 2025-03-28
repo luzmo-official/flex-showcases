@@ -2,11 +2,11 @@
 title: "React Luzmo IQ Playground"
 description: "Test Luzmo IQ with your own data"
 tags:
-  - ai
-  - luzmo-iq
-  - flex
-  - api
-  - react
+  - AI
+  - API
+  - Flex
+  - Luzmo IQ
+  - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-luzmo-iq-playground.png"
 url: "https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-luzmo-iq-playground"
