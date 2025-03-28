@@ -2,19 +2,23 @@
 title: "React Chart Library"
 description: "Make Luzmo dashboards editable by users with a chart library"
 tags:
-  - flex
-  - dashboard
-  - chart
-  - library
-  - react
+  - API
+  - Dashboard
+  - Editing
+  - Flex
+  - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-chart-library.png"
-url: "https://showcases.luzmo.com/react-chart-library"
+url: "https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-chart-library"
 ---
 
 # Luzmo Chart Library example for react
 
 This app demonstrates how to embed a Luzmo dashboard that users can edit and extend with preconfigured charts from a chart library. It serves as a reference implementation for Luzmo customers who want to add editing capabilities to their embedded dashboards without exposing users to the complexity of creating charts through Luzmo's embedded dashboard editor.
+
+Open the project in StackBlitz to get started:
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-chart-library)
 
 ## Features
 
