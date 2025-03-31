@@ -22,6 +22,8 @@ export function useChartLibrary(
 
   /**
    * Transforms API response items into grid layout format
+   * @param items - Items from the API
+   * @param dashboardId - ID of the dashboard these items belong to
    */
   const createLayoutItems = (
     items: DashboardItem[],
@@ -34,22 +36,19 @@ export function useChartLibrary(
       w: item.position.sizeX,
       h: item.position.sizeY,
       dashboardId,
-      isCustomChart: false,
     }));
 
   useEffect(() => {
     const getLibraryItems = async () => {
       try {
-        const [libraryItems, userLibraryItems, defaultItems] =
-          await Promise.all([
-            fetchDashboardItems(dashboards.chartLibrary),
-            fetchDashboardItems(dashboards.userChartLibrary),
-            fetchDashboardItems(dashboards.defaultGrid),
-          ]);
+        // Fetch items from both the library and default dashboard
+        const [libraryItems, defaultItems] = await Promise.all([
+          fetchDashboardItems(dashboards.chartLibrary),
+          fetchDashboardItems(dashboards.defaultGrid),
+        ]);
 
         const allItems = [
           ...createLayoutItems(libraryItems, dashboards.chartLibrary),
-          ...createLayoutItems(userLibraryItems, dashboards.userChartLibrary),
           ...createLayoutItems(defaultItems, dashboards.defaultGrid),
         ];
 

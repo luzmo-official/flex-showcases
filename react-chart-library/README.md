@@ -1,5 +1,5 @@
 ---
-title: "React Chart Library"
+title: "React chart library"
 description: "Make Luzmo dashboards editable by users with a chart library"
 tags:
   - API
@@ -9,8 +9,10 @@ tags:
   - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-chart-library.png"
-url: "https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-chart-library"
+url: "https://stackblitz.com/github.com/luzmo-official/flex-showcases/tree/main/react-chart-library"
 ---
+
+https://
 
 # Luzmo Chart Library example for react
 
@@ -31,11 +33,11 @@ Open the project in StackBlitz to get started:
 
 [Luzmo's Core API](https://developer.luzmo.com/api/searchDataset) is used to fetch the charts and layout of a given dashboard.
 
-[Luzmo Flex Components](https://developer.luzmo.com/guide/flex--introduction) are used to embed the dashboard as it's individual components. The `canFilter` property helps us to automatically handle interactivty between components, even if they are from different dashboards.
+[Luzmo Flex components](https://developer.luzmo.com/guide/flex--introduction) are used to embed the dashboard as it's individual components. The `canFilter` property helps us to automatically handle interactivty between components, even if they are from different dashboards.
 
 The third party library [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout) is used to place charts in an editable grid. It's configured to be identical to the grid of Luzmo's dashboard editor.
 
-This example does not persist user changes. In a production environment, you should implement server-side storage to save grid modifications made by individual users.
+This example does not persist user changes. In a production environment, you should save grid modifications made by individual users. One option is to [store the edited Luzmo dashboard](https://developer.luzmo.com/api/createDashboard) as a variant with access for a [specific user](https://developer.luzmo.com/api/associateDashboard?exampleSection=DashboardAssociateAssociateDashboardVariantToParentRequestBody).
 
 ## Optional extensions
 
