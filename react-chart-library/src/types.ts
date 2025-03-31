@@ -2,7 +2,6 @@ import type { Layout } from "react-grid-layout";
 
 export interface GridChartLayout extends Layout {
   dashboardId: string;
-  isCustomChart?: boolean;
 }
 
 export interface DashboardGridState {

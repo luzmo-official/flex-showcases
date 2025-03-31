@@ -5,7 +5,7 @@ import { dashboards } from "../config/embed-token";
 import {
   DashboardGridState,
   DashboardGridActions,
-  ExtendedLayout,
+  GridChartLayout,
 } from "../types";
 
 /**
@@ -15,7 +15,7 @@ import {
  */
 export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
   // Core state for managing dashboard items and UI state
-  const [items, setItems] = useState<ExtendedLayout[]>([]);
+  const [items, setItems] = useState<GridChartLayout[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
@@ -50,12 +50,16 @@ export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
   /**
    * Adds a new chart to the grid
    * Places the chart at the bottom of the grid and scrolls to it
+   * @param newChart - The chart configuration to add
    */
-  const handleAddChart = (newChart: ExtendedLayout) => {
+  const handleAddChart = (newChart: GridChartLayout) => {
     const chartWithPosition = {
-      ...newChart, // Preserve all properties including isCustomChart
+      i: newChart.i,
       x: 0, // Start at the leftmost position
       y: Infinity, // Place at the bottom of the grid
+      w: newChart.w,
+      h: newChart.h,
+      dashboardId: newChart.dashboardId,
     };
 
     setItems((currentItems) => [...currentItems, chartWithPosition]);
@@ -82,17 +86,16 @@ export function useDashboardGrid(): DashboardGridState & DashboardGridActions {
 
   /**
    * Updates the layout when charts are moved or resized
-   * Preserves the dashboardId and isCustomChart when updating positions
+   * Preserves the dashboardId when updating positions
+   * @param newLayout - The new layout configuration from react-grid-layout
    */
   const handleLayoutChange = (newLayout: Layout[]) => {
-    const updatedLayout = newLayout.map((item) => {
-      const existingItem = items.find((oldItem) => oldItem.i === item.i);
-      return {
-        ...item,
-        dashboardId: existingItem?.dashboardId || dashboards.defaultGrid,
-        isCustomChart: existingItem?.isCustomChart || false,
-      };
-    });
+    const updatedLayout = newLayout.map((item) => ({
+      ...item,
+      dashboardId:
+        items.find((oldItem) => oldItem.i === item.i)?.dashboardId ||
+        dashboards.defaultGrid,
+    }));
     setItems(updatedLayout);
   };
 

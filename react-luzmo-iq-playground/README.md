@@ -1,5 +1,5 @@
 ---
-title: "React Luzmo IQ Playground"
+title: "React Luzmo IQ playground"
 description: "Test Luzmo IQ with your own data"
 tags:
   - AI
@@ -9,7 +9,7 @@ tags:
   - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-luzmo-iq-playground.png"
-url: "https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-luzmo-iq-playground"
+url: "https://stackblitz.com/github/luzmo-official/flex-showcases/tree/main/react-luzmo-iq-playground"
 ---
 
 # React Luzmo IQ Playground
