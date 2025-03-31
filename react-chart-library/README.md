@@ -20,7 +20,7 @@ This app demonstrates how to embed a Luzmo dashboard that users can edit and ext
 
 Open the project in StackBlitz to get started:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/luzmo-official/flex-showcases/react-chart-library)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github.com/luzmo-official/flex-showcases/tree/main/react-chart-library)
 
 ## Features
 
