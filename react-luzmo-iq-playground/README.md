@@ -40,7 +40,7 @@ The example includes additional components to help you:
 Before running this example, you'll need to:
 
 1. **Enable Luzmo IQ for your account**\
-   Contact your customer success manager or [support@luzmo.com](mailto:support@luzmo.com).
+   Contact your customer success manager or [cs@luzmo.com](mailto:cs@luzmo.com).
 
 2. **Enable AI insights for your datasets**\
    Navigate to the dataset details page in Luzmo and enable the "AI insights" feature for each dataset you want to query with Luzmo IQ.
