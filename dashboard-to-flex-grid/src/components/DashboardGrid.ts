@@ -2,7 +2,6 @@ import type {
   DashboardRow,
   DashboardView,
   DashboardItem as DashboardItemType,
-  ScreenMode,
 } from "../types/dashboard";
 import { createDashboardItemElement } from "./DashboardItem";
 import "./DashboardGrid.css"; // Import component-specific styles
