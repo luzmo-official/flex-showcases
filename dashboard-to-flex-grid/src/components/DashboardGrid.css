@@ -1,0 +1,156 @@
+/* Styles specific to the dashboard grid layout and view visibility */
+
+.dashboard-views-container {
+  width: 100%;
+  container-type: inline-size; /* Define this as a query container for its children */
+}
+
+/* Styles for Fixed Layout Mode */
+.dashboard-views-container.fixed-layout-active .view-fixed {
+  display: grid; /* Ensures the fixed view is shown */
+  /* width is set by inline style in JS */
+  /* margin: 0 auto; is set by inline style in JS to center it */
+}
+
+/* When fixed layout is active, hide all responsive views */
+.dashboard-views-container.fixed-layout-active .view-mobile,
+.dashboard-views-container.fixed-layout-active .view-tablet,
+.dashboard-views-container.fixed-layout-active .view-desktop,
+.dashboard-views-container.fixed-layout-active .view-largeScreen {
+  display: none !important; /* Override any container query displays */
+}
+
+/* Base: Hide all grid views initially (for responsive mode) */
+/* For responsive mode, only one of these will be set to display:grid by container queries */
+.dashboard-grid-view {
+  display: none;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  /* Inline styles from JS will set specific grid properties */
+  column-gap: min(
+    var(--initial-column-gap, 16px),
+    calc(100% / var(--grid-columns-count, 1))
+  );
+}
+
+/* --- Mobile Breakpoint (< 768px) --- */
+/* Priority: M. If M missing, show smallest available overall (T > D > L) */
+.dashboard-views-container.has-mobile-view .view-mobile {
+  display: grid;
+}
+.dashboard-views-container:not(.has-mobile-view).has-tablet-view .view-tablet {
+  display: grid;
+}
+.dashboard-views-container:not(.has-mobile-view):not(
+    .has-tablet-view
+  ).has-desktop-view
+  .view-desktop {
+  display: grid;
+}
+.dashboard-views-container:not(.has-mobile-view):not(.has-tablet-view):not(
+    .has-desktop-view
+  ).has-largeScreen-view
+  .view-largeScreen {
+  display: grid;
+}
+
+/* --- Tablet Breakpoint (>= 768px) --- */
+@container (min-width: 768px) {
+  /* Hide Mobile if Tablet exists */
+  .dashboard-views-container.has-tablet-view .view-mobile {
+    display: none !important;
+  }
+
+  /* Show Tablet if it exists */
+  .dashboard-views-container.has-tablet-view .view-tablet {
+    display: grid;
+  }
+  /* Fallback: Show Mobile if T missing */
+  .dashboard-views-container:not(.has-tablet-view).has-mobile-view
+    .view-mobile {
+    display: grid;
+  }
+
+  /* Edge Case: If T and M missing, show smallest available larger (D > L) */
+  .dashboard-views-container:not(.has-tablet-view):not(
+      .has-mobile-view
+    ).has-desktop-view
+    .view-desktop {
+    display: grid;
+  }
+  .dashboard-views-container:not(.has-tablet-view):not(.has-mobile-view):not(
+      .has-desktop-view
+    ).has-largeScreen-view
+    .view-largeScreen {
+    display: grid;
+  }
+}
+
+/* --- Desktop Breakpoint (>= 1200px) --- */
+@container (min-width: 1200px) {
+  /* Hide Mobile/Tablet if Desktop exists */
+  .dashboard-views-container.has-desktop-view .view-mobile,
+  .dashboard-views-container.has-desktop-view .view-tablet {
+    display: none !important;
+  }
+
+  /* Show Desktop if it exists */
+  .dashboard-views-container.has-desktop-view .view-desktop {
+    display: grid;
+  }
+  /* Fallback 1: Show Tablet if D missing */
+  .dashboard-views-container:not(.has-desktop-view).has-tablet-view
+    .view-tablet {
+    display: grid;
+  }
+  /* Fallback 2: Show Mobile if D and T missing */
+  .dashboard-views-container:not(.has-desktop-view):not(
+      .has-tablet-view
+    ).has-mobile-view
+    .view-mobile {
+    display: grid;
+  }
+
+  /* Edge Case: If D, T, M missing, show L */
+  .dashboard-views-container:not(.has-desktop-view):not(.has-tablet-view):not(
+      .has-mobile-view
+    ).has-largeScreen-view
+    .view-largeScreen {
+    display: grid;
+  }
+}
+
+/* --- LargeScreen Breakpoint (>= 1600px) --- */
+@container (min-width: 1600px) {
+  /* Hide Mobile/Tablet/Desktop if LargeScreen exists */
+  .dashboard-views-container.has-largeScreen-view .view-mobile,
+  .dashboard-views-container.has-largeScreen-view .view-tablet,
+  .dashboard-views-container.has-largeScreen-view .view-desktop {
+    display: none !important;
+  }
+
+  /* Show LargeScreen if it exists */
+  .dashboard-views-container.has-largeScreen-view .view-largeScreen {
+    display: grid;
+  }
+  /* Fallback 1: Show Desktop if L missing */
+  .dashboard-views-container:not(.has-largeScreen-view).has-desktop-view
+    .view-desktop {
+    display: grid;
+  }
+  /* Fallback 2: Show Tablet if L and D missing */
+  .dashboard-views-container:not(.has-largeScreen-view):not(
+      .has-desktop-view
+    ).has-tablet-view
+    .view-tablet {
+    display: grid;
+  }
+  /* Fallback 3: Show Mobile if L, D, and T missing */
+  .dashboard-views-container:not(.has-largeScreen-view):not(
+      .has-desktop-view
+    ):not(.has-tablet-view).has-mobile-view
+    .view-mobile {
+    display: grid;
+  }
+}
