@@ -18,7 +18,7 @@ This example project provides a quick way to test [Luzmo IQ](https://www.luzmo.c
 
 Open the project in StackBlitz to get started:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/luzmo-official/flex-showcases/tree/main/react-luzmo-iq-playground)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/luzmo-official/flex-showcases/tree/main/react-luzmo-iq-playground?embed=1&file=README.md&hideNavigation=1&view=preview)
 
 ## What is Luzmo IQ?
 
