@@ -6,7 +6,7 @@ tags:
   - Dashboard
   - Flex
 author: "Luzmo"
-image: "..."
+image: "https://cdn.luzmo.com/showcases/dashboard-to-flex.png"
 url: "https://stackblitz.com/github.com/luzmo-official/flex-showcases/tree/main/dashboard-to-flex-grid?embed=1&file=README.md&hideNavigation=1&view=preview"
 ---
 
@@ -45,7 +45,7 @@ This example does not persist user changes. In a production environment, you sho
 
 ## Technology Stack
 
-- HTML5, CSS (Baseline May 2024), Typescript, and Vite
+- HTML5, CSS (Baseline May 2024 or higher), Typescript, and Vite
 - [Luzmo Flex Components](https://developer.luzmo.com/guide/flex--introduction)
 - [Luzmo Core API](https://developer.luzmo.com/guide/api--introduction)
 
@@ -71,8 +71,9 @@ This example does not persist user changes. In a production environment, you sho
    npm run dev
    ```
 
-### Customization
+4. To change the dashboard, update `config/config.ts` and add a valid embed key and token to `.env.development`, or another `.env` file.
 
-- Change the dashboard ID's in `config/config.ts`
-- Update the embed tokens in the `.env.development` file, or add your own `.env` files.
-- Note the title from the original dashboard is omitted. This could be easily derrived from the API return privded by `fetchDashboardRow`.
+### Limitations
+
+- The dashboard title is not shown, but could be easily added.
+- When the dashboard is loaded at the exact same time as its being saving in Luzmo Studio after editing, visualizations may fail to display. Refreshing the dashboard will solve this problem.
