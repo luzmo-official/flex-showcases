@@ -9,10 +9,14 @@ import type {
 } from "./types/dashboard";
 import { setupDateFilterListeners } from "./utils/eventListeners";
 import {
-  getRelevantFormulasWithItems, // Updated import
+  getRelevantFormulasWithItems,
+  groupRelevantFormulasByItem,
 } from "./utils/formulaUtils";
-import type { FormulaWithItems } from "./utils/formulaUtils";
-import { extractUsedFormulaIdsFromDashboard } from "./utils/dashboardUtils"; // New import
+import type {
+  FormulaWithItems,
+  ItemWithRelevantFormulas,
+} from "./utils/formulaUtils";
+import { extractUsedFormulaIdsFromDashboard } from "./utils/dashboardUtils";
 
 const appElement = document.querySelector<HTMLDivElement>("#app")!;
 
@@ -49,7 +53,7 @@ async function initializeDashboard() {
       extractUsedFormulaIdsFromDashboard(originalDashboardRow);
     console.log("Formula IDs used in dashboard slots:", usedFormulaIdsInSlots);
 
-    // Step 2: Get relevant formulas that contain keywords and are used in dashboard slots
+    // Step 2: Get relevant formulas that contain keywords and are used in dashboard slots, grouped by formula
     const relevantFormulasWithItems: FormulaWithItems[] =
       await getRelevantFormulasWithItems(
         dashboardId,
@@ -58,20 +62,28 @@ async function initializeDashboard() {
       );
 
     console.log(
-      "Relevant formulas with their items and slots:",
+      "Relevant formulas with their items and slots (Grouped by Formula):",
       relevantFormulasWithItems
     );
 
-    // Log item IDs that use relevant formulas, for easier reference
+    // Step 3: Restructure the data to be grouped by item
+    const itemsWithRelevantFormulas: ItemWithRelevantFormulas[] =
+      groupRelevantFormulasByItem(relevantFormulasWithItems);
+
+    console.log(
+      "Relevant items with their formulas (Grouped by Item):",
+      itemsWithRelevantFormulas
+    );
+
+    // Log item IDs that use relevant formulas, for easier reference (using the new structure)
     const itemIdsWithRelevantFormulas = new Set<string>();
-    relevantFormulasWithItems.forEach(({ items }) => {
-      items.forEach((item) => itemIdsWithRelevantFormulas.add(item.id));
+    itemsWithRelevantFormulas.forEach(({ item }) => {
+      itemIdsWithRelevantFormulas.add(item.id);
     });
-    console.log("Item IDs using relevant formulas:", [
+    console.log("Item IDs using relevant formulas (from item-grouped data):", [
       ...itemIdsWithRelevantFormulas,
     ]);
 
-    // Use originalDashboardRow directly if no processing needed
     const dashboardGridElement =
       createDashboardGridElement(originalDashboardRow);
 

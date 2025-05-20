@@ -29,6 +29,12 @@ export interface FormulaWithItems {
   items: DashboardItem[];
 }
 
+// New interface for the desired structure
+export interface ItemWithRelevantFormulas {
+  item: DashboardItem;
+  formulas: Formula[];
+}
+
 const LUZMO_API_SECURABLE_URL = "https://api.luzmo.com/0.1.0/securable";
 
 /**
@@ -298,4 +304,36 @@ export async function getRelevantFormulasForDashboard(
     );
     return []; // Return empty array in case of error
   }
+}
+
+/**
+ * Restructures the data from FormulaWithItems[] to ItemWithRelevantFormulas[].
+ * This groups relevant formulas by the dashboard item they are used in.
+ *
+ * @param formulasWithItems - Array of formulas, each with a list of items using it.
+ * @returns Array of items, each with a list of relevant formulas it uses.
+ */
+export function groupRelevantFormulasByItem(
+  formulasWithItems: FormulaWithItems[]
+): ItemWithRelevantFormulas[] {
+  const itemsMap = new Map<
+    string,
+    { item: DashboardItem; formulas: Formula[] }
+  >();
+
+  formulasWithItems.forEach((formulaEntry) => {
+    const currentFormula = formulaEntry.formula;
+    formulaEntry.items.forEach((dashboardItem) => {
+      if (!itemsMap.has(dashboardItem.id)) {
+        itemsMap.set(dashboardItem.id, { item: dashboardItem, formulas: [] });
+      }
+      // Add formula to the item if not already present for that item
+      const itemEntry = itemsMap.get(dashboardItem.id)!;
+      if (!itemEntry.formulas.find((f) => f.id === currentFormula.id)) {
+        itemEntry.formulas.push(currentFormula);
+      }
+    });
+  });
+
+  return Array.from(itemsMap.values());
 }
