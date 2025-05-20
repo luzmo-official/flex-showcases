@@ -162,16 +162,16 @@ export function filterRelevantFormulas(
  * Finds all items and their slots in a dashboard that contain specific formula IDs.
  * @param dashboardRow The dashboard data
  * @param formulaIds Set of formula IDs to find in items
- * @returns An array of DashboardItem objects that use the formula IDs
+ * @returns An array of DashboardItem objects that use the formula IDs, deduplicated by item.id
  */
 export function findItemsWithFormulas(
   dashboardRow: DashboardRow,
   formulaIds: Set<string>
 ): DashboardItem[] {
-  const itemsWithFormulas: DashboardItem[] = [];
+  const itemsMap = new Map<string, DashboardItem>(); // Use a Map to store items by ID for deduplication
 
   if (!dashboardRow?.contents?.views) {
-    return itemsWithFormulas;
+    return [];
   }
 
   // Iterate through all views, items, and slots
@@ -189,14 +189,14 @@ export function findItemsWithFormulas(
         });
       });
 
-      // If this item has a relevant formula, add it to the results
-      if (hasRelevantFormula) {
-        itemsWithFormulas.push(item);
+      // If this item has a relevant formula and it's not already added, add it to the map
+      if (hasRelevantFormula && !itemsMap.has(item.id)) {
+        itemsMap.set(item.id, item);
       }
     });
   });
 
-  return itemsWithFormulas;
+  return Array.from(itemsMap.values()); // Convert the Map values to an array
 }
 
 /**
@@ -231,24 +231,37 @@ export async function getRelevantFormulasWithItems(
       relevantFormulas.map((formula) => formula.id)
     );
 
-    // Find all items that contain these formula IDs
+    // Find all items that contain these formula IDs (these items are already unique by ID due to findItemsWithFormulas logic)
     const itemsWithRelevantFormulas: DashboardItem[] = findItemsWithFormulas(
       dashboardRow,
       relevantFormulaIds
     );
 
+    // Create a map for quick lookup of items by ID to ensure uniqueness when associating with formulas
+    const uniqueItemsById = new Map<string, DashboardItem>();
+    itemsWithRelevantFormulas.forEach((item) => {
+      if (!uniqueItemsById.has(item.id)) {
+        uniqueItemsById.set(item.id, item);
+      }
+    });
+
     // Merge formula information with item information
-    return relevantFormulas.map((formula) => ({
-      formula,
-      items: itemsWithRelevantFormulas.filter((item) => {
-        // Check if this item contains this specific formula
-        return item.slots.some((slot) =>
-          slot.content?.some(
-            (contentItem) => contentItem.formula === formula.id
-          )
-        );
-      }),
-    }));
+    return relevantFormulas.map((formula) => {
+      const itemsForThisFormula = Array.from(uniqueItemsById.values()).filter(
+        (item) => {
+          // Check if this item contains this specific formula
+          return item.slots.some((slot) =>
+            slot.content?.some(
+              (contentItem) => contentItem.formula === formula.id
+            )
+          );
+        }
+      );
+      return {
+        formula,
+        items: itemsForThisFormula,
+      };
+    });
   } catch (error) {
     console.error(
       `Error getting relevant formulas with items for dashboard ${dashboardId}:`,
