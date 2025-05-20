@@ -1,0 +1,21 @@
+/* Styles specific to individual dashboard items */
+
+.dashboard-item {
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Background, borders, etc. might be set by theme or item options via inline styles */
+}
+
+.dashboard-item .item-content {
+  text-align: center;
+  font-size: 0.875rem;
+  /* color: var(--font-color); Inherited from body */
+}
+
+.dashboard-item .item-content p {
+  margin: 4px 0;
+}
