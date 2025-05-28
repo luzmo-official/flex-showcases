@@ -37,6 +37,10 @@ appElement.innerHTML = `
 const dashboardContentElement =
   document.querySelector<HTMLDivElement>("#dashboard-content")!;
 
+// Store data that needs to be accessed by event listeners
+let initialDashboardRow: DashboardRow | null = null;
+let initialItemsWithRelevantFormulas: ItemWithRelevantFormulas[] = [];
+
 /**
  * Initializes the dashboard: fetches data and renders the grid.
  */
@@ -47,6 +51,7 @@ async function initializeDashboard() {
     const originalDashboardRow: DashboardRow = await fetchDashboardRow(
       dashboardId
     );
+    initialDashboardRow = originalDashboardRow; // Store for event listeners
 
     // Step 1: Extract formula IDs used in dashboard slots
     const usedFormulaIdsInSlots =
@@ -69,6 +74,7 @@ async function initializeDashboard() {
     // Step 3: Restructure the data to be grouped by item
     const itemsWithRelevantFormulas: ItemWithRelevantFormulas[] =
       groupRelevantFormulasByItem(relevantFormulasWithItems);
+    initialItemsWithRelevantFormulas = itemsWithRelevantFormulas; // Store for event listeners
 
     console.log(
       "Relevant items with their formulas (Grouped by Item):",
@@ -76,12 +82,12 @@ async function initializeDashboard() {
     );
 
     // Log item IDs that use relevant formulas, for easier reference (using the new structure)
-    const itemIdsWithRelevantFormulas = new Set<string>();
+    const itemIdsWithRelevantFormulasSet = new Set<string>();
     itemsWithRelevantFormulas.forEach(({ item }) => {
-      itemIdsWithRelevantFormulas.add(item.id);
+      itemIdsWithRelevantFormulasSet.add(item.id);
     });
     console.log("Item IDs using relevant formulas (from item-grouped data):", [
-      ...itemIdsWithRelevantFormulas,
+      ...itemIdsWithRelevantFormulasSet,
     ]);
 
     const dashboardGridElement =
@@ -96,8 +102,18 @@ async function initializeDashboard() {
       dashboardContentElement.innerHTML = ""; // Clear loading message
       dashboardContentElement.appendChild(dashboardGridElement);
 
-      // Setup event listeners after the dashboard is rendered
-      setupDateFilterListeners(originalDashboardRow, dashboardGridElement);
+      // Pass the stored data to the event listener setup
+      if (initialDashboardRow && initialItemsWithRelevantFormulas.length > 0) {
+        setupDateFilterListeners(
+          initialDashboardRow,
+          dashboardGridElement,
+          initialItemsWithRelevantFormulas
+        );
+      } else {
+        console.warn(
+          "Dashboard data or relevant items not available for setting up date filter listeners."
+        );
+      }
     } else {
       throw new Error("Dashboard data is not in the expected format.");
     }

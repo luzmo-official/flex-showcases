@@ -5,15 +5,17 @@ import type {
   FilterGroup,
   EventFilterEntry,
   ChangedFiltersEventDetail,
+  ItemSlot,
 } from "../types/dashboard";
+import type { ItemWithRelevantFormulas, Formula } from "./formulaUtils";
 
 interface ViewLoadState {
   item1Id?: string;
   item2Id?: string;
   item1Loaded: boolean;
   item2Loaded: boolean;
-  item1Ref?: any; // Using any to allow access to getFilters()
-  item2Ref?: any; // Using any to allow access to getFilters()
+  item1Ref?: any;
+  item2Ref?: any;
 }
 
 interface DateRange {
@@ -21,14 +23,155 @@ interface DateRange {
   endDate?: string;
 }
 
+// Helper to create a deep copy of slots
 /**
- * Extracts start and end dates from a filter group if it matches the target item ID
- * and contains the specific date filter expressions.
- * @param filterGroup The filter group to process.
- * @param targetItemId The ID of the date-filter item we are looking for.
- * @returns A DateRange object or null if not applicable.
+ * Creates a deep copy of an array of ItemSlot objects.
+ * This is used to prevent modifications to the original slot objects.
+ * @param slots - The array of ItemSlot objects to copy.
+ * @returns A new array containing deep copies of the original ItemSlot objects.
  */
-function extractDatesFromFilterGroup(
+function deepCopySlots(slots: ItemSlot[]): ItemSlot[] {
+  return JSON.parse(JSON.stringify(slots));
+}
+
+/**
+ * Formats a JavaScript date string into a SQL DATETIME format (YYYY-MM-DD HH:MM:SS).
+ * If the input string is undefined or cannot be parsed, it returns undefined.
+ * @param dateString - The date string to format.
+ * @returns The formatted SQL DATETIME string or undefined if formatting fails.
+ */
+function formatDateToSQL(dateString?: string): string | undefined {
+  if (!dateString) return undefined;
+  try {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  } catch (e) {
+    console.warn(`Could not parse date string: ${dateString}`, e);
+    return undefined; // Or return original string if preferred
+  }
+}
+
+// Helper function to apply date-injected formulas to an item's slots
+/**
+ * Modifies the formulas within an item's slots by injecting specific start and end dates.
+ * It takes original slots, relevant formulas, and sorted date ranges, then replaces
+ * placeholder strings in formula expressions with actual date values.
+ * @param originalSlots - The original array of ItemSlot objects for an item.
+ * @param itemRelevantFormulas - An array of Formula objects relevant to this item.
+ * @param sortedDateRanges - An array of two DateRange objects, [compareRange, baseRange], sorted by start date.
+ * @returns A new array of ItemSlot objects with modified formulas.
+ */
+function getModifiedSlots(
+  originalSlots: ItemSlot[],
+  itemRelevantFormulas: Formula[],
+  sortedDateRanges: DateRange[]
+): ItemSlot[] {
+  if (sortedDateRanges.length < 2) {
+    console.warn("Not enough date ranges to apply formulas.");
+    return originalSlots;
+  }
+
+  const newSlots = deepCopySlots(originalSlots);
+  const baseStartDate = formatDateToSQL(sortedDateRanges[1]?.startDate);
+  const baseEndDate = formatDateToSQL(sortedDateRanges[1]?.endDate);
+  const compareStartDate = formatDateToSQL(sortedDateRanges[0]?.startDate);
+  const compareEndDate = formatDateToSQL(sortedDateRanges[0]?.endDate);
+
+  newSlots.forEach((slot) => {
+    if (slot.content) {
+      slot.content.forEach((contentItem) => {
+        if (contentItem.formula) {
+          const relevantFormula = itemRelevantFormulas.find(
+            (rf) => rf.id === contentItem.formula
+          );
+          if (relevantFormula) {
+            let modifiedExpression = relevantFormula.expression;
+            const originalExpression = relevantFormula.expression; // Store original for logging
+
+            if (baseStartDate) {
+              modifiedExpression = modifiedExpression.replace(
+                /CAST\('BASE_DATE_START', datetime\)/g,
+                `'${baseStartDate}'`
+              );
+            }
+            if (baseEndDate) {
+              modifiedExpression = modifiedExpression.replace(
+                /CAST\('BASE_DATE_END', datetime\)/g,
+                `'${baseEndDate}'`
+              );
+            }
+            if (compareStartDate) {
+              modifiedExpression = modifiedExpression.replace(
+                /CAST\('COMPARE_DATE_START', datetime\)/g,
+                `'${compareStartDate}'`
+              );
+            }
+            if (compareEndDate) {
+              modifiedExpression = modifiedExpression.replace(
+                /CAST\('COMPARE_DATE_END', datetime\)/g,
+                `'${compareEndDate}'`
+              );
+            }
+
+            // Log if the expression was changed
+            if (modifiedExpression !== originalExpression) {
+              console.log(
+                `Formula ID '${relevantFormula.id}' updated for item. Original: '${originalExpression}', New: '${modifiedExpression}'`
+              );
+            }
+            contentItem.formula = modifiedExpression;
+          }
+        }
+      });
+    }
+  });
+  return newSlots;
+}
+
+/**
+ * Extracts a date string from a filter entry's parameters.
+ * It checks different possible structures within the parameters array for a valid date string.
+ * @param entry - The EventFilterEntry object to extract the date from.
+ * @returns The extracted date string, or undefined if no valid date string is found.
+ */
+function extractDateFromFilterEntry(
+  entry: EventFilterEntry
+): string | undefined {
+  if (
+    Array.isArray(entry.parameters) &&
+    entry.parameters.length > 1 &&
+    typeof entry.parameters[1] === "string" &&
+    entry.parameters[1].length > 0
+  ) {
+    return entry.parameters[1] as string;
+  }
+  if (
+    Array.isArray(entry.parameters) &&
+    entry.parameters.length > 1 &&
+    Array.isArray(entry.parameters[1]) &&
+    entry.parameters[1].length > 0 &&
+    typeof entry.parameters[1][0] === "string"
+  ) {
+    return entry.parameters[1][0] as string;
+  }
+  return undefined;
+}
+
+/**
+ * Extracts a start and end date from a FilterGroup if it matches the targetItemId.
+ * It iterates through the filters in the group, looking for expressions that define
+ * a start date ('>=') or end date ('<=').
+ * @param filterGroup - The FilterGroup object to process.
+ * @param targetItemId - The ID of the dashboard item to match against the filterGroup's vizId.
+ * @returns A DateRange object containing the startDate and/or endDate, or null if the vizId doesn't match or no dates are found.
+ */
+function extractDateRangeFromFilterGroup(
   filterGroup: FilterGroup,
   targetItemId: string
 ): DateRange | null {
@@ -40,129 +183,84 @@ function extractDatesFromFilterGroup(
   let endDate: string | undefined;
 
   if (filterGroup.filters && filterGroup.filters.length > 0) {
-    // console.log("filterGroup", filterGroup); // User's console log
     filterGroup.filters.forEach((entry: EventFilterEntry) => {
-      // Updated condition based on user's finding that parameters[1] is a string
-      if (
-        Array.isArray(entry.parameters) &&
-        entry.parameters.length > 1 && // Ensure parameters[1] exists
-        typeof entry.parameters[1] === "string" && // Check if it's a string
-        (entry.parameters[1] as string).length > 0 // Ensure non-empty string
-      ) {
-        const dateStr = entry.parameters[1] as string;
+      const dateStr = extractDateFromFilterEntry(entry);
+      if (dateStr) {
         if (entry.expression === "? >= ?") {
           startDate = dateStr;
         } else if (entry.expression === "? <= ?") {
           endDate = dateStr;
         }
-      } else {
-        console.warn(
-          `Date filter entry for item ${targetItemId} has unexpected parameters structure or empty date string. Entry:`,
-          entry
-        );
       }
     });
   }
 
   if (startDate || endDate) {
-    if (!startDate)
-      console.warn(
-        `Extracted end date but no start date for ${targetItemId}`,
-        filterGroup
-      );
-    if (!endDate)
-      console.warn(
-        `Extracted start date but no end date for ${targetItemId}`,
-        filterGroup
-      );
     return { startDate, endDate };
-  }
-
-  if (filterGroup.vizId === targetItemId) {
-    // Log if a matching vizId was found but dates weren't extracted as expected
-    console.warn(
-      `Filter group with vizId ${targetItemId} did not yield expected date structure. Filters:`,
-      filterGroup.filters
-    );
   }
   return null;
 }
 
 /**
- * Processes filter groups to extract and sort date ranges for two specified item IDs.
- * @param filterGroups - Array of filter groups to process.
- * @param item1Id - ID of the first date filter item.
- * @param item2Id - ID of the second date filter item.
- * @returns An array of DateRange objects, sorted by startDate (earliest first).
+ * Processes an array of FilterGroup objects to extract date ranges for two specific item IDs,
+ * then filters and sorts these date ranges.
+ * The sorting is primarily by startDate, and secondarily by endDate if startDates are equal.
+ * @param filterGroups - An array of FilterGroup objects, typically from a 'changedFilters' event.
+ * @param item1Id - The ID of the first date filter item.
+ * @param item2Id - The ID of the second date filter item.
+ * @returns An array of DateRange objects, sorted by startDate (and then endDate).
  */
 function processAndSortDateRanges(
   filterGroups: FilterGroup[],
   item1Id: string,
   item2Id: string
 ): DateRange[] {
-  const collectedDateRanges: DateRange[] = [];
+  const dateRanges: DateRange[] = [];
 
-  filterGroups.forEach((group: FilterGroup) => {
-    const targetId = group.vizId;
+  filterGroups.forEach((group) => {
+    const range1 = extractDateRangeFromFilterGroup(group, item1Id);
+    if (range1) dateRanges.push(range1);
 
-    if (targetId === item1Id || targetId === item2Id) {
-      const extractedRange = extractDatesFromFilterGroup(group, targetId);
-
-      if (extractedRange !== null) {
-        // Check if the range is complete (both startDate and endDate are defined strings)
-        if (
-          extractedRange.startDate !== undefined &&
-          extractedRange.endDate !== undefined
-        ) {
-          collectedDateRanges.push({
-            startDate: extractedRange.startDate,
-            endDate: extractedRange.endDate,
-          });
-        } else {
-          // Log if the range was extracted but is incomplete
-          console.warn(
-            `Incomplete date range extracted for item ${targetId} (some dates missing):`,
-            extractedRange
-          );
-        }
-      }
-      // If extractedRange is null, extractDatesFromFilterGroup already logged it or it was not applicable.
-    }
+    const range2 = extractDateRangeFromFilterGroup(group, item2Id);
+    if (range2) dateRanges.push(range2);
   });
 
-  // Sort by startDate, ensuring startDate is valid (string) for comparison
-  collectedDateRanges.sort((a, b) => {
-    const aStartDate = a.startDate;
-    const bStartDate = b.startDate;
-
-    if (aStartDate && bStartDate) {
-      // Both are non-empty strings
-      return new Date(aStartDate).getTime() - new Date(bStartDate).getTime();
-    }
-    if (aStartDate) return -1; // a comes first if b has no startDate or it's empty
-    if (bStartDate) return 1; // b comes first if a has no startDate or it's empty
-    return 0; // both lack startDate or they are empty, order doesn't matter
-  });
-
-  return collectedDateRanges;
+  return dateRanges
+    .filter(
+      (range) => range.startDate !== undefined || range.endDate !== undefined
+    )
+    .sort((a, b) => {
+      const dateA = a.startDate ? new Date(a.startDate).getTime() : Infinity;
+      const dateB = b.startDate ? new Date(b.startDate).getTime() : Infinity;
+      return dateA - dateB;
+    });
 }
 
 /**
- * Sets up event listeners for date filter components.
- * If exactly two date-filter items are found in a view, a 'changedFilters'
- * event listener is attached to both of them.
- * Also, listens for 'load' events on these items to get initial filters.
- * @param dashboardRow - The dashboard data.
- * @param dashboardElement - The main HTML element containing the dashboard grids.
+ * Sets up event listeners for date filter items within a dashboard view.
+ * It identifies two date filter items in each view and configures listeners for their 'load'
+ * and 'changedFilters' events. These listeners are responsible for extracting date ranges,
+ * processing them, and then updating other visualization items in the same view by
+ * injecting these dates into their formulas via their 'slots' attribute.
+ * @param dashboardRow - The DashboardRow object containing the structure of the dashboard.
+ * @param dashboardElement - The root HTMLElement of the dashboard.
+ * @param itemsWithFormulas - An array of ItemWithRelevantFormulas, mapping item IDs to their formulas
+ *                            that need date injection.
  */
 export function setupDateFilterListeners(
   dashboardRow: DashboardRow,
-  dashboardElement: HTMLElement
+  dashboardElement: HTMLElement,
+  itemsWithFormulas: ItemWithRelevantFormulas[]
 ) {
-  if (!dashboardRow || !dashboardRow.contents || !dashboardRow.contents.views) {
+  if (!dashboardRow?.contents?.views) {
     console.warn("Dashboard data is not available for setting up listeners.");
     return;
   }
+
+  const itemFormulasMap = new Map<string, Formula[]>();
+  itemsWithFormulas.forEach((entry) => {
+    itemFormulasMap.set(entry.item.id, entry.formulas);
+  });
 
   const viewLoadStates = new Map<number, ViewLoadState>();
 
@@ -171,7 +269,7 @@ export function setupDateFilterListeners(
       const viewElement = dashboardElement.children[viewIndex] as HTMLElement;
       if (!viewElement) {
         console.warn(
-          `View element for screenModus '${view.screenModus}' (index ${viewIndex}) not found in the dashboard element. Skipping listener setup for this view.`
+          `View element for screenModus '${view.screenModus}' (index ${viewIndex}) not found. Skipping listener setup for this view.`
         );
         return;
       }
@@ -186,12 +284,12 @@ export function setupDateFilterListeners(
 
         if (!item1Definition?.id || !item2Definition?.id) {
           console.warn(
-            `One or both date filter items in view ${view.screenModus} are missing an ID. Skipping listener setup for this pair.`
+            `One or both date filter items in view ${view.screenModus} are missing an ID. Skipping.`
           );
           return;
         }
 
-        const currentItem1Id = item1Definition.id; // Capture IDs for use in closures
+        const currentItem1Id = item1Definition.id;
         const currentItem2Id = item2Definition.id;
 
         viewLoadStates.set(viewIndex, {
@@ -201,7 +299,82 @@ export function setupDateFilterListeners(
           item2Loaded: false,
         });
 
-        // Define event handlers as named functions
+        const updateAllRelevantVizItemsInView = (
+          sortedDateRanges: DateRange[],
+          isInitialLoad: boolean
+        ) => {
+          if (sortedDateRanges.length < 2) {
+            console.warn("Not enough date ranges available to update items.");
+            return;
+          }
+          view.items.forEach((itemInView) => {
+            if (itemInView.type !== "date-filter") {
+              const relevantFormulasForItem = itemFormulasMap.get(
+                itemInView.id
+              );
+              if (
+                relevantFormulasForItem &&
+                relevantFormulasForItem.length > 0
+              ) {
+                const originalItemDefinition = dashboardRow.contents.views[
+                  viewIndex
+                ]?.items.find((i) => i.id === itemInView.id);
+                if (originalItemDefinition && originalItemDefinition.slots) {
+                  const modifiedSlots = getModifiedSlots(
+                    originalItemDefinition.slots,
+                    relevantFormulasForItem,
+                    sortedDateRanges
+                  );
+                  const vizItemComponent = viewElement.querySelector(
+                    `luzmo-embed-viz-item[itemId="${itemInView.id}"]`
+                  ) as any;
+
+                  if (vizItemComponent) {
+                    if (isInitialLoad) {
+                      const applySlotsOnLoad = () => {
+                        console.log(
+                          `Item ${itemInView.id} (view ${view.screenModus}) loaded. Applying updated slots:`,
+                          JSON.stringify(modifiedSlots)
+                        );
+                        vizItemComponent.setAttribute(
+                          "slots",
+                          JSON.stringify(modifiedSlots)
+                        );
+                      };
+                      console.log(
+                        `Item ${itemInView.id} (view ${view.screenModus}): Queuing slot update for next load event.`
+                      );
+                      vizItemComponent.addEventListener(
+                        "load",
+                        applySlotsOnLoad,
+                        { once: true }
+                      );
+                    } else {
+                      // Apply directly if not initial load
+                      console.log(
+                        `Updating slots for item ${itemInView.id} in view ${view.screenModus} with new dates (direct apply):`,
+                        JSON.stringify(modifiedSlots)
+                      );
+                      vizItemComponent.setAttribute(
+                        "slots",
+                        JSON.stringify(modifiedSlots)
+                      );
+                    }
+                  } else {
+                    console.warn(
+                      `Could not find viz item component for ID ${itemInView.id} in view ${view.screenModus} to update slots.`
+                    );
+                  }
+                } else {
+                  console.warn(
+                    `Original item definition or slots not found for item ID ${itemInView.id}`
+                  );
+                }
+              }
+            }
+          });
+        };
+
         const handleChangedFilters = (event: Event) => {
           const customEvent = event as CustomEvent<ChangedFiltersEventDetail>;
           const allDashboardFilters = customEvent.detail?.filters;
@@ -213,13 +386,13 @@ export function setupDateFilterListeners(
               currentItem2Id
             );
             console.log(
-              `[ChangedFilters] Sorted Dates for view ${view.screenModus} (Item1: ${currentItem1Id}, Item2: ${currentItem2Id}):`,
+              `[ChangedFilters] Sorted Dates for view ${view.screenModus}:`,
               sortedDateRanges
             );
+            updateAllRelevantVizItemsInView(sortedDateRanges, false);
           } else {
             console.warn(
-              "Could not process changedFilters: missing allDashboardFilters.",
-              { allDashboardFilters }
+              "Could not process changedFilters: missing allDashboardFilters."
             );
           }
         };
@@ -231,15 +404,9 @@ export function setupDateFilterListeners(
             !currentViewState.item1Id ||
             !currentViewState.item2Id
           ) {
-            console.error(
-              "View load state or item IDs are unexpectedly missing after load event."
-            );
+            console.error("View load state missing after load event.");
             return;
           }
-
-          // These are already captured as currentItem1Id and currentItem2Id
-          // const loadedItem1IdConst = currentViewState.item1Id;
-          // const loadedItem2IdConst = currentViewState.item2Id;
 
           if (loadedItemId === currentViewState.item1Id) {
             currentViewState.item1Loaded = true;
@@ -251,10 +418,7 @@ export function setupDateFilterListeners(
 
           if (currentViewState.item1Loaded && currentViewState.item2Loaded) {
             const componentToGetFiltersFrom = currentViewState.item1Ref;
-            if (
-              componentToGetFiltersFrom &&
-              typeof componentToGetFiltersFrom.getFilters === "function"
-            ) {
+            if (componentToGetFiltersFrom?.getFilters) {
               try {
                 const initialFilters: FilterGroup[] =
                   componentToGetFiltersFrom.getFilters();
@@ -268,18 +432,19 @@ export function setupDateFilterListeners(
                   currentItem2Id
                 );
                 console.log(
-                  `[InitialLoad] Sorted Dates for view ${view.screenModus} (Item1: ${currentItem1Id}, Item2: ${currentItem2Id}):`,
+                  `[InitialLoad] Sorted Dates for view ${view.screenModus}:`,
                   sortedDateRanges
                 );
+                updateAllRelevantVizItemsInView(sortedDateRanges, true);
               } catch (e) {
                 console.error(
-                  `Error calling getFilters on item ${currentItem1Id} in view ${view.screenModus}:`,
+                  `Error calling getFilters on item ${currentItem1Id}:`,
                   e
                 );
               }
             } else {
               console.error(
-                `getFilters method not found on item ${currentItem1Id} in view ${view.screenModus}.`
+                `getFilters method not found on item ${currentItem1Id}.`
               );
             }
           }
@@ -287,7 +452,6 @@ export function setupDateFilterListeners(
 
         dateFilterItems.forEach((item: DashboardItem) => {
           if (!item.id) return;
-
           const vizItemComponent = viewElement.querySelector(
             `luzmo-embed-viz-item[itemId="${item.id}"]`
           ) as HTMLElement | null;
@@ -297,14 +461,12 @@ export function setupDateFilterListeners(
               "changedFilters",
               handleChangedFilters
             );
-            // Pass item.id and vizItemComponent to the load handler
             vizItemComponent.addEventListener("load", () =>
               handleLoad(item.id!, vizItemComponent)
             );
           } else {
             console.warn(
-              `Could not find 'luzmo-embed-viz-item' with itemId '${item.id}' in view ${view.screenModus}. Ensure items are rendered with this attribute within their respective view. Searched within:`,
-              viewElement
+              `Could not find viz item for ID '${item.id}' in view ${view.screenModus}.`
             );
           }
         });
