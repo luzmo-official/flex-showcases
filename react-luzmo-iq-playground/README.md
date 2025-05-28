@@ -42,8 +42,8 @@ Before running this example, you'll need to:
 1. **Enable Luzmo IQ for your account**\
    Contact your customer success manager or [cs@luzmo.com](mailto:cs@luzmo.com).
 
-2. **Enable AI insights for your datasets**\
-   Navigate to the dataset details page in Luzmo and enable the "AI insights" feature for each dataset you want to query with Luzmo IQ.
+2. **Enable Luzmo IQ Vector Embeddings for your datasets**\
+   Navigate to the dataset details page in Luzmo and enable the "Luzmo IQ Vector Embeddings" feature for each dataset you want to query with Luzmo IQ.
 
 3. **Create authentication credentials**\
    Generate an embed key and token with "use" rights for your datasets through the [authorization API](https://developer.luzmo.com/api/createAuthorization).
