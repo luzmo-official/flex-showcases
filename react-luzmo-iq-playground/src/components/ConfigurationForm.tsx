@@ -42,7 +42,7 @@ export function ConfigurationForm({
           <a href="mailto:support@luzmo.com">support@luzmo.com</a>.
         </li>
         <li>
-          Enable "<strong>AI Insights</strong>" for the datasets you want to
+          Enable "<strong>Luzmo IQ Vector Embeddings</strong>" for the datasets you want to
           query. You can do this through the dataset details page in Luzmo.
         </li>
         <li>
