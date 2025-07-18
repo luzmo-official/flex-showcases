@@ -6,6 +6,7 @@ tags:
   - Chart
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/6879ffdb9bd0a04f86116df5_customchart.png"
+url: "https://app.luzmo.com/s/custom-charts-example-network-chart-zmanlony95a44r9l"
 ---
 
 # Luzmo Custom Chart example: visualization of sales reps and their deals in a Network Graph
