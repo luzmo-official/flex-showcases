@@ -6,10 +6,9 @@ tags:
   - Chart
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/6879ffdb9bd0a04f86116df5_customchart.png"
-url: "https://showcases.luzmo.com/custom-chart-example/"
 ---
 
-# Luzmo Custom Chart example: Network Sales Rep <-> Deal visualization
+# Luzmo Custom Chart example: visualization of sales reps and their deals in a Network Graph
 
 This is an example implementation of a Custom Chart that can be uploaded to Luzmo, to be then natively used in Luzmo dashboards.
 
