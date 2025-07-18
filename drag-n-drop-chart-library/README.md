@@ -1,5 +1,5 @@
 ---
-title: "Custom chart library"
+title: "Drag & drop chart library"
 description: "A powerful tool for your customers to create custom dashboards using a library of charts."
 tags:
   - Flex
@@ -11,9 +11,9 @@ image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66cf414e7fb2
 url: "https://showcases.luzmo.com/drag-n-drop-chart-library"
 ---
 
-# Luzmo Flex showcase: Drag and Drop Chart Library
+# Luzmo Flex showcase: Drag and drop chart library
 
-This project is intended to show the power of allowing users to create custom dashboards using a pre-configured chart library
+This project is intended to show the power of allowing users to create custom dashboards using a pre-configured chart library.
 
 ## Installation & start
 
