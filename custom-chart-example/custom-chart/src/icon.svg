@@ -1,0 +1,27 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="48" height="48" fill="transparent"/>
+  
+  <!-- Connection lines -->
+  <line x1="12" y1="12" x2="24" y2="24" stroke="#666666" stroke-width="2" opacity="0.8"/>
+  <line x1="36" y1="12" x2="24" y2="24" stroke="#666666" stroke-width="2" opacity="0.8"/>
+  <line x1="24" y1="24" x2="12" y2="36" stroke="#666666" stroke-width="2" opacity="0.8"/>
+  <line x1="24" y1="24" x2="36" y2="36" stroke="#666666" stroke-width="2" opacity="0.8"/>
+  <line x1="12" y1="12" x2="36" y2="12" stroke="#888888" stroke-width="1.5" opacity="0.6"/>
+  <line x1="12" y1="36" x2="36" y2="36" stroke="#888888" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Main central node (largest) -->
+  <circle cx="24" cy="24" r="6" fill="#4A90E2" stroke="#ffffff" stroke-width="1.5"/>
+  
+  <!-- Secondary nodes -->
+  <circle cx="12" cy="12" r="4" fill="#22C55E" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="36" cy="12" r="4" fill="#EAB308" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="12" cy="36" r="4" fill="#F97316" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="36" cy="36" r="4" fill="#EF4444" stroke="#ffffff" stroke-width="1"/>
+  
+  <!-- Small accent nodes -->
+  <circle cx="6" cy="24" r="2" fill="#22C55E" opacity="0.8"/>
+  <circle cx="42" cy="24" r="2" fill="#F97316" opacity="0.8"/>
+  <circle cx="24" cy="6" r="2" fill="#EAB308" opacity="0.8"/>
+  <circle cx="24" cy="42" r="2" fill="#EF4444" opacity="0.8"/>
+</svg>
