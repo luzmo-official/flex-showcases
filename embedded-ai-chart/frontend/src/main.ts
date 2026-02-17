@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, enableProdMode, importProvidersFrom } from '@angular/core';
 import {
   bootstrapApplication,
-  provideProtractorTestingSupport,
 } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -26,7 +25,6 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideProtractorTestingSupport(),
     provideRouter(routeConfig),
     provideAnimationsAsync(),
     importProvidersFrom(HttpClientModule),

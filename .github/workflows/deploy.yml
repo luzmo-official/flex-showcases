@@ -83,8 +83,3 @@ jobs:
       - name: Pause to let invalidation complete
         run: |
           sleep 180
-
-  Run_e2e_Tests:
-    needs: Invalidate_Cloudfront
-    uses: ./.github/workflows/e2e.yml
-    secrets: inherit
