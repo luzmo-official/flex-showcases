@@ -35,4 +35,6 @@ npm run install-all
 npm start
 ```
 
-Refer to `AGENTS.md` for deeper technical details.
+**Note**: this project uses specific dataset, dashboard and chart id's through the code for the purpose of this demo. You can change these to point to your own datasets/dashboards/charts. Add the datasets and dashboards you want to use to a Collection in Luzmo and reference this collection ID in `backend/config/local.cjs`. 
+
+Then, update specific IDs throughout the frontend (e.g. in `\frontend\src\app\constants\luzmo-constants.ts`) to make the charts render correctly.
