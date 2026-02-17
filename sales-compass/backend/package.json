@@ -1,0 +1,17 @@
+{
+  "name": "sales-compass",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@luzmo/nodejs-sdk": "2.1.1",
+    "config": "4.1.1",
+    "cors": "2.8.5",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.11"
+  }
+}

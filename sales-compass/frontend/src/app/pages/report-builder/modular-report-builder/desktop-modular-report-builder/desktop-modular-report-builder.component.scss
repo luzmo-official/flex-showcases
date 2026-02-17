@@ -1,0 +1,75 @@
+/* Item data drop panel - horizontal slot layout */
+luzmo-item-data-drop-panel::part(slots-panel) {
+  flex-direction: row;
+}
+
+/* Side panel slide-in animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 200ms ease-out forwards;
+}
+
+/* Side panel styles */
+.side-panel {
+  max-height: 400px;
+
+  .panel-content {
+    /* Custom scrollbar for the panel */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-border-default);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--color-border-hover);
+    }
+  }
+}
+
+/* Chart preview wrapper transition */
+.chart-preview-wrapper {
+  min-width: 0; /* Allow flex shrinking */
+}
+
+/* Chart config buttons (Options/Filters) */
+.chart-config-button {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  opacity: 0.9;
+  transition: all 150ms ease;
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--color-border-hover);
+    color: var(--color-text-active);
+  }
+
+  &.active {
+    background: var(--color-secondary);
+    border-color: var(--color-secondary);
+    opacity: 1;
+
+    &::part(button) {
+      color: var(--color-secondary-inverse);
+    }
+  }
+}

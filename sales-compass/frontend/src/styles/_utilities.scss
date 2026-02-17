@@ -1,0 +1,172 @@
+/**
+ * Utility Styles
+ * 
+ * Custom utility classes and overrides including:
+ * - Scrollbar customization
+ * - Loader and error message styles
+ * - AI summary styles
+ * - Modal overrides
+ * 
+ * Wrapped in @layer overrides to ensure these come after Tailwind utilities.
+ */
+
+@layer overrides {
+  /* Custom scrollbar - WebKit */
+  ::-webkit-scrollbar {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface-raised);
+    border-radius: var(--border-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-hard);
+    border-radius: var(--border-radius-full);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-hard) var(--color-surface-raised);
+  }
+
+  /* Loader placeholder styles */
+  .loader-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-dimmed);
+    font-size: 0.875rem;
+    padding: 1rem 0;
+    text-align: center;
+    user-select: none;
+  }
+
+  /* State loader for AI with shimmer animation */
+  .luzmo-state-loader {
+    background: var(--color-text);
+    color: var(--color-text-active);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: inline-block;
+
+    &-shimmer {
+      text-fill-color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation-delay: 0.5s;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
+      animation-name: state-shimmer;
+      background: var(--color-surface) -webkit-gradient(
+          linear,
+          100% 0,
+          0 0,
+          from(var(--color-surface)),
+          color-stop(0.5, var(--color-text-dimmed)),
+          to(var(--color-surface))
+        );
+      background-clip: text;
+      -webkit-background-clip: text;
+      background-repeat: no-repeat;
+      background-size: 50% 200%;
+      display: inline-block;
+      background-position: -100% top;
+    }
+  }
+
+  /* Error message styles */
+  .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--color-danger-rgb), 0.1);
+    border: 0.0625rem solid var(--color-danger);
+    border-radius: var(--border-radius-default);
+    color: var(--color-danger);
+    padding: 1.5rem;
+    text-align: center;
+    min-height: 200px;
+
+    .error-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-text {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* Luzmo viz item overrides */
+  .luzmo-viz-item--evolution-number .title {
+    font-weight: 400;
+  }
+
+  /* Button close */
+  .btn-close {
+    color: var(--color-text-dimmed);
+
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+}
+
+@keyframes state-shimmer {
+  0% {
+    background-position: -100% top;
+  }
+  to {
+    background-position: 250% top;
+  }
+}
+
+/* Modal overrides */
+.modal {
+  &.show {
+    display: block;
+  }
+}
+
+.modal-content {
+  border: 0.0625rem solid var(--color-border);
+  background-color: var(--color-surface-raised);
+  border-radius: var(--border-radius-large);
+}
+
+/**
+ * AI Summary Styles (Unlayered)
+ * 
+ * These styles are intentionally placed OUTSIDE @layer to ensure they apply
+ * to dynamically injected [innerHTML] content. Unlayered CSS has higher
+ * precedence than any layered CSS, which is necessary for styling content
+ * that's streamed in after page load.
+ */
+.luzmo-ai-summary {
+  .rep-name {
+    color: var(--color-text-active);
+    margin: 0 0.125rem;
+    border-bottom: 0.125rem solid rgba(var(--color-primary-rgb), 0.7);
+  }
+
+  .metric-name {
+    margin: 0 0.125rem;
+    border-bottom: 0.125rem solid rgba(var(--color-secondary-rgb), 0.7);
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    list-style: circle;
+    padding-left: 1rem;
+    margin-bottom: 0.75rem;
+  }
+}

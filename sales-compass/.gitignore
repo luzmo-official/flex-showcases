@@ -1,0 +1,30 @@
+# Ignore node_modules directory
+frontend/node_modules/
+backend/node_modules/
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.test
+
+# Ignore build output
+build/
+frontend/dist/
+*.zip
+
+# Ignore angular cache
+frontend/.angular/
+
+# Ignore test coverage output
+frontend/coverage/
+
+# Ignore local config
+**/config/local*
+
+.DS_Store

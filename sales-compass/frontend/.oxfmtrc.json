@@ -1,0 +1,11 @@
+{
+  "endOfLine": "lf",
+  "singleQuote": true,
+  "trailingComma": "none",
+  "singleAttributePerLine": true,
+  "printWidth": 140,
+  "experimentalSortImports": {
+    "newlinesBetween": true,
+    "order": "asc"
+  }
+}

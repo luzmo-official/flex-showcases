@@ -1,0 +1,14 @@
+<div class="flex h-screen overflow-hidden">
+  <app-sidebar class="hidden md:flex"></app-sidebar>
+
+  <main class="flex-1 overflow-y-auto flex flex-col">
+    <app-header
+      class="flex-shrink-0"
+      [headerTitle]="headerTitle()"
+    ></app-header>
+
+    <div class="flex-1 min-h-0">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

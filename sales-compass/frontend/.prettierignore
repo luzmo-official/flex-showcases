@@ -1,0 +1,8 @@
+# Ignore Angular cache
+.angular/
+
+# Ignore coverage files
+coverage/
+
+# Ignore dist files
+dist/

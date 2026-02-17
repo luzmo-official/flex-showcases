@@ -1,0 +1,127 @@
+<div class="modal-header">
+  <h4 class="px-4 py-3 text-xl font-medium text-active">
+    {{ 'theme.customize-colors' | translate }}
+  </h4>
+  <luzmo-action-button
+    class="absolute top-4 right-4"
+    quiet
+    size="m"
+    aria-label="Close"
+    (click)="activeModal.dismiss()"
+  >
+    <luzmo-icon
+      slot="icon"
+      [icon]="luzmoClose"
+    >
+    </luzmo-icon>
+  </luzmo-action-button>
+</div>
+<div class="modal-body">
+  <!-- Color Pickers Grid -->
+  <div class="px-4 pt-4 pb-2">
+    <div class="grid grid-cols-2 gap-x-12">
+      <div>
+        @for (colorConfig of leftColumnColorConfigs; track colorConfig.cssVar; let last = $last) {
+          <div
+            class="flex items-center justify-between"
+            [class.mb-4]="!last"
+          >
+            <div class="text-sm">
+              {{ colorConfig.translationKey | translate }}
+            </div>
+            <div>
+              <luzmo-color-picker
+                size="l"
+                rounding="full"
+                shape="square"
+                placement="left-start"
+                [color]="currentThemeColors[colorConfig.propName]"
+                [noAlphaChannel]="colorConfig.noAlphaChannel"
+                [swatches]="getSwatchesForColorConfig(colorConfig)"
+                (change)="onColorChange(colorConfig.propName, $any($event))"
+              >
+              </luzmo-color-picker>
+            </div>
+          </div>
+        }
+      </div>
+      <div>
+        @for (colorConfig of rightColumnColorConfigs; track colorConfig.cssVar; let last = $last) {
+          <div
+            class="flex items-center justify-between"
+            [class.mb-4]="!last"
+          >
+            <div class="text-sm">
+              {{ colorConfig.translationKey | translate }}
+            </div>
+            <div>
+              <luzmo-color-picker
+                size="l"
+                rounding="full"
+                shape="square"
+                placement="left-start"
+                [color]="currentThemeColors[colorConfig.propName]"
+                [noAlphaChannel]="colorConfig.noAlphaChannel"
+                [swatches]="getSwatchesForColorConfig(colorConfig)"
+                (change)="onColorChange(colorConfig.propName, $any($event))"
+              >
+              </luzmo-color-picker>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer justify-between w-full">
+  <div class="flex gap-2">
+    <luzmo-button
+      class="default-outline"
+      variant="primary"
+      treatment="outline"
+      size="m"
+      class="default-outline"
+      (click)="resetToDefaults()"
+    >
+      <luzmo-icon
+        slot="icon"
+        [icon]="luzmoRetryIcon"
+      >
+      </luzmo-icon>
+      {{ 'theme.reset-to-defaults' | translate }}
+    </luzmo-button>
+    <luzmo-button
+      variant="secondary"
+      size="m"
+      [disabled]="isShareLinkCopied"
+      (click)="generateShareableUrl()"
+    >
+      <luzmo-icon
+        slot="icon"
+        [icon]="isShareLinkCopied ? luzmoCheckIcon : luzmoShareIcon"
+      >
+      </luzmo-icon>
+      {{ isShareLinkCopied ? ('theme.link-copied' | translate) : ('theme.copy-shareable-link' | translate) }}
+    </luzmo-button>
+  </div>
+  <div class="flex justify-end">
+    <div class="flex items-center gap-2">
+      <luzmo-button
+        variant="primary"
+        treatment="outline"
+        size="m"
+        class="default-outline"
+        (click)="activeModal.dismiss()"
+      >
+        {{ 'theme.cancel' | translate }}
+      </luzmo-button>
+      <luzmo-button
+        variant="primary"
+        size="m"
+        (click)="saveColors()"
+      >
+        {{ 'theme.save-and-apply' | translate }}
+      </luzmo-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+/* Main SCSS Entry Point */
+
+@use './variables';
+@use './luzmo';
+@use './base';
+@use './utilities';
+
+/* Define layer order */
+@layer base, components, utilities, overrides;
+
+/* External font import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
