@@ -1,0 +1,384 @@
+/* DevOps Command - Global Styles */
+
+@import "tailwindcss";
+
+@theme {
+  /* Terminal Green Color Palette */
+  --color-terminal-green: #00ff41;
+  --color-terminal-dim: #39ff14;
+  --color-terminal-muted: #22c55e;
+  --color-terminal-dark: #166534;
+  
+  /* Background Colors */
+  --color-terminal-bg: #0a0a0a;
+  --color-terminal-surface: #111111;
+  --color-terminal-border: #1a3d1a;
+  
+  /* Accent Colors */
+  --color-cyber-cyan: #00ffff;
+  --color-alert-red: #ff3333;
+  --color-warning-amber: #ffaa00;
+  
+  /* Typography */
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Luzmo Analytics Components Kit theme variables (web components) */
+html,
+:root {
+  --luzmo-animation-duration: 0.15s;
+
+  /* Borders */
+  --luzmo-border-width: 1px;
+  --luzmo-border-radius: 2px;
+  --luzmo-border-radius-s: 2px;
+  --luzmo-border-radius-l: 4px;
+  --luzmo-border-radius-xl: 6px;
+  --luzmo-border-radius-full: 999rem;
+
+  --luzmo-border-color-rgb: 0, 255, 65;
+  --luzmo-border-color: var(--color-terminal-border);
+  --luzmo-border-color-hover: rgba(var(--luzmo-border-color-rgb), 0.18);
+  --luzmo-border-color-down: rgba(var(--luzmo-border-color-rgb), 0.28);
+  --luzmo-border-color-focus: rgba(var(--luzmo-border-color-rgb), 0.32);
+
+  --luzmo-border-color-full: rgba(var(--luzmo-border-color-rgb), 0.22);
+  --luzmo-border-color-full-hover: rgba(var(--luzmo-border-color-rgb), 0.3);
+  --luzmo-border-color-full-down: rgba(var(--luzmo-border-color-rgb), 0.4);
+  --luzmo-border-color-full-focus: rgba(var(--luzmo-border-color-rgb), 0.45);
+  --luzmo-border-color-disabled: rgba(26, 61, 26, 0.6);
+
+  /* Backgrounds */
+  --luzmo-background-color: var(--color-terminal-surface);
+  --luzmo-background-color-rgb: 17, 17, 17;
+  --luzmo-background-color-disabled: rgba(17, 17, 17, 0.6);
+  --luzmo-background-color-hover: #0f1a0f;
+  --luzmo-background-color-down: #122012;
+  --luzmo-background-color-focus: #0f1a0f;
+
+  --luzmo-background-color-highlight: rgba(var(--luzmo-border-color-rgb), 0.08);
+  --luzmo-background-color-highlight-disabled: rgba(var(--luzmo-border-color-rgb), 0.04);
+  --luzmo-background-color-highlight-hover: rgba(var(--luzmo-border-color-rgb), 0.12);
+  --luzmo-background-color-highlight-down: rgba(var(--luzmo-border-color-rgb), 0.16);
+  --luzmo-background-color-highlight-focus: rgba(var(--luzmo-border-color-rgb), 0.12);
+
+  --luzmo-background-color-alt-1: var(--color-terminal-bg);
+  --luzmo-background-color-alt-2: #101010;
+
+  /* Typography */
+  --luzmo-font-family: var(--font-mono);
+  --luzmo-font-size-xs: 10px;
+  --luzmo-font-size-s: 12px;
+  --luzmo-font-size-m: 14px;
+  --luzmo-font-size: 14px;
+  --luzmo-font-size-l: 16px;
+  --luzmo-font-size-xl: 18px;
+  --luzmo-font-size-xxl: 20px;
+  --luzmo-font-style: normal;
+  --luzmo-line-height: normal;
+  --luzmo-font-weight: 400;
+  --luzmo-font-weight-semibold: 500;
+  --luzmo-font-weight-bold: 600;
+
+  --luzmo-font-color: var(--color-terminal-green);
+  --luzmo-font-color-hard: var(--color-terminal-dim);
+  --luzmo-font-color-extra-dimmed: var(--color-terminal-dark);
+  --luzmo-font-color-hover: var(--color-terminal-green);
+  --luzmo-font-color-down: var(--color-terminal-dim);
+  --luzmo-font-color-focus: var(--color-terminal-green);
+
+  /* Accent colors */
+  --luzmo-primary: var(--color-terminal-green);
+  --luzmo-primary-hover: var(--color-terminal-dim);
+  --luzmo-primary-down: var(--color-terminal-muted);
+  --luzmo-primary-focus: var(--color-terminal-dim);
+  --luzmo-primary-inverse-color: var(--color-terminal-bg);
+  --luzmo-primary-rgb: 0, 255, 65;
+
+  --luzmo-secondary: var(--color-cyber-cyan);
+  --luzmo-secondary-hover: rgba(0, 255, 255, 0.85);
+  --luzmo-secondary-down: rgba(0, 255, 255, 0.7);
+  --luzmo-secondary-focus: rgba(0, 255, 255, 0.85);
+  --luzmo-secondary-inverse-color: var(--color-terminal-bg);
+  --luzmo-secondary-rgb: 0, 255, 255;
+  --luzmo-secondary-outline: rgba(0, 255, 255, 0.18);
+
+  --luzmo-negative-color: var(--color-alert-red);
+  --luzmo-negative-color-hover: #e62e2e;
+  --luzmo-negative-color-down: #cc2929;
+  --luzmo-negative-color-focus: #e62e2e;
+  --luzmo-negative-color-rgb: 255, 51, 51;
+
+  --luzmo-positive-color: var(--color-terminal-muted);
+  --luzmo-positive-color-hover: #1fb355;
+  --luzmo-positive-color-down: #1a9a49;
+  --luzmo-positive-color-focus: #1fb355;
+  --luzmo-positive-color-rgb: 34, 197, 94;
+
+  /* Selection / state */
+  --luzmo-selected-color: rgba(var(--luzmo-border-color-rgb), 0.18);
+  --luzmo-selected-color-hover: rgba(var(--luzmo-border-color-rgb), 0.24);
+  --luzmo-selected-color-down: rgba(var(--luzmo-border-color-rgb), 0.3);
+  --luzmo-selected-color-focus: rgba(var(--luzmo-border-color-rgb), 0.24);
+  --luzmo-selected-color-hard: rgba(var(--luzmo-border-color-rgb), 0.35);
+  --luzmo-selected-color-hard-hover: rgba(var(--luzmo-border-color-rgb), 0.45);
+  --luzmo-selected-color-hard-down: rgba(var(--luzmo-border-color-rgb), 0.55);
+  --luzmo-selected-color-hard-focus: rgba(var(--luzmo-border-color-rgb), 0.45);
+
+  --luzmo-color-informative: var(--color-cyber-cyan);
+  --luzmo-color-informative-rgb: 0, 255, 255;
+
+  --luzmo-color-disabled: #2a5d2a;
+  --luzmo-font-color-disabled: var(--luzmo-color-disabled);
+
+  /* Spacing */
+  --luzmo-spacing-1: 2px;
+  --luzmo-spacing-2: 4px;
+  --luzmo-spacing-3: 8px;
+  --luzmo-spacing-4: 12px;
+  --luzmo-spacing-5: 16px;
+
+  /* Indicators */
+  --luzmo-indicator-gap: 2px;
+  --luzmo-indicator-width: 1px;
+  --luzmo-indicator-color: var(--luzmo-primary);
+
+  /* Component sizing */
+  --luzmo-component-height-xxs: 20px;
+  --luzmo-component-height-xs: 24px;
+  --luzmo-component-height-s: 28px;
+  --luzmo-component-height: 32px;
+  --luzmo-component-height-l: 40px;
+  --luzmo-component-height-xl: 48px;
+  --luzmo-component-height-xxl: 64px;
+
+  /* Icons */
+  --luzmo-icon-size-xxs: 12px;
+  --luzmo-icon-size-xs: 14px;
+  --luzmo-icon-size-s: 16px;
+  --luzmo-icon-size-m: 18px;
+  --luzmo-icon-size-l: 20px;
+  --luzmo-icon-size-xl: 22px;
+  --luzmo-icon-size-xxl: 32px;
+}
+
+html, body {
+  @apply bg-terminal-bg text-terminal-green font-mono antialiased;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scrollbar Styling for Terminal Feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-terminal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-terminal-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-terminal-muted);
+}
+
+/* Futuristic Grid Background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content is above the grid */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle scanline effect (optional - for extra retro feel) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+/* Terminal Button Group - Date Level Selector */
+.btn-group-terminal {
+  display: flex;
+  border: 1px solid var(--color-terminal-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.btn-group-terminal button {
+  background: transparent;
+  color: var(--color-terminal-dark);
+  border: none;
+  border-right: 1px solid var(--color-terminal-border);
+  padding: 2px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-group-terminal button:last-child {
+  border-right: none;
+}
+
+.btn-group-terminal button:hover {
+  background: rgba(0, 255, 65, 0.1);
+  color: var(--color-terminal-dim);
+}
+
+.btn-group-terminal button.active {
+  background: rgba(0, 255, 65, 0.2);
+  color: var(--color-terminal-green);
+  box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.2), 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+/* Terminal Chat Styles */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--color-terminal-green);
+  font-weight: bold;
+}
+
+.chat-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-terminal-green);
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  resize: none;
+  caret-color: transparent; /* Hide default cursor, we use custom blinking one */
+}
+
+.chat-input::placeholder {
+  color: var(--color-terminal-dark);
+}
+
+.chat-input:focus {
+  outline: none;
+}
+
+/* Chat messages container */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-terminal-dark) var(--color-terminal-bg);
+}
+
+/* Typing indicator animation */
+@keyframes typing-dot {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+
+.typing-dot {
+  animation: typing-dot 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Boot sequence - line appear animation */
+@keyframes boot-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.boot-line {
+  animation: boot-line-in 0.25s ease-out both;
+}
+
+/* Dashboard fade-in after boot */
+@keyframes boot-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.boot-fade-in {
+  animation: boot-fade-in 0.5s ease-out both;
+}
+
+/* Chart panel slide-in animation */
+@keyframes chart-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.chart-panel-enter {
+  animation: chart-panel-in 0.3s ease-out both;
+}
+
+/* Suggestion chip hover glow */
+.suggestion-chip:hover {
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.25);
+}
+
+/* Grid background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}

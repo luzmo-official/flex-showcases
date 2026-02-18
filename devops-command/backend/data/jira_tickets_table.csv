@@ -1,0 +1,501 @@
+jira_key,priority,squad,ticket_name,creation_date
+AERIS-6249,medium,Forge,"Webhook processing times out after 30 seconds for read-only users, blocking release verification",2023-02-23T03:25:57.442Z
+AERIS-6247,medium,Orbit,"Report scheduler creates duplicate notifications when reconnecting after offline mode, affecting customer reporting",2023-02-26T19:04:02.066Z
+AERIS-5925,medium,Forge,"Dashboard filters emits malformed timestamps on dashboards with large datasets, affecting customer reporting",2023-02-28T19:24:17.682Z
+AERIS-5997,low,Horizon,"Release notes sync locks up under heavy load during peak traffic, breaking audit requirements",2023-03-02T10:03:59.455Z
+AERIS-6156,low,Orbit,"Dashboard filters returns a 500 error after timezone changes, blocking release verification",2023-03-03T03:43:29.876Z
+AERIS-6326,medium,Horizon,"Report scheduler does not persist settings for read-only users, impacting executive dashboard confidence",2023-03-03T09:25:28.161Z
+AERIS-6279,low,Horizon,"Webhook processing rejects valid payloads after enabling feature flags, blocking release verification",2023-03-04T01:51:51.143Z
+AERIS-6264,medium,Horizon,"Webhook processing emits malformed timestamps on mobile portrait mode, causing inaccurate KPIs",2023-03-04T22:53:02.335Z
+AERIS-6211,medium,Forge,"Bug trend chart rejects valid payloads on mobile portrait mode, blocking release verification",2023-03-05T10:21:57.111Z
+AERIS-6200,low,Forge,"Alert routing renders blank state unexpectedly when switching squads, slowing engineering triage",2023-03-05T10:47:21.400Z
+AERIS-6372,low,Forge,"PR analytics panel resets pagination unexpectedly after toggling date level, creating noisy support alerts",2023-03-05T11:11:01.453Z
+AERIS-6186,high,Horizon,"Mobile layout shows stale data on dashboards with large datasets, creating noisy support alerts",2023-03-06T02:20:20.693Z
+AERIS-6119,low,Forge,"Webhook processing times out after 30 seconds when using Safari, blocking release verification",2023-03-08T20:20:47.765Z
+AERIS-6159,low,Forge,"PR analytics panel rejects valid payloads after toggling date level, affecting customer reporting",2023-03-12T06:45:32.560Z
+AERIS-6244,low,Horizon,"Dashboard filters rejects valid payloads for repositories with archived branches, affecting customer reporting",2023-03-15T13:21:12.619Z
+AERIS-6266,medium,Forge,"PR analytics panel drops user-selected filters after enabling feature flags, breaking audit requirements",2023-03-17T19:01:02.342Z
+AERIS-6128,low,Horizon,"Audit trail ignores retry backoff on dashboards with large datasets, slowing engineering triage",2023-03-17T21:21:16.210Z
+AERIS-6252,low,Forge,"Audit trail duplicates records when API latency spikes, breaking audit requirements",2023-03-21T14:40:34.921Z
+AERIS-6302,medium,Forge,"SAML login fails silently when reconnecting after offline mode, slowing engineering triage",2023-03-21T23:04:48.232Z
+AERIS-6321,low,Orbit,"Webhook processing drops user-selected filters when using Safari, causing inaccurate KPIs",2023-03-22T09:14:41.237Z
+AERIS-6188,low,Forge,"Webhook processing shows stale data when switching squads, blocking release verification",2023-03-24T05:21:46.844Z
+AERIS-6179,medium,Orbit,"CSV export loads with incorrect totals when API latency spikes, affecting customer reporting",2023-03-25T01:22:33.739Z
+AERIS-6099,medium,Forge,"Timezone rendering drops user-selected filters when API latency spikes, breaking audit requirements",2023-03-28T12:15:11.388Z
+AERIS-5902,low,Horizon,"Notification center truncates long values after timezone changes, blocking release verification",2023-03-29T16:32:35.070Z
+AERIS-6102,medium,Orbit,"Search indexing leaks memory over long sessions on dashboards with large datasets, affecting customer reporting",2023-03-30T02:04:12.691Z
+AERIS-6347,low,Horizon,"CSV export reports incorrect line counts during concurrent edits, affecting customer reporting",2023-04-03T01:46:33.869Z
+AERIS-6292,medium,Forge,"Notification center leaks memory over long sessions on dashboards with large datasets, blocking release verification",2023-04-04T16:05:25.462Z
+AERIS-5975,low,Forge,"CSV export leaks memory over long sessions for repositories with archived branches, creating noisy support alerts",2023-04-07T19:01:47.244Z
+AERIS-6085,medium,Forge,"Mobile layout ignores retry backoff for repositories with archived branches, impacting executive dashboard confidence",2023-04-10T00:07:56.679Z
+AERIS-6210,medium,Orbit,"Bug trend chart truncates long values on mobile portrait mode, causing inaccurate KPIs",2023-04-10T01:59:54.738Z
+AERIS-5922,low,Horizon,"Release notes sync times out after 30 seconds on first load after deploy, causing inaccurate KPIs",2023-04-12T13:30:02.194Z
+AERIS-5963,high,Horizon,"SAML login renders blank state unexpectedly on first load after deploy, creating noisy support alerts",2023-04-12T18:59:47.277Z
+AERIS-6173,high,Orbit,"Timezone rendering creates duplicate notifications for repositories with archived branches, impacting weekly operations review",2023-04-12T23:05:46.266Z
+AERIS-6386,medium,Horizon,"Timezone rendering renders blank state unexpectedly during peak traffic, causing inaccurate KPIs",2023-04-15T08:17:50.933Z
+AERIS-5946,low,Horizon,"Release notes sync does not persist settings on dashboards with large datasets, affecting customer reporting",2023-04-17T10:44:16.960Z
+AERIS-5929,low,Horizon,"PR analytics panel loads with incorrect totals when reconnecting after offline mode, creating noisy support alerts",2023-04-19T01:34:41.914Z
+AERIS-5928,medium,Forge,"API rate limiter drops user-selected filters after timezone changes, slowing engineering triage",2023-04-20T06:53:01.042Z
+AERIS-6299,medium,Horizon,"Background worker creates duplicate notifications when API latency spikes, impacting weekly operations review",2023-04-20T07:15:46.419Z
+AERIS-6001,low,Horizon,"Report scheduler locks up under heavy load on first load after deploy, causing inaccurate KPIs",2023-04-21T19:22:17.648Z
+AERIS-5899,low,Forge,"Embed auth flow leaks memory over long sessions during peak traffic, affecting customer reporting",2023-04-22T15:06:06.119Z
+AERIS-6288,medium,Orbit,"Timezone rendering ignores retry backoff after enabling feature flags, affecting customer reporting",2023-04-23T12:09:02.314Z
+AERIS-6271,low,Orbit,"PR analytics panel rejects valid payloads on mobile portrait mode, affecting customer reporting",2023-04-23T16:04:37.629Z
+AERIS-6057,high,Horizon,"Background worker misclassifies priority labels after toggling date level, creating noisy support alerts",2023-04-24T12:44:21.295Z
+AERIS-6093,low,Forge,"Release notes sync renders blank state unexpectedly when switching squads, impacting executive dashboard confidence",2023-04-26T20:02:00.019Z
+AERIS-6172,low,Orbit,"Release notes sync renders blank state unexpectedly during peak traffic, creating noisy support alerts",2023-04-27T20:26:19.235Z
+AERIS-6365,low,Horizon,"Alert routing leaks memory over long sessions after token refresh, impacting executive dashboard confidence",2023-04-29T16:37:52.799Z
+AERIS-6198,high,Forge,"Alert routing renders blank state unexpectedly when switching squads, breaking audit requirements",2023-05-03T22:29:11.208Z
+AERIS-6122,low,Orbit,"SAML login loads with incorrect totals for read-only users, breaking audit requirements",2023-05-04T09:11:48.111Z
+AERIS-6367,medium,Orbit,"Repository insights shows stale data when exporting to CSV, breaking audit requirements",2023-05-12T03:02:02.357Z
+AERIS-6341,medium,Orbit,"Billing webhook times out after 30 seconds when reconnecting after offline mode, causing inaccurate KPIs",2023-05-18T17:27:59.057Z
+AERIS-6054,medium,Orbit,"Search indexing renders blank state unexpectedly when using Safari, slowing engineering triage",2023-05-22T07:22:11.626Z
+AERIS-6212,low,Forge,"SAML login misclassifies priority labels when exporting to CSV, slowing engineering triage",2023-05-23T15:31:05.908Z
+AERIS-5924,low,Orbit,"Notification center loads with incorrect totals when API latency spikes, impacting executive dashboard confidence",2023-05-25T17:15:31.320Z
+AERIS-6180,medium,Horizon,"Audit trail loads with incorrect totals after enabling feature flags, breaking audit requirements",2023-05-25T23:59:57.270Z
+AERIS-6090,medium,Orbit,"Role permissions returns a 500 error on mobile portrait mode, impacting weekly operations review",2023-05-27T18:14:59.018Z
+AERIS-5992,high,Horizon,"Dashboard filters duplicates records after timezone changes, blocking release verification",2023-05-28T16:49:31.012Z
+AERIS-5942,high,Horizon,"Release notes sync shows inconsistent sorting on dashboards with large datasets, breaking audit requirements",2023-05-31T19:58:05.778Z
+AERIS-6129,low,Orbit,"Release notes sync locks up under heavy load after timezone changes, impacting weekly operations review",2023-06-01T15:21:00.816Z
+AERIS-6289,high,Orbit,"SAML login does not persist settings for read-only users, creating noisy support alerts",2023-06-03T21:22:19.184Z
+AERIS-6378,low,Orbit,"Mobile layout shows inconsistent sorting when switching squads, creating noisy support alerts",2023-06-06T00:47:06.117Z
+AERIS-5965,low,Forge,"API rate limiter returns a 500 error when API latency spikes, causing inaccurate KPIs",2023-06-07T15:10:58.442Z
+AERIS-6259,medium,Orbit,"Webhook processing emits malformed timestamps on dashboards with large datasets, blocking release verification",2023-06-07T15:38:51.866Z
+AERIS-6043,medium,Forge,"Role permissions resets pagination unexpectedly after enabling feature flags, impacting weekly operations review",2023-06-10T11:42:52.086Z
+AERIS-5966,medium,Forge,"Report scheduler duplicates records when exporting to CSV, slowing engineering triage",2023-06-12T00:38:00.858Z
+AERIS-6131,high,Orbit,"Webhook processing creates duplicate notifications after timezone changes, affecting customer reporting",2023-06-15T00:54:18.848Z
+AERIS-6381,medium,Forge,"Mobile layout locks up under heavy load on first load after deploy, slowing engineering triage",2023-06-23T00:43:22.556Z
+AERIS-6035,low,Forge,"Background worker reports incorrect line counts during concurrent edits, slowing engineering triage",2023-06-23T01:23:46.735Z
+AERIS-6242,low,Forge,"Report scheduler loads with incorrect totals when switching squads, affecting customer reporting",2023-06-23T13:50:26.368Z
+AERIS-6021,medium,Forge,"Report scheduler misclassifies priority labels when API latency spikes, impacting weekly operations review",2023-06-24T18:44:53.052Z
+AERIS-6314,medium,Horizon,"CSV export times out after 30 seconds during concurrent edits, breaking audit requirements",2023-06-29T14:21:07.196Z
+AERIS-6051,medium,Forge,"Audit trail locks up under heavy load when exporting to CSV, affecting customer reporting",2023-06-29T20:21:34.369Z
+AERIS-6081,low,Orbit,"Search indexing truncates long values during concurrent edits, slowing engineering triage",2023-07-03T12:11:05.426Z
+AERIS-6276,low,Orbit,"CSV export rejects valid payloads when switching squads, causing inaccurate KPIs",2023-07-06T14:26:46.467Z
+AERIS-6197,low,Forge,"Webhook processing locks up under heavy load on first load after deploy, breaking audit requirements",2023-07-06T19:42:13.596Z
+AERIS-6142,medium,Forge,"Billing webhook returns a 500 error when using Safari, blocking release verification",2023-07-06T22:18:45.777Z
+AERIS-6375,low,Orbit,"Release notes sync shows inconsistent sorting when exporting to CSV, affecting customer reporting",2023-07-10T01:20:52.578Z
+AERIS-6138,medium,Orbit,"Background worker ignores retry backoff when switching squads, causing inaccurate KPIs",2023-07-11T18:23:51.976Z
+AERIS-6062,medium,Orbit,"Dashboard filters ignores retry backoff for read-only users, impacting executive dashboard confidence",2023-07-11T18:59:09.184Z
+AERIS-6371,low,Forge,"Release notes sync shows stale data for read-only users, breaking audit requirements",2023-07-15T02:08:35.769Z
+AERIS-6227,high,Orbit,"Release notes sync ignores retry backoff for read-only users, impacting weekly operations review",2023-07-15T04:36:55.510Z
+AERIS-6332,medium,Orbit,"SAML login duplicates records when exporting to CSV, breaking audit requirements",2023-07-18T01:13:58.432Z
+AERIS-5995,low,Orbit,"Role permissions fails silently on first load after deploy, blocking release verification",2023-07-19T19:04:41.310Z
+AERIS-5926,medium,Orbit,"Search indexing returns a 500 error on mobile portrait mode, creating noisy support alerts",2023-07-20T02:17:52.812Z
+AERIS-5939,medium,Forge,"Mobile layout returns a 500 error after timezone changes, impacting weekly operations review",2023-07-23T15:46:48.232Z
+AERIS-5934,medium,Horizon,"Notification center returns a 500 error after timezone changes, blocking release verification",2023-07-26T12:02:50.363Z
+AERIS-5972,medium,Forge,"Notification center rejects valid payloads when switching squads, impacting weekly operations review",2023-07-27T05:16:19.854Z
+AERIS-6194,low,Forge,"Background worker duplicates records on first load after deploy, affecting customer reporting",2023-07-29T21:18:23.955Z
+AERIS-6067,low,Forge,"Audit trail shows inconsistent sorting on mobile portrait mode, breaking audit requirements",2023-07-30T17:02:16.621Z
+AERIS-5988,low,Horizon,"Background worker emits malformed timestamps when reconnecting after offline mode, creating noisy support alerts",2023-07-31T03:48:17.490Z
+AERIS-6037,low,Forge,"Bug trend chart creates duplicate notifications when using Safari, impacting executive dashboard confidence",2023-08-02T22:32:39.319Z
+AERIS-5914,medium,Horizon,"API rate limiter times out after 30 seconds on dashboards with large datasets, impacting weekly operations review",2023-08-03T16:10:52.634Z
+AERIS-6132,medium,Orbit,"Repository insights leaks memory over long sessions after timezone changes, breaking audit requirements",2023-08-03T16:14:32.439Z
+AERIS-6267,medium,Forge,"Repository insights renders blank state unexpectedly after enabling feature flags, causing inaccurate KPIs",2023-08-03T22:39:00.710Z
+AERIS-6385,low,Orbit,"API rate limiter reports incorrect line counts after toggling date level, slowing engineering triage",2023-08-03T23:00:54.222Z
+AERIS-6064,low,Orbit,"Webhook processing times out after 30 seconds during peak traffic, slowing engineering triage",2023-08-04T12:24:24.761Z
+AERIS-5998,low,Horizon,"PR analytics panel shows stale data for repositories with archived branches, creating noisy support alerts",2023-08-05T23:57:43.118Z
+AERIS-6322,medium,Horizon,"Mobile layout emits malformed timestamps during peak traffic, causing inaccurate KPIs",2023-08-07T05:16:21.598Z
+AERIS-6391,medium,Forge,"Mobile layout fails silently on first load after deploy, affecting customer reporting",2023-08-07T08:46:04.309Z
+AERIS-6325,high,Orbit,"Alert routing loads with incorrect totals after timezone changes, breaking audit requirements",2023-08-09T09:14:15.122Z
+AERIS-6362,medium,Horizon,"Dashboard filters misclassifies priority labels after timezone changes, affecting customer reporting",2023-08-12T09:13:10.896Z
+AERIS-6300,low,Orbit,"Billing webhook truncates long values for read-only users, breaking audit requirements",2023-08-13T15:03:11.226Z
+AERIS-6158,medium,Forge,"API rate limiter fails silently during concurrent edits, impacting weekly operations review",2023-08-14T04:50:30.584Z
+AERIS-6306,low,Forge,"Role permissions shows inconsistent sorting after toggling date level, breaking audit requirements",2023-08-14T11:40:07.853Z
+AERIS-5976,medium,Forge,"Mobile layout emits malformed timestamps when API latency spikes, impacting executive dashboard confidence",2023-08-20T11:55:14.149Z
+AERIS-6222,medium,Orbit,"Webhook processing duplicates records after token refresh, slowing engineering triage",2023-08-26T18:29:39.613Z
+AERIS-6121,low,Orbit,"Alert routing resets pagination unexpectedly on first load after deploy, slowing engineering triage",2023-08-27T09:45:13.901Z
+AERIS-6042,medium,Forge,"Mobile layout drops user-selected filters after token refresh, affecting customer reporting",2023-08-28T02:52:40.295Z
+AERIS-6117,medium,Horizon,"Billing webhook emits malformed timestamps for repositories with archived branches, slowing engineering triage",2023-08-28T09:01:02.444Z
+AERIS-6278,low,Forge,"SAML login misclassifies priority labels for read-only users, affecting customer reporting",2023-09-01T03:03:30.594Z
+AERIS-6233,low,Horizon,"Mobile layout returns a 500 error during concurrent edits, causing inaccurate KPIs",2023-09-01T03:46:22.766Z
+AERIS-6094,low,Horizon,"Embed auth flow shows inconsistent sorting after timezone changes, impacting weekly operations review",2023-09-02T15:30:06.115Z
+AERIS-6044,high,Forge,"Audit trail locks up under heavy load on mobile portrait mode, creating noisy support alerts",2023-09-09T08:48:15.174Z
+AERIS-6190,low,Orbit,"CSV export shows stale data when using Safari, creating noisy support alerts",2023-09-09T19:29:11.247Z
+AERIS-6106,medium,Forge,"Billing webhook drops user-selected filters when using Safari, breaking audit requirements",2023-09-10T00:10:20.106Z
+AERIS-6176,medium,Horizon,"Alert routing times out after 30 seconds for read-only users, slowing engineering triage",2023-09-11T06:36:53.915Z
+AERIS-6175,low,Horizon,"Background worker emits malformed timestamps for read-only users, breaking audit requirements",2023-09-15T15:23:14.754Z
+AERIS-6013,medium,Forge,"Search indexing does not persist settings after toggling date level, impacting weekly operations review",2023-09-21T00:32:43.459Z
+AERIS-5945,medium,Horizon,"Audit trail truncates long values during peak traffic, slowing engineering triage",2023-09-21T17:23:35.767Z
+AERIS-5910,low,Orbit,"Background worker emits malformed timestamps on mobile portrait mode, blocking release verification",2023-09-22T11:58:12.925Z
+AERIS-6317,high,Orbit,"Role permissions reports incorrect line counts when switching squads, creating noisy support alerts",2023-09-25T05:22:05.332Z
+AERIS-6000,medium,Forge,"SAML login loads with incorrect totals on mobile portrait mode, slowing engineering triage",2023-09-26T11:40:01.701Z
+AERIS-6251,medium,Horizon,"Bug trend chart rejects valid payloads on dashboards with large datasets, affecting customer reporting",2023-09-29T06:24:27.703Z
+AERIS-6012,low,Horizon,"Audit trail shows stale data during concurrent edits, impacting weekly operations review",2023-10-01T11:10:32.429Z
+AERIS-6363,medium,Orbit,"Notification center does not persist settings when API latency spikes, impacting executive dashboard confidence",2023-10-03T08:33:06.462Z
+AERIS-6318,medium,Orbit,"Report scheduler does not persist settings during concurrent edits, impacting weekly operations review",2023-10-03T15:47:56.553Z
+AERIS-6104,low,Forge,"API rate limiter rejects valid payloads when reconnecting after offline mode, affecting customer reporting",2023-10-14T00:47:04.437Z
+AERIS-6319,medium,Horizon,"Search indexing locks up under heavy load when exporting to CSV, blocking release verification",2023-10-14T07:35:19.703Z
+AERIS-5994,medium,Horizon,"Billing webhook leaks memory over long sessions for read-only users, impacting executive dashboard confidence",2023-10-17T09:44:01.783Z
+AERIS-6301,low,Forge,"Report scheduler times out after 30 seconds after toggling date level, impacting executive dashboard confidence",2023-10-21T11:13:45.397Z
+AERIS-6348,medium,Orbit,"API rate limiter shows inconsistent sorting when reconnecting after offline mode, breaking audit requirements",2023-10-25T04:59:08.333Z
+AERIS-6074,medium,Horizon,"Billing webhook creates duplicate notifications after toggling date level, slowing engineering triage",2023-10-31T11:19:23.400Z
+AERIS-6324,low,Horizon,"Webhook processing resets pagination unexpectedly for read-only users, causing inaccurate KPIs",2023-11-02T15:29:27.006Z
+AERIS-6169,medium,Orbit,"Mobile layout leaks memory over long sessions on dashboards with large datasets, affecting customer reporting",2023-11-03T10:40:50.119Z
+AERIS-6285,medium,Forge,"PR analytics panel resets pagination unexpectedly during concurrent edits, impacting weekly operations review",2023-11-03T21:46:18.132Z
+AERIS-5978,low,Orbit,"Alert routing rejects valid payloads for read-only users, affecting customer reporting",2023-11-04T08:48:28.637Z
+AERIS-5948,low,Forge,"Timezone rendering duplicates records during peak traffic, slowing engineering triage",2023-11-06T18:32:23.426Z
+AERIS-6143,low,Orbit,"CSV export returns a 500 error after toggling date level, creating noisy support alerts",2023-11-12T09:57:07.749Z
+AERIS-6208,low,Forge,"Report scheduler locks up under heavy load for repositories with archived branches, impacting executive dashboard confidence",2023-11-13T04:05:09.642Z
+AERIS-6185,medium,Forge,"Billing webhook duplicates records when using Safari, breaking audit requirements",2023-11-15T03:55:58.450Z
+AERIS-6113,low,Horizon,"Background worker shows inconsistent sorting during concurrent edits, slowing engineering triage",2023-11-17T22:03:32.368Z
+AERIS-6258,medium,Orbit,"Audit trail renders blank state unexpectedly during peak traffic, impacting weekly operations review",2023-11-19T17:12:10.106Z
+AERIS-6112,high,Horizon,"Notification center leaks memory over long sessions on mobile portrait mode, blocking release verification",2023-11-19T18:18:12.346Z
+AERIS-6171,low,Horizon,"Background worker times out after 30 seconds when using Safari, affecting customer reporting",2023-11-21T02:34:47.084Z
+AERIS-6111,low,Orbit,"Notification center rejects valid payloads when using Safari, impacting executive dashboard confidence",2023-11-22T12:37:16.367Z
+AERIS-6060,low,Horizon,"Notification center emits malformed timestamps after toggling date level, impacting weekly operations review",2023-12-01T11:35:18.510Z
+AERIS-6297,medium,Horizon,"Release notes sync ignores retry backoff after timezone changes, slowing engineering triage",2023-12-02T12:03:11.732Z
+AERIS-6241,low,Orbit,"Role permissions times out after 30 seconds after enabling feature flags, impacting weekly operations review",2023-12-04T03:19:54.838Z
+AERIS-5932,medium,Horizon,"Repository insights rejects valid payloads when switching squads, breaking audit requirements",2023-12-04T10:04:30.606Z
+AERIS-5935,low,Forge,"Mobile layout times out after 30 seconds on mobile portrait mode, breaking audit requirements",2023-12-05T06:25:27.021Z
+AERIS-6178,low,Forge,"Billing webhook shows stale data when exporting to CSV, impacting executive dashboard confidence",2023-12-05T15:14:27.100Z
+AERIS-6025,low,Forge,"Role permissions locks up under heavy load during concurrent edits, impacting weekly operations review",2023-12-05T23:10:56.190Z
+AERIS-6168,high,Forge,"API rate limiter rejects valid payloads when reconnecting after offline mode, impacting weekly operations review",2023-12-09T00:11:53.883Z
+AERIS-6087,low,Forge,"Repository insights does not persist settings for repositories with archived branches, blocking release verification",2023-12-09T07:01:45.629Z
+AERIS-6383,medium,Forge,"Background worker ignores retry backoff during peak traffic, impacting weekly operations review",2023-12-09T20:57:02.511Z
+AERIS-6219,medium,Forge,"Search indexing resets pagination unexpectedly on mobile portrait mode, creating noisy support alerts",2023-12-10T06:43:46.502Z
+AERIS-6118,high,Orbit,"Repository insights times out after 30 seconds when switching squads, impacting weekly operations review",2023-12-11T14:53:31.155Z
+AERIS-6349,low,Horizon,"Bug trend chart times out after 30 seconds for read-only users, impacting executive dashboard confidence",2023-12-12T06:41:58.369Z
+AERIS-6373,high,Orbit,"Alert routing duplicates records when exporting to CSV, impacting executive dashboard confidence",2023-12-13T08:33:04.646Z
+AERIS-6019,low,Orbit,"Alert routing fails silently after enabling feature flags, breaking audit requirements",2023-12-14T22:01:28.992Z
+AERIS-5897,medium,Orbit,"Billing webhook drops user-selected filters on mobile portrait mode, breaking audit requirements",2023-12-15T08:50:03.127Z
+AERIS-6202,high,Forge,"Billing webhook rejects valid payloads after enabling feature flags, blocking release verification",2023-12-20T16:22:07.457Z
+AERIS-6291,low,Forge,"Alert routing creates duplicate notifications during concurrent edits, breaking audit requirements",2023-12-21T03:55:59.978Z
+AERIS-6333,low,Orbit,"Webhook processing drops user-selected filters during peak traffic, affecting customer reporting",2023-12-26T17:25:02.351Z
+AERIS-6370,low,Orbit,"CSV export misclassifies priority labels after toggling date level, impacting executive dashboard confidence",2023-12-28T01:30:24.055Z
+AERIS-6052,medium,Horizon,"Billing webhook ignores retry backoff when switching squads, impacting executive dashboard confidence",2023-12-29T00:45:22.205Z
+AERIS-6232,low,Orbit,"Webhook processing rejects valid payloads when API latency spikes, impacting executive dashboard confidence",2023-12-31T12:18:29.529Z
+AERIS-6103,medium,Orbit,"Embed auth flow misclassifies priority labels for read-only users, blocking release verification",2024-01-03T11:15:18.465Z
+AERIS-6353,low,Forge,"Background worker returns a 500 error when switching squads, breaking audit requirements",2024-01-12T06:34:39.479Z
+AERIS-6395,medium,Orbit,"Webhook processing reports incorrect line counts when reconnecting after offline mode, breaking audit requirements",2024-01-16T10:12:16.421Z
+AERIS-6282,low,Forge,"Embed auth flow emits malformed timestamps after token refresh, impacting executive dashboard confidence",2024-01-16T16:00:48.997Z
+AERIS-6028,low,Horizon,"Background worker creates duplicate notifications after enabling feature flags, creating noisy support alerts",2024-01-23T20:24:51.025Z
+AERIS-6110,high,Horizon,"CSV export drops user-selected filters when API latency spikes, slowing engineering triage",2024-01-26T12:30:23.113Z
+AERIS-6201,high,Orbit,"Release notes sync creates duplicate notifications after timezone changes, causing inaccurate KPIs",2024-01-28T07:31:32.059Z
+AERIS-6304,high,Forge,"Role permissions drops user-selected filters when using Safari, causing inaccurate KPIs",2024-01-28T14:18:25.343Z
+AERIS-6096,high,Orbit,"CSV export rejects valid payloads when switching squads, blocking release verification",2024-01-29T14:39:54.906Z
+AERIS-6155,low,Forge,"CSV export duplicates records when API latency spikes, blocking release verification",2024-02-04T21:21:38.508Z
+AERIS-5923,medium,Orbit,"Webhook processing rejects valid payloads when reconnecting after offline mode, slowing engineering triage",2024-02-06T00:36:50.584Z
+AERIS-6049,low,Forge,"Alert routing shows stale data on first load after deploy, affecting customer reporting",2024-02-07T02:14:57.330Z
+AERIS-6145,medium,Horizon,"Repository insights renders blank state unexpectedly for repositories with archived branches, impacting weekly operations review",2024-02-10T18:15:58.468Z
+AERIS-6239,medium,Forge,"Billing webhook renders blank state unexpectedly when using Safari, breaking audit requirements",2024-02-13T01:46:26.881Z
+AERIS-6382,low,Forge,"API rate limiter rejects valid payloads when switching squads, creating noisy support alerts",2024-02-14T23:35:16.671Z
+AERIS-6331,low,Horizon,"Release notes sync returns a 500 error on dashboards with large datasets, breaking audit requirements",2024-02-15T07:19:02.398Z
+AERIS-6101,medium,Horizon,"Alert routing renders blank state unexpectedly for read-only users, breaking audit requirements",2024-02-17T03:08:52.533Z
+AERIS-6380,low,Horizon,"Release notes sync loads with incorrect totals on mobile portrait mode, affecting customer reporting",2024-02-19T04:48:41.399Z
+AERIS-6387,low,Forge,"Webhook processing loads with incorrect totals when exporting to CSV, creating noisy support alerts",2024-02-19T08:26:32.971Z
+AERIS-5950,medium,Orbit,"Bug trend chart renders blank state unexpectedly after timezone changes, slowing engineering triage",2024-02-23T11:09:07.987Z
+AERIS-6120,medium,Forge,"CSV export renders blank state unexpectedly on first load after deploy, creating noisy support alerts",2024-02-23T17:04:13.932Z
+AERIS-6309,medium,Orbit,"Release notes sync creates duplicate notifications for read-only users, causing inaccurate KPIs",2024-03-02T02:41:37.040Z
+AERIS-6392,low,Forge,"Background worker shows inconsistent sorting on mobile portrait mode, breaking audit requirements",2024-03-03T00:50:01.558Z
+AERIS-6004,medium,Forge,"SAML login truncates long values when exporting to CSV, impacting weekly operations review",2024-03-05T02:57:51.911Z
+AERIS-6323,medium,Orbit,"Background worker fails silently after timezone changes, impacting executive dashboard confidence",2024-03-08T16:20:07.658Z
+AERIS-6269,high,Orbit,"SAML login rejects valid payloads after timezone changes, slowing engineering triage",2024-03-08T23:51:36.624Z
+AERIS-5953,medium,Orbit,"Background worker rejects valid payloads on dashboards with large datasets, breaking audit requirements",2024-03-13T10:37:42.986Z
+AERIS-6311,medium,Forge,"Billing webhook shows stale data on mobile portrait mode, slowing engineering triage",2024-03-23T07:03:34.046Z
+AERIS-5912,low,Orbit,"Audit trail fails silently when exporting to CSV, causing inaccurate KPIs",2024-03-24T08:24:28.307Z
+AERIS-6139,medium,Horizon,"SAML login reports incorrect line counts for repositories with archived branches, causing inaccurate KPIs",2024-03-25T12:21:04.335Z
+AERIS-5982,low,Orbit,"Search indexing leaks memory over long sessions when API latency spikes, affecting customer reporting",2024-03-29T18:55:59.795Z
+AERIS-6384,medium,Orbit,"Alert routing locks up under heavy load for read-only users, impacting executive dashboard confidence",2024-03-31T03:50:55.892Z
+AERIS-6150,low,Forge,"Notification center misclassifies priority labels after timezone changes, impacting weekly operations review",2024-03-31T17:35:06.419Z
+AERIS-6369,medium,Orbit,"CSV export does not persist settings after enabling feature flags, impacting executive dashboard confidence",2024-04-04T05:11:03.831Z
+AERIS-6041,medium,Forge,"SAML login resets pagination unexpectedly when API latency spikes, blocking release verification",2024-04-05T13:26:03.780Z
+AERIS-6255,medium,Orbit,"Timezone rendering truncates long values during peak traffic, impacting executive dashboard confidence",2024-04-07T17:45:41.259Z
+AERIS-5913,medium,Forge,"PR analytics panel rejects valid payloads after token refresh, impacting executive dashboard confidence",2024-04-10T03:03:52.714Z
+AERIS-6023,low,Horizon,"Search indexing locks up under heavy load after toggling date level, blocking release verification",2024-04-10T18:22:29.396Z
+AERIS-5977,medium,Forge,"Webhook processing emits malformed timestamps on dashboards with large datasets, affecting customer reporting",2024-04-13T04:58:05.088Z
+AERIS-6287,low,Forge,"Timezone rendering loads with incorrect totals on first load after deploy, causing inaccurate KPIs",2024-04-14T01:00:31.342Z
+AERIS-6294,low,Forge,"Mobile layout times out after 30 seconds when exporting to CSV, affecting customer reporting",2024-04-18T04:34:45.064Z
+AERIS-6082,high,Horizon,"PR analytics panel rejects valid payloads after toggling date level, impacting executive dashboard confidence",2024-04-25T13:29:52.510Z
+AERIS-6215,low,Orbit,"CSV export renders blank state unexpectedly on first load after deploy, causing inaccurate KPIs",2024-04-27T18:22:04.002Z
+AERIS-6261,medium,Horizon,"CSV export ignores retry backoff when reconnecting after offline mode, affecting customer reporting",2024-04-28T06:22:53.778Z
+AERIS-6223,low,Orbit,"Repository insights rejects valid payloads when switching squads, impacting executive dashboard confidence",2024-04-30T02:10:16.643Z
+AERIS-5961,low,Orbit,"Webhook processing shows inconsistent sorting when API latency spikes, impacting executive dashboard confidence",2024-05-01T11:07:16.812Z
+AERIS-6358,low,Horizon,"Release notes sync leaks memory over long sessions after enabling feature flags, impacting executive dashboard confidence",2024-05-02T05:29:08.102Z
+AERIS-5956,medium,Orbit,"Mobile layout creates duplicate notifications when reconnecting after offline mode, slowing engineering triage",2024-05-05T04:08:21.618Z
+AERIS-6310,medium,Horizon,"SAML login returns a 500 error during peak traffic, impacting executive dashboard confidence",2024-05-05T12:46:40.230Z
+AERIS-6277,medium,Orbit,"PR analytics panel resets pagination unexpectedly on first load after deploy, impacting weekly operations review",2024-05-06T19:39:03.282Z
+AERIS-5996,medium,Forge,"Audit trail misclassifies priority labels when API latency spikes, creating noisy support alerts",2024-05-07T10:03:53.254Z
+AERIS-6388,high,Orbit,"Timezone rendering does not persist settings after timezone changes, breaking audit requirements",2024-05-07T22:15:13.535Z
+AERIS-6262,medium,Horizon,"Report scheduler truncates long values when reconnecting after offline mode, breaking audit requirements",2024-05-15T02:54:52.248Z
+AERIS-6032,low,Horizon,"Mobile layout fails silently during concurrent edits, slowing engineering triage",2024-05-21T07:19:31.714Z
+AERIS-6209,medium,Horizon,"Report scheduler does not persist settings after toggling date level, blocking release verification",2024-05-21T18:45:29.390Z
+AERIS-6313,low,Horizon,"Bug trend chart loads with incorrect totals when switching squads, breaking audit requirements",2024-05-23T16:24:33.378Z
+AERIS-5900,medium,Orbit,"Report scheduler truncates long values for repositories with archived branches, creating noisy support alerts",2024-05-25T00:18:07.604Z
+AERIS-6307,low,Horizon,"Alert routing duplicates records when exporting to CSV, slowing engineering triage",2024-05-26T14:54:48.696Z
+AERIS-6125,high,Horizon,"Repository insights misclassifies priority labels when API latency spikes, causing inaccurate KPIs",2024-05-28T07:19:03.757Z
+AERIS-5993,low,Horizon,"Webhook processing shows inconsistent sorting on dashboards with large datasets, blocking release verification",2024-05-31T04:43:58.133Z
+AERIS-6334,medium,Forge,"Notification center loads with incorrect totals after enabling feature flags, blocking release verification",2024-06-06T02:39:06.487Z
+AERIS-6026,high,Forge,"Repository insights shows stale data during concurrent edits, causing inaccurate KPIs",2024-06-08T11:59:27.417Z
+AERIS-6133,medium,Orbit,"Billing webhook does not persist settings on first load after deploy, causing inaccurate KPIs",2024-06-19T00:32:52.076Z
+AERIS-5987,medium,Orbit,"CSV export rejects valid payloads when switching squads, impacting weekly operations review",2024-06-22T19:46:51.778Z
+AERIS-5903,medium,Horizon,"Billing webhook rejects valid payloads after timezone changes, creating noisy support alerts",2024-06-23T07:14:12.381Z
+AERIS-5979,medium,Forge,"Audit trail resets pagination unexpectedly after toggling date level, breaking audit requirements",2024-06-29T03:41:52.463Z
+AERIS-5958,low,Forge,"Dashboard filters does not persist settings after toggling date level, breaking audit requirements",2024-07-16T05:58:11.391Z
+AERIS-6123,medium,Orbit,"Timezone rendering fails silently when switching squads, blocking release verification",2024-07-22T04:11:36.089Z
+AERIS-6091,medium,Horizon,"Release notes sync truncates long values when exporting to CSV, creating noisy support alerts",2024-07-25T04:13:10.972Z
+AERIS-6144,medium,Forge,"Notification center resets pagination unexpectedly when using Safari, slowing engineering triage",2024-07-27T18:01:19.504Z
+AERIS-6253,medium,Forge,"Billing webhook drops user-selected filters for repositories with archived branches, causing inaccurate KPIs",2024-07-30T10:27:11.457Z
+AERIS-5918,medium,Orbit,"Mobile layout truncates long values when exporting to CSV, affecting customer reporting",2024-08-02T10:20:44.664Z
+AERIS-6003,high,Horizon,"Billing webhook resets pagination unexpectedly on mobile portrait mode, creating noisy support alerts",2024-08-04T12:57:53.916Z
+AERIS-5915,high,Forge,"Audit trail leaks memory over long sessions after toggling date level, impacting weekly operations review",2024-08-05T11:25:01.424Z
+AERIS-6002,medium,Forge,"Audit trail duplicates records when using Safari, breaking audit requirements",2024-08-05T22:50:52.554Z
+AERIS-6010,medium,Orbit,"Background worker shows inconsistent sorting after timezone changes, impacting executive dashboard confidence",2024-08-06T05:21:49.228Z
+AERIS-6162,medium,Forge,"CSV export does not persist settings after enabling feature flags, causing inaccurate KPIs",2024-08-07T23:37:01.477Z
+AERIS-5981,high,Horizon,"Dashboard filters loads with incorrect totals when switching squads, affecting customer reporting",2024-08-08T06:43:49.254Z
+AERIS-6293,low,Forge,"Report scheduler returns a 500 error during peak traffic, breaking audit requirements",2024-08-11T16:48:31.648Z
+AERIS-6216,high,Horizon,"CSV export resets pagination unexpectedly on dashboards with large datasets, impacting executive dashboard confidence",2024-08-14T17:26:39.197Z
+AERIS-6124,high,Horizon,"PR analytics panel resets pagination unexpectedly when API latency spikes, blocking release verification",2024-08-14T23:10:38.873Z
+AERIS-6177,low,Orbit,"CSV export emits malformed timestamps for read-only users, impacting executive dashboard confidence",2024-08-15T12:42:04.037Z
+AERIS-6203,low,Forge,"Report scheduler duplicates records on mobile portrait mode, affecting customer reporting",2024-08-20T08:17:48.855Z
+AERIS-6390,medium,Orbit,"CSV export loads with incorrect totals during concurrent edits, slowing engineering triage",2024-08-24T12:17:51.448Z
+AERIS-6280,medium,Forge,"Embed auth flow truncates long values when exporting to CSV, blocking release verification",2024-08-24T15:00:10.822Z
+AERIS-6029,low,Orbit,"Billing webhook shows inconsistent sorting on dashboards with large datasets, slowing engineering triage",2024-08-27T19:36:53.181Z
+AERIS-5920,low,Horizon,"Repository insights loads with incorrect totals on first load after deploy, blocking release verification",2024-08-28T19:07:54.223Z
+AERIS-5989,medium,Orbit,"Timezone rendering duplicates records after token refresh, affecting customer reporting",2024-08-29T14:35:04.565Z
+AERIS-6340,low,Horizon,"Mobile layout renders blank state unexpectedly after token refresh, affecting customer reporting",2024-08-29T15:40:11.822Z
+AERIS-5943,low,Horizon,"Alert routing leaks memory over long sessions when using Safari, slowing engineering triage",2024-09-01T14:44:01.738Z
+AERIS-6005,low,Orbit,"Embed auth flow renders blank state unexpectedly during peak traffic, blocking release verification",2024-09-02T06:10:35.022Z
+AERIS-6071,medium,Forge,"Search indexing misclassifies priority labels during peak traffic, breaking audit requirements",2024-09-02T09:14:27.655Z
+AERIS-5944,high,Horizon,"Notification center misclassifies priority labels after timezone changes, affecting customer reporting",2024-09-02T12:12:57.172Z
+AERIS-5931,medium,Horizon,"Mobile layout reports incorrect line counts on dashboards with large datasets, breaking audit requirements",2024-09-05T09:10:01.484Z
+AERIS-6105,low,Forge,"Webhook processing rejects valid payloads when exporting to CSV, affecting customer reporting",2024-09-12T06:37:11.290Z
+AERIS-6329,low,Forge,"Billing webhook renders blank state unexpectedly for repositories with archived branches, impacting executive dashboard confidence",2024-09-13T12:37:30.615Z
+AERIS-6366,low,Orbit,"Webhook processing does not persist settings during concurrent edits, creating noisy support alerts",2024-09-19T21:07:11.976Z
+AERIS-5933,medium,Horizon,"Search indexing creates duplicate notifications after timezone changes, causing inaccurate KPIs",2024-09-25T04:30:24.829Z
+AERIS-6053,medium,Orbit,"Notification center emits malformed timestamps for read-only users, slowing engineering triage",2024-09-27T20:54:11.986Z
+AERIS-5927,low,Forge,"Search indexing shows inconsistent sorting for read-only users, slowing engineering triage",2024-10-04T07:19:52.958Z
+AERIS-6015,medium,Forge,"Bug trend chart ignores retry backoff when switching squads, affecting customer reporting",2024-10-04T19:29:47.830Z
+AERIS-6217,medium,Orbit,"Embed auth flow returns a 500 error for read-only users, affecting customer reporting",2024-10-08T07:34:13.485Z
+AERIS-6270,medium,Horizon,"Webhook processing reports incorrect line counts after enabling feature flags, blocking release verification",2024-10-13T02:29:40.648Z
+AERIS-6389,medium,Horizon,"Notification center duplicates records during peak traffic, impacting weekly operations review",2024-10-13T04:55:40.128Z
+AERIS-5940,low,Forge,"CSV export creates duplicate notifications on mobile portrait mode, affecting customer reporting",2024-10-13T22:23:52.902Z
+AERIS-5999,low,Orbit,"SAML login leaks memory over long sessions when reconnecting after offline mode, breaking audit requirements",2024-10-15T01:40:21.138Z
+AERIS-5904,medium,Forge,"CSV export fails silently after toggling date level, slowing engineering triage",2024-10-17T16:11:29.246Z
+AERIS-6196,low,Orbit,"Role permissions times out after 30 seconds when reconnecting after offline mode, creating noisy support alerts",2024-10-18T00:00:58.958Z
+AERIS-6126,low,Forge,"Background worker truncates long values for repositories with archived branches, blocking release verification",2024-10-25T00:24:01.060Z
+AERIS-6192,low,Orbit,"Background worker drops user-selected filters when API latency spikes, breaking audit requirements",2024-10-25T06:32:28.547Z
+AERIS-5896,medium,Horizon,"Bug trend chart reports incorrect line counts for read-only users, blocking release verification",2024-10-28T22:49:09.710Z
+AERIS-6238,medium,Forge,"PR analytics panel returns a 500 error after enabling feature flags, blocking release verification",2024-10-29T12:29:07.173Z
+AERIS-5964,medium,Orbit,"Bug trend chart locks up under heavy load when using Safari, slowing engineering triage",2024-10-30T01:13:26.136Z
+AERIS-6234,medium,Horizon,"Bug trend chart misclassifies priority labels when reconnecting after offline mode, impacting weekly operations review",2024-11-01T11:33:34.192Z
+AERIS-6107,low,Horizon,"Alert routing ignores retry backoff after toggling date level, creating noisy support alerts",2024-11-03T23:22:22.793Z
+AERIS-5969,high,Horizon,"API rate limiter resets pagination unexpectedly when API latency spikes, breaking audit requirements",2024-11-09T21:39:00.297Z
+AERIS-6308,low,Forge,"API rate limiter creates duplicate notifications during peak traffic, impacting executive dashboard confidence",2024-11-10T11:14:16.514Z
+AERIS-6374,low,Forge,"Audit trail does not persist settings when exporting to CSV, breaking audit requirements",2024-11-10T12:47:01.751Z
+AERIS-6134,low,Horizon,"Bug trend chart drops user-selected filters when reconnecting after offline mode, creating noisy support alerts",2024-11-15T01:51:32.541Z
+AERIS-6336,low,Horizon,"Role permissions drops user-selected filters when reconnecting after offline mode, blocking release verification",2024-11-16T13:19:46.958Z
+AERIS-6038,medium,Orbit,"Notification center loads with incorrect totals after timezone changes, causing inaccurate KPIs",2024-11-18T20:21:59.146Z
+AERIS-6356,medium,Horizon,"Billing webhook renders blank state unexpectedly for read-only users, impacting executive dashboard confidence",2024-11-19T11:48:53.343Z
+AERIS-6364,low,Horizon,"Embed auth flow drops user-selected filters during peak traffic, breaking audit requirements",2024-11-19T18:18:21.445Z
+AERIS-5909,medium,Orbit,"Embed auth flow does not persist settings on mobile portrait mode, breaking audit requirements",2024-11-20T21:19:27.627Z
+AERIS-6163,medium,Orbit,"Webhook processing emits malformed timestamps when API latency spikes, slowing engineering triage",2024-11-22T10:21:26.813Z
+AERIS-6098,low,Orbit,"Embed auth flow creates duplicate notifications after token refresh, breaking audit requirements",2024-11-25T16:45:59.901Z
+AERIS-6072,low,Forge,"Timezone rendering duplicates records after timezone changes, breaking audit requirements",2024-11-26T01:12:14.383Z
+AERIS-6360,low,Horizon,"CSV export ignores retry backoff on mobile portrait mode, impacting weekly operations review",2024-11-28T06:44:29.427Z
+AERIS-6195,low,Orbit,"Alert routing misclassifies priority labels when API latency spikes, impacting weekly operations review",2024-11-30T09:28:23.097Z
+AERIS-6166,low,Forge,"Webhook processing times out after 30 seconds on mobile portrait mode, impacting weekly operations review",2024-12-04T09:09:09.859Z
+AERIS-6160,low,Forge,"Timezone rendering does not persist settings for read-only users, slowing engineering triage",2024-12-04T11:13:42.736Z
+AERIS-6061,low,Orbit,"Dashboard filters drops user-selected filters during concurrent edits, affecting customer reporting",2024-12-07T03:47:04.931Z
+AERIS-6250,medium,Orbit,"Dashboard filters rejects valid payloads after token refresh, impacting weekly operations review",2024-12-08T09:27:49.555Z
+AERIS-6213,medium,Orbit,"Repository insights shows inconsistent sorting after timezone changes, impacting weekly operations review",2024-12-11T17:55:39.294Z
+AERIS-5983,medium,Horizon,"Audit trail shows inconsistent sorting after toggling date level, affecting customer reporting",2024-12-12T00:19:30.813Z
+AERIS-6146,high,Horizon,"API rate limiter truncates long values during concurrent edits, causing inaccurate KPIs",2024-12-13T16:13:11.891Z
+AERIS-6007,high,Forge,"Timezone rendering leaks memory over long sessions after token refresh, creating noisy support alerts",2024-12-14T18:55:44.858Z
+AERIS-6342,medium,Forge,"PR analytics panel duplicates records when using Safari, creating noisy support alerts",2024-12-15T18:45:28.429Z
+AERIS-6047,high,Horizon,"Search indexing creates duplicate notifications when reconnecting after offline mode, impacting weekly operations review",2024-12-16T04:04:09.220Z
+AERIS-6008,medium,Orbit,"PR analytics panel does not persist settings after timezone changes, impacting executive dashboard confidence",2024-12-23T13:39:03.302Z
+AERIS-6368,high,Orbit,"Report scheduler loads with incorrect totals after enabling feature flags, creating noisy support alerts",2024-12-28T05:45:00.202Z
+AERIS-6268,high,Orbit,"Release notes sync loads with incorrect totals after enabling feature flags, causing inaccurate KPIs",2024-12-29T15:12:00.766Z
+AERIS-6076,low,Forge,"Mobile layout does not persist settings during concurrent edits, breaking audit requirements",2024-12-30T02:13:42.165Z
+AERIS-6193,medium,Orbit,"Alert routing duplicates records on dashboards with large datasets, creating noisy support alerts",2025-01-08T16:34:07.034Z
+AERIS-6228,high,Orbit,"Mobile layout shows inconsistent sorting on mobile portrait mode, blocking release verification",2025-01-09T12:47:40.500Z
+AERIS-6298,low,Horizon,"Dashboard filters drops user-selected filters when switching squads, causing inaccurate KPIs",2025-01-11T05:12:53.467Z
+AERIS-6224,medium,Orbit,"PR analytics panel truncates long values when reconnecting after offline mode, causing inaccurate KPIs",2025-01-18T01:02:47.706Z
+AERIS-6260,medium,Forge,"Notification center returns a 500 error after timezone changes, creating noisy support alerts",2025-01-20T15:55:19.647Z
+AERIS-5906,high,Orbit,"Dashboard filters drops user-selected filters when switching squads, slowing engineering triage",2025-01-21T02:24:49.726Z
+AERIS-6283,medium,Orbit,"Search indexing shows stale data after enabling feature flags, blocking release verification",2025-01-28T14:13:57.456Z
+AERIS-5905,medium,Horizon,"CSV export rejects valid payloads when using Safari, creating noisy support alerts",2025-01-28T17:40:23.538Z
+AERIS-5947,high,Orbit,"Search indexing ignores retry backoff on first load after deploy, impacting weekly operations review",2025-01-29T15:53:49.777Z
+AERIS-6095,high,Orbit,"Repository insights returns a 500 error when using Safari, causing inaccurate KPIs",2025-01-31T07:21:56.593Z
+AERIS-6361,medium,Forge,"PR analytics panel does not persist settings when switching squads, impacting executive dashboard confidence",2025-01-31T13:40:39.515Z
+AERIS-6207,medium,Orbit,"Billing webhook returns a 500 error after token refresh, creating noisy support alerts",2025-02-01T01:21:10.194Z
+AERIS-6056,medium,Forge,"Billing webhook returns a 500 error when API latency spikes, causing inaccurate KPIs",2025-02-03T11:52:37.809Z
+AERIS-6018,low,Forge,"Repository insights rejects valid payloads when API latency spikes, impacting executive dashboard confidence",2025-02-03T13:03:04.096Z
+AERIS-6346,high,Horizon,"Billing webhook locks up under heavy load after timezone changes, creating noisy support alerts",2025-02-04T18:12:05.715Z
+AERIS-6343,high,Orbit,"Notification center locks up under heavy load during concurrent edits, impacting weekly operations review",2025-02-07T16:27:13.587Z
+AERIS-6357,low,Forge,"Embed auth flow emits malformed timestamps when switching squads, blocking release verification",2025-02-10T23:29:59.511Z
+AERIS-6027,low,Orbit,"Dashboard filters creates duplicate notifications when API latency spikes, affecting customer reporting",2025-02-11T21:24:01.395Z
+AERIS-5991,low,Orbit,"API rate limiter fails silently when switching squads, impacting executive dashboard confidence",2025-02-13T17:56:09.675Z
+AERIS-6248,medium,Horizon,"API rate limiter truncates long values when switching squads, impacting weekly operations review",2025-02-15T14:00:24.156Z
+AERIS-5960,medium,Forge,"Embed auth flow emits malformed timestamps when API latency spikes, creating noisy support alerts",2025-02-15T18:05:33.455Z
+AERIS-6214,low,Horizon,"Billing webhook renders blank state unexpectedly after token refresh, impacting executive dashboard confidence",2025-02-16T18:45:40.757Z
+AERIS-6275,low,Orbit,"API rate limiter drops user-selected filters during concurrent edits, breaking audit requirements",2025-02-22T07:46:16.777Z
+AERIS-5936,low,Orbit,"Dashboard filters truncates long values for repositories with archived branches, impacting weekly operations review",2025-02-25T03:06:14.529Z
+AERIS-6295,medium,Forge,"API rate limiter times out after 30 seconds when switching squads, slowing engineering triage",2025-02-27T19:03:12.253Z
+AERIS-6100,low,Forge,"PR analytics panel locks up under heavy load on mobile portrait mode, impacting executive dashboard confidence",2025-03-03T09:21:49.337Z
+AERIS-6290,medium,Horizon,"Release notes sync shows stale data after toggling date level, impacting weekly operations review",2025-03-05T09:06:16.903Z
+AERIS-5962,low,Forge,"API rate limiter reports incorrect line counts during peak traffic, creating noisy support alerts",2025-03-05T21:15:40.845Z
+AERIS-5938,low,Forge,"Background worker shows inconsistent sorting during peak traffic, affecting customer reporting",2025-03-08T07:50:02.770Z
+AERIS-6088,low,Horizon,"API rate limiter truncates long values during concurrent edits, breaking audit requirements",2025-03-17T02:27:15.173Z
+AERIS-5908,low,Horizon,"Billing webhook ignores retry backoff when reconnecting after offline mode, impacting executive dashboard confidence",2025-03-17T07:09:01.992Z
+AERIS-6092,medium,Forge,"Search indexing misclassifies priority labels when exporting to CSV, creating noisy support alerts",2025-03-18T06:24:14.772Z
+AERIS-5916,high,Forge,"Search indexing renders blank state unexpectedly when switching squads, impacting weekly operations review",2025-03-18T07:53:59.043Z
+AERIS-6393,low,Forge,"Dashboard filters shows stale data after token refresh, impacting executive dashboard confidence",2025-03-31T13:13:48.745Z
+AERIS-6069,medium,Horizon,"Bug trend chart fails silently after timezone changes, breaking audit requirements",2025-03-31T20:15:26.718Z
+AERIS-6274,low,Horizon,"PR analytics panel returns a 500 error when exporting to CSV, breaking audit requirements",2025-04-06T23:36:53.552Z
+AERIS-6063,high,Horizon,"PR analytics panel reports incorrect line counts on dashboards with large datasets, impacting weekly operations review",2025-04-10T19:25:27.121Z
+AERIS-6147,high,Forge,"Timezone rendering ignores retry backoff when switching squads, breaking audit requirements",2025-04-10T19:32:37.592Z
+AERIS-5971,medium,Orbit,"Bug trend chart reports incorrect line counts when switching squads, causing inaccurate KPIs",2025-04-12T16:52:50.352Z
+AERIS-5941,low,Horizon,"API rate limiter ignores retry backoff when reconnecting after offline mode, breaking audit requirements",2025-04-14T05:38:54.489Z
+AERIS-5984,medium,Horizon,"Audit trail emits malformed timestamps for repositories with archived branches, slowing engineering triage",2025-04-14T22:35:35.000Z
+AERIS-6273,low,Forge,"Embed auth flow emits malformed timestamps when reconnecting after offline mode, causing inaccurate KPIs",2025-04-15T06:49:00.693Z
+AERIS-5957,high,Horizon,"Alert routing drops user-selected filters when using Safari, causing inaccurate KPIs",2025-04-16T06:49:51.213Z
+AERIS-6024,medium,Forge,"Release notes sync leaks memory over long sessions when API latency spikes, impacting weekly operations review",2025-04-16T06:57:37.776Z
+AERIS-6127,medium,Forge,"Repository insights locks up under heavy load when exporting to CSV, blocking release verification",2025-04-16T07:05:07.468Z
+AERIS-6149,medium,Orbit,"CSV export duplicates records when reconnecting after offline mode, slowing engineering triage",2025-04-18T05:38:24.593Z
+AERIS-6352,medium,Forge,"Background worker truncates long values during concurrent edits, creating noisy support alerts",2025-04-19T00:34:19.060Z
+AERIS-6377,medium,Forge,"Dashboard filters returns a 500 error on mobile portrait mode, impacting weekly operations review",2025-04-19T03:01:08.757Z
+AERIS-6016,medium,Orbit,"Search indexing reports incorrect line counts after toggling date level, blocking release verification",2025-04-19T20:51:13.769Z
+AERIS-5980,medium,Orbit,"Bug trend chart resets pagination unexpectedly when switching squads, impacting executive dashboard confidence",2025-04-20T20:16:34.867Z
+AERIS-6165,low,Forge,"CSV export returns a 500 error after toggling date level, creating noisy support alerts",2025-04-22T19:17:20.659Z
+AERIS-6240,low,Orbit,"Audit trail does not persist settings when exporting to CSV, impacting weekly operations review",2025-04-27T01:56:20.747Z
+AERIS-6058,low,Orbit,"Embed auth flow shows inconsistent sorting for repositories with archived branches, breaking audit requirements",2025-04-27T22:15:19.307Z
+AERIS-6078,low,Horizon,"Dashboard filters shows stale data after enabling feature flags, creating noisy support alerts",2025-04-29T23:43:31.745Z
+AERIS-6083,high,Forge,"Role permissions emits malformed timestamps when API latency spikes, impacting executive dashboard confidence",2025-05-01T08:23:55.719Z
+AERIS-6014,medium,Horizon,"SAML login drops user-selected filters for repositories with archived branches, breaking audit requirements",2025-05-04T07:05:56.648Z
+AERIS-6312,low,Horizon,"Embed auth flow rejects valid payloads when exporting to CSV, creating noisy support alerts",2025-05-05T07:48:43.258Z
+AERIS-6048,medium,Orbit,"Dashboard filters emits malformed timestamps during concurrent edits, impacting executive dashboard confidence",2025-05-06T02:58:23.542Z
+AERIS-6017,medium,Horizon,"SAML login renders blank state unexpectedly after token refresh, impacting weekly operations review",2025-05-06T07:21:27.766Z
+AERIS-6335,medium,Horizon,"Billing webhook shows stale data when using Safari, affecting customer reporting",2025-05-07T07:31:52.554Z
+AERIS-6170,medium,Forge,"Notification center loads with incorrect totals after timezone changes, impacting executive dashboard confidence",2025-05-11T02:28:20.572Z
+AERIS-6084,low,Orbit,"CSV export duplicates records when using Safari, breaking audit requirements",2025-05-13T02:25:29.173Z
+AERIS-6226,low,Orbit,"Billing webhook creates duplicate notifications on mobile portrait mode, blocking release verification",2025-05-17T09:28:09.644Z
+AERIS-6151,medium,Orbit,"Notification center misclassifies priority labels on dashboards with large datasets, creating noisy support alerts",2025-05-21T13:33:29.664Z
+AERIS-6148,low,Orbit,"Embed auth flow creates duplicate notifications when API latency spikes, impacting executive dashboard confidence",2025-05-22T13:21:17.643Z
+AERIS-6181,low,Horizon,"CSV export creates duplicate notifications during concurrent edits, creating noisy support alerts",2025-05-24T21:34:58.439Z
+AERIS-6115,low,Forge,"Notification center duplicates records on mobile portrait mode, blocking release verification",2025-05-25T17:15:20.856Z
+AERIS-6055,low,Forge,"Embed auth flow duplicates records after toggling date level, affecting customer reporting",2025-05-29T00:48:20.443Z
+AERIS-6256,low,Orbit,"Role permissions rejects valid payloads when reconnecting after offline mode, slowing engineering triage",2025-05-30T07:59:54.274Z
+AERIS-6116,low,Forge,"Role permissions returns a 500 error for repositories with archived branches, blocking release verification",2025-06-01T01:38:37.965Z
+AERIS-6045,medium,Orbit,"CSV export drops user-selected filters on dashboards with large datasets, blocking release verification",2025-06-10T00:48:58.033Z
+AERIS-6257,medium,Horizon,"Webhook processing duplicates records after timezone changes, creating noisy support alerts",2025-06-13T10:48:53.007Z
+AERIS-5985,medium,Horizon,"Repository insights returns a 500 error when switching squads, affecting customer reporting",2025-06-15T20:06:56.422Z
+AERIS-5959,low,Horizon,"Report scheduler rejects valid payloads for repositories with archived branches, impacting weekly operations review",2025-06-20T19:11:18.466Z
+AERIS-5949,low,Forge,"Repository insights leaks memory over long sessions when exporting to CSV, impacting weekly operations review",2025-06-22T12:09:50.105Z
+AERIS-6235,medium,Horizon,"Embed auth flow returns a 500 error after toggling date level, impacting executive dashboard confidence",2025-06-23T09:14:27.459Z
+AERIS-6376,medium,Forge,"Alert routing rejects valid payloads during concurrent edits, breaking audit requirements",2025-06-24T15:53:01.685Z
+AERIS-6191,high,Orbit,"Embed auth flow reports incorrect line counts when using Safari, affecting customer reporting",2025-06-26T08:03:44.681Z
+AERIS-5955,medium,Horizon,"Background worker misclassifies priority labels when reconnecting after offline mode, blocking release verification",2025-06-27T09:30:54.913Z
+AERIS-6344,medium,Forge,"CSV export duplicates records after enabling feature flags, causing inaccurate KPIs",2025-06-28T23:18:45.524Z
+AERIS-5968,low,Orbit,"Audit trail truncates long values after enabling feature flags, slowing engineering triage",2025-06-29T09:10:40.660Z
+AERIS-5937,medium,Orbit,"PR analytics panel returns a 500 error when reconnecting after offline mode, blocking release verification",2025-07-04T02:17:55.698Z
+AERIS-6230,high,Forge,"Report scheduler fails silently during concurrent edits, breaking audit requirements",2025-07-04T23:53:43.150Z
+AERIS-6152,high,Orbit,"Background worker locks up under heavy load on first load after deploy, breaking audit requirements",2025-07-08T17:36:18.147Z
+AERIS-6337,low,Orbit,"API rate limiter ignores retry backoff when API latency spikes, breaking audit requirements",2025-07-09T23:35:54.877Z
+AERIS-6079,medium,Orbit,"Background worker truncates long values after token refresh, creating noisy support alerts",2025-07-12T16:28:07.795Z
+AERIS-6220,low,Horizon,"Dashboard filters shows stale data on first load after deploy, causing inaccurate KPIs",2025-07-14T08:54:28.838Z
+AERIS-6033,medium,Orbit,"Alert routing renders blank state unexpectedly after token refresh, impacting executive dashboard confidence",2025-07-15T12:36:28.063Z
+AERIS-6154,medium,Orbit,"Release notes sync returns a 500 error after toggling date level, causing inaccurate KPIs",2025-07-16T11:49:08.148Z
+AERIS-6296,medium,Horizon,"Release notes sync renders blank state unexpectedly on first load after deploy, causing inaccurate KPIs",2025-07-17T08:08:43.877Z
+AERIS-6221,medium,Forge,"Notification center ignores retry backoff when API latency spikes, blocking release verification",2025-07-20T23:27:19.995Z
+AERIS-6070,medium,Horizon,"Audit trail renders blank state unexpectedly when using Safari, impacting executive dashboard confidence",2025-07-23T18:45:03.747Z
+AERIS-6009,medium,Forge,"Embed auth flow does not persist settings for repositories with archived branches, blocking release verification",2025-07-27T17:48:30.988Z
+AERIS-5990,medium,Horizon,"Repository insights renders blank state unexpectedly when exporting to CSV, impacting weekly operations review",2025-07-30T15:15:56.345Z
+AERIS-6351,medium,Horizon,"PR analytics panel drops user-selected filters after timezone changes, slowing engineering triage",2025-07-31T10:40:39.155Z
+AERIS-6303,medium,Forge,"Mobile layout leaks memory over long sessions when reconnecting after offline mode, impacting weekly operations review",2025-08-04T09:11:15.249Z
+AERIS-6265,low,Horizon,"Repository insights duplicates records when exporting to CSV, impacting weekly operations review",2025-08-05T15:26:32.553Z
+AERIS-6286,low,Forge,"PR analytics panel shows stale data when API latency spikes, affecting customer reporting",2025-08-08T23:44:25.704Z
+AERIS-6080,medium,Forge,"SAML login drops user-selected filters for repositories with archived branches, breaking audit requirements",2025-08-09T06:57:18.380Z
+AERIS-6263,medium,Orbit,"API rate limiter truncates long values for read-only users, breaking audit requirements",2025-08-13T00:56:19.115Z
+AERIS-6011,medium,Forge,"Timezone rendering resets pagination unexpectedly after toggling date level, breaking audit requirements",2025-08-14T04:03:27.295Z
+AERIS-6066,high,Forge,"Release notes sync leaks memory over long sessions during concurrent edits, impacting executive dashboard confidence",2025-08-15T10:54:37.679Z
+AERIS-5967,low,Orbit,"Audit trail drops user-selected filters when reconnecting after offline mode, blocking release verification",2025-08-18T15:00:39.003Z
+AERIS-5919,low,Forge,"Dashboard filters creates duplicate notifications during concurrent edits, impacting executive dashboard confidence",2025-08-20T11:58:58.647Z
+AERIS-6086,high,Horizon,"API rate limiter creates duplicate notifications after enabling feature flags, causing inaccurate KPIs",2025-08-20T23:14:55.078Z
+AERIS-6136,medium,Horizon,"Alert routing ignores retry backoff after token refresh, blocking release verification",2025-08-24T05:54:22.916Z
+AERIS-5901,medium,Forge,"Bug trend chart times out after 30 seconds after timezone changes, impacting executive dashboard confidence",2025-08-25T21:04:53.303Z
+AERIS-6187,low,Orbit,"Timezone rendering rejects valid payloads on mobile portrait mode, causing inaccurate KPIs",2025-08-30T15:12:36.041Z
+AERIS-6189,low,Orbit,"Billing webhook truncates long values when switching squads, breaking audit requirements",2025-08-31T18:19:18.432Z
+AERIS-6225,high,Orbit,"Billing webhook fails silently when API latency spikes, affecting customer reporting",2025-09-05T18:55:42.395Z
+AERIS-6022,medium,Horizon,"PR analytics panel locks up under heavy load during concurrent edits, impacting weekly operations review",2025-09-09T11:28:14.236Z
+AERIS-6109,medium,Forge,"Dashboard filters fails silently when API latency spikes, blocking release verification",2025-09-10T09:03:09.537Z
+AERIS-6354,medium,Orbit,"Dashboard filters times out after 30 seconds when switching squads, blocking release verification",2025-09-10T09:18:15.754Z
+AERIS-6359,medium,Horizon,"Webhook processing reports incorrect line counts when using Safari, impacting executive dashboard confidence",2025-09-10T15:40:02.038Z
+AERIS-6077,medium,Horizon,"Webhook processing renders blank state unexpectedly on first load after deploy, blocking release verification",2025-09-10T16:14:58.289Z
+AERIS-6229,medium,Orbit,"Background worker drops user-selected filters after timezone changes, affecting customer reporting",2025-09-11T11:37:26.198Z
+AERIS-6068,low,Horizon,"Repository insights shows stale data when using Safari, breaking audit requirements",2025-09-11T17:04:07.590Z
+AERIS-5970,medium,Horizon,"Report scheduler leaks memory over long sessions during concurrent edits, impacting weekly operations review",2025-09-12T16:56:46.526Z
+AERIS-6040,low,Orbit,"Report scheduler creates duplicate notifications on first load after deploy, creating noisy support alerts",2025-09-13T19:02:08.692Z
+AERIS-6338,medium,Horizon,"Role permissions returns a 500 error for read-only users, creating noisy support alerts",2025-09-15T13:51:00.834Z
+AERIS-6284,low,Forge,"SAML login duplicates records when using Safari, affecting customer reporting",2025-09-15T18:29:04.157Z
+AERIS-6006,low,Orbit,"Repository insights duplicates records after toggling date level, blocking release verification",2025-09-18T06:52:52.326Z
+AERIS-6243,high,Horizon,"Billing webhook loads with incorrect totals after token refresh, creating noisy support alerts",2025-09-18T11:37:35.520Z
+AERIS-6153,medium,Horizon,"Report scheduler emits malformed timestamps after toggling date level, causing inaccurate KPIs",2025-09-18T13:15:02.026Z
+AERIS-6030,medium,Horizon,"API rate limiter ignores retry backoff when switching squads, creating noisy support alerts",2025-09-19T11:11:33.706Z
+AERIS-6320,medium,Horizon,"Embed auth flow drops user-selected filters after token refresh, affecting customer reporting",2025-09-21T17:45:25.888Z
+AERIS-5952,low,Horizon,"Mobile layout ignores retry backoff after token refresh, affecting customer reporting",2025-09-22T13:41:13.172Z
+AERIS-6245,medium,Forge,"Report scheduler creates duplicate notifications after toggling date level, slowing engineering triage",2025-09-24T05:15:22.471Z
+AERIS-6183,medium,Forge,"Report scheduler misclassifies priority labels when exporting to CSV, impacting executive dashboard confidence",2025-09-25T20:57:54.139Z
+AERIS-6281,low,Forge,"Background worker drops user-selected filters when exporting to CSV, impacting executive dashboard confidence",2025-09-27T20:17:20.636Z
+AERIS-6205,high,Orbit,"Billing webhook shows inconsistent sorting after toggling date level, causing inaccurate KPIs",2025-10-07T00:15:02.371Z
+AERIS-5986,medium,Orbit,"Billing webhook shows inconsistent sorting after token refresh, blocking release verification",2025-10-08T14:59:57.595Z
+AERIS-6355,low,Forge,"PR analytics panel duplicates records after timezone changes, blocking release verification",2025-10-10T17:13:02.718Z
+AERIS-5954,low,Orbit,"Search indexing truncates long values when exporting to CSV, affecting customer reporting",2025-10-12T10:05:54.149Z
+AERIS-6059,high,Horizon,"PR analytics panel locks up under heavy load for repositories with archived branches, causing inaccurate KPIs",2025-10-18T03:27:05.345Z
+AERIS-6167,high,Horizon,"Embed auth flow shows inconsistent sorting during peak traffic, affecting customer reporting",2025-10-22T15:15:12.966Z
+AERIS-6231,low,Forge,"Webhook processing returns a 500 error on mobile portrait mode, slowing engineering triage",2025-10-26T22:23:03.396Z
+AERIS-5911,high,Horizon,"Billing webhook shows inconsistent sorting on dashboards with large datasets, affecting customer reporting",2025-10-29T09:59:25.526Z
+AERIS-6050,high,Orbit,"Dashboard filters locks up under heavy load on dashboards with large datasets, impacting executive dashboard confidence",2025-10-30T20:36:05.213Z
+AERIS-6237,low,Forge,"API rate limiter locks up under heavy load when switching squads, impacting weekly operations review",2025-11-01T10:36:10.719Z
+AERIS-6130,low,Forge,"Notification center drops user-selected filters when API latency spikes, causing inaccurate KPIs",2025-11-02T18:48:10.646Z
+AERIS-6065,high,Forge,"Timezone rendering rejects valid payloads when exporting to CSV, breaking audit requirements",2025-11-02T20:00:11.854Z
+AERIS-6316,low,Horizon,"Role permissions returns a 500 error after toggling date level, breaking audit requirements",2025-11-05T11:38:55.607Z
+AERIS-5973,low,Orbit,"API rate limiter duplicates records during peak traffic, affecting customer reporting",2025-11-08T16:49:18.517Z
+AERIS-6164,low,Forge,"Webhook processing creates duplicate notifications after token refresh, breaking audit requirements",2025-11-10T14:23:45.959Z
+AERIS-5921,medium,Forge,"SAML login rejects valid payloads when using Safari, slowing engineering triage",2025-11-12T22:30:07.145Z
+AERIS-6046,high,Horizon,"API rate limiter times out after 30 seconds when switching squads, affecting customer reporting",2025-11-21T04:33:35.111Z
+AERIS-5898,low,Orbit,"PR analytics panel fails silently when reconnecting after offline mode, blocking release verification",2025-11-23T02:16:46.802Z
+AERIS-6020,medium,Orbit,"Mobile layout emits malformed timestamps after token refresh, blocking release verification",2025-11-24T01:11:47.998Z
+AERIS-6272,low,Horizon,"Bug trend chart loads with incorrect totals after timezone changes, impacting executive dashboard confidence",2025-11-26T11:10:41.293Z
+AERIS-6108,medium,Horizon,"SAML login renders blank state unexpectedly when switching squads, causing inaccurate KPIs",2025-11-30T00:00:52.464Z
+AERIS-6161,medium,Forge,"Billing webhook renders blank state unexpectedly after token refresh, causing inaccurate KPIs",2025-12-05T00:05:26.612Z
+AERIS-6345,high,Orbit,"Repository insights resets pagination unexpectedly when using Safari, impacting executive dashboard confidence",2025-12-08T23:33:45.981Z
+AERIS-6236,low,Orbit,"Billing webhook ignores retry backoff after enabling feature flags, blocking release verification",2025-12-09T00:36:27.990Z
+AERIS-6379,low,Orbit,"Release notes sync locks up under heavy load when reconnecting after offline mode, blocking release verification",2025-12-11T00:58:16.153Z
+AERIS-6141,low,Orbit,"Release notes sync misclassifies priority labels during peak traffic, affecting customer reporting",2025-12-12T14:55:57.092Z
+AERIS-5951,high,Forge,"Dashboard filters drops user-selected filters when using Safari, impacting executive dashboard confidence",2025-12-13T17:37:45.356Z
+AERIS-6394,medium,Horizon,"Notification center resets pagination unexpectedly when exporting to CSV, impacting weekly operations review",2025-12-15T21:28:20.324Z
+AERIS-6031,low,Horizon,"Billing webhook drops user-selected filters when switching squads, impacting executive dashboard confidence",2025-12-27T20:35:06.240Z
+AERIS-6182,medium,Orbit,"SAML login misclassifies priority labels when switching squads, impacting weekly operations review",2025-12-30T02:06:47.432Z
+AERIS-6137,high,Orbit,"Embed auth flow leaks memory over long sessions when exporting to CSV, breaking audit requirements",2026-01-02T22:43:06.633Z
+AERIS-5917,low,Orbit,"CSV export misclassifies priority labels after token refresh, impacting executive dashboard confidence",2026-01-04T11:08:20.699Z
+AERIS-6097,low,Horizon,"Dashboard filters resets pagination unexpectedly when exporting to CSV, breaking audit requirements",2026-01-04T13:42:09.334Z
+AERIS-6330,low,Horizon,"Release notes sync resets pagination unexpectedly on dashboards with large datasets, breaking audit requirements",2026-01-06T16:07:29.131Z
+AERIS-6327,low,Orbit,"Billing webhook duplicates records during peak traffic, causing inaccurate KPIs",2026-01-07T15:46:45.623Z
+AERIS-6206,low,Horizon,"Embed auth flow does not persist settings on dashboards with large datasets, blocking release verification",2026-01-08T12:08:31.245Z
+AERIS-6039,low,Horizon,"Webhook processing creates duplicate notifications when API latency spikes, affecting customer reporting",2026-01-08T23:58:57.391Z
+AERIS-6174,low,Forge,"Search indexing does not persist settings after timezone changes, slowing engineering triage",2026-01-12T16:03:16.300Z
+AERIS-6089,medium,Horizon,"Audit trail ignores retry backoff when exporting to CSV, blocking release verification",2026-01-12T17:10:23.762Z
+AERIS-6140,low,Orbit,"Report scheduler creates duplicate notifications during peak traffic, slowing engineering triage",2026-01-13T06:13:45.133Z
+AERIS-6073,high,Horizon,"Repository insights leaks memory over long sessions for repositories with archived branches, creating noisy support alerts",2026-01-16T22:51:53.776Z
+AERIS-6246,low,Orbit,"Bug trend chart ignores retry backoff on dashboards with large datasets, causing inaccurate KPIs",2026-01-18T05:18:52.957Z
+AERIS-6204,high,Orbit,"Webhook processing returns a 500 error when exporting to CSV, affecting customer reporting",2026-01-20T13:42:33.833Z
+AERIS-6135,low,Horizon,"Mobile layout resets pagination unexpectedly during concurrent edits, creating noisy support alerts",2026-01-22T08:04:32.631Z
+AERIS-5974,medium,Horizon,"Mobile layout emits malformed timestamps after enabling feature flags, impacting executive dashboard confidence",2026-01-22T09:45:36.724Z
+AERIS-6184,low,Forge,"Background worker resets pagination unexpectedly after toggling date level, impacting executive dashboard confidence",2026-01-23T09:26:11.881Z
+AERIS-6075,medium,Forge,"API rate limiter misclassifies priority labels after enabling feature flags, causing inaccurate KPIs",2026-01-25T10:54:24.648Z
+AERIS-6350,low,Orbit,"Audit trail locks up under heavy load during peak traffic, impacting executive dashboard confidence",2026-01-27T11:51:41.355Z
+AERIS-6034,low,Horizon,"Dashboard filters shows inconsistent sorting on mobile portrait mode, affecting customer reporting",2026-01-30T02:08:12.418Z
+AERIS-6114,low,Orbit,"Report scheduler shows inconsistent sorting on first load after deploy, causing inaccurate KPIs",2026-01-31T23:05:17.548Z
+AERIS-5907,low,Orbit,"Release notes sync reports incorrect line counts for read-only users, affecting customer reporting",2026-02-02T01:47:59.742Z
+AERIS-6254,medium,Forge,"Webhook processing emits malformed timestamps on dashboards with large datasets, impacting weekly operations review",2026-02-02T07:31:32.245Z
+AERIS-6218,medium,Forge,"Embed auth flow duplicates records during concurrent edits, creating noisy support alerts",2026-02-03T12:28:47.308Z
+AERIS-6339,medium,Forge,"Report scheduler returns a 500 error on dashboards with large datasets, affecting customer reporting",2026-02-03T14:39:59.089Z
+AERIS-6328,low,Orbit,"PR analytics panel resets pagination unexpectedly after toggling date level, blocking release verification",2026-02-04T01:13:18.221Z
+AERIS-6036,low,Forge,"Search indexing ignores retry backoff after timezone changes, impacting executive dashboard confidence",2026-02-05T10:09:58.135Z
+AERIS-6305,low,Horizon,"Notification center leaks memory over long sessions when switching squads, breaking audit requirements",2026-02-05T23:06:27.269Z
+AERIS-6157,high,Forge,"Webhook processing reports incorrect line counts after token refresh, causing inaccurate KPIs",2026-02-12T02:05:41.457Z
+AERIS-5930,medium,Orbit,"PR analytics panel resets pagination unexpectedly during peak traffic, blocking release verification",2026-02-14T11:51:03.039Z
+AERIS-6199,medium,Orbit,"Timezone rendering truncates long values after timezone changes, breaking audit requirements",2026-02-15T13:50:22.284Z
+AERIS-6315,medium,Forge,"Notification center leaks memory over long sessions when switching squads, causing inaccurate KPIs",2026-02-15T19:41:33.574Z

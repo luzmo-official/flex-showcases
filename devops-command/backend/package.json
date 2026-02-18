@@ -1,0 +1,20 @@
+{
+  "name": "devops-command-backend",
+  "private": true,
+  "scripts": {
+    "generate:bug-tickets-csv": "node scripts/generate-bug-tickets-csv.js",
+    "generate:jira-tickets-csv": "node scripts/generate-jira-tickets-csv.js",
+    "generate:pr-merges-csv": "node scripts/generate-pr-merges-csv.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@luzmo/nodejs-sdk": "2.1.1",
+    "config": "4.1.1",
+    "cors": "2.8.5",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.11"
+  }
+}

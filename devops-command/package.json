@@ -1,0 +1,15 @@
+{
+  "name": "devops-command",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DevOps Command",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\" --names \"backend,frontend\" --prefix-colors \"blue,green\"",
+    "backend": "cd backend && npm run start:dev",
+    "frontend": "cd frontend && npm run start"
+  },
+  "devDependencies": {
+    "concurrently": "9.2.1"
+  }
+}

@@ -1,0 +1,184 @@
+<!-- Terminal Chat with Chart Panel -->
+<section
+  class="flex flex-col h-full border border-terminal-border bg-terminal-surface/30 shadow-[0_0_10px_rgba(0,255,65,0.08)]"
+>
+  <!-- Header (full width) -->
+  <div
+    class="border-b border-terminal-border px-4 py-2 bg-terminal-surface/50 flex items-center justify-between"
+  >
+    <div class="flex items-center gap-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 text-terminal-green"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        />
+      </svg>
+      <h2 class="text-sm font-semibold tracking-wide text-terminal-dim">
+        TERMINAL
+      </h2>
+    </div>
+    <div class="flex items-center gap-2 text-xs">
+      <span class="text-terminal-dark">SESSION:</span>
+      <span class="text-terminal-muted">ACTIVE</span>
+      <span class="w-1.5 h-1.5 bg-terminal-green rounded-full animate-pulse"></span>
+    </div>
+  </div>
+
+  <!-- Middle Content Area (chat messages + chart side by side) -->
+  <div class="flex flex-1 min-h-0">
+    <!-- Chat Messages -->
+    <div 
+      #chatMessagesContainer
+      class="chat-messages flex-1 overflow-y-auto p-4 space-y-1 min-h-[200px] max-h-[420px]"
+    >
+      @for (message of chatMessages(); track $index) {
+        <div class="flex gap-2 text-sm leading-relaxed">
+          <span class="text-terminal-dark shrink-0">[{{ message.time }}]</span>
+          @if (message.type === 'user') {
+            <span class="text-terminal-green shrink-0">USER &gt;</span>
+            <span class="text-terminal-green">{{ message.text }}</span>
+          } @else {
+            <span class="text-cyber-cyan shrink-0">SYSTEM &gt;</span>
+            <span class="text-cyber-cyan">{{ message.text }}</span>
+          }
+        </div>
+      }
+      
+      <!-- Typing Indicator -->
+      @if (isTyping()) {
+        <div class="flex gap-2 text-sm leading-relaxed">
+          <span class="text-terminal-dark shrink-0">[--:--:--]</span>
+          <span class="text-cyber-cyan shrink-0">SYSTEM &gt;</span>
+          <span class="text-cyber-cyan flex gap-0.5">
+            <span class="typing-dot">.</span>
+            <span class="typing-dot">.</span>
+            <span class="typing-dot">.</span>
+          </span>
+        </div>
+      }
+
+    </div>
+
+    <!-- Chart Panel (50% width, conditional) -->
+    @if (themedChart(); as chart) {
+      <div class="chart-panel-enter w-1/2 border-l border-terminal-border bg-terminal-surface/30 flex flex-col min-h-0 relative">
+        <div class="bg-terminal-surface/40 px-2 py-1">
+          <div class="flex items-center border border-terminal-border">
+            @for (chartType of chartTypeOptions; track chartType.type; let i = $index) {
+              <button
+                class="flex-1 px-2 py-1 text-xs uppercase tracking-wide transition-colors cursor-pointer whitespace-nowrap text-center"
+                [class.border-l]="i > 0"
+                [class.border-terminal-border]="i > 0"
+                [class.text-terminal-green]="chart.type === chartType.type"
+                [class.bg-terminal-green/10]="chart.type === chartType.type"
+                [class.font-medium]="chart.type === chartType.type"
+                [class.shadow-[0_0_6px_rgba(0,255,65,0.2)]]="chart.type === chartType.type"
+                [class.text-terminal-dark]="chart.type !== chartType.type"
+                [class.hover:text-terminal-green]="chart.type !== chartType.type"
+                [class.hover:bg-terminal-green/5]="chart.type !== chartType.type"
+                (click)="onChartTypeSelected(chartType.type)">
+                {{ chartType.label }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="flex flex-1 min-h-0 p-4">
+          <!-- Data picker toggle -->
+          <button
+            class="shrink-0 w-6 flex items-center justify-center border-r border-terminal-border text-terminal-dark hover:text-terminal-green hover:bg-terminal-green/5 transition-colors cursor-pointer text-xs"
+            (click)="toggleDataPicker()"
+            [title]="dataPickerCollapsed() ? 'Show data picker' : 'Collapse data picker'"
+          >{{ dataPickerCollapsed() ? '&#x25B6;' : '&#x25C0;' }}</button>
+
+          <!-- Data picker panel (left) -->
+          <div
+            class="shrink-0 min-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+            [class.w-[300px]]="!dataPickerCollapsed()"
+            [class.pl-4]="!dataPickerCollapsed()"
+            [class.pr-4]="!dataPickerCollapsed()"
+            [class.w-0]="dataPickerCollapsed()"
+            [class.opacity-0]="dataPickerCollapsed()"
+          >
+            <luzmo-item-data-picker-panel
+              class="block"
+              [itemType]="$any(chart.type)"
+              language="en"
+              size="m"
+              [grows]="true"
+              [apiUrl]="apiUrl()"
+              [authKey]="credentials().key"
+              [authToken]="credentials().token"
+              [datasetIds]="datasetIds()"
+              [slotsContents]="chart.slots"
+              (luzmo-slots-contents-changed)="onSlotsContentsChanged($event)">
+            </luzmo-item-data-picker-panel>
+          </div>
+
+          <!-- Generated chart (right) -->
+          <div class="flex-1 min-w-0 pl-4">
+            <luzmo-viz-item style="height: 100%;"
+              [authKey]="credentials().key"
+              [authToken]="credentials().token"
+              [options]="$any(chart.options)"
+              [slots]="chart.slots"
+              [type]="$any(chart.type)"
+              [filters]="$any(chart.filters)"
+              [appServer]="appServer()"
+              [apiHost]="apiUrl()">
+            </luzmo-viz-item>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Suggested Commands (pinned above input) -->
+  @if (!hasUserSentMessage() && !isTyping()) {
+    <div class="border-terminal-border bg-transparent px-4 py-2 flex flex-wrap gap-2">
+      @for (cmd of suggestedCommands; track cmd) {
+        <button
+          class="suggestion-chip text-xs border border-terminal-border text-terminal-dark px-3 py-1.5 hover:text-terminal-green hover:border-terminal-green hover:bg-terminal-green/10 transition-all cursor-pointer tracking-wide bg-terminal-green/5"
+          (click)="sendMessage(cmd)"
+        >
+          &gt; {{ cmd }}
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Input Bar (full width) -->
+  <div class="border-t border-terminal-border bg-terminal-surface/50 p-3">
+    <div class="flex items-center gap-2">
+      <span class="text-terminal-green shrink-0">$</span>
+      <div class="flex-1 relative flex items-center">
+        <input
+          type="text"
+          class="chat-input text-sm w-full pr-4"
+          placeholder="Enter command..."
+          [ngModel]="userInput()"
+          (ngModelChange)="userInput.set($event)"
+          (keydown)="onChatKeydown($event)"
+        />
+        <span 
+          class="terminal-cursor absolute text-terminal-green text-sm pointer-events-none"
+          [style.left.ch]="userInput().length"
+        >_</span>
+      </div>
+      <button
+        class="px-3 py-1 border border-terminal-border text-terminal-dark hover:text-terminal-green hover:border-terminal-green hover:bg-terminal-green/10 transition-all text-xs uppercase tracking-wide"
+        (click)="sendMessage()"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</section>
