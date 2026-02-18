@@ -1,0 +1,39 @@
+country,coffee_spend_usd,productivity_index,coffee_consumption_kg,region
+Finland,1480,112,12.0,Northern Europe
+Norway,1420,131,9.9,Northern Europe
+Iceland,1390,118,9.0,Northern Europe
+Denmark,1350,126,8.7,Northern Europe
+Sweden,1310,115,8.2,Northern Europe
+Switzerland,1280,138,7.9,Western Europe
+Netherlands,1240,124,8.4,Western Europe
+Luxembourg,1180,142,6.5,Western Europe
+Belgium,1150,121,6.8,Western Europe
+Austria,1120,116,6.1,Western Europe
+Germany,1080,119,6.5,Western Europe
+Estonia,1050,95,5.5,Northern Europe
+Canada,1020,108,6.2,Anglo-Saxon
+Australia,990,106,3.0,Anglo-Saxon
+France,960,118,5.4,Western Europe
+Italy,940,102,5.9,Southern Europe
+United States,920,136,4.4,Anglo-Saxon
+Slovenia,880,98,5.1,Southern Europe
+Ireland,860,144,3.3,Anglo-Saxon
+Czech Republic,840,92,4.3,Eastern Europe
+United Kingdom,820,110,3.2,Anglo-Saxon
+Japan,800,104,3.4,Asia-Pacific
+Spain,780,100,4.5,Southern Europe
+New Zealand,760,103,2.9,Anglo-Saxon
+Lithuania,740,90,4.8,Northern Europe
+South Korea,720,96,2.7,Asia-Pacific
+Portugal,700,88,4.7,Southern Europe
+Poland,680,85,3.5,Eastern Europe
+Latvia,660,86,4.1,Eastern Europe
+Israel,640,107,3.8,Asia-Pacific
+Hungary,620,82,3.1,Eastern Europe
+Slovakia,600,87,3.0,Eastern Europe
+Greece,560,78,5.5,Southern Europe
+Chile,480,68,2.2,Latin America
+Costa Rica,420,62,3.8,Latin America
+Colombia,380,56,2.1,Latin America
+Turkey,340,72,1.0,Other
+Mexico,280,52,1.6,Latin America

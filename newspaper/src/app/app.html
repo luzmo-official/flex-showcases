@@ -1,3 +1,6 @@
+<!-- Reading progress bar -->
+<div class="reading-progress" aria-hidden="true"></div>
+
 <!-- ============================================================
      1. MASTHEAD BAR
      ============================================================ -->
@@ -30,7 +33,7 @@
   </div>
 
   <h2 class="hero-headline mt-6 mb-6 text-balance reveal reveal-delay-1">
-    The Great Global<br />Coffee Index
+    The Global Coffee Index
   </h2>
 
   <p class="hero-subtitle max-w-2xl reveal reveal-delay-2">
@@ -44,9 +47,99 @@
     <span class="text-[var(--color-rule)]">&vert;</span>
     <span>February 18, 2026</span>
   </div>
+
+  <!-- Hero illustration: top-down coffee cup with latte-art world map -->
+  <div class="hero-illustration mt-12 reveal reveal-delay-3">
+    <svg viewBox="0 0 800 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full" aria-hidden="true">
+      <defs>
+        <clipPath id="coffee-clip">
+          <circle cx="400" cy="110" r="86"/>
+        </clipPath>
+        <radialGradient id="coffee-grad" cx="0.44" cy="0.42">
+          <stop offset="0%" stop-color="#4A3728" stop-opacity="0.13"/>
+          <stop offset="100%" stop-color="#2A1810" stop-opacity="0.24"/>
+        </radialGradient>
+        <filter id="foam-soft">
+          <feGaussianBlur stdDeviation="0.5"/>
+        </filter>
+      </defs>
+
+      <!-- Saucer -->
+      <circle cx="400" cy="110" r="108" fill="var(--color-ink-deep)" opacity="0.04"/>
+
+      <!-- Cup outer rim -->
+      <circle cx="400" cy="110" r="96" fill="var(--color-ink-deep)" opacity="0.07"/>
+      <circle cx="400" cy="110" r="96" fill="none" stroke="var(--color-ink-deep)" stroke-width="2.5" opacity="0.12"/>
+
+      <!-- Inner rim -->
+      <circle cx="400" cy="110" r="90" fill="none" stroke="var(--color-ink-deep)" stroke-width="0.75" opacity="0.08"/>
+
+      <!-- Coffee surface -->
+      <circle cx="400" cy="110" r="88" fill="url(#coffee-grad)"/>
+
+      <!-- Latte art continents -->
+      <g clip-path="url(#coffee-clip)" filter="url(#foam-soft)">
+        <!-- Central pour swirl -->
+        <path class="pour-line"
+          d="M400 30 C396 52, 408 72, 400 94 C392 116, 410 140, 400 166"
+          stroke="var(--color-cream)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.3"/>
+
+        <!-- North America -->
+        <path class="continent continent-1"
+          d="M338 52 C334 44, 342 36, 354 34 C364 32, 376 38, 378 50 C380 58, 374 68, 366 76 C360 82, 348 86, 340 82 C332 76, 330 64, 334 56Z"
+          fill="var(--color-cream)"/>
+
+        <!-- South America -->
+        <path class="continent continent-2"
+          d="M362 100 C368 92, 378 94, 382 104 C386 114, 384 128, 380 140 C376 150, 370 158, 366 154 C362 148, 358 134, 360 120 C361 110, 361 104, 362 100Z"
+          fill="var(--color-cream)"/>
+
+        <!-- Europe -->
+        <path class="continent continent-3"
+          d="M406 46 C412 38, 422 36, 428 42 C434 46, 432 54, 428 60 C424 64, 414 64, 408 60 C402 56, 402 50, 406 46Z"
+          fill="var(--color-cream)"/>
+
+        <!-- Africa -->
+        <path class="continent continent-4"
+          d="M416 70 C422 62, 434 60, 440 68 C446 76, 448 92, 444 108 C440 124, 434 140, 426 146 C420 150, 414 144, 414 134 C414 120, 412 102, 412 86 C412 76, 414 72, 416 70Z"
+          fill="var(--color-cream)"/>
+
+        <!-- Asia -->
+        <path class="continent continent-5"
+          d="M438 34 C448 26, 464 24, 474 32 C482 38, 486 52, 482 64 C478 74, 468 82, 456 86 C446 88, 436 82, 434 72 C432 62, 432 46, 436 38Z"
+          fill="var(--color-cream)"/>
+
+        <!-- Australia -->
+        <path class="continent continent-6"
+          d="M458 126 C464 120, 474 120, 478 126 C482 132, 478 140, 470 144 C462 146, 454 140, 454 132 C454 128, 456 126, 458 126Z"
+          fill="var(--color-cream)"/>
+      </g>
+
+      <!-- Rim highlight -->
+      <path d="M330 74 A96 96 0 0 1 470 74" fill="none" stroke="white" stroke-width="1.5" opacity="0.06"/>
+
+      <!-- Steam wisps -->
+      <path class="steam steam-1" d="M380 26 C378 12, 386 4, 383 0" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.35"/>
+      <path class="steam steam-2" d="M400 22 C398 8, 406 0, 403 -4" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.25"/>
+      <path class="steam steam-3" d="M420 26 C418 12, 426 4, 423 0" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.35"/>
+
+      <!-- Decorative coffee beans -->
+      <ellipse cx="140" cy="140" rx="12" ry="8" transform="rotate(-30 140 140)" fill="var(--color-ink-deep)" opacity="0.06"/>
+      <line x1="134" y1="136" x2="146" y2="144" stroke="var(--color-cream)" stroke-width="1.5" opacity="0.5"/>
+      <ellipse cx="660" cy="130" rx="12" ry="8" transform="rotate(20 660 130)" fill="var(--color-ink-deep)" opacity="0.06"/>
+      <line x1="654" y1="126" x2="666" y2="134" stroke="var(--color-cream)" stroke-width="1.5" opacity="0.5"/>
+      <ellipse cx="210" cy="80" rx="10" ry="7" transform="rotate(10 210 80)" fill="var(--color-ink-deep)" opacity="0.04"/>
+      <ellipse cx="600" cy="175" rx="10" ry="7" transform="rotate(-15 600 175)" fill="var(--color-ink-deep)" opacity="0.04"/>
+
+      <!-- Horizontal decorative lines -->
+      <line x1="80" y1="205" x2="295" y2="205" stroke="var(--color-rule-light)" stroke-width="0.5"/>
+      <line x1="505" y1="205" x2="720" y2="205" stroke="var(--color-rule-light)" stroke-width="0.5"/>
+    </svg>
+  </div>
 </section>
 
-<hr class="section-rule max-w-6xl mx-auto" />
+<!-- Ornamental divider: three dots -->
+<div class="divider-ornament" aria-hidden="true">&#x2022; &ensp; &#x2022; &ensp; &#x2022;</div>
 
 
 <!-- ============================================================
@@ -67,54 +160,60 @@
 <!-- ============================================================
      4. CHART 1 — THE GLOBAL PICTURE
      ============================================================ -->
-<section class="max-w-5xl mx-auto px-6 pb-12 reveal">
+<section class="max-w-5xl mx-auto px-6 pb-12 reveal reveal-scale">
   <div class="mb-4">
     <span class="section-label">Figure 1</span>
     <h3 class="section-heading mt-1">Who Drinks the Most Coffee?</h3>
     <p class="prose-editorial mt-2 max-w-2xl" style="font-size: 0.95rem; color: var(--color-muted);">
       Annual per-capita consumption in kilograms, by country. Nordic nations dominate — Finland leads the world at 12 kg per person per year.
     </p>
+    <div class="chart-controls mt-3">
+      <span class="chart-controls-label">Region</span>
+      <div class="chart-toggle">
+        <button class="chart-toggle-btn"
+          [class.active]="choroplethRegion() === 'europe'"
+          (click)="zoomToRegion('europe')">Europe</button>
+        <button class="chart-toggle-btn"
+          [class.active]="choroplethRegion() === 'north-america'"
+          (click)="zoomToRegion('north-america')">N. America</button>
+        <button class="chart-toggle-btn"
+          [class.active]="choroplethRegion() === 'asia-pacific'"
+          (click)="zoomToRegion('asia-pacific')">Asia-Pacific</button>
+      </div>
+    </div>
   </div>
 
-  <figure class="chart-placeholder">
-    <svg class="chart-placeholder-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="24" width="8" height="18" rx="1" fill="currentColor"/>
-      <rect x="16" y="16" width="8" height="26" rx="1" fill="currentColor"/>
-      <rect x="28" y="8" width="8" height="34" rx="1" fill="currentColor"/>
-      <rect x="40" y="20" width="4" height="22" rx="1" fill="currentColor"/>
-      <line x1="2" y1="44" x2="46" y2="44" stroke="currentColor" stroke-width="1.5"/>
-    </svg>
-    <span class="chart-placeholder-label">Global Coffee Consumption by Country</span>
-    <span class="chart-placeholder-sub">Interactive chart &middot; Luzmo Embedded Analytics</span>
-  </figure>
+  <luzmo-viz-item
+    [type]="coffeeConsumptionChoropleth().type"
+    [slots]="coffeeConsumptionChoropleth().slots"
+    [options]="$any(coffeeConsumptionChoropleth().options)"
+    style="min-height: 480px; height: 480px; display: block;">
+  </luzmo-viz-item>
 </section>
 
-<hr class="section-rule max-w-6xl mx-auto" />
+<!-- Fleuron divider -->
+<div class="divider-fleuron" aria-hidden="true">&#x2766;</div>
 
 
 <!-- ============================================================
      5. STAT CALLOUT STRIP
      ============================================================ -->
 <section class="max-w-5xl mx-auto px-6 py-14">
-  <div class="grid grid-cols-1 md:grid-cols-5 items-center reveal">
+  <div class="stat-strip reveal">
 
-    <div class="stat-block md:col-span-1">
+    <div class="stat-block">
       <div class="stat-number">2.25B</div>
       <div class="stat-unit">Cups per Day</div>
       <div class="stat-desc">Consumed globally, every single day</div>
     </div>
 
-    <div class="hidden md:block stat-divider"></div>
-
-    <div class="stat-block md:col-span-1">
+    <div class="stat-block">
       <div class="stat-number">$495B</div>
       <div class="stat-unit">Annual Market</div>
       <div class="stat-desc">Larger than the GDP of Thailand</div>
     </div>
 
-    <div class="hidden md:block stat-divider"></div>
-
-    <div class="stat-block md:col-span-1">
+    <div class="stat-block">
       <div class="stat-number">12 kg</div>
       <div class="stat-unit">Per Capita</div>
       <div class="stat-desc">Finland's yearly consumption per person</div>
@@ -123,7 +222,12 @@
   </div>
 </section>
 
-<hr class="section-rule max-w-6xl mx-auto" />
+<!-- Diamond rule divider -->
+<div class="divider-diamond max-w-6xl mx-auto" aria-hidden="true">
+  <span class="divider-diamond-line"></span>
+  <span class="divider-diamond-icon">&#x25C7;</span>
+  <span class="divider-diamond-line"></span>
+</div>
 
 
 <!-- ============================================================
@@ -132,7 +236,7 @@
 <section class="max-w-5xl mx-auto px-6 py-12">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 reveal">
 
-    <div class="lg:col-span-2 prose-editorial">
+    <div class="lg:col-span-2 prose-editorial reveal reveal-left">
       <hr class="section-rule-thick mb-5" />
       <span class="section-label">Analysis</span>
       <h3 class="section-heading mt-2 mb-5">The Nordic Paradox</h3>
@@ -148,7 +252,7 @@
     </div>
 
     <aside class="lg:col-span-1 flex flex-col justify-center">
-      <div class="annotation reveal reveal-delay-1">
+      <div class="annotation reveal reveal-right reveal-delay-1">
         <strong>Editor's Note</strong>
         Finland has twice attempted to ban coffee — in 1919 and again during WWII rationing. Both times, a thriving black market emerged almost overnight. The Finnish relationship with coffee is, to put it mildly, non-negotiable.
       </div>
@@ -161,10 +265,10 @@
 <!-- ============================================================
      7. CHARTS 2 + 3 — SIDE BY SIDE
      ============================================================ -->
-<section class="max-w-5xl mx-auto px-6 pb-14 reveal">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<section class="max-w-5xl mx-auto px-6 pb-14">
+  <div class="chart-pair grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <div>
+    <div class="reveal reveal-left">
       <div class="mb-3">
         <span class="section-label">Figure 2</span>
         <h4 class="section-heading mt-1" style="font-size: clamp(1.2rem, 2.5vw, 1.6rem);">
@@ -173,39 +277,47 @@
         <p class="text-sm text-[var(--color-muted)] mt-1 font-[var(--font-ui)]">
           Global coffee consumption growth, 2000–2025
         </p>
+        <div class="chart-controls mt-2">
+          <span class="chart-controls-label">Chart type</span>
+          <div class="chart-toggle">
+            <button class="chart-toggle-btn"
+              [class.active]="consumptionChartType() === 'line-chart'"
+              (click)="switchConsumptionChartType('line-chart')">Line</button>
+            <button class="chart-toggle-btn"
+              [class.active]="consumptionChartType() === 'column-chart'"
+              (click)="switchConsumptionChartType('column-chart')">Column</button>
+          </div>
+        </div>
       </div>
-      <figure class="chart-placeholder" style="min-height: 320px;">
-        <svg class="chart-placeholder-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="4,38 14,28 22,32 32,16 44,10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="4" y1="42" x2="44" y2="42" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="4" y1="6" x2="4" y2="42" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-        <span class="chart-placeholder-label">Consumption Trend (2000–2025)</span>
-        <span class="chart-placeholder-sub">Interactive chart &middot; Luzmo</span>
-      </figure>
+      <luzmo-viz-item
+        [type]="consumptionLineChart().type"
+        [slots]="consumptionLineChart().slots"
+        [options]="$any(consumptionLineChart().options)"
+        style="min-height: 320px; height: 320px; display: block;">
+      </luzmo-viz-item>
     </div>
 
-    <div>
+    <div class="reveal reveal-right">
       <div class="mb-3">
         <span class="section-label">Figure 3</span>
         <h4 class="section-heading mt-1" style="font-size: clamp(1.2rem, 2.5vw, 1.6rem);">
           The Price of a Latte
         </h4>
         <p class="text-sm text-[var(--color-muted)] mt-1 font-[var(--font-ui)]">
-          Average price of a regular latte, top 20 cities worldwide
+          Average price of a regular latte, top
+          <input type="number" class="inline-number-input"
+            [ngModel]="latteTopN()"
+            (ngModelChange)="setLatteTopN($event)"
+            min="1" max="20">
+          cities worldwide
         </p>
       </div>
-      <figure class="chart-placeholder" style="min-height: 320px;">
-        <svg class="chart-placeholder-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="10" width="36" height="4" rx="1" fill="currentColor"/>
-          <rect x="6" y="18" width="28" height="4" rx="1" fill="currentColor"/>
-          <rect x="6" y="26" width="22" height="4" rx="1" fill="currentColor"/>
-          <rect x="6" y="34" width="16" height="4" rx="1" fill="currentColor"/>
-          <line x1="4" y1="6" x2="4" y2="42" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-        <span class="chart-placeholder-label">Latte Price Index by City</span>
-        <span class="chart-placeholder-sub">Interactive chart &middot; Luzmo</span>
-      </figure>
+      <luzmo-viz-item
+        [type]="lattePriceBarChart().type"
+        [slots]="lattePriceBarChart().slots"
+        [options]="$any(lattePriceBarChart().options)"
+        style="min-height: 320px; height: 320px; display: block;">
+      </luzmo-viz-item>
     </div>
 
   </div>
@@ -216,7 +328,7 @@
      8. PULL QUOTE
      ============================================================ -->
 <section class="bg-[var(--color-cream-dark)]">
-  <div class="max-w-4xl mx-auto px-6 py-16 reveal">
+  <div class="max-w-4xl mx-auto px-6 py-16 reveal reveal-scale">
     <blockquote class="pull-quote">
       <p class="pull-quote-text">
         Coffee is a lot more than just a drink; it's something happening. Not as in hip, but as in an event — a place to be, but not like a location, but like somewhere within yourself. It gives you time, but not actual hours or minutes, but a chance to be, like be yourself, and have a second cup.
@@ -228,6 +340,9 @@
   </div>
 </section>
 
+
+<!-- Gradient bridge: cream → dark -->
+<div class="section-dark-transition" aria-hidden="true"></div>
 
 <!-- ============================================================
      9. THE $7 LATTE SECTION (Dark)
@@ -278,24 +393,29 @@
       <p class="text-sm mt-1" style="color: #8A7E72; font-family: var(--font-ui);">
         National coffee expenditure per worker against GDP output per hour worked. OECD countries, 2024 data.
       </p>
+      <div class="region-pills mt-3">
+        @for (region of allRegions; track region) {
+          <button class="region-pill"
+            [class.active]="isRegionActive(region)"
+            (click)="toggleRegion(region)">
+            <span class="region-pill-dot" [style.background]="regionColors[region]"></span>
+            {{ region }}
+          </button>
+        }
+      </div>
     </div>
-    <figure class="chart-placeholder" style="min-height: 420px;">
-      <svg class="chart-placeholder-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="32" r="3" fill="currentColor"/>
-        <circle cx="20" cy="24" r="4" fill="currentColor"/>
-        <circle cx="30" cy="18" r="3.5" fill="currentColor"/>
-        <circle cx="38" cy="12" r="3" fill="currentColor"/>
-        <circle cx="16" cy="20" r="2" fill="currentColor"/>
-        <circle cx="34" cy="28" r="2.5" fill="currentColor"/>
-        <line x1="4" y1="42" x2="44" y2="42" stroke="currentColor" stroke-width="1.5"/>
-        <line x1="4" y1="6" x2="4" y2="42" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
-      <span class="chart-placeholder-label">Scatter Plot: Coffee Spend vs. Productivity Index</span>
-      <span class="chart-placeholder-sub">Interactive chart &middot; Luzmo Embedded Analytics</span>
-    </figure>
+    <luzmo-viz-item
+      [type]="spendVsProductivityScatter().type"
+      [slots]="spendVsProductivityScatter().slots"
+      [options]="$any(spendVsProductivityScatter().options)"
+      [filters]="scatterFilters()"
+      style="min-height: 420px; height: 420px; display: block;">
+    </luzmo-viz-item>
   </div>
 </section>
 
+<!-- Gradient bridge: dark → cream -->
+<div class="section-dark-transition-out" aria-hidden="true"></div>
 
 <!-- ============================================================
      11. CONCLUSION
