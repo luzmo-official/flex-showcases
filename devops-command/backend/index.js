@@ -1,12 +1,40 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
-const config = require('config');
+const dotenv = require('dotenv');
 const Luzmo = require('@luzmo/nodejs-sdk');
 
+dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
+
+const requiredEnvKeys = [
+  'LUZMO_API_KEY',
+  'LUZMO_API_TOKEN',
+  'LUZMO_COLLECTION_ID',
+];
+
+const missingEnvKeys = requiredEnvKeys.filter((key) => !process.env[key]);
+
+if (missingEnvKeys.length > 0) {
+  throw new Error(
+    `Missing required environment variable(s): ${missingEnvKeys.join(
+      ', ',
+    )}. Copy backend/.env.example to backend/.env and provide the values.`,
+  );
+}
+
+const config = {
+  luzmo: {
+    apiToken: process.env.LUZMO_API_TOKEN,
+    apiKey: process.env.LUZMO_API_KEY,
+    collectionId: process.env.LUZMO_COLLECTION_ID,
+    apiUrl: process.env.LUZMO_API_URL || 'https://api.luzmo.com',
+  },
+};
+
 const client = new Luzmo({
-  api_key: config.get("luzmo.apiKey"),
-  api_token: config.get("luzmo.apiToken"),
-  host: config.get("luzmo.apiUrl"),
+  api_key: config.luzmo.apiKey,
+  api_token: config.luzmo.apiToken,
+  host: config.luzmo.apiUrl,
 });
 
 // Luzmo embed endpoint
@@ -23,7 +51,7 @@ const embed = async (body) => {
       access: {
         collections: [
           {
-            id: config.get('luzmo.collectionId'),
+            id: config.luzmo.collectionId,
             inheritRights: 'use'
           }
         ]
@@ -65,21 +93,17 @@ exports.handler = async event => {
   }
 }
 
-if (config.has("port")) {
-  const PORT = config.get("port");
+const PORT = 3101;
 
-  // Middleware
-  const app = express();
-  app.use(cors());
-  app.use(express.json());
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-  // Luzmo embed endpoint
-  app.post("/api/embed", async (req, res) => {
-    const { code, response, error } = await embed(req.body);
-    res.status(code).json(response || error);
-  });
+app.post("/api/embed", async (req, res) => {
+  const { code, response, error } = await embed(req.body);
+  res.status(code).json(response || error);
+});
 
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
