@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
 const requiredEnvKeys = [
   'LUZMO_API_KEY',
   'LUZMO_API_TOKEN',
-  'LUZMO_COLLECTION_ID',
+  'LUZMO_DATASET_IDS',
 ];
 
 const missingEnvKeys = requiredEnvKeys.filter((key) => !process.env[key]);
@@ -26,10 +26,19 @@ const config = {
   luzmo: {
     apiToken: process.env.LUZMO_API_TOKEN,
     apiKey: process.env.LUZMO_API_KEY,
-    collectionId: process.env.LUZMO_COLLECTION_ID,
+    datasetIds: process.env.LUZMO_DATASET_IDS
+      .split(',')
+      .map((datasetId) => datasetId.trim())
+      .filter(Boolean),
     apiUrl: process.env.LUZMO_API_URL || 'https://api.luzmo.com',
   },
 };
+
+if (config.luzmo.datasetIds.length === 0) {
+  throw new Error(
+    'Missing required dataset IDs. Set LUZMO_DATASET_IDS in backend/.env.',
+  );
+}
 
 const client = new Luzmo({
   api_key: config.luzmo.apiKey,
@@ -49,12 +58,10 @@ const embed = async (body) => {
       suborganization: 'Demo Application',
       role: 'designer',
       access: {
-        collections: [
-          {
-            id: config.luzmo.collectionId,
-            inheritRights: 'use'
-          }
-        ]
+        datasets: config.luzmo.datasetIds.map((datasetId) => ({
+          id: datasetId,
+          rights: 'use',
+        })),
       },
       iq: {
         context: `
