@@ -1,0 +1,1382 @@
+/* ===========================================================================
+   THE CONSTRUCTOR — Global Styles
+   Modern industrial / construction OS theme
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   CSS Custom Properties
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Palette */
+  --color-bg: #12141a;
+  --color-surface: #1b1e26;
+  --color-surface-raised: #222630;
+  --color-surface-hover: #2a2f3b;
+  --color-accent: #ff6b2b;
+  --color-accent-hover: #ff8a55;
+  --color-accent-subtle: rgba(255, 107, 43, 0.12);
+  --color-text: #e8e9ec;
+  --color-text-muted: #8b8f9a;
+  --color-text-dim: #5c5f6a;
+  --color-border: #2a2d36;
+  --color-border-light: #353842;
+  --color-danger: #ef4444;
+  --color-accent-rgb: 255, 107, 43;
+  --color-accent-glow: rgba(255, 107, 43, 0.28);
+  --color-accent-border: rgba(255, 107, 43, 0.5);
+
+  /* Typography */
+  --font-heading: 'Barlow Condensed', sans-serif;
+  --font-display: 'Barlow', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.22);
+  --shadow-button-hover: 0 3px 10px rgba(0, 0, 0, 0.2);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* Layout */
+  --sidebar-width: 320px;
+  --sidebar-collapsed-width: 56px;
+  --header-height: 60px;
+}
+
+/* ---------------------------------------------------------------------------
+   Reset & Base
+   --------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Blueprint grid texture + atmospheric glow */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    radial-gradient(ellipse at 18% 0%, rgba(var(--color-accent-rgb), 0.055) 0%, transparent 55%),
+    radial-gradient(ellipse at 82% 100%, rgba(80, 100, 230, 0.03) 0%, transparent 50%);
+  background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Animations
+   --------------------------------------------------------------------------- */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes brick-place {
+  0%   { transform: translateY(-7px) scale(0.5);  opacity: 0; }
+  11%  { transform: translateY(2px)  scale(1.12); opacity: 1; }
+  21%  { transform: translateY(0)    scale(1);    opacity: 1; }
+  78%  { transform: translateY(0)    scale(1);    opacity: 1; }
+  87%  { transform: translateY(0)    scale(1);    opacity: 0; }
+  100% { transform: translateY(-7px) scale(0.5);  opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------------------- */
+
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------------------------- */
+
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-collapsed-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  transition: width var(--duration-normal) var(--ease-out);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  animation: slide-in-left 0.48s var(--ease-out) backwards;
+}
+
+.sidebar--collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* Top bar — entire row is clickable to expand/collapse */
+.sidebar__top {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(to right, rgba(var(--color-accent-rgb), 0.06), transparent 60%);
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--duration-fast);
+}
+
+.sidebar__top:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.sidebar__top:hover .sidebar__toggle-icon {
+  color: var(--color-accent);
+}
+
+.sidebar__toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sidebar-collapsed-width);
+  min-width: var(--sidebar-collapsed-width);
+  height: 100%;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast);
+  flex-shrink: 0;
+}
+
+/* Header */
+.sidebar__header {
+  padding: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebar--collapsed .sidebar__header {
+  display: none;
+}
+
+.sidebar__title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+
+/* Search */
+.sidebar__search {
+  padding: var(--space-md);
+  flex-shrink: 0;
+}
+
+.sidebar--collapsed .sidebar__search {
+  display: none;
+}
+
+.sidebar__search-input {
+  width: 100%;
+  padding: var(--space-sm) 12px;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--color-text);
+  transition: border-color var(--duration-fast);
+}
+
+.sidebar__search-input::placeholder {
+  color: var(--color-text-dim);
+}
+
+.sidebar__search-input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+/* Collapsed vertical label */
+.sidebar__collapsed-label {
+  display: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  rotate: 180deg;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  padding: var(--space-lg) 0;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  transition: color var(--duration-fast);
+}
+
+.sidebar--collapsed .sidebar__collapsed-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar--collapsed:hover .sidebar__collapsed-label {
+  color: var(--color-accent);
+}
+
+/* Blueprint List */
+.sidebar__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 var(--space-sm) var(--space-sm);
+}
+
+.sidebar--collapsed .sidebar__list {
+  display: none;
+}
+
+/* Blueprint Card */
+.sidebar__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 10px 12px 10px 10px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast),
+    border-color var(--duration-fast),
+    box-shadow var(--duration-fast),
+    transform var(--duration-fast);
+  user-select: none;
+  animation: fade-up 0.4s var(--ease-out) backwards;
+}
+
+.sidebar__card:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-light);
+  border-left-color: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover), 0 0 0 1px rgba(var(--color-accent-rgb), 0.1);
+}
+
+.sidebar__card:active {
+  transform: scale(0.985);
+  box-shadow: none;
+}
+
+/* Staggered reveal for cards within each group */
+.sidebar__group-content li:nth-child(1)  { animation-delay: 0.06s; }
+.sidebar__group-content li:nth-child(2)  { animation-delay: 0.12s; }
+.sidebar__group-content li:nth-child(3)  { animation-delay: 0.18s; }
+.sidebar__group-content li:nth-child(4)  { animation-delay: 0.24s; }
+.sidebar__group-content li:nth-child(5)  { animation-delay: 0.30s; }
+.sidebar__group-content li:nth-child(6)  { animation-delay: 0.36s; }
+.sidebar__group-content li:nth-child(n+7) { animation-delay: 0.40s; }
+
+/* Luzmo chart preview inside sidebar card */
+.sidebar__card-preview {
+  width: 100%;
+  height: 160px; /* JS overrides this per-card based on sizeY from allPositions */
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  pointer-events: none; /* Clicks pass through to the card */
+  background-color: var(--color-surface-raised);
+}
+
+/* Expanded card content */
+.sidebar__card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sidebar__card-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Description wrapper — clamps to 2 lines via max-height */
+.sidebar__card-desc-wrap {
+  position: relative;
+  max-height: calc(2 * 1.4em);
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.sidebar__card-desc-wrap--expanded {
+  max-height: none;
+}
+
+.sidebar__card-desc {
+  color: var(--color-text-muted);
+}
+
+/* "see more / see less" toggle */
+.sidebar__card-desc-toggle {
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--color-accent);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--duration-fast);
+}
+
+/* Expanded: add vertical breathing room above "see less" */
+.sidebar__card-desc-wrap--expanded .sidebar__card-desc-toggle {
+  display: inline-block;
+  margin-top: var(--space-xs);
+}
+
+/* Collapsed: sit at end of second line with gradient fade */
+.sidebar__card-desc-wrap:not(.sidebar__card-desc-wrap--expanded) .sidebar__card-desc-toggle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 2em;
+  background: linear-gradient(to right, transparent, var(--color-surface) 40%);
+}
+
+.sidebar__card:hover .sidebar__card-desc-wrap:not(.sidebar__card-desc-wrap--expanded) .sidebar__card-desc-toggle {
+  background: linear-gradient(to right, transparent, var(--color-surface-hover) 40%);
+}
+
+.sidebar__card-desc-toggle:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Compact card — title-only row, chart lives only in the hover popup */
+.sidebar__card--compact {
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px;
+  gap: var(--space-sm);
+  min-height: 36px;
+}
+
+.sidebar__card--compact .sidebar__card-content {
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar__card--compact .sidebar__card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Small chart-icon hint on the right so it's clear a preview is available */
+.sidebar__card--compact::after {
+  content: '▸';
+  font-size: 16px;
+  color: var(--color-text-dim);
+  flex-shrink: 0;
+  transition: color var(--duration-fast);
+}
+
+.sidebar__card--compact:hover::after {
+  color: var(--color-accent);
+}
+
+/* Hover-preview popup */
+.sidebar__preview-popup {
+  position: fixed;
+  z-index: 9999;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 107, 43, 0.08);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-8px) scale(0.97);
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__preview-popup--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+.sidebar__popup-info {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.sidebar__popup-desc {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sidebar__popup-chart {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsible Group */
+.sidebar__group {
+  margin-bottom: 2px;
+}
+
+.sidebar__group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-sm) 12px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast), background-color var(--duration-fast);
+  user-select: none;
+}
+
+.sidebar__group-header:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-hover);
+}
+
+.sidebar__group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.sidebar__group-chevron {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.sidebar__group-chevron::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+.sidebar__group-header[aria-expanded="false"] .sidebar__group-chevron {
+  transform: rotate(-90deg);
+}
+
+.sidebar__group-content {
+  list-style: none;
+  padding: 0 var(--space-xs) var(--space-xs);
+  overflow: hidden;
+  transition: max-height var(--duration-normal) var(--ease-out);
+}
+
+.sidebar__group-content--collapsed {
+  max-height: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Dashboard (Main Area)
+   --------------------------------------------------------------------------- */
+
+.dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Header */
+.dashboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  flex-shrink: 0;
+  position: relative;
+  animation: slide-down 0.42s var(--ease-out) 0.08s backwards;
+}
+
+/* Partial orange accent line across the bottom of the header */
+.dashboard__header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dashboard__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.dashboard__logo {
+  flex-shrink: 0;
+}
+
+.dashboard__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.dashboard__reset,
+.dashboard__clear {
+  padding: var(--space-sm) var(--space-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--duration-fast),
+    background-color var(--duration-fast),
+    border-color var(--duration-fast),
+    transform var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.dashboard__reset:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.dashboard__clear:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.08);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+/* Grid container — holds the <luzmo-grid> and the empty state.
+   Takes the full remaining height below the header. */
+.dashboard__grid-container {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  background-color: var(--color-bg);
+  animation: fade-up 0.5s var(--ease-out) 0.16s backwards;
+}
+
+/* Size the grid to fill the full container.
+   Grid-specific --luzmo-grid-* CSS variables (from ACK docs) are scoped here
+   so they only affect the dashboard grid, not other Luzmo components. */
+luzmo-grid {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /* Grid surface */
+  --luzmo-grid-background: transparent;
+
+  /* Grid item surface */
+  --luzmo-grid-item-background: var(--color-surface-raised);
+  --luzmo-grid-item-border-radius: var(--radius-md);
+  --luzmo-grid-item-border-color: var(--color-border);
+  --luzmo-grid-item-border-width: 1px;
+  --luzmo-grid-item-border-style: solid;
+  --luzmo-grid-item-box-shadow: var(--shadow-sm);
+  --luzmo-grid-item-resizing-opacity: 0.75;
+
+  /* Drag handle */
+  --luzmo-grid-item-drag-handle-color: var(--color-text-muted);
+  --luzmo-grid-item-drag-handle-padding: 6px;
+  --luzmo-grid-item-drag-handle-cursor: grab;
+
+  /* Resize handles */
+  --luzmo-grid-resize-handle-background: var(--color-accent);
+  --luzmo-grid-resize-handle-background-hover: var(--color-accent-hover);
+  --luzmo-grid-resize-handle-background-active: var(--color-accent);
+  --luzmo-grid-resize-handle-border-radius: var(--radius-sm);
+  --luzmo-grid-resize-handle-opacity: 0;
+  --luzmo-grid-resize-handle-opacity-hover: 0.6;
+  --luzmo-grid-resize-handle-opacity-active: 1;
+  --luzmo-grid-resize-handle-transition: opacity var(--duration-fast) ease;
+  --luzmo-grid-resize-handle-edge-size: 4px;
+  --luzmo-grid-resize-handle-corner-size: 12px;
+
+  /* Item actions menu layout */
+  --luzmo-grid-item-actions-padding: 4px;
+  --luzmo-grid-item-action-group-gap: 2px;
+
+  /* Action buttons — solid surface so they're readable over any chart content */
+  --luzmo-grid-item-action-button-background-color-default: var(--color-surface-raised);
+  --luzmo-grid-item-action-button-background-color-hover: var(--color-surface-hover);
+  --luzmo-grid-item-action-button-background-color-down: var(--color-border-light);
+  --luzmo-grid-item-action-button-background-color-focus: var(--color-surface-hover);
+  --luzmo-grid-item-action-button-content-color-default: var(--color-text-muted);
+  --luzmo-grid-item-action-button-content-color-hover: var(--color-text);
+  --luzmo-grid-item-action-button-content-color-down: var(--color-text);
+  --luzmo-grid-item-action-button-content-color-focus: var(--color-text);
+
+  /* Delete button — solid opaque backgrounds; red icon signals danger without bleed-through */
+  --luzmo-grid-item-delete-button-background-color-hover: var(--color-surface-hover);
+  --luzmo-grid-item-delete-button-background-color-down: var(--color-border-light);
+  --luzmo-grid-item-delete-button-background-color-focus: var(--color-surface-hover);
+  --luzmo-grid-item-delete-button-content-color-hover: var(--color-danger);
+  --luzmo-grid-item-delete-button-content-color-down: var(--color-danger);
+  --luzmo-grid-item-delete-button-content-color-focus: var(--color-danger);
+
+  /* Dimensions hint (resize tooltip) — industrial style */
+  --luzmo-grid-item-dimensions-hint-font-size: 11px;
+  --luzmo-grid-item-dimensions-hint-font-family: var(--font-heading);
+  --luzmo-grid-item-dimensions-hint-padding: 3px 8px;
+  --luzmo-grid-item-dimensions-hint-border-width: 1px;
+  --luzmo-grid-item-dimensions-hint-border-color: var(--color-accent-border);
+  --luzmo-grid-item-dimensions-hint-border-radius: var(--radius-sm);
+  --luzmo-grid-item-dimensions-hint-background: var(--color-surface-raised);
+  --luzmo-grid-item-dimensions-hint-color: var(--color-accent);
+}
+
+
+/* Empty state — absolutely positioned so it doesn't add to scroll height */
+.dashboard__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  pointer-events: none;
+}
+
+/* Blueprint-grid placeholder icon */
+.dashboard__empty::before {
+  content: '';
+  display: block;
+  width: 76px;
+  height: 76px;
+  border: 1px dashed var(--color-border-light);
+  border-radius: var(--radius-md);
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 19px 19px;
+  opacity: 0.5;
+}
+
+.dashboard__empty-text {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-dim);
+  text-align: center;
+  max-width: 200px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------------------
+   Luzmo ACK Dark Theme Overrides
+   --------------------------------------------------------------------------- */
+/* Map The Constructor's dark palette onto Luzmo's --luzmo-* design tokens
+   so ACK components (grid, action menus, viz items) match our theme. */
+
+:root {
+  /* Primary = Constructor accent (safety orange) */
+  --luzmo-primary: #ff6b2b;
+  --luzmo-primary-hover: #ff8a55;
+  --luzmo-primary-down: #e65a1f;
+  --luzmo-primary-focus: #ff8a55;
+  --luzmo-primary-inverse-color: #ffffff;
+  --luzmo-primary-rgb: 255, 107, 43;
+
+  /* Secondary = steel blue (cool complement to safety orange) */
+  --luzmo-secondary: #4a9aba;
+  --luzmo-secondary-hover: #5eb0cc;
+  --luzmo-secondary-down: #3a7f9e;
+  --luzmo-secondary-focus: #5eb0cc;
+  --luzmo-secondary-inverse-color: #ffffff;
+  --luzmo-secondary-rgb: 74, 154, 186;
+  --luzmo-secondary-outline: rgba(74, 154, 186, 0.35);
+
+  /* Positive = success green */
+  --luzmo-positive-color: #34c97b;
+  --luzmo-positive-color-hover: #50d991;
+  --luzmo-positive-color-down: #28a863;
+  --luzmo-positive-color-focus: #50d991;
+  --luzmo-positive-color-rgb: 52, 201, 123;
+
+  /* Negative / danger */
+  --luzmo-negative-color: #ef4444;
+  --luzmo-negative-color-hover: #f66;
+  --luzmo-negative-color-down: #d43030;
+  --luzmo-negative-color-focus: #f66;
+  --luzmo-negative-color-rgb: 239, 68, 68;
+
+  /* Informative = info blue */
+  --luzmo-color-informative: #5b9cf6;
+  --luzmo-color-informative-rgb: 91, 156, 246;
+
+  /* Indicator = accent orange */
+  --luzmo-indicator-color: #ff6b2b;
+  --luzmo-indicator-gap: 2px;
+  --luzmo-indicator-width: 2px;
+
+  /* Background — matches --color-bg so the grid blends with the page */
+  --luzmo-background-color: #12141a;
+  --luzmo-background-color-rgb: 18, 20, 26;
+  --luzmo-background-color-hover: #2a2f3b;
+  --luzmo-background-color-down: #353842;
+  --luzmo-background-color-focus: #2a2f3b;
+  --luzmo-background-color-highlight: #222630;
+  --luzmo-background-color-highlight-hover: #2a2f3b;
+  --luzmo-background-color-highlight-down: #353842;
+  --luzmo-background-color-highlight-focus: #2a2f3b;
+  --luzmo-background-color-alt-1: #222630;
+  --luzmo-background-color-alt-2: #1b1e26;
+
+  /* Disabled states */
+  --luzmo-color-disabled: #5c5f6a;
+  --luzmo-background-color-disabled: #1b1e26;
+  --luzmo-background-color-highlight-disabled: #1b1e26;
+
+  /* Font color */
+  --luzmo-font-color: #e8e9ec;
+  --luzmo-font-color-hard: #f8f9fa;
+  --luzmo-font-color-extra-dimmed: #5c5f6a;
+  --luzmo-font-color-disabled: #5c5f6a;
+  --luzmo-font-color-hover: #e8e9ec;
+  --luzmo-font-color-down: #f8f9fa;
+  --luzmo-font-color-focus: #f8f9fa;
+
+  /* Borders (white-based for dark background) */
+  --luzmo-border-color-rgb: 255, 255, 255;
+  --luzmo-border-color: rgba(255, 255, 255, 0.12);
+  --luzmo-border-color-hover: rgba(255, 255, 255, 0.2);
+  --luzmo-border-color-down: rgba(255, 255, 255, 0.25);
+  --luzmo-border-color-focus: rgba(255, 255, 255, 0.2);
+  --luzmo-border-color-disabled: #2a2d36;
+  --luzmo-border-color-full: #2a2d36;
+  --luzmo-border-color-full-hover: #353842;
+  --luzmo-border-color-full-down: #3f434f;
+  --luzmo-border-color-full-focus: #353842;
+
+  /* Selected */
+  --luzmo-selected-color: #8b8f9a;
+  --luzmo-selected-color-hover: #e8e9ec;
+  --luzmo-selected-color-down: #f8f9fa;
+  --luzmo-selected-color-focus: #e8e9ec;
+  --luzmo-selected-color-hard: #e8e9ec;
+  --luzmo-selected-color-hard-hover: #f8f9fa;
+  --luzmo-selected-color-hard-down: #ffffff;
+  --luzmo-selected-color-hard-focus: #f8f9fa;
+
+  /* Border radii — map to Constructor's design tokens */
+  --luzmo-border-radius: 10px;
+  --luzmo-border-radius-s: 6px;
+  --luzmo-border-radius-l: 14px;
+  --luzmo-border-radius-xl: 18px;
+  --luzmo-border-radius-full: 9999px;
+  --luzmo-border-width: 1px;
+
+  /* Typography */
+  --luzmo-font-family: 'Inter', sans-serif;
+  --luzmo-font-style: normal;
+  --luzmo-font-size-xs: 10px;
+  --luzmo-font-size-s: 12px;
+  --luzmo-font-size-m: 13px;
+  --luzmo-font-size: 14px;
+  --luzmo-font-size-l: 16px;
+  --luzmo-font-size-xl: 20px;
+  --luzmo-font-size-xxl: 28px;
+  --luzmo-font-weight: 400;
+  --luzmo-font-weight-semibold: 600;
+  --luzmo-font-weight-bold: 700;
+  --luzmo-line-height: 1.5;
+
+  /* Spacing scale (4 / 8 / 12 / 16 / 24 px) */
+  --luzmo-spacing-1: 4px;
+  --luzmo-spacing-2: 8px;
+  --luzmo-spacing-3: 12px;
+  --luzmo-spacing-4: 16px;
+  --luzmo-spacing-5: 24px;
+
+  /* Component heights */
+  --luzmo-component-height-xxs: 24px;
+  --luzmo-component-height-xs: 28px;
+  --luzmo-component-height-s: 32px;
+  --luzmo-component-height: 36px;
+  --luzmo-component-height-l: 40px;
+  --luzmo-component-height-xl: 48px;
+  --luzmo-component-height-xxl: 56px;
+
+  /* Icon sizes */
+  --luzmo-icon-size-xxs: 10px;
+  --luzmo-icon-size-xs: 12px;
+  --luzmo-icon-size-s: 14px;
+  --luzmo-icon-size-m: 16px;
+  --luzmo-icon-size-l: 20px;
+  --luzmo-icon-size-xl: 24px;
+  --luzmo-icon-size-xxl: 32px;
+
+  /* Animation — use app's normal transition speed */
+  --luzmo-animation-duration: var(--duration-normal);
+
+  /* Scrollbar — theme Luzmo's internal scrollbars to match the app */
+  --luzmo-scrollbar-size: 6px;
+  --luzmo-scrollbar-width: thin;
+  --luzmo-scrollbar-track-background: transparent;
+  --luzmo-scrollbar-track-border-radius: 3px;
+  --luzmo-scrollbar-thumb-background: #353842;
+  --luzmo-scrollbar-thumb-border-radius: 3px;
+  --luzmo-scrollbar-thumb-hover-background: #5c5f6a;
+}
+
+/* ---------------------------------------------------------------------------
+   Edit Panel (slide-out drawer)
+   --------------------------------------------------------------------------- */
+
+.edit-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  height: 100vh;
+  background-color: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.edit-panel[open] {
+  transform: translateX(0);
+  box-shadow: var(--shadow-lg), -6px 0 48px rgba(0, 0, 0, 0.35);
+}
+
+/* Header */
+.edit-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  position: relative;
+  background: linear-gradient(to right, rgba(var(--color-accent-rgb), 0.05), transparent 70%);
+}
+
+.edit-panel__header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+  pointer-events: none;
+}
+
+.edit-panel__title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.edit-panel__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast), background-color var(--duration-fast);
+  flex-shrink: 0;
+}
+
+.edit-panel__close:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-hover);
+}
+
+/* Body */
+.edit-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Section */
+.edit-panel__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.edit-panel__label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+/* Chart type select */
+.edit-panel__select {
+  width: 100%;
+  padding: var(--space-sm) 12px;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--duration-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b8f9a' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 32px;
+}
+
+.edit-panel__select:hover {
+  border-color: var(--color-border-light);
+}
+
+.edit-panel__select:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.edit-panel__select option,
+.edit-panel__select optgroup {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+}
+
+.edit-panel__select optgroup {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* Legend ACK component wrapper */
+.edit-panel__section luzmo-edit-option {
+  --luzmo-background-color: var(--color-surface-raised);
+  --luzmo-background-color-highlight: var(--color-surface-raised);
+}
+
+/* ---------------------------------------------------------------------------
+   Scrollbar (Webkit / Chromium)
+   --------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-dim);
+}
+
+/* ---------------------------------------------------------------------------
+   AI Chart Panel
+   --------------------------------------------------------------------------- */
+
+.sidebar__ai-panel {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+}
+
+.sidebar--collapsed .sidebar__ai-panel {
+  display: none;
+}
+
+.sidebar__ai-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar__ai-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sidebar__ai-icon {
+  font-size: 14px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.sidebar__ai-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+/* Suggestion chips */
+.sidebar__ai-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.sidebar__ai-chip {
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+  border: 1px solid rgba(255, 107, 43, 0.25);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast),
+    border-color var(--duration-fast),
+    color var(--duration-fast),
+    transform var(--duration-fast);
+  text-align: left;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.sidebar__ai-chip:hover {
+  background-color: rgba(255, 107, 43, 0.22);
+  border-color: var(--color-accent);
+  transform: scale(1.03);
+}
+
+.sidebar__ai-chip:active {
+  transform: scale(0.97);
+}
+
+.sidebar__ai-chip:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Textarea */
+.sidebar__ai-textarea {
+  width: 100%;
+  padding: var(--space-sm) 12px;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  resize: none;
+  line-height: 1.5;
+  transition: border-color var(--duration-fast);
+}
+
+.sidebar__ai-textarea::placeholder {
+  color: var(--color-text-dim);
+}
+
+.sidebar__ai-textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.sidebar__ai-textarea:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Error message */
+.sidebar__ai-error {
+  font-size: 12px;
+  color: var(--color-danger);
+  min-height: 0;
+  line-height: 1.4;
+}
+
+.sidebar__ai-error:empty {
+  display: none;
+}
+
+/* Create chart button */
+.sidebar__ai-btn {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast),
+    transform var(--duration-fast),
+    box-shadow var(--duration-fast),
+    opacity var(--duration-fast);
+}
+
+.sidebar__ai-btn:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px var(--color-accent-glow);
+}
+
+.sidebar__ai-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.sidebar__ai-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sidebar__ai-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Chart loader — construction-themed loading overlay per grid tile
+   --------------------------------------------------------------------------- */
+
+.chart-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  background-color: rgba(27, 30, 38, 0.88);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.chart-loader--done {
+  opacity: 0;
+}
+
+/* Stage: 3 brick columns side by side */
+.chart-loader__stage {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+/* Each column stacks bricks from bottom up */
+.chart-loader__col {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3px;
+}
+
+/* Individual bricks — each carries its own animation-delay inline */
+.chart-loader__brick {
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: #353842;
+  animation: brick-place 8s infinite backwards;
+}
+
+.chart-loader__brick--light {
+  background-color: #556070;
+}
+
+.chart-loader__brick--accent {
+  background-color: #ff6b2b;
+  box-shadow: 0 0 8px rgba(255, 107, 43, 0.5);
+}
+
+/* "Loading" label beneath the icon */
+.chart-loader__label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}

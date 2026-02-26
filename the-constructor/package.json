@@ -1,0 +1,20 @@
+{
+  "name": "the-constructor",
+  "private": true,
+  "version": "0.1.0",
+  "description": "The Constructor — construction-focused end-user analytics experience built on Luzmo ACK",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "@luzmo/analytics-components-kit": "^1.0.1-alpha.142",
+    "@luzmo/embed": "^6.9.0"
+  }
+}
