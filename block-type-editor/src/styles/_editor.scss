@@ -1,0 +1,26 @@
+// ============================================================
+// EditorJS Overrides
+// ============================================================
+
+.ce-toolbar--opened {
+  z-index: 1000;
+}
+
+.cdx-search-field.ce-popover__search {
+  display: none;
+}
+
+.ce-popover-item__title {
+  font-weight: 400 !important;
+}
+
+.ce-popover-item__icon {
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}

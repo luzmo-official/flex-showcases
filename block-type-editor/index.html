@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report Builder</title>
+    <style>
+      body {
+        font-family: var(--luzmo-font-family);
+        line-height: 1.6;
+        margin: 0;
+        padding: var(--luzmo-spacing-5);
+        background-color: var(--luzmo-background-color-highlight);
+        color: var(--luzmo-font-color);
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: var(--luzmo-spacing-3);
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="editor"></div>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

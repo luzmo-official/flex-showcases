@@ -1,0 +1,11 @@
+.editor-tunes-luzmo-icon-wrapper {
+  height: 16px;
+  width: 16px;
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ce-popover-item:hover .editor-tunes-luzmo-icon-wrapper {
+  opacity: 1;
+}

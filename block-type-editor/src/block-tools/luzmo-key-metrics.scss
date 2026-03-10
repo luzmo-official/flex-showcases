@@ -1,0 +1,32 @@
+.number-card {
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.summary-cards--editing .number-card:not(.number-card--editing) {
+  opacity: 0.35;
+}
+
+.number-card__actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  --luzmo-grid-item-actions-flex-direction: row;
+}
+
+.number-card:hover .number-card__actions,
+.number-card:focus-within .number-card__actions,
+.number-card__actions--active {
+  opacity: 1;
+}
+
+.key-metrics-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
