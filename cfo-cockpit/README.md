@@ -39,14 +39,16 @@ Scenario-driven financial planning experience built on [Luzmo ACK](https://www.n
    npm install
    ```
 
-2. Set your Luzmo credentials. Add a script tag in `src/index.html` before `</head>`:
+2. Set your Luzmo **embed** credentials (not API key/token). You can find these in your Luzmo account under Embed > Security. Add a script tag in `src/index.html` before `</head>`:
 
    ```html
    <script>
-     window.__LUZMO_AUTH_KEY__ = 'your-api-key';
-     window.__LUZMO_AUTH_TOKEN__ = 'your-api-token';
+     window.__LUZMO_AUTH_KEY__ = 'your-embed-key';
+     window.__LUZMO_AUTH_TOKEN__ = 'your-embed-token';
    </script>
    ```
+
+   > **Warning:** Do not use your API key/token here. API credentials grant full backend access and must never be exposed in frontend code. Embed credentials are scoped to dashboard rendering only.
 
 3. Start the dev server:
 
