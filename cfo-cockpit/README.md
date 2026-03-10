@@ -7,15 +7,13 @@ tags:
   - Grid
   - Editing
   - Angular
-  - TypeScript
-  - Scenario Planning
+  - Typescript
+  - Scenario planning
 author: "Luzmo"
-image: "./screenshot.png"
+image: "https://i.imgur.com/E5ul7ro.png"
 ---
 
 # CFO Planning Cockpit
-
-![CFO Planning Cockpit](./screenshot.png)
 
 Scenario-driven financial planning experience built on [Luzmo ACK](https://www.npmjs.com/package/@luzmo/analytics-components-kit) and Angular 17.
 
