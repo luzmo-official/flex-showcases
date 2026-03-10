@@ -37,12 +37,12 @@ Scenario-driven financial planning experience built on [Luzmo ACK](https://www.n
    npm install
    ```
 
-2. Set your Luzmo credentials. Add a script tag in `src/index.html` before `</head>`:
+2. Set your Luzmo embed credentials. Add a script tag in `src/index.html` before `</head>`:
 
    ```html
    <script>
-     window.__LUZMO_AUTH_KEY__ = 'your-api-key';
-     window.__LUZMO_AUTH_TOKEN__ = 'your-api-token';
+     window.__LUZMO_AUTH_KEY__ = 'your-embed-key';
+     window.__LUZMO_AUTH_TOKEN__ = 'your-embed-token';
    </script>
    ```
 
