@@ -1,0 +1,379 @@
+<div
+  class="app-shell"
+  [class.dark-mode]="themeMode === 'dark'"
+>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand-group">
+      <img
+        class="brand-mark"
+        src="favicon.ico?v=3"
+        alt=""
+        aria-hidden="true"
+      />
+      <h1>{{ productName }}</h1>
+    </div>
+    <button
+      type="button"
+      class="icon-btn"
+      [attr.aria-pressed]="themeMode === 'dark'"
+      (click)="toggleThemeMode()"
+    >
+      @if (themeMode === 'dark') {
+        <span>&#9790;</span>
+      } @else {
+        <span>&#9788;</span>
+      }
+    </button>
+  </header>
+
+  <!-- Scenarios + Filters toolbar -->
+  <section class="toolbar">
+    <div class="scenario-segment">
+      @for (scenario of scenarioOptions; track scenario) {
+        <button
+          type="button"
+          class="scenario-btn"
+          [class.active]="scenario === globalFilters.scenario"
+          (click)="setScenario(scenario)"
+          [title]="scenarioDescriptions[scenario]"
+        >
+          {{ scenario }}
+        </button>
+      }
+    </div>
+
+    <div class="filter-row">
+      <select
+        data-testid="filter-period"
+        (change)="onFilterSelectChange('period', $event)"
+      >
+        @for (option of periodOptions; track option.value) {
+          <option
+            [value]="option.value"
+            [selected]="option.value === globalFilters.period"
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
+
+      <select
+        data-testid="filter-region"
+        (change)="onFilterSelectChange('region', $event)"
+      >
+        @for (option of regionOptions; track option.value) {
+          <option
+            [value]="option.value"
+            [selected]="option.value === globalFilters.region"
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
+
+      <select
+        data-testid="filter-currency"
+        (change)="onFilterSelectChange('currency', $event)"
+      >
+        @for (option of currencyOptions; track option.value) {
+          <option
+            [value]="option.value"
+            [selected]="option.value === globalFilters.currency"
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
+
+      <select
+        data-testid="filter-business-unit"
+        (change)="onFilterSelectChange('businessUnit', $event)"
+      >
+        @for (option of businessUnitOptions; track option.value) {
+          <option
+            [value]="option.value"
+            [selected]="option.value === globalFilters.businessUnit"
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
+
+      <select
+        data-testid="filter-legal-entity"
+        (change)="onFilterSelectChange('legalEntity', $event)"
+      >
+        @for (option of legalEntityOptions; track option.value) {
+          <option
+            [value]="option.value"
+            [selected]="option.value === globalFilters.legalEntity"
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
+    </div>
+  </section>
+
+  <!-- Main workspace -->
+  <main
+    class="workspace"
+    [class.fixed-view]="isFixedView"
+  >
+    <section class="main-column">
+      <!-- Narrative -->
+      <article class="narrative card">
+        <h2>{{ narrative.headline }}</h2>
+        <p>{{ narrative.summary }}</p>
+        <p class="action-line">{{ narrative.action }}</p>
+      </article>
+
+      <!-- Grid -->
+      <article class="grid-wrapper card">
+        <div class="grid-head">
+          <h3>
+            @if (isFixedView) {
+              Report view
+            } @else {
+              Report composer
+            }
+          </h3>
+          <div class="grid-controls">
+            <div class="mode-switch">
+              <button
+                type="button"
+                class="mode-btn"
+                [class.active]="workspaceMode === 'builder'"
+                (click)="setWorkspaceMode('builder')"
+              >
+                Builder
+              </button>
+              <button
+                type="button"
+                class="mode-btn"
+                [class.active]="workspaceMode === 'fixed'"
+                (click)="setWorkspaceMode('fixed')"
+              >
+                Report
+              </button>
+            </div>
+
+            <select
+              class="version-select"
+              [value]="activeVersionId"
+              (change)="onVersionChange($event)"
+            >
+              @for (option of versionControlOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+
+            <button
+              type="button"
+              class="btn primary"
+              (click)="saveVersion()"
+            >
+              Save
+            </button>
+
+            @if (!isFixedView) {
+              <button
+                type="button"
+                class="btn"
+                (click)="restoreDefaults()"
+              >
+                Reset
+              </button>
+            }
+          </div>
+        </div>
+
+        <luzmo-grid
+          #gridHost
+          class="ack-grid"
+          [appServer]="appServer"
+          [apiHost]="gridApiHost"
+          [authKey]="authKey"
+          [authToken]="authToken"
+          [language]="'en'"
+          [contentLanguage]="'en'"
+          [columns]="48"
+          [rowHeight]="16"
+          [viewMode]="isFixedView"
+          [theme]="gridTheme"
+          [items]="gridItems"
+          [defaultItemActionsMenu]="activeGridActionsMenu"
+          [placementItemActionsMenu]="'bottom-end'"
+          (click)="onGridSurfaceClick($event)"
+          (luzmo-grid-ready)="onGridReady()"
+          (luzmo-grid-changed)="onGridChanged($event)"
+          (luzmo-grid-item-action)="onGridItemAction($event)"
+        >
+        </luzmo-grid>
+      </article>
+    </section>
+
+    <!-- Builder sidebar -->
+    @if (!isFixedView) {
+      <aside class="builder card">
+        <div class="builder-header">
+          <h3>Configure</h3>
+          <div class="authoring-tabs">
+            <button
+              type="button"
+              class="tab-btn"
+              [class.active]="authoringMode === 'guided'"
+              (click)="setAuthoringMode('guided')"
+            >
+              Guided
+            </button>
+            <button
+              type="button"
+              class="tab-btn"
+              [class.active]="authoringMode === 'advanced'"
+              (click)="setAuthoringMode('advanced')"
+            >
+              Advanced
+            </button>
+          </div>
+        </div>
+
+        @if (authoringMode === 'guided') {
+          <div class="builder-body">
+            <div class="module-list">
+              @for (module of reportLibrary; track module.id) {
+                <article
+                  class="module-card"
+                  [class.in-report]="isModuleInReport(module.id)"
+                >
+                  <div class="module-info">
+                    <p class="module-title">{{ module.title }}</p>
+                    <p class="module-description">{{ module.description }}</p>
+                  </div>
+                  <div class="module-actions">
+                    @if (isModuleInReport(module.id)) {
+                      <button
+                        type="button"
+                        class="btn sm"
+                        (click)="focusModule(module.id)"
+                      >
+                        Focus
+                      </button>
+                      <button
+                        type="button"
+                        class="btn sm danger"
+                        (click)="removeModuleFromReport(module.id)"
+                      >
+                        Remove
+                      </button>
+                    } @else {
+                      <button
+                        type="button"
+                        class="btn sm primary"
+                        (click)="addModuleToReport(module.id)"
+                      >
+                        Add
+                      </button>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          </div>
+        } @else {
+          @if (selectedItem) {
+            @for (selectedId of [selectedItem.id]; track selectedId) {
+              <div class="builder-type-row">
+                <label class="type-select">
+                  <span>Type</span>
+                  <select
+                    [value]="selectedItem.type"
+                    (change)="onVizTypeChange($event)"
+                  >
+                    @for (typeOption of vizTypeOptions; track typeOption.value) {
+                      <option [value]="typeOption.value">{{ typeOption.label }}</option>
+                    }
+                  </select>
+                </label>
+              </div>
+            }
+
+            <luzmo-action-group
+              class="builder-tabs"
+              selects="single"
+              size="s"
+            >
+              <luzmo-action-button
+                toggles
+                [selected]="builderTab === 'data'"
+                value="data"
+                (click)="setBuilderTab('data')"
+              >
+                Data
+              </luzmo-action-button>
+              <luzmo-action-button
+                toggles
+                [selected]="builderTab === 'options'"
+                value="options"
+                (click)="setBuilderTab('options')"
+              >
+                Style
+              </luzmo-action-button>
+            </luzmo-action-group>
+
+            @if (builderTab === 'data') {
+              <div class="builder-body">
+                <luzmo-item-data-drop-panel
+                  [itemType]="selectedItem.type"
+                  [slotsContents]="selectedItem.slots ?? []"
+                  [language]="'en'"
+                  [contentLanguage]="'en'"
+                  [apiUrl]="apiHost"
+                  [authKey]="authKey"
+                  [authToken]="authToken"
+                  [grows]="true"
+                  (luzmo-slots-contents-changed)="onSlotsContentsChanged($event)"
+                  (luzmo-slot-constraint-triggered)="onSlotConstraintTriggered($event)"
+                >
+                </luzmo-item-data-drop-panel>
+
+                <luzmo-draggable-data-fields-panel
+                  [datasetIds]="datasetIds"
+                  [datasetPicker]="false"
+                  [search]="'on'"
+                  [language]="'en'"
+                  [apiUrl]="apiHost"
+                  [authKey]="authKey"
+                  [authToken]="authToken"
+                  [draggableDataFieldVariant]="'highlight'"
+                >
+                </luzmo-draggable-data-fields-panel>
+              </div>
+            }
+
+            @if (builderTab === 'options') {
+              <div class="builder-body">
+                <luzmo-edit-item
+                  [itemType]="selectedItem.type"
+                  [slots]="selectedItem.slots ?? []"
+                  [options]="selectedItem.options ?? {}"
+                  [language]="'en'"
+                  [apiUrl]="apiHost"
+                  [authKey]="authKey"
+                  [authToken]="authToken"
+                  (luzmo-options-changed)="onOptionsChanged($event)"
+                >
+                </luzmo-edit-item>
+              </div>
+            }
+          } @else {
+            <div class="empty-state">
+              <p>Select a visual to configure it.</p>
+            </div>
+          }
+        }
+      </aside>
+    }
+  </main>
+</div>
