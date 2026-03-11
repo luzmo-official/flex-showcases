@@ -59,7 +59,7 @@ jobs:
 
       - name: Copy Folder
         uses: keithweaver/aws-s3-github-action@v1.0.0
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
