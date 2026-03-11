@@ -43,10 +43,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ matrix.name }}/node_modules
           key: ${{ runner.os }}-node-${{ matrix.name }}-${{ hashFiles(format('{0}/{1}', matrix.name, 'package-lock.json')) }}
