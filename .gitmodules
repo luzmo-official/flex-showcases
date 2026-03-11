@@ -1,0 +1,3 @@
+[submodule "flexcalidraw/upstream"]
+	path = flexcalidraw/upstream
+	url = https://github.com/luzmo-official/flexcalidraw.git
