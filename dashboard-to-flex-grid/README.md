@@ -7,7 +7,7 @@ tags:
   - Flex
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/dashboard-to-flex.png"
-url: "https://stackblitz.com/github.com/luzmo-official/flex-showcases/tree/main/dashboard-to-flex-grid?embed=1&file=README.md&hideNavigation=1&view=preview"
+url: "https://examples.luzmo.com/dashboard-to-flex-grid/"
 ---
 
 # Embed a Luzmo Dashboard as Flex elements in a CSS grid

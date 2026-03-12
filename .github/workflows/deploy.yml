@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
         include:
           - name: dashboard-filter-panel
@@ -32,16 +33,20 @@ jobs:
             outputFolder: dist/
           - name: react-luzmo-iq-playground
             outputFolder: dist/
+          - name: newspaper
+            outputFolder: dist/newspaper/browser/
+          - name: dashboard-to-flex-grid
+            outputFolder: dist/
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ matrix.name }}/node_modules
           key: ${{ runner.os }}-node-${{ matrix.name }}-${{ hashFiles(format('{0}/{1}', matrix.name, 'package-lock.json')) }}
@@ -58,7 +63,7 @@ jobs:
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
-          destination: s3://showcases.luzmo.com/${{ matrix.name }}/
+          destination: s3://examples.luzmo.com/${{ matrix.name }}/
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-1
@@ -74,7 +79,7 @@ jobs:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
+          DISTRIBUTION: ${{ secrets.EXAMPLES_CLOUDFRONT_DISTRIBUTION_ID }}
           PATHS: "/*"
           AWS_REGION: "us-east-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

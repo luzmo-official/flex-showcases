@@ -8,7 +8,7 @@ tags:
   - React
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66cf414e7fb20956e8c81943_drag-n-drop-chart-library.png"
-url: "https://showcases.luzmo.com/drag-n-drop-chart-library"
+url: "https://examples.luzmo.com/drag-n-drop-chart-library/"
 ---
 
 # Luzmo Flex showcase: Drag and drop chart library

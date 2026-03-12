@@ -9,7 +9,7 @@ tags:
   - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-chart-library.png"
-url: "https://stackblitz.com/github/luzmo-official/flex-showcases/tree/main/react-chart-library?embed=1&file=README.md&hideNavigation=1&view=preview"
+url: "https://examples.luzmo.com/react-chart-library/"
 ---
 
 # Luzmo Chart Library example for react

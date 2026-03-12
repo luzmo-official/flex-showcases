@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:ci": "tsc -b && vite build --base=/react-luzmo-iq-playground/",
     "lint": "eslint .",
     "preview": "vite preview"
   },

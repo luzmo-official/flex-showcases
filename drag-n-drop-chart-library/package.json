@@ -18,7 +18,7 @@
     "userflow.js": "^2.12.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://showcases.luzmo.com/drag-n-drop-chart-library",
+  "homepage": "https://examples.luzmo.com/drag-n-drop-chart-library/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

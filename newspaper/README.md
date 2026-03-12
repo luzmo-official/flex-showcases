@@ -6,6 +6,7 @@ tags:
   - Flex
 author: "Luzmo"
 image: "https://i.imgur.com/KDM5XG7.png"
+url: "https://examples.luzmo.com/newspaper/"
 ---
 
 # Newspaper Data Journalism
