@@ -53,21 +53,26 @@ jobs:
           path: ${{ matrix.name }}/node_modules
           key: ${{ runner.os }}-node-${{ matrix.name }}-${{ hashFiles(format('{0}/{1}', matrix.name, 'package-lock.json')) }}
 
+      - name: Write fifa2026 .env
+        if: matrix.name == 'fifa2026'
+        run: |
+          cat > fifa2026/.env <<EOF
+          VITE_LUZMO_EMBED_KEY=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_KEY }}
+          VITE_LUZMO_EMBED_TOKEN=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_TOKEN }}
+          VITE_LUZMO_APP_SERVER=${{ secrets.FIFA2026_VITE_LUZMO_APP_SERVER }}
+          VITE_LUZMO_API_HOST=${{ secrets.FIFA2026_VITE_LUZMO_API_HOST }}
+          VITE_LUZMO_DATASET_GROUPS_ODDS=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_GROUPS_ODDS }}
+          VITE_LUZMO_DATASET_TEAM_PROFILES=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_TEAM_PROFILES }}
+          VITE_LUZMO_DATASET_HISTORICAL=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_HISTORICAL }}
+          VITE_LUZMO_COLUMN_TEAM=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TEAM }}
+          VITE_LUZMO_COLUMN_GROUP=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP }}
+          VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB }}
+          VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB }}
+          VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}
+          VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}
+          EOF
+
       - name: Build front end
-        env:
-          VITE_LUZMO_EMBED_KEY: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_EMBED_KEY || '' }}
-          VITE_LUZMO_EMBED_TOKEN: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_EMBED_TOKEN || '' }}
-          VITE_LUZMO_APP_SERVER: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_APP_SERVER || '' }}
-          VITE_LUZMO_API_HOST: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_API_HOST || '' }}
-          VITE_LUZMO_DATASET_GROUPS_ODDS: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_DATASET_GROUPS_ODDS || '' }}
-          VITE_LUZMO_DATASET_TEAM_PROFILES: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_DATASET_TEAM_PROFILES || '' }}
-          VITE_LUZMO_DATASET_HISTORICAL: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_DATASET_HISTORICAL || '' }}
-          VITE_LUZMO_COLUMN_TEAM: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_TEAM || '' }}
-          VITE_LUZMO_COLUMN_GROUP: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP || '' }}
-          VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB || '' }}
-          VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB || '' }}
-          VITE_LUZMO_COLUMN_GROUP_WIN_PROB: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB || '' }}
-          VITE_LUZMO_COLUMN_CONFEDERATION: ${{ matrix.name == 'fifa2026' && secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION || '' }}
         run: |
           cd ${{ matrix.name }}
           npm ci
