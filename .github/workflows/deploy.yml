@@ -53,22 +53,23 @@ jobs:
           path: ${{ matrix.name }}/node_modules
           key: ${{ runner.os }}-node-${{ matrix.name }}-${{ hashFiles(format('{0}/{1}', matrix.name, 'package-lock.json')) }}
 
-      - name: Set fifa2026 env vars
+      - name: Write fifa2026 .env
         if: matrix.name == 'fifa2026'
+        working-directory: fifa2026
         run: |
-          echo "VITE_LUZMO_EMBED_KEY=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_KEY }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_TOKEN }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_APP_SERVER=${{ secrets.FIFA2026_VITE_LUZMO_APP_SERVER }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_API_HOST=${{ secrets.FIFA2026_VITE_LUZMO_API_HOST }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_DATASET_GROUPS_ODDS=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_GROUPS_ODDS }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_DATASET_TEAM_PROFILES=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_TEAM_PROFILES }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_DATASET_HISTORICAL=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_HISTORICAL }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_TEAM=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TEAM }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_GROUP=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}" >> $GITHUB_ENV
-          echo "VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}" >> $GITHUB_ENV
+          echo "VITE_LUZMO_EMBED_KEY=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_KEY }}" > .env
+          echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.FIFA2026_VITE_LUZMO_EMBED_TOKEN }}" >> .env
+          echo "VITE_LUZMO_APP_SERVER=${{ secrets.FIFA2026_VITE_LUZMO_APP_SERVER }}" >> .env
+          echo "VITE_LUZMO_API_HOST=${{ secrets.FIFA2026_VITE_LUZMO_API_HOST }}" >> .env
+          echo "VITE_LUZMO_DATASET_GROUPS_ODDS=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_GROUPS_ODDS }}" >> .env
+          echo "VITE_LUZMO_DATASET_TEAM_PROFILES=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_TEAM_PROFILES }}" >> .env
+          echo "VITE_LUZMO_DATASET_HISTORICAL=${{ secrets.FIFA2026_VITE_LUZMO_DATASET_HISTORICAL }}" >> .env
+          echo "VITE_LUZMO_COLUMN_TEAM=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TEAM }}" >> .env
+          echo "VITE_LUZMO_COLUMN_GROUP=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP }}" >> .env
+          echo "VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB }}" >> .env
+          echo "VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB }}" >> .env
+          echo "VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}" >> .env
+          echo "VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}" >> .env
 
       - name: Build front end
         run: |
