@@ -38,8 +38,8 @@ export async function fetchDashboardRow(
 
   const payload = {
     action: 'get',
-    key: luzmoConfig.apiKey,
-    token: luzmoConfig.apiToken,
+    key: luzmoConfig.embedKey,
+    token: luzmoConfig.embedToken,
     version: '0.1.0',
     find: {
       where: {
@@ -94,8 +94,8 @@ export async function fetchTheme(
 
   const payload = {
     action: 'get',
-    key: luzmoConfig.apiKey,
-    token: luzmoConfig.apiToken,
+    key: luzmoConfig.embedKey,
+    token: luzmoConfig.embedToken,
     version: '0.1.0',
     find: {
       where: {
@@ -145,8 +145,8 @@ export async function fetchCollectionDashboards(
 
   const payload = {
     action: 'get',
-    key: luzmoConfig.apiKey,
-    token: luzmoConfig.apiToken,
+    key: luzmoConfig.embedKey,
+    token: luzmoConfig.embedToken,
     version: '0.1.0',
     find: {
       where: {
@@ -211,8 +211,8 @@ export async function fetchAIExampleQuestions(
   const payload = {
     action: 'create',
     version: '0.1.0',
-    key: luzmoConfig.apiKey,
-    token: luzmoConfig.apiToken,
+    key: luzmoConfig.embedKey,
+    token: luzmoConfig.embedToken,
     properties: {
       type: 'generate-example-questions',
       dataset_id: datasetId,
@@ -257,8 +257,8 @@ export async function generateAIChart(
   const payload = {
     action: 'create',
     version: '0.1.0',
-    key: luzmoConfig.apiKey,
-    token: luzmoConfig.apiToken,
+    key: luzmoConfig.embedKey,
+    token: luzmoConfig.embedToken,
     properties: {
       type: 'generate-chart',
       dataset_id: datasetId,

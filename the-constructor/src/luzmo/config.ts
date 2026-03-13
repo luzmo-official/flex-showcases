@@ -1,11 +1,12 @@
 // ---------------------------------------------------------------------------
 // Luzmo Configuration
 // ---------------------------------------------------------------------------
-// Reads Luzmo credentials and collection ID from Vite environment variables.
+// Reads Luzmo embed credentials and collection ID from Vite environment variables.
+// Embed key-token pairs are scoped and safe to use from the browser.
 
 export const luzmoConfig = {
-  apiKey: import.meta.env.VITE_LUZMO_API_KEY as string,
-  apiToken: import.meta.env.VITE_LUZMO_API_TOKEN as string,
+  embedKey: import.meta.env.VITE_LUZMO_EMBED_KEY as string,
+  embedToken: import.meta.env.VITE_LUZMO_EMBED_TOKEN as string,
   collectionId: import.meta.env.VITE_COLLECTION_ID as string,
 };
 
