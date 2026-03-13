@@ -1,11 +1,11 @@
 import { ref, computed } from 'vue'
 
 /**
- * Composable for managing Luzmo authentication and dataset configuration.
+ * Composable for managing Luzmo embedding credentials and dataset configuration.
  *
  * Required env variables (in .env file):
- *   VITE_LUZMO_API_KEY - Your Luzmo API key
- *   VITE_LUZMO_API_TOKEN - Your Luzmo API token
+ *   VITE_LUZMO_EMBED_KEY - Luzmo embedding API key (see https://developer.luzmo.com/guide/dashboard-embedding--generating-an-authorization-token)
+ *   VITE_LUZMO_EMBED_TOKEN - Luzmo embedding token; must have "use" rights over the datasets used below
  *   VITE_LUZMO_APP_SERVER - Luzmo app server URL (default: https://app.luzmo.com)
  *   VITE_LUZMO_API_HOST - Luzmo API host URL (default: https://api.luzmo.com)
  *   VITE_LUZMO_DATASET_GROUPS_ODDS - Dataset ID for WC2026 groups & odds
@@ -13,8 +13,8 @@ import { ref, computed } from 'vue'
  *   VITE_LUZMO_DATASET_HISTORICAL - Dataset ID for historical WC data
  */
 export function useLuzmo() {
-  const apiKey = ref(import.meta.env.VITE_LUZMO_API_KEY || '')
-  const apiToken = ref(import.meta.env.VITE_LUZMO_API_TOKEN || '')
+  const apiKey = ref(import.meta.env.VITE_LUZMO_EMBED_KEY || '')
+  const apiToken = ref(import.meta.env.VITE_LUZMO_EMBED_TOKEN || '')
   const appServer = ref(
     import.meta.env.VITE_LUZMO_APP_SERVER || 'https://app.luzmo.com'
   )

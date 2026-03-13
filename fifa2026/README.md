@@ -9,7 +9,6 @@ tags:
   - Vue
   - TypeScript
 author: "Luzmo"
-image: "https://cdn.luzmo.com/showcases/fifa2026.png"
 ---
 
 # Luzmo Flex showcase: World Cup 2026 Analytics Explorer
@@ -36,11 +35,11 @@ An interactive Vue 3 app for FIFA World Cup 2026: group odds, knockout bracket s
 
 ## Getting Started
 
-1. Create a `.env` file and add your Luzmo credentials (see `.env.example`):
+1. Create a `.env` file and add your Luzmo **embedding** credentials (see `.env.example`). You need an embedding API key and token as described in [Luzmo’s dashboard embedding guide](https://developer.luzmo.com/guide/dashboard-embedding--generating-an-authorization-token); the token must have **“use” rights** over the datasets you reference below.
 
    ```env
-   VITE_LUZMO_API_KEY=your-api-key
-   VITE_LUZMO_API_TOKEN=your-api-token
+   VITE_LUZMO_EMBED_KEY=your-embed-key
+   VITE_LUZMO_EMBED_TOKEN=your-embed-token
    VITE_LUZMO_APP_SERVER=https://app.luzmo.com
    VITE_LUZMO_API_HOST=https://api.luzmo.com
    VITE_LUZMO_DATASET_GROUPS_ODDS=your-dataset-id
