@@ -57,11 +57,6 @@ import {
   normalizeGlobalFilters
 } from './cfo-view-helpers';
 
-interface RuntimeConfig {
-  __LUZMO_AUTH_KEY__?: string;
-  __LUZMO_AUTH_TOKEN__?: string;
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -87,7 +82,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly initialItemTemplatesById = new Map(
     this.initialItemTemplates.filter((item): item is GridItemData & { id: string } => Boolean(item.id)).map((item) => [item.id, item])
   );
-  private readonly runtimeConfig = globalThis as typeof globalThis & RuntimeConfig;
   private readonly browserLocation = globalThis.location;
   private readonly cdr = inject(ChangeDetectorRef);
   readonly currentOrigin = this.browserLocation.origin;
@@ -98,9 +92,6 @@ export class AppComponent implements OnInit, OnDestroy {
   readonly apiHost = API_HOST;
   readonly gridApiHost = this.apiHost;
   readonly datasetIds = [DATASET_ID];
-
-  readonly authKey = this.runtimeConfig.__LUZMO_AUTH_KEY__?.trim() ?? '';
-  readonly authToken = this.runtimeConfig.__LUZMO_AUTH_TOKEN__?.trim() ?? '';
 
   readonly periodOptions = PERIOD_OPTIONS;
   readonly regionOptions = REGION_OPTIONS;

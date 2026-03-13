@@ -194,8 +194,6 @@
           class="ack-grid"
           [appServer]="appServer"
           [apiHost]="gridApiHost"
-          [authKey]="authKey"
-          [authToken]="authToken"
           [language]="'en'"
           [contentLanguage]="'en'"
           [columns]="48"
@@ -330,8 +328,6 @@
                   [language]="'en'"
                   [contentLanguage]="'en'"
                   [apiUrl]="apiHost"
-                  [authKey]="authKey"
-                  [authToken]="authToken"
                   [grows]="true"
                   (luzmo-slots-contents-changed)="onSlotsContentsChanged($event)"
                   (luzmo-slot-constraint-triggered)="onSlotConstraintTriggered($event)"
@@ -344,8 +340,6 @@
                   [search]="'on'"
                   [language]="'en'"
                   [apiUrl]="apiHost"
-                  [authKey]="authKey"
-                  [authToken]="authToken"
                   [draggableDataFieldVariant]="'highlight'"
                 >
                 </luzmo-draggable-data-fields-panel>
@@ -360,8 +354,6 @@
                   [options]="selectedItem.options ?? {}"
                   [language]="'en'"
                   [apiUrl]="apiHost"
-                  [authKey]="authKey"
-                  [authToken]="authToken"
                   (luzmo-options-changed)="onOptionsChanged($event)"
                 >
                 </luzmo-edit-item>

@@ -19,6 +19,8 @@ image: "./screenshot.png"
 
 Scenario-driven financial planning experience built on [Luzmo ACK](https://www.npmjs.com/package/@luzmo/analytics-components-kit) and Angular 17.
 
+This showcase is intentionally wired to a public Luzmo dataset and does not pass any auth or embed token.
+
 ## Features
 
 - **Scenario switching** — Base, Stretch, and Stress planning cases with context-aware board narrative
@@ -39,24 +41,21 @@ Scenario-driven financial planning experience built on [Luzmo ACK](https://www.n
    npm install
    ```
 
-2. Set your Luzmo **embed** credentials (not API key/token). You can find these in your Luzmo account under Embed > Security. Add a script tag in `src/index.html` before `</head>`:
-
-   ```html
-   <script>
-     window.__LUZMO_AUTH_KEY__ = 'your-embed-key';
-     window.__LUZMO_AUTH_TOKEN__ = 'your-embed-token';
-   </script>
-   ```
-
-   > **Warning:** Do not use your API key/token here. API credentials grant full backend access and must never be exposed in frontend code. Embed credentials are scoped to dashboard rendering only.
-
-3. Start the dev server:
+2. Start the dev server:
 
    ```bash
    npm start
    ```
 
    Open [http://localhost:3001](http://localhost:3001).
+
+No `.env` file, injected globals, or token setup is required.
+
+## Auth Model
+
+This showcase does not pass `authKey`, `authToken`, or any embed token to ACK components.
+
+It is designed to run as-is against the public CFO dataset so anyone copying the example can immediately see that no token exchange is part of the setup.
 
 ## Build
 

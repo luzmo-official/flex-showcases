@@ -14,7 +14,9 @@
 
 ## Luzmo (embedded analytics)
 
-When implementing Luzmo functionality (Embed tokens, core API, Flex SDK, or Luzmo IQ), refer to Luzmo's [AGENTS.md](https://developer.luzmo.com/agents.md) file for official best practices.
+This showcase is intentionally wired to a public Luzmo dataset and does not pass any auth or embed token.
+
+When implementing Luzmo functionality (core API, Flex SDK, or Luzmo IQ), refer to Luzmo's [AGENTS.md](https://developer.luzmo.com/agents.md) file for official best practices.
 
 When implementing Luzmo ACK functionality, there is currently no documentation on the web. Use the `ack_llms.txt` file in the project root as documentation.
 
