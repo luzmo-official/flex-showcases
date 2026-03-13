@@ -55,7 +55,7 @@ export class EmbedAuthService {
       locale_id: 'en'
     };
 
-    this.http.post<LuzmoEmbedResponse>('http://localhost:3101/api/embed', payload).subscribe({
+    this.http.post<LuzmoEmbedResponse>('/api/showcases/devops-command/embed', payload).subscribe({
       next: (response) => {
         this.embedResponse.set(response);
         this.isLoading.set(false);

@@ -9,6 +9,7 @@ tags:
   - Vue
   - TypeScript
 author: "Luzmo"
+url: "https://examples.luzmo.com/fifa2026/"
 ---
 
 # Luzmo Flex showcase: World Cup 2026 Analytics Explorer

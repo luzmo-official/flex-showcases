@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:ci": "vue-tsc -b && vite build --base=/fifa2026/",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
