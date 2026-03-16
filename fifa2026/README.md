@@ -10,6 +10,7 @@ tags:
   - TypeScript
 author: "Luzmo"
 url: "https://examples.luzmo.com/fifa2026/"
+image: "https://cdn.luzmo.com/showcases/fifa2026.png"
 ---
 
 # Luzmo Flex showcase: World Cup 2026 Analytics Explorer
