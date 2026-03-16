@@ -30,7 +30,7 @@ An interactive Vue 3 app for FIFA World Cup 2026: group odds, knockout bracket s
 - **Vue 3** — Composition API, `<script setup>`, TypeScript
 - **Vite** — Build and dev server
 - **Vue Router 4** — Lazy-loaded views
-- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — Chart configuration UI (`luzmo-draggable-data-fields-panel`, `luzmo-item-data-drop-panel`, `luzmo-edit-item`, `luzmo-edit-filters`), design tokens
+- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — Chart configuration UI (`luzmo-data-field-panel`, `luzmo-item-slot-drop-panel`, `luzmo-item-option-panel`, `luzmo-filters`), design tokens
 - **[@luzmo/embed](https://www.npmjs.com/package/@luzmo/embed)** — Chart rendering (`luzmo-embed-viz-item`)
 - **Gridstack** — Report builder dashboard layout
 - **flag-icons** — Country flags

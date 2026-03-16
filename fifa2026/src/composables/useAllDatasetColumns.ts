@@ -7,7 +7,7 @@ export interface ColumnWithDataset {
 }
 
 /**
- * Extract columns from a Luzmo draggable-data-fields-panel component.
+ * Extract columns from a Luzmo data-field-panel component.
  * This observes the component's shadow DOM and extracts field information
  * when it loads, avoiding the need for separate API calls.
  */
