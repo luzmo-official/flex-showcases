@@ -8,7 +8,7 @@
 
 - **Name:** The Constructor
 - **Purpose:** ACK (Analytics Component Kit) hackathon showcase for the construction industry.
-- **What it does:** Fetches all dashboards accessible to an embed key/token pair via the `/securable` REST API, groups their charts by source dashboard in a collapsible sidebar, and lets users compose a personal dashboard on an ACK `<luzmo-grid>` canvas. Users can edit chart type and toggle the legend via a slide-out panel, and generate charts from natural language via the Luzmo `/aichart` API.
+- **What it does:** Fetches all dashboards accessible to an embed key/token pair via the `/securable` REST API, groups their charts by source dashboard in a collapsible sidebar, and lets users compose a personal dashboard on an ACK `<luzmo-item-grid>` canvas. Users can edit chart type and toggle the legend via a slide-out panel, and generate charts from natural language via the Luzmo `/aichart` API.
 
 ---
 
@@ -27,13 +27,13 @@ When implementing Luzmo ACK functionality, there is currently no documentation o
 | `BlueprintGroup` | Luzmo dashboard | Blueprints grouped by source dashboard; display names are PascalCased. |
 | `CollectionData` | Accessible dashboards | Wraps all token-accessible dashboards: template blueprints, positions, grid config, themes, grouped blueprints, flat list, and `allPositions`. |
 | `DashboardTile` | Luzmo grid item | A blueprint instance on the canvas. Supports per-tile overrides (`typeOverride`, `optionsOverride`, `slotsOverride`). |
-| Dashboard grid | `<luzmo-grid>` | ACK grid component: drag, resize, action menus, chart rendering. |
-| Edit panel | Custom slide-out | Uses `<luzmo-edit-option>` for legend toggle; chart type via native `<select>`. |
+| Dashboard grid | `<luzmo-item-grid>` | ACK grid component: drag, resize, action menus, chart rendering. |
+| Edit panel | Custom slide-out | Uses `<luzmo-item-option>` for legend toggle; chart type via native `<select>`. |
 
 ### ACK Components in Use
 
-- `<luzmo-grid>` — Dashboard canvas with drag, resize, and per-item action menus (`edit-options`, `delete`).
-- `<luzmo-edit-option>` — Single chart option editor (legend toggle in the edit panel).
+- `<luzmo-item-grid>` — Dashboard canvas with drag, resize, and per-item action menus (`item-options`, `delete`).
+- `<luzmo-item-option>` — Single chart option editor (legend toggle in the edit panel).
 - `<luzmo-embed-viz-item>` — Flex SDK component for sidebar card hover previews.
 
 **Rule:** All chart rendering and editing MUST go through ACK / Luzmo components. Never implement custom chart rendering logic.

@@ -1,4 +1,4 @@
-import type { LuzmoGrid } from '@luzmo/analytics-components-kit/grid';
+import type { LuzmoItemGrid } from '@luzmo/analytics-components-kit/item-grid';
 
 // ---------------------------------------------------------------------------
 // Chart Loader — construction-themed loading overlay for luzmo-embed-viz-item
@@ -120,7 +120,7 @@ function createChartLoaderHTML(): string {
  * - Handles arbitrary shadow-DOM nesting by recursively observing every shadow
  *   root encountered during scanning.
  */
-export function attachGridLoadingOverlays(gridEl: LuzmoGrid): void {
+export function attachGridLoadingOverlays(gridEl: LuzmoItemGrid): void {
   const handled = new WeakSet<Element>();
   /** Maps each viz item to its overlay so the composed-event delegate can remove it. */
   const loaderMap = new WeakMap<Element, HTMLDivElement>();

@@ -17,15 +17,15 @@ image: "https://cdn.luzmo.com/showcases/the_constructor.png"
 
 Construction-focused end-user analytics experience built on Luzmo.
 
-Browse live chart visualizations in the sidebar and compose a personal dashboard by clicking to add tiles. Charts are fetched from all dashboards accessible to the embed key/token via the `/securable` REST API; the main canvas uses `<luzmo-grid>` for drag-and-drop layout and chart rendering.
+Browse live chart visualizations in the sidebar and compose a personal dashboard by clicking to add tiles. Charts are fetched from all dashboards accessible to the embed key/token via the `/securable` REST API; the main canvas uses `<luzmo-item-grid>` for drag-and-drop layout and chart rendering.
 
 ## Features
 
 - **Token-scoped loading** — all dashboards accessible to the embed key/token are fetched via `/securable` and grouped by source dashboard in a collapsible sidebar.
 - **Template dashboard** — a dashboard named "template" (case-insensitive) is auto-detected and pre-rendered on first load.
 - **Hover preview** — hovering a sidebar card shows a live chart popup anchored to the card's right edge.
-- **Dashboard grid** — `<luzmo-grid>` handles drag-and-drop layout, resize, and per-tile action menus.
-- **Chart type switching** — slide-out edit panel lets users change chart type (filtered to compatible types only) and toggle the legend via `<luzmo-edit-option>`. All chart types are supported, including variants (stacked, 100%, streamgraph, semi-donut, etc.).
+- **Dashboard grid** — `<luzmo-item-grid>` handles drag-and-drop layout, resize, and per-tile action menus.
+- **Chart type switching** — slide-out edit panel lets users change chart type (filtered to compatible types only) and toggle the legend via `<luzmo-item-option>`. All chart types are supported, including variants (stacked, 100%, streamgraph, semi-donut, etc.).
 - **Persistence** — tile layout, chart overrides, and AI-generated charts are saved to `localStorage` and restored on reload.
 - **Search** — filter charts by name, type, or description.
 - **Reset / Clear** — restore the template layout or clear all tiles.
@@ -37,7 +37,7 @@ Browse live chart visualizations in the sidebar and compose a personal dashboard
 
 - **Vanilla TypeScript** — No React, Vue, or Angular
 - **Vite** — Build tool and dev server
-- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — grid (`<luzmo-grid>`), edit option (`<luzmo-edit-option>`), and Luzmo design tokens
+- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — grid (`<luzmo-item-grid>`), edit option (`<luzmo-item-option>`), and Luzmo design tokens
 - **[@luzmo/embed](https://www.npmjs.com/package/@luzmo/embed)** — Flex SDK for sidebar chart previews (`<luzmo-embed-viz-item>`)
 - **Luzmo REST API** — Dashboard data via `/securable`; theme info via `/theme`; AI chart generation via `/aichart`
 

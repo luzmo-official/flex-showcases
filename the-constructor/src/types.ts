@@ -104,7 +104,7 @@ export interface CollectionData {
   templateGridConfig?: { columns: number; rowHeight: number };
   /** Template dashboard theme for Flex viz items: UUID string, built-in name, or full inline config. */
   templateTheme?: string | Record<string, unknown>;
-  /** Full resolved theme config for <luzmo-grid>. For inline themes this is the config itself;
+  /** Full resolved theme config for <luzmo-item-grid>. For inline themes this is the config itself;
    *  for saved themes it is fetched from the API. Grid needs the full object with type:"custom". */
   templateGridTheme?: Record<string, unknown>;
   /** All dashboards grouped by name (template first, then others). */

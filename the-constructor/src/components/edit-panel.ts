@@ -1,4 +1,4 @@
-import '@luzmo/analytics-components-kit/edit-option';
+import '@luzmo/analytics-components-kit/item-option';
 import { itemList, itemGroups } from '@luzmo/analytics-components-kit/item-list';
 import {
   areaChartOptionsConfig,
@@ -248,7 +248,7 @@ export function createEditPanel(
   legendLabel.className = 'edit-panel__label';
   legendLabel.textContent = 'Legend';
 
-  const legendOption = document.createElement('luzmo-edit-option');
+  const legendOption = document.createElement('luzmo-item-option');
 
   legendSection.appendChild(legendLabel);
   legendSection.appendChild(legendOption);
@@ -321,7 +321,7 @@ export function createEditPanel(
 
     if (hasLegendSupport) {
       isUpdatingLegend = true;
-      customElements.whenDefined('luzmo-edit-option').then(() => {
+      customElements.whenDefined('luzmo-item-option').then(() => {
         Object.assign(legendOption, {
           itemType: toAckChartType(chartType),
           optionKey: 'display.legend',

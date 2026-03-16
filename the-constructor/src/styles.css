@@ -698,7 +698,7 @@ input {
   box-shadow: var(--shadow-button-hover);
 }
 
-/* Grid container — holds the <luzmo-grid> and the empty state.
+/* Grid container — holds the <luzmo-item-grid> and the empty state.
    Takes the full remaining height below the header. */
 .dashboard__grid-container {
   flex: 1;
@@ -709,73 +709,73 @@ input {
 }
 
 /* Size the grid to fill the full container.
-   Grid-specific --luzmo-grid-* CSS variables (from ACK docs) are scoped here
+   Grid-specific --luzmo-item-grid-* CSS variables (from ACK docs) are scoped here
    so they only affect the dashboard grid, not other Luzmo components. */
-luzmo-grid {
+luzmo-item-grid {
   display: block;
   width: 100%;
   height: 100%;
 
   /* Grid surface */
-  --luzmo-grid-background: transparent;
+  --luzmo-item-grid-background: transparent;
 
   /* Grid item surface */
-  --luzmo-grid-item-background: var(--color-surface-raised);
-  --luzmo-grid-item-border-radius: var(--radius-md);
-  --luzmo-grid-item-border-color: var(--color-border);
-  --luzmo-grid-item-border-width: 1px;
-  --luzmo-grid-item-border-style: solid;
-  --luzmo-grid-item-box-shadow: var(--shadow-sm);
-  --luzmo-grid-item-resizing-opacity: 0.75;
+  --luzmo-item-grid-item-background: var(--color-surface-raised);
+  --luzmo-item-grid-item-border-radius: var(--radius-md);
+  --luzmo-item-grid-item-border-color: var(--color-border);
+  --luzmo-item-grid-item-border-width: 1px;
+  --luzmo-item-grid-item-border-style: solid;
+  --luzmo-item-grid-item-box-shadow: var(--shadow-sm);
+  --luzmo-item-grid-item-resizing-opacity: 0.75;
 
   /* Drag handle */
-  --luzmo-grid-item-drag-handle-color: var(--color-text-muted);
-  --luzmo-grid-item-drag-handle-padding: 6px;
-  --luzmo-grid-item-drag-handle-cursor: grab;
+  --luzmo-item-grid-item-drag-handle-color: var(--color-text-muted);
+  --luzmo-item-grid-item-drag-handle-padding: 6px;
+  --luzmo-item-grid-item-drag-handle-cursor: grab;
 
   /* Resize handles */
-  --luzmo-grid-resize-handle-background: var(--color-accent);
-  --luzmo-grid-resize-handle-background-hover: var(--color-accent-hover);
-  --luzmo-grid-resize-handle-background-active: var(--color-accent);
-  --luzmo-grid-resize-handle-border-radius: var(--radius-sm);
-  --luzmo-grid-resize-handle-opacity: 0;
-  --luzmo-grid-resize-handle-opacity-hover: 0.6;
-  --luzmo-grid-resize-handle-opacity-active: 1;
-  --luzmo-grid-resize-handle-transition: opacity var(--duration-fast) ease;
-  --luzmo-grid-resize-handle-edge-size: 4px;
-  --luzmo-grid-resize-handle-corner-size: 12px;
+  --luzmo-item-grid-resize-handle-background: var(--color-accent);
+  --luzmo-item-grid-resize-handle-background-hover: var(--color-accent-hover);
+  --luzmo-item-grid-resize-handle-background-active: var(--color-accent);
+  --luzmo-item-grid-resize-handle-border-radius: var(--radius-sm);
+  --luzmo-item-grid-resize-handle-opacity: 0;
+  --luzmo-item-grid-resize-handle-opacity-hover: 0.6;
+  --luzmo-item-grid-resize-handle-opacity-active: 1;
+  --luzmo-item-grid-resize-handle-transition: opacity var(--duration-fast) ease;
+  --luzmo-item-grid-resize-handle-edge-size: 4px;
+  --luzmo-item-grid-resize-handle-corner-size: 12px;
 
   /* Item actions menu layout */
-  --luzmo-grid-item-actions-padding: 4px;
-  --luzmo-grid-item-action-group-gap: 2px;
+  --luzmo-item-grid-item-actions-padding: 4px;
+  --luzmo-item-grid-item-action-group-gap: 2px;
 
   /* Action buttons — solid surface so they're readable over any chart content */
-  --luzmo-grid-item-action-button-background-color-default: var(--color-surface-raised);
-  --luzmo-grid-item-action-button-background-color-hover: var(--color-surface-hover);
-  --luzmo-grid-item-action-button-background-color-down: var(--color-border-light);
-  --luzmo-grid-item-action-button-background-color-focus: var(--color-surface-hover);
-  --luzmo-grid-item-action-button-content-color-default: var(--color-text-muted);
-  --luzmo-grid-item-action-button-content-color-hover: var(--color-text);
-  --luzmo-grid-item-action-button-content-color-down: var(--color-text);
-  --luzmo-grid-item-action-button-content-color-focus: var(--color-text);
+  --luzmo-item-grid-item-action-button-background-color-default: var(--color-surface-raised);
+  --luzmo-item-grid-item-action-button-background-color-hover: var(--color-surface-hover);
+  --luzmo-item-grid-item-action-button-background-color-down: var(--color-border-light);
+  --luzmo-item-grid-item-action-button-background-color-focus: var(--color-surface-hover);
+  --luzmo-item-grid-item-action-button-content-color-default: var(--color-text-muted);
+  --luzmo-item-grid-item-action-button-content-color-hover: var(--color-text);
+  --luzmo-item-grid-item-action-button-content-color-down: var(--color-text);
+  --luzmo-item-grid-item-action-button-content-color-focus: var(--color-text);
 
   /* Delete button — solid opaque backgrounds; red icon signals danger without bleed-through */
-  --luzmo-grid-item-delete-button-background-color-hover: var(--color-surface-hover);
-  --luzmo-grid-item-delete-button-background-color-down: var(--color-border-light);
-  --luzmo-grid-item-delete-button-background-color-focus: var(--color-surface-hover);
-  --luzmo-grid-item-delete-button-content-color-hover: var(--color-danger);
-  --luzmo-grid-item-delete-button-content-color-down: var(--color-danger);
-  --luzmo-grid-item-delete-button-content-color-focus: var(--color-danger);
+  --luzmo-item-grid-item-delete-button-background-color-hover: var(--color-surface-hover);
+  --luzmo-item-grid-item-delete-button-background-color-down: var(--color-border-light);
+  --luzmo-item-grid-item-delete-button-background-color-focus: var(--color-surface-hover);
+  --luzmo-item-grid-item-delete-button-content-color-hover: var(--color-danger);
+  --luzmo-item-grid-item-delete-button-content-color-down: var(--color-danger);
+  --luzmo-item-grid-item-delete-button-content-color-focus: var(--color-danger);
 
   /* Dimensions hint (resize tooltip) — industrial style */
-  --luzmo-grid-item-dimensions-hint-font-size: 11px;
-  --luzmo-grid-item-dimensions-hint-font-family: var(--font-heading);
-  --luzmo-grid-item-dimensions-hint-padding: 3px 8px;
-  --luzmo-grid-item-dimensions-hint-border-width: 1px;
-  --luzmo-grid-item-dimensions-hint-border-color: var(--color-accent-border);
-  --luzmo-grid-item-dimensions-hint-border-radius: var(--radius-sm);
-  --luzmo-grid-item-dimensions-hint-background: var(--color-surface-raised);
-  --luzmo-grid-item-dimensions-hint-color: var(--color-accent);
+  --luzmo-item-grid-item-dimensions-hint-font-size: 11px;
+  --luzmo-item-grid-item-dimensions-hint-font-family: var(--font-heading);
+  --luzmo-item-grid-item-dimensions-hint-padding: 3px 8px;
+  --luzmo-item-grid-item-dimensions-hint-border-width: 1px;
+  --luzmo-item-grid-item-dimensions-hint-border-color: var(--color-accent-border);
+  --luzmo-item-grid-item-dimensions-hint-border-radius: var(--radius-sm);
+  --luzmo-item-grid-item-dimensions-hint-background: var(--color-surface-raised);
+  --luzmo-item-grid-item-dimensions-hint-color: var(--color-accent);
 }
 
 
@@ -1122,7 +1122,7 @@ luzmo-grid {
 }
 
 /* Legend ACK component wrapper */
-.edit-panel__section luzmo-edit-option {
+.edit-panel__section luzmo-item-option {
   --luzmo-background-color: var(--color-surface-raised);
   --luzmo-background-color-highlight: var(--color-surface-raised);
 }

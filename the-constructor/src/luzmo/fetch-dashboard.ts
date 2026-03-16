@@ -80,7 +80,7 @@ export async function fetchDashboardRow(
 /**
  * Fetches a full theme object from the Luzmo API by its ID.
  * Returns the theme's config (with `type: "custom"`) that can be passed
- * directly to <luzmo-grid>'s `theme` property.
+ * directly to <luzmo-item-grid>'s `theme` property.
  *
  * @param themeId - The UUID of the Luzmo theme.
  * @returns The theme configuration object, or undefined if not found.
