@@ -180,21 +180,3 @@ export interface AIChartGenerateResponse {
   [key: string]: unknown;
 }
 
-// ---------------------------------------------------------------------------
-// Luzmo Collection API Response Types
-// ---------------------------------------------------------------------------
-
-export interface CollectionApiResponse {
-  count: number;
-  rows: CollectionRow[];
-}
-
-export interface CollectionRow {
-  id: string;
-  name: LocalizedString;
-  favorite: boolean;
-  created_at: string;
-  updated_at: string;
-  deleted_at: null | string;
-  securables?: DashboardRow[];
-}

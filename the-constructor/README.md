@@ -17,11 +17,11 @@ image: "https://cdn.luzmo.com/showcases/the_constructor.png"
 
 Construction-focused end-user analytics experience built on Luzmo.
 
-Browse live chart visualizations in the sidebar and compose a personal dashboard by clicking to add tiles. Charts are fetched from a Luzmo **collection** via the REST API; the main canvas uses `<luzmo-grid>` for drag-and-drop layout and chart rendering.
+Browse live chart visualizations in the sidebar and compose a personal dashboard by clicking to add tiles. Charts are fetched from all dashboards accessible to the embed key/token via the `/securable` REST API; the main canvas uses `<luzmo-grid>` for drag-and-drop layout and chart rendering.
 
 ## Features
 
-- **Collection-based loading** — all dashboards in a Luzmo collection are fetched and grouped by source dashboard in a collapsible sidebar.
+- **Token-scoped loading** — all dashboards accessible to the embed key/token are fetched via `/securable` and grouped by source dashboard in a collapsible sidebar.
 - **Template dashboard** — a dashboard named "template" (case-insensitive) is auto-detected and pre-rendered on first load.
 - **Hover preview** — hovering a sidebar card shows a live chart popup anchored to the card's right edge.
 - **Dashboard grid** — `<luzmo-grid>` handles drag-and-drop layout, resize, and per-tile action menus.
@@ -39,16 +39,15 @@ Browse live chart visualizations in the sidebar and compose a personal dashboard
 - **Vite** — Build tool and dev server
 - **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — grid (`<luzmo-grid>`), edit option (`<luzmo-edit-option>`), and Luzmo design tokens
 - **[@luzmo/embed](https://www.npmjs.com/package/@luzmo/embed)** — Flex SDK for sidebar chart previews (`<luzmo-embed-viz-item>`)
-- **Luzmo REST API** — Collection and dashboard data; AI chart generation via `/aichart`
+- **Luzmo REST API** — Dashboard data via `/securable`; theme info via `/theme`; AI chart generation via `/aichart`
 
 ## Getting Started
 
-1. Create a `.env` file and fill in your credentials:
+1. Create a `.env` file and fill in your embed credentials:
 
    ```env
-   VITE_LUZMO_API_KEY=your-api-key
-   VITE_LUZMO_API_TOKEN=your-api-token
-   VITE_COLLECTION_ID=your-collection-id
+   VITE_LUZMO_EMBED_KEY=your-embed-key
+   VITE_LUZMO_EMBED_TOKEN=your-embed-token
    ```
 
 2. Install and start:

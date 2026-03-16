@@ -8,7 +8,7 @@
 
 - **Name:** The Constructor
 - **Purpose:** ACK (Analytics Component Kit) hackathon showcase for the construction industry.
-- **What it does:** Fetches chart blueprints from a Luzmo collection via the REST API, groups them by source dashboard in a collapsible sidebar, and lets users compose a personal dashboard on an ACK `<luzmo-grid>` canvas. Users can edit chart type and toggle the legend via a slide-out panel, and generate charts from natural language via the Luzmo `/aichart` API.
+- **What it does:** Fetches all dashboards accessible to an embed key/token pair via the `/securable` REST API, groups their charts by source dashboard in a collapsible sidebar, and lets users compose a personal dashboard on an ACK `<luzmo-grid>` canvas. Users can edit chart type and toggle the legend via a slide-out panel, and generate charts from natural language via the Luzmo `/aichart` API.
 
 ---
 
@@ -25,7 +25,7 @@ When implementing Luzmo ACK functionality, there is currently no documentation o
 |---|---|---|
 | `Blueprint` | Luzmo dashboard item | Chart definition with type, data slots, options, description, and optional `filters` / `selectedData`. |
 | `BlueprintGroup` | Luzmo dashboard | Blueprints grouped by source dashboard; display names are PascalCased. |
-| `CollectionData` | Luzmo collection | Wraps all dashboards: template blueprints, positions, grid config, themes, grouped blueprints, flat list, and `allPositions`. |
+| `CollectionData` | Accessible dashboards | Wraps all token-accessible dashboards: template blueprints, positions, grid config, themes, grouped blueprints, flat list, and `allPositions`. |
 | `DashboardTile` | Luzmo grid item | A blueprint instance on the canvas. Supports per-tile overrides (`typeOverride`, `optionsOverride`, `slotsOverride`). |
 | Dashboard grid | `<luzmo-grid>` | ACK grid component: drag, resize, action menus, chart rendering. |
 | Edit panel | Custom slide-out | Uses `<luzmo-edit-option>` for legend toggle; chart type via native `<select>`. |
@@ -49,11 +49,11 @@ When implementing Luzmo ACK functionality, there is currently no documentation o
 5. **Immutable state updates.** Store uses pure reducer-style updates (spread, filter, concat).
 6. **Module separation:**
    - `types.ts` — Shared interfaces and action types.
-   - `blueprints.adapter.ts` — Luzmo collection → `CollectionData` mapping (template detection, blueprint extraction, position normalization, theme resolution, filter extraction).
+   - `blueprints.adapter.ts` — Accessible dashboards → `CollectionData` mapping (template detection, blueprint extraction, position normalization, theme resolution, filter extraction).
    - `store.ts` — State management (tiles, AI blueprints, sidebar, search). AI blueprints persisted under `constructor_ai_blueprints` in localStorage.
    - `chart-compatibility.ts` — Chart type compatibility filtering, `SLOTS_CONFIG_MAP`, `APP_TO_ACK_TYPE`, `getAckOptionsOverrides`, `toAckChartType`, `analyzeSlots`, `getCompatibleChartTypes`.
-   - `luzmo/config.ts` — Credentials and collection ID from env vars.
-   - `luzmo/fetch-dashboard.ts` — REST API calls (`/securable`, `/collection`, `/theme`, `/aichart`).
+   - `luzmo/config.ts` — Embed credentials (`VITE_LUZMO_EMBED_KEY`, `VITE_LUZMO_EMBED_TOKEN`) from env vars.
+   - `luzmo/fetch-dashboard.ts` — REST API calls (`/securable`, `/theme`, `/aichart`).
    - `luzmo/types.ts` — Luzmo API response type definitions.
    - `components/sidebar.ts` — Collapsible grouped panels, blueprint cards, search, hover preview, AI chart panel.
    - `components/dashboard.ts` — Dashboard grid, template pre-rendering, reset/clear, event wiring.
