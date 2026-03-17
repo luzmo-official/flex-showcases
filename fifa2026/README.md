@@ -9,7 +9,7 @@ tags:
   - Vue
   - TypeScript
 author: "Luzmo"
-url: "https://examples.luzmo.com/fifa2026/"
+url: "https://examples.luzmo.com/the-constructor/"
 image: "https://cdn.luzmo.com/showcases/fifa2026.png"
 ---
 
