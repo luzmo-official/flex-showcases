@@ -186,7 +186,7 @@ export function renderDashboard(
   header.className = 'dashboard__header';
   header.innerHTML = `
     <h1 class="dashboard__title">
-      <img class="dashboard__logo" src="/icon-header.svg" width="28" height="28" alt="" aria-hidden="true"/>
+      <img class="dashboard__logo" src="${import.meta.env.BASE_URL}icon-header.svg" width="28" height="28" alt="" aria-hidden="true"/>
       The Constructor
     </h1>
     <div class="dashboard__actions">
