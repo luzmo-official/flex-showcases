@@ -50,7 +50,7 @@
           type="button"
           class="nav-menu-btn"
           aria-label="Open menu"
-          aria-expanded="menuOpen"
+          :aria-expanded="menuOpen"
           aria-haspopup="true"
           @click="menuOpen = !menuOpen"
         >
