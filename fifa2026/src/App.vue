@@ -1,13 +1,14 @@
 <template>
   <div class="app-shell">
     <nav class="top-nav" v-if="showNav">
-      <router-link to="/" class="nav-brand">
+      <router-link to="/" class="nav-brand" @click="menuOpen = false">
         <span class="brand-icon">&#9917;</span>
         <span class="brand-text">World Cup 2026</span>
         <img src="/Luzmo.png" alt="Luzmo" class="brand-luzmo-logo" />
         <span class="brand-sub">Analytics Explorer</span>
       </router-link>
 
+      <!-- Desktop: horizontal links (visible >= 800px) -->
       <div class="nav-links">
         <router-link
           to="/"
@@ -42,6 +43,64 @@
           Report Builder
         </router-link>
       </div>
+
+      <!-- Mobile: hamburger + dropdown (< 800px) -->
+      <div class="nav-mobile">
+        <button
+          type="button"
+          class="nav-menu-btn"
+          aria-label="Open menu"
+          aria-expanded="menuOpen"
+          aria-haspopup="true"
+          @click="menuOpen = !menuOpen"
+        >
+          <span class="nav-menu-icon" aria-hidden="true"></span>
+        </button>
+        <Transition name="nav-drop">
+          <div v-show="menuOpen" class="nav-dropdown" role="menu">
+            <router-link
+              to="/"
+              class="nav-dropdown-link"
+              role="menuitem"
+              active-class="active"
+              :aria-current="route.name === 'pitch' ? 'page' : undefined"
+              @click="menuOpen = false"
+            >
+              The Pitch
+            </router-link>
+            <router-link
+              to="/bracket"
+              class="nav-dropdown-link"
+              role="menuitem"
+              active-class="active"
+              :aria-current="route.name === 'bracket' ? 'page' : undefined"
+              @click="menuOpen = false"
+            >
+              Bracket
+            </router-link>
+            <router-link
+              to="/match-analysis"
+              class="nav-dropdown-link"
+              role="menuitem"
+              active-class="active"
+              :aria-current="route.name === 'match-analysis' ? 'page' : undefined"
+              @click="menuOpen = false"
+            >
+              Match Analysis
+            </router-link>
+            <router-link
+              to="/builder"
+              class="nav-dropdown-link"
+              role="menuitem"
+              active-class="active"
+              :aria-current="route.name === 'builder' ? 'page' : undefined"
+              @click="menuOpen = false"
+            >
+              Report Builder
+            </router-link>
+          </div>
+        </Transition>
+      </div>
     </nav>
 
     <main>
@@ -51,11 +110,32 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const showNav = computed(() => route.name !== undefined)
+
+const menuOpen = ref(false)
+
+function closeMenuOnResize() {
+  if (window.innerWidth >= 800) menuOpen.value = false
+}
+
+function closeMenuOnClickOutside(e: MouseEvent) {
+  const target = e.target as Node
+  const mobile = document.querySelector('.nav-mobile')
+  if (mobile && !mobile.contains(target)) menuOpen.value = false
+}
+
+onMounted(() => {
+  window.addEventListener('resize', closeMenuOnResize)
+  document.addEventListener('click', closeMenuOnClickOutside)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', closeMenuOnResize)
+  document.removeEventListener('click', closeMenuOnClickOutside)
+})
 </script>
 
 <style scoped>
@@ -137,6 +217,101 @@ const showNav = computed(() => route.name !== undefined)
 .nav-link.active {
   color: var(--gold);
   background: rgba(212, 175, 55, 0.1);
+}
+
+/* Mobile hamburger + dropdown (< 800px) */
+.nav-mobile {
+  display: none;
+  position: relative;
+}
+
+.nav-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 44px;
+  height: 44px;
+  margin: 0 -16px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-menu-btn[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu-icon {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  box-shadow: 0 6px 0 currentColor, 0 12px 0 currentColor;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  padding: 8px 0;
+  background: rgba(10, 25, 47, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  z-index: 101;
+}
+
+.nav-dropdown-link {
+  display: block;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.nav-dropdown-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-dropdown-link.active {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.nav-drop-enter-active,
+.nav-drop-leave-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.nav-drop-enter-from,
+.nav-drop-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+@media (max-width: 799px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-mobile {
+    display: block;
+  }
 }
 
 main {
