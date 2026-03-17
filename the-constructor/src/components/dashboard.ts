@@ -1,5 +1,5 @@
-import type { LuzmoGrid, GridItemData } from '@luzmo/analytics-components-kit/grid';
-import '@luzmo/analytics-components-kit/grid';
+import type { LuzmoItemGrid, GridItemData } from '@luzmo/analytics-components-kit/item-grid';
+import '@luzmo/analytics-components-kit/item-grid';
 import type { Blueprint, CollectionData, DashboardTile, TilePosition } from '../types';
 import { generateId } from '../store';
 import type { Store } from '../store';
@@ -9,7 +9,7 @@ import { attachGridLoadingOverlays } from './chart-loader';
 import { createEditPanel } from './edit-panel';
 
 // ---------------------------------------------------------------------------
-// Dashboard Component — powered by <luzmo-grid>
+// Dashboard Component — powered by <luzmo-item-grid>
 // ---------------------------------------------------------------------------
 
 /** Default item size (in grid units) when a new tile is added. */
@@ -103,7 +103,7 @@ function toGridItem(tile: DashboardTile, blueprint: Blueprint): GridItemData {
   // Filter widgets have no editable options — omit edit-options from their action menu.
   const actionsMenu: GridItemData['actionsMenu'] = isFilterWidgetType(chartType) || isNonChartItemType(chartType)
     ? [{ type: 'group', actions: ['delete'] }]
-    : [{ type: 'group', actions: ['edit-options', 'delete'] }];
+    : [{ type: 'group', actions: ['item-options', 'delete'] }];
 
   const item: GridItemData = {
     id: tile.id,
@@ -209,8 +209,8 @@ export function renderDashboard(
   gridContainer.className = 'dashboard__grid-container';
   main.appendChild(gridContainer);
 
-  // -- Create <luzmo-grid> element ------------------------------------------
-  const gridEl = document.createElement('luzmo-grid') as LuzmoGrid;
+  // -- Create <luzmo-item-grid> element -------------------------------------
+  const gridEl = document.createElement('luzmo-item-grid') as LuzmoItemGrid;
   gridEl.id = 'dashboard-grid';
   gridContainer.appendChild(gridEl);
 
@@ -250,18 +250,18 @@ export function renderDashboard(
 
   // -- Edit panel -----------------------------------------------------------
   const editPanel = createEditPanel(store, blueprintMap, (tileId) => {
-    gridEl.triggerItemAction(tileId, 'edit-options', { active: false });
+    gridEl.triggerItemAction(tileId, 'item-options', { active: false });
   });
   main.appendChild(editPanel.element);
 
   // -- Listen to grid events ------------------------------------------------
 
-  gridEl.addEventListener('luzmo-grid-item-action', ((event: CustomEvent) => {
+  gridEl.addEventListener('luzmo-item-grid-item-action', ((event: CustomEvent) => {
     const { action, id, active } = event.detail ?? {};
     if (action === 'delete' && id) {
       event.preventDefault();
       store.dispatch({ type: 'REMOVE_TILE', payload: { tileId: id } });
-    } else if (action === 'edit-options' && id) {
+    } else if (action === 'item-options' && id) {
       if (active === false) {
         editPanel.close();
       } else {
@@ -270,7 +270,7 @@ export function renderDashboard(
     }
   }) as EventListener);
 
-  gridEl.addEventListener('luzmo-grid-changed', ((event: CustomEvent) => {
+  gridEl.addEventListener('luzmo-item-grid-changed', ((event: CustomEvent) => {
     if (isUpdatingGrid) return;
 
     const items: GridItemData[] = event.detail?.items ?? [];
@@ -327,7 +327,7 @@ export function renderDashboard(
   store.subscribe(syncGrid);
 
   // Wait for the grid to be ready before populating initial tiles
-  gridEl.addEventListener('luzmo-grid-ready', () => {
+  gridEl.addEventListener('luzmo-item-grid-ready', () => {
     gridReady = true;
 
     attachGridLoadingOverlays(gridEl);

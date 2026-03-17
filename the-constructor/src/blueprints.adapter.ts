@@ -1,7 +1,6 @@
 import type { Blueprint, BlueprintGroup, CollectionData, ItemFilter, ItemFilterGroup, SelectedDataEntry, TilePosition } from './types';
-import { luzmoConfig } from './luzmo/config';
 import {
-  fetchCollectionDashboards,
+  fetchAccessibleDashboards,
   fetchDashboardRow,
   fetchTheme,
 } from './luzmo/fetch-dashboard';
@@ -312,16 +311,11 @@ function findTemplateDashboard(dashboards: DashboardRow[]): DashboardRow {
 }
 
 /**
- * Fetch all dashboards from a Luzmo collection and return structured
+ * Fetch all dashboards accessible to the embed token and return structured
  * CollectionData with template info and grouped blueprints.
- *
- * @param collectionId - Falls back to VITE_COLLECTION_ID from env.
  */
-export async function fetchCollectionData(
-  collectionId?: string,
-): Promise<CollectionData> {
-  const id = collectionId || luzmoConfig.collectionId;
-  const dashboards = await fetchCollectionDashboards(id);
+export async function fetchCollectionData(): Promise<CollectionData> {
+  const dashboards = await fetchAccessibleDashboards();
 
   if (dashboards.length === 0) {
     return {

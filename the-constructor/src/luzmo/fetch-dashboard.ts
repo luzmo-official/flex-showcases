@@ -2,17 +2,15 @@ import { luzmoConfig, LUZMO_API_BASE } from './config';
 import type {
   AIChartGenerateResponse,
   AIChartSuggestion,
-  CollectionApiResponse,
   DashboardApiResponse,
   DashboardRow,
 } from './types';
 
 // ---------------------------------------------------------------------------
-// Luzmo Dashboard & Collection Fetch
+// Luzmo Dashboard Fetch
 // ---------------------------------------------------------------------------
 
 const LUZMO_SECURABLE_URL = `${LUZMO_API_BASE}/securable`;
-const LUZMO_COLLECTION_URL = `${LUZMO_API_BASE}/collection`;
 const LUZMO_THEME_URL = `${LUZMO_API_BASE}/theme`;
 const LUZMO_AICHART_URL = `${LUZMO_API_BASE}/aichart`;
 
@@ -82,7 +80,7 @@ export async function fetchDashboardRow(
 /**
  * Fetches a full theme object from the Luzmo API by its ID.
  * Returns the theme's config (with `type: "custom"`) that can be passed
- * directly to <luzmo-grid>'s `theme` property.
+ * directly to <luzmo-item-grid>'s `theme` property.
  *
  * @param themeId - The UUID of the Luzmo theme.
  * @returns The theme configuration object, or undefined if not found.
@@ -131,18 +129,11 @@ export async function fetchTheme(
 }
 
 /**
- * Fetches all dashboards in a Luzmo collection.
+ * Fetches all dashboards accessible to the current embed key/token pair.
  *
- * @param collectionId - The ID of the Luzmo collection.
- * @returns An array of DashboardRow objects belonging to the collection.
+ * @returns An array of DashboardRow objects the token can access.
  */
-export async function fetchCollectionDashboards(
-  collectionId: string,
-): Promise<DashboardRow[]> {
-  if (!collectionId) {
-    throw new DashboardFetchError('Collection ID is required');
-  }
-
+export async function fetchAccessibleDashboards(): Promise<DashboardRow[]> {
   const payload = {
     action: 'get',
     key: luzmoConfig.embedKey,
@@ -150,21 +141,15 @@ export async function fetchCollectionDashboards(
     version: '0.1.0',
     find: {
       where: {
-        id: collectionId,
+        type: 'dashboard',
+        derived: false,
       },
-      include: [
-        {
-          model: 'Securable',
-          where: {
-            type: 'dashboard',
-          },
-        },
-      ],
+      attributes: ['id', 'name', 'contents', 'created_at', 'updated_at'],
     },
   };
 
   try {
-    const response = await fetch(LUZMO_COLLECTION_URL, {
+    const response = await fetch(LUZMO_SECURABLE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -176,19 +161,11 @@ export async function fetchCollectionDashboards(
       throw new DashboardFetchError(`HTTP error! status: ${response.status}`);
     }
 
-    const data: CollectionApiResponse = await response.json();
-
-    if (!data.rows?.[0]) {
-      throw new DashboardFetchError(
-        'Invalid collection data: missing rows[0]',
-      );
-    }
-
-    const collection = data.rows[0];
-    const dashboards = collection.securables ?? [];
+    const data: DashboardApiResponse = await response.json();
+    const dashboards = data.rows ?? [];
 
     if (dashboards.length === 0) {
-      console.warn('[fetch-dashboard] Collection contains no dashboards');
+      console.warn('[fetch-dashboard] No accessible dashboards found for this token');
     }
 
     return dashboards;
@@ -196,8 +173,8 @@ export async function fetchCollectionDashboards(
     if (error instanceof DashboardFetchError) {
       throw error;
     }
-    console.error('Error fetching collection dashboards:', error);
-    throw new DashboardFetchError('Failed to fetch collection dashboards');
+    console.error('Error fetching accessible dashboards:', error);
+    throw new DashboardFetchError('Failed to fetch accessible dashboards');
   }
 }
 

@@ -347,7 +347,7 @@ const DATETIME_INCOMPATIBLE_TYPES = new Set([
 
 /**
  * Maps app-facing item keys to the ACK chart type string used by grid items,
- * `luzmo-edit-option`, and `switchItem`. Variants share an ACK type with their
+ * `luzmo-item-option`, and `switchItem`. Variants share an ACK type with their
  * base but differ only in their mode/display options.
  */
 const APP_TO_ACK_TYPE: Record<string, string> = {
@@ -378,7 +378,7 @@ const APP_TO_ACK_TYPE: Record<string, string> = {
 
 /**
  * Converts an app-facing item key to the ACK chart type passed to grid items,
- * `luzmo-edit-option`, and `switchItem`.
+ * `luzmo-item-option`, and `switchItem`.
  */
 export function toAckChartType(type: string): string {
   return APP_TO_ACK_TYPE[type] ?? type;
