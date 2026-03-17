@@ -39,6 +39,8 @@ jobs:
             outputFolder: dist/
           - name: fifa2026
             outputFolder: dist/
+          - name: the-constructor
+            outputFolder: dist/
 
     steps:
       - name: Checkout
@@ -71,6 +73,13 @@ jobs:
           echo "VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}" >> .env
           echo "VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}" >> .env
 
+      - name: Write the-constructor .env
+        if: matrix.name == 'the-constructor'
+        working-directory: the-constructor
+        run: |
+          echo "VITE_LUZMO_EMBED_KEY=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_KEY }}" > .env
+          echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_TOKEN }}" >> .env
+
       - name: Build front end
         run: |
           cd ${{ matrix.name }}
@@ -79,7 +88,8 @@ jobs:
 
       - name: Copy Folder
         uses: keithweaver/aws-s3-github-action@v1.0.0
-        if: github.event_name != 'pull_request'
+        # TEMP: deploy on PR to test the-constructor. Revert before merge.
+        # if: github.event_name != 'pull_request'
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
@@ -93,7 +103,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
-    if: github.event_name != 'pull_request'
+    # TEMP: deploy on PR to test the-constructor. Revert before merge.
+    # if: github.event_name != 'pull_request'
 
     steps:
       - name: Invalidate CloudFront
