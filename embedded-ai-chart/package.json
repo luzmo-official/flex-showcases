@@ -6,6 +6,6 @@
   "author": "Luzmo Team",
   "type": "module",
   "scripts": {
-    "build:ci": "cd frontend && npm ci && npm run build:ci"
+    "build:ci": "cd frontend && npm install && npm run build:ci"
   }
 }

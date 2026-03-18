@@ -8,7 +8,7 @@
     "start": "concurrently \"npm run backend\" \"npm run frontend\" --names \"backend,frontend\" --prefix-colors \"blue,green\"",
     "backend": "cd backend && npm run start:dev",
     "frontend": "cd frontend && npm run start",
-    "build:ci": "cd frontend && npm ci && npm run build:ci"
+    "build:ci": "cd frontend && npm install && npm run build:ci"
   },
   "devDependencies": {
     "concurrently": "9.2.1"
