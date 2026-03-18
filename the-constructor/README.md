@@ -10,6 +10,7 @@ tags:
   - Node.js
   - Typescript
 author: "Luzmo"
+url: "https://examples.luzmo.com/the-constructor/"
 image: "https://cdn.luzmo.com/showcases/the_constructor.png"
 ---
 

@@ -156,8 +156,10 @@ export function isBuiltInSeeded(): boolean {
  * Returns true if seeding was performed, false otherwise.
  */
 export async function seedBuiltInReports(): Promise<boolean> {
-  const { isConfigured, datasetGroupsOdds } = useLuzmo()
-  if (!isConfigured || !datasetGroupsOdds.value) return false
+  const { datasetGroupsOdds } = useLuzmo()
+  // Embed key/token are not required for seeding when using dataset + column IDs from env
+  // (e.g. when datasets are publicly shared or column IDs were filled via Luzmo Node SDK).
+  if (!datasetGroupsOdds.value) return false
 
   const existingReportsRaw = localStorage.getItem(REPORTS_STORAGE_KEY)
   let existingReports: SavedReport[] = []
