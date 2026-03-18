@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:ci": "npx ng build --base-href=/euro2024/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:euro2024-showcase": "node dist/euro2024-showcase/server/server.mjs"
@@ -32,6 +33,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "userflow.js": "^2.12.1",
+    "zod": "^4.3.6",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
