@@ -41,6 +41,10 @@ jobs:
             outputFolder: dist/
           - name: the-constructor
             outputFolder: dist/
+          - name: devops-command
+            outputFolder: frontend/dist/devops-command/browser/
+          - name: embedded-ai-chart
+            outputFolder: frontend/dist/ai-showcases-frontend/browser/
 
     steps:
       - name: Checkout
@@ -88,7 +92,7 @@ jobs:
 
       - name: Copy Folder
         uses: keithweaver/aws-s3-github-action@v1.0.0
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request'  # temporarily disabled for PP-789 testing
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
@@ -102,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
-    if: github.event_name != 'pull_request'
+    # if: github.event_name != 'pull_request'  # temporarily disabled for PP-789 testing
 
     steps:
       - name: Invalidate CloudFront
