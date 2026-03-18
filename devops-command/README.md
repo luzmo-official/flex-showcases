@@ -8,6 +8,7 @@ tags:
   - Flex
 author: "Luzmo"
 image: "https://i.imgur.com/95MX7Gy.png"
+url: "https://examples.luzmo.com/devops-command/"
 ---
 
 # DevOps Command

@@ -4,5 +4,8 @@
   "description": "",
   "main": "index.js",
   "author": "Luzmo Team",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "build:ci": "cd frontend && npm install && npm run build:ci"
+  }
 }

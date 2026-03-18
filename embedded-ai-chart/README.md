@@ -8,7 +8,7 @@ tags:
   - Flex
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66d84032abfc71dbb38bbcd7_embedded_ai_chart_generator.png"
-url: "https://ai-showcases.luzmo.com/embedded-chart-generator"
+url: "https://examples.luzmo.com/embedded-ai-chart/"
 ---
 
 # Luzmo Flex showcase: AI chart generator

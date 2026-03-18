@@ -41,6 +41,10 @@ jobs:
             outputFolder: dist/
           - name: the-constructor
             outputFolder: dist/
+          - name: devops-command
+            outputFolder: frontend/dist/devops-command/browser/
+          - name: embedded-ai-chart
+            outputFolder: frontend/dist/ai-showcases-frontend/browser/
 
     steps:
       - name: Checkout
