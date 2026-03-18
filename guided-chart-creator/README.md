@@ -11,7 +11,7 @@ tags:
   - Next.js
   - Typescript
 author: "Luzmo"
-image: "https://cdn.luzmo.com/showcases/TODO_REPLACE_WITH_ACTUAL_IMAGE.png"
+image: "https://cdn.luzmo.com/showcases/guided-chart-creator-screenshots.png"
 ---
 
 # Composable Analytics Builder
