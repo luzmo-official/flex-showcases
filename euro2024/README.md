@@ -6,7 +6,7 @@ tags:
   - Flex
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/66d8403be2ece8821d28fbca_euro2024.png"
-url: "https://euro2024.luzmo.com/calendar"
+url: "https://examples.luzmo.com/euro2024/"
 ---
 
 # EURO 2024 Showcase

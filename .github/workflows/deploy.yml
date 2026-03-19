@@ -45,6 +45,8 @@ jobs:
             outputFolder: frontend/dist/devops-command/browser/
           - name: embedded-ai-chart
             outputFolder: frontend/dist/ai-showcases-frontend/browser/
+          - name: euro2024
+            outputFolder: dist/euro2024-showcase/browser/
 
     steps:
       - name: Checkout
@@ -107,7 +109,6 @@ jobs:
     timeout-minutes: 15
     needs: Build
     if: github.event_name != 'pull_request'
-
     steps:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
