@@ -5,7 +5,7 @@ tags:
   - Angular
   - Flex
 author: "Luzmo"
-image: "https://i.imgur.com/KDM5XG7.png"
+image: "https://cdn.luzmo.com/showcases/newspaper.png"
 url: "https://examples.luzmo.com/newspaper/"
 ---
 

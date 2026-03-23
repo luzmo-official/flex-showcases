@@ -10,7 +10,7 @@ tags:
   - Typescript
   - Scenario planning
 author: "Luzmo"
-image: "https://i.imgur.com/E5ul7ro.png"
+image: "https://cdn.luzmo.com/showcases/cfo-cockpit.png"
 url: "https://examples.luzmo.com/cfo-cockpit/"
 ---
 

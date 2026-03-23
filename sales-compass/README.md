@@ -8,7 +8,7 @@ tags:
   - Flex
   - Node.js
 author: "Luzmo"
-image: "https://i.imgur.com/2KqFURN.png"
+image: "https://cdn.luzmo.com/showcases/sales-compass.png"
 url: "https://demo-app.luzmo.com/"
 ---
 
