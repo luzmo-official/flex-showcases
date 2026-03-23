@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
-    "@luzmo/analytics-components-kit": "^1.0.1-alpha.147",
+    "@luzmo/analytics-components-kit": "1.0.1-alpha.151",
     "@luzmo/icons": "^1.0.1-alpha.33",
     "@luzmo/lucero": "^1.0.1-alpha.62",
     "lit": "^3.3.1",

@@ -644,7 +644,7 @@ export class AppComponent implements OnInit, OnDestroy {
         continue;
       }
 
-      const itemId = node.getAttribute('luzmo-grid-item-id') ?? node.getAttribute('gs-id');
+      const itemId = node.getAttribute('luzmo-item-grid-item-id') ?? node.getAttribute('gs-id');
 
       if (itemId) {
         return itemId;
@@ -679,9 +679,9 @@ export class AppComponent implements OnInit, OnDestroy {
       return null;
     }
 
-    const item = target.closest('.luzmo-grid-item') as HTMLElement | null;
+    const item = target.closest('.luzmo-item-grid-item') as HTMLElement | null;
 
-    return item?.getAttribute('luzmo-grid-item-id') ?? null;
+    return item?.getAttribute('luzmo-item-grid-item-id') ?? null;
   }
 
   private createDefaultItemsModel(): GridItemData[] {
@@ -1075,10 +1075,10 @@ export class AppComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const tiles = Array.from(shadowRoot.querySelectorAll<HTMLElement>('.luzmo-grid-item'));
+      const tiles = Array.from(shadowRoot.querySelectorAll<HTMLElement>('.luzmo-item-grid-item'));
 
       for (const tile of tiles) {
-        const tileId = tile.getAttribute('luzmo-grid-item-id');
+        const tileId = tile.getAttribute('luzmo-item-grid-item-id');
         const isSelected = Boolean(!this.isFixedView && this.selectedItemId && tileId === this.selectedItemId);
 
         tile.style.transition = 'box-shadow 150ms ease, border-color 150ms ease';
@@ -1135,7 +1135,7 @@ export class AppComponent implements OnInit, OnDestroy {
         resizeHandleDetected = true;
       }
 
-      if (!tile && node.classList.contains('luzmo-grid-item')) {
+      if (!tile && node.classList.contains('luzmo-item-grid-item')) {
         tile = node;
       }
     }

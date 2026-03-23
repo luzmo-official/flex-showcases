@@ -1,7 +1,7 @@
-import '@luzmo/analytics-components-kit/draggable-data-fields-panel';
-import '@luzmo/analytics-components-kit/edit-item';
-import '@luzmo/analytics-components-kit/grid';
-import '@luzmo/analytics-components-kit/item-data-drop-panel';
+import '@luzmo/analytics-components-kit/data-field-panel';
+import '@luzmo/analytics-components-kit/item-option-panel';
+import '@luzmo/analytics-components-kit/item-grid';
+import '@luzmo/analytics-components-kit/item-slot-drop-panel';
 import '@luzmo/lucero/action-button';
 import '@luzmo/lucero/action-group';
 import '@luzmo/lucero/button';
