@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:ci": "tsc && vite build --base=/block-type-editor/",
     "preview": "vite preview",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
