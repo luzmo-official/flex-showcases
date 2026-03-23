@@ -7,7 +7,7 @@ tags:
   - AI
   - Flex
 author: "Luzmo"
-image: "https://i.imgur.com/95MX7Gy.png"
+image: "https://cdn.luzmo.com/showcases/devops-command.png"
 url: "https://examples.luzmo.com/devops-command/"
 ---
 

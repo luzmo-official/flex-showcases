@@ -7,7 +7,7 @@ tags:
   - Typescript
   - Chart
 author: "Luzmo"
-image: "https://i.imgur.com/GfBKJvV.png"
+image: "https://cdn.luzmo.com/showcases/block-type-editor.png"
 ---
 
 # Block Type Editor
