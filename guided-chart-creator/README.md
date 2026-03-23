@@ -12,6 +12,7 @@ tags:
   - Typescript
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/guided-chart-creator-screenshots.png"
+url: "https://examples.luzmo.com/guided-chart-creator/"
 ---
 
 # Composable Analytics Builder

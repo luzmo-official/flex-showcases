@@ -11,6 +11,7 @@ tags:
   - Scenario planning
 author: "Luzmo"
 image: "https://i.imgur.com/E5ul7ro.png"
+url: "https://examples.luzmo.com/cfo-cockpit/"
 ---
 
 # CFO Planning Cockpit

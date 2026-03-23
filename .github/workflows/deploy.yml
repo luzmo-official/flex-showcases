@@ -47,6 +47,12 @@ jobs:
             outputFolder: frontend/dist/ai-showcases-frontend/browser/
           - name: euro2024
             outputFolder: dist/euro2024-showcase/browser/
+          - name: cfo-cockpit
+            outputFolder: dist/cfo-angular-product/
+          - name: block-type-editor
+            outputFolder: dist/
+          - name: guided-chart-creator
+            outputFolder: out/
 
     steps:
       - name: Checkout

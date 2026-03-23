@@ -8,6 +8,7 @@ tags:
   - Chart
 author: "Luzmo"
 image: "https://i.imgur.com/GfBKJvV.png"
+url: "https://examples.luzmo.com/block-type-editor/"
 ---
 
 # Block Type Editor
