@@ -2,11 +2,10 @@
 title: "React chart library"
 description: "Make Luzmo dashboards editable by users with a chart library"
 tags:
-  - API
+  - React
+  - Flex
   - Dashboard
   - Editing
-  - Flex
-  - React
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/react-chart-library.png"
 url: "https://examples.luzmo.com/react-chart-library/"

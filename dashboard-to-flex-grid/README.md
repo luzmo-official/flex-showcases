@@ -2,9 +2,9 @@
 title: "Dashboard to Flex grid"
 description: "Embed a dashboard as individual Flex components, complete with responsive grid"
 tags:
-  - API
-  - Dashboard
+  - TypeScript
   - Flex
+  - Dashboard
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/dashboard-to-flex.png"
 url: "https://examples.luzmo.com/dashboard-to-flex-grid/"

@@ -2,12 +2,9 @@
 title: "CFO Planning Cockpit"
 description: "Scenario-driven financial planning dashboard with composable report builder, featuring scenario switching, global filters, and a guided/advanced report composer built on Luzmo ACK and Angular."
 tags:
-  - API
-  - Dashboard
-  - Grid
-  - Editing
   - Angular
-  - Typescript
+  - ACK
+  - Dashboard
   - Scenario planning
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/cfo-cockpit.png"

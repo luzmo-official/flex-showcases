@@ -2,10 +2,9 @@
 title: "Sales Compass"
 description: "A sales analytics app that demonstrates Luzmo's embedded analytics capabilities end-to-end: interactive dashboards, AI-powered summaries, a conversational analytics assistant, and a self-service report builder."
 tags:
-  - API
   - Angular
+  - ACK
   - AI
-  - Flex
   - Node.js
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/sales-compass.png"

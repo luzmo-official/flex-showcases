@@ -2,12 +2,11 @@
 title: "World Cup 2026 Analytics Explorer"
 description: "Explore FIFA World Cup 2026 groups, bracket, and match odds with custom analytics reports built on Luzmo Flex and ACK."
 tags:
-  - API
-  - Dashboard
-  - Flex
-  - Editing
   - Vue
-  - Typescript
+  - TypeScript
+  - ACK
+  - Dashboard
+  - Editing
 author: "Luzmo"
 url: "https://examples.luzmo.com/fifa2026/"
 image: "https://cdn.luzmo.com/showcases/fifa2026.png"

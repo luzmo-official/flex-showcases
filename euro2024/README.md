@@ -2,6 +2,7 @@
 title: "Euro 2024"
 description: "A fun and engaging dashboard predicting match results using historical data and Luzmo’s AI Octopus."
 tags:
+  - Angular
   - AI
   - Flex
 author: "Luzmo"

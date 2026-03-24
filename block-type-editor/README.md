@@ -2,10 +2,10 @@
 title: "Block Type Editor"
 description: "Compose rich, interactive reports with Editor.js and Luzmo analytics components: mix and match charts, key metrics, and text blocks to build polished data stories."
 tags:
+  - TypeScript
+  - ACK
   - Flex
   - Editing
-  - Typescript
-  - Chart
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/block-type-editor.png"
 url: "https://examples.luzmo.com/block-type-editor/"

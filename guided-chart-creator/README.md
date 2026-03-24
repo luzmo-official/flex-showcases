@@ -2,14 +2,10 @@
 title: "Composable Analytics Builder"
 description: "Guide users through building charts and tables from raw data, then compose them into interactive dashboards"
 tags:
-  - API
-  - Dashboard
-  - Flex
-  - Editing
-  - ACK
-  - React
   - Next.js
-  - Typescript
+  - ACK
+  - Dashboard
+  - Editing
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/guided-chart-creator-screenshots.png"
 url: "https://examples.luzmo.com/guided-chart-creator/"
