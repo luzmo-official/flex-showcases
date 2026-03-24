@@ -1,4 +1,4 @@
-# Examples
+# Showcases
 
 This repository contains example implementations built with [Luzmo](https://www.luzmo.com/), demonstrating various use cases and integration patterns.
 
