@@ -9,7 +9,7 @@ tags:
   - Editing
   - Maps
 author: "Luzmo"
-image: ""
+image: "https://cdn.luzmo.com/showcases/ack-maps-studio.png"
 url: "https://examples.luzmo.com/ack-maps-builder/"
 ---
 
