@@ -114,7 +114,7 @@ jobs:
           npm run build:ci
 
       - name: Copy Folder
-        if: matrix.name != 'flexcalidraw'
+        if: github.event_name != 'pull_request' && matrix.name != 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
@@ -126,7 +126,7 @@ jobs:
           flags: --recursive
 
       - name: Copy Folder (flexcalidraw)
-        if: matrix.name == 'flexcalidraw'
+        if: github.event_name != 'pull_request' && matrix.name == 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
@@ -138,6 +138,7 @@ jobs:
           flags: --recursive
 
   Invalidate_Cloudfront:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
