@@ -4,6 +4,11 @@ on:
     branches:
       - main
 
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -109,7 +114,7 @@ jobs:
           npm run build:ci
 
       - name: Copy Folder
-        if: github.event_name != 'pull_request' && matrix.name != 'flexcalidraw'
+        if: matrix.name != 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
@@ -121,7 +126,7 @@ jobs:
           flags: --recursive
 
       - name: Copy Folder (flexcalidraw)
-        if: github.event_name != 'pull_request' && matrix.name == 'flexcalidraw'
+        if: matrix.name == 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
@@ -133,7 +138,6 @@ jobs:
           flags: --recursive
 
   Invalidate_Cloudfront:
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
