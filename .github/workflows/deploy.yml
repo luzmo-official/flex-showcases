@@ -53,6 +53,8 @@ jobs:
             outputFolder: dist/
           - name: guided-chart-creator
             outputFolder: out/
+          - name: flexcalidraw
+            outputFolder: excalidraw-app/build/
 
     steps:
       - name: Checkout
@@ -92,18 +94,43 @@ jobs:
           echo "VITE_LUZMO_EMBED_KEY=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_KEY }}" > .env
           echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_TOKEN }}" >> .env
 
+      - name: Clone flexcalidraw repo
+        if: matrix.name == 'flexcalidraw'
+        run: |
+          git clone https://github.com/luzmo-official/flexcalidraw.git flexcalidraw-build
+
+      - name: Build flexcalidraw
+        if: matrix.name == 'flexcalidraw'
+        run: |
+          cd flexcalidraw-build
+          yarn install --frozen-lockfile
+          VITE_APP_DISABLE_SENTRY=true yarn --cwd ./excalidraw-app vite build --base=/flexcalidraw/
+
       - name: Build front end
+        if: matrix.name != 'flexcalidraw'
         run: |
           cd ${{ matrix.name }}
           npm ci
           npm run build:ci
 
       - name: Copy Folder
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && matrix.name != 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
+          destination: s3://examples.luzmo.com/${{ matrix.name }}/
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: eu-west-1
+          flags: --recursive
+
+      - name: Copy Folder (flexcalidraw)
+        if: github.event_name != 'pull_request' && matrix.name == 'flexcalidraw'
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./flexcalidraw-build/${{ matrix.outputFolder }}/
           destination: s3://examples.luzmo.com/${{ matrix.name }}/
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
