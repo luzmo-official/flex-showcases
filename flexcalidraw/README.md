@@ -9,6 +9,7 @@ tags:
   - Editing
 author: "Luzmo"
 image: "https://cdn.luzmo.com/showcases/flexcalidraw.gif"
+url: "https://examples.luzmo.com/flexcalidraw/"
 ---
 
 # Excalidraw Fork: Luzmo + ACK Editing
