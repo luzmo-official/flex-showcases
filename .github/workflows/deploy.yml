@@ -48,7 +48,7 @@ jobs:
           - name: euro2024
             outputFolder: dist/euro2024-showcase/browser/
           - name: cfo-cockpit
-            outputFolder: dist/cfo-angular-product/
+            outputFolder: dist/cfo-angular-product/browser/
           - name: block-type-editor
             outputFolder: dist/
           - name: guided-chart-creator
