@@ -106,7 +106,7 @@ jobs:
           yarn install --frozen-lockfile
           # Disable TS checker to work around pre-existing type error in LayerUI.tsx
           sed -i 's/typescript: true/typescript: false/' excalidraw-app/vite.config.mts
-          VITE_APP_DISABLE_SENTRY=true VITE_APP_ENABLE_ESLINT=false yarn --cwd ./excalidraw-app vite build --base=/flexcalidraw/
+          VITE_APP_DISABLE_SENTRY=true VITE_APP_ENABLE_ESLINT=false VITE_APP_WS_SERVER_URL=https://flexcalidraw.luzmo.com yarn --cwd ./excalidraw-app vite build --base=/flexcalidraw/
 
       - name: Build front end
         if: matrix.name != 'flexcalidraw'
