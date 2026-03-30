@@ -904,7 +904,7 @@ onMounted(async () => {
   flex-direction: column;
 }
 
-.bracket-col-two-thirds .mini-bracket-scroll {
+.bracket-col-two-thirds .bracket-and-button {
   flex: 1;
   min-height: 0;
 }
@@ -956,116 +956,7 @@ onMounted(async () => {
   border-radius: 12px;
 }
 
-/* Mini bracket: same shape as full bracket (left R16→QF→SF | Final | right SF→QF→R16) */
-.mini-bracket-scroll {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px 10px;
-  margin-bottom: 16px;
-  overflow: auto;
-  padding: 8px 0;
-  flex: 1;
-  min-height: 0;
-  container-type: size;
-  container-name: bracket-card;
-}
-
-.mini-bracket-inner {
-  display: flex;
-  align-items: center;
-  gap: calc(6px * var(--bracket-scale, 1)) calc(10px * var(--bracket-scale, 1));
-}
-
-@container bracket-card (min-width: 280px) {
-  .mini-bracket-inner { --bracket-scale: 1.15; }
-}
-@container bracket-card (min-width: 360px) {
-  .mini-bracket-inner { --bracket-scale: 1.3; }
-}
-@container bracket-card (min-width: 440px) {
-  .mini-bracket-inner { --bracket-scale: 1.45; }
-}
-@container bracket-card (min-width: 520px) {
-  .mini-bracket-inner { --bracket-scale: 1.6; }
-}
-@container bracket-card (min-width: 600px) {
-  .mini-bracket-inner { --bracket-scale: 1.75; }
-}
-
-.mini-bracket-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-/* Pyramid gaps: more space toward center so columns align in bracket shape (scaled by container) */
-.mini-r16-col {
-  gap: calc(6px * var(--bracket-scale, 1));
-}
-
-.mini-qf-col {
-  gap: calc(34px * var(--bracket-scale, 1));
-}
-
-.mini-sf-col {
-  gap: calc(82px * var(--bracket-scale, 1));
-}
-
-.mini-final-col {
-  gap: calc(8px * var(--bracket-scale, 1));
-}
-
-.mini-final-label {
-  font-size: calc(9px * var(--bracket-scale, 1));
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(255, 215, 0, 0.9);
-}
-
-.mini-match {
-  display: flex;
-  flex-direction: column;
-  gap: calc(2px * var(--bracket-scale, 1));
-  min-width: calc(48px * var(--bracket-scale, 1));
-  padding: calc(4px * var(--bracket-scale, 1)) calc(6px * var(--bracket-scale, 1));
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: calc(6px * var(--bracket-scale, 1));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.mini-slot {
-  display: flex;
-  align-items: center;
-  gap: calc(4px * var(--bracket-scale, 1));
-  font-size: calc(11px * var(--bracket-scale, 1));
-}
-
-.mini-flag {
-  width: calc(18px * var(--bracket-scale, 1));
-  height: calc(14px * var(--bracket-scale, 1));
-  flex-shrink: 0;
-  display: inline-block;
-  border-radius: 2px;
-}
-
-.mini-flag-empty {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.mini-pct {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
-  min-width: calc(28px * var(--bracket-scale, 1));
-}
-
-.btn-block {
-  display: block;
-  text-align: center;
-  margin-top: 12px;
-}
+/* Mini bracket: scaled to fill card, button centered below (between left/right competitors) */
 
 /* Sections (ack-section below landing) */
 .favorites-section,
@@ -1428,6 +1319,10 @@ onMounted(async () => {
     grid-template-columns: 1fr;
     padding-left: 16px;
     padding-right: 16px;
+  }
+  /* Keep bracket visible when stacked: give card enough height for scaling */
+  .bracket-col-two-thirds .bracket-preview-compact {
+    min-height: 320px;
   }
   .hero-title {
     font-size: 36px;

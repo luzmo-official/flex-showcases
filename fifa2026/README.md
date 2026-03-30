@@ -2,12 +2,11 @@
 title: "World Cup 2026 Analytics Explorer"
 description: "Explore FIFA World Cup 2026 groups, bracket, and match odds with custom analytics reports built on Luzmo Flex and ACK."
 tags:
-  - API
-  - Dashboard
-  - Flex
-  - Editing
   - Vue
   - TypeScript
+  - ACK
+  - Dashboard
+  - Editing
 author: "Luzmo"
 url: "https://examples.luzmo.com/fifa2026/"
 image: "https://cdn.luzmo.com/showcases/fifa2026.png"
@@ -30,18 +29,17 @@ An interactive Vue 3 app for FIFA World Cup 2026: group odds, knockout bracket s
 - **Vue 3** — Composition API, `<script setup>`, TypeScript
 - **Vite** — Build and dev server
 - **Vue Router 4** — Lazy-loaded views
-- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — Chart configuration UI (`luzmo-draggable-data-fields-panel`, `luzmo-item-data-drop-panel`, `luzmo-edit-item`, `luzmo-edit-filters`), design tokens
+- **[@luzmo/analytics-components-kit](https://www.npmjs.com/package/@luzmo/analytics-components-kit)** — Chart configuration UI (`luzmo-data-field-panel`, `luzmo-item-slot-drop-panel`, `luzmo-item-option-panel`, `luzmo-filters`), design tokens
 - **[@luzmo/embed](https://www.npmjs.com/package/@luzmo/embed)** — Chart rendering (`luzmo-embed-viz-item`)
 - **Gridstack** — Report builder dashboard layout
 - **flag-icons** — Country flags
 
 ## Getting Started
 
-1. Create a `.env` file and add your Luzmo **embedding** credentials (see `.env.example`). You need an embedding API key and token as described in [Luzmo’s dashboard embedding guide](https://developer.luzmo.com/guide/dashboard-embedding--generating-an-authorization-token); the token must have **“use” rights** over the datasets you reference below.
+1. Create a `.env` file (see `.env.example`). **Embed key and token are not required** when your datasets are publicly shared or when you only need to seed built-in charts and reports; you only need dataset IDs and column IDs. For private datasets you need an embedding API key and token as described in [Luzmo’s dashboard embedding guide](https://developer.luzmo.com/guide/dashboard-embedding--generating-an-authorization-token); the token must have **“use” rights** over the datasets you reference below.
 
+   **Minimum (e.g. public datasets):**
    ```env
-   VITE_LUZMO_EMBED_KEY=your-embed-key
-   VITE_LUZMO_EMBED_TOKEN=your-embed-token
    VITE_LUZMO_APP_SERVER=https://app.luzmo.com
    VITE_LUZMO_API_HOST=https://api.luzmo.com
    VITE_LUZMO_DATASET_GROUPS_ODDS=your-dataset-id
@@ -49,7 +47,9 @@ An interactive Vue 3 app for FIFA World Cup 2026: group odds, knockout bracket s
    VITE_LUZMO_DATASET_HISTORICAL=your-dataset-id
    ```
 
-   Optional: set `VITE_LUZMO_COLUMN_*` (e.g. `VITE_LUZMO_COLUMN_TEAM`, `VITE_LUZMO_COLUMN_TOURNAMENT_WIN_PROB`) to enable built-in report dashboards and Pitch fallback charts without the app calling the Luzmo API from the browser.
+   Set all six `VITE_LUZMO_COLUMN_*` variables (see `.env.example`) so the built-in report dashboards and Pitch fallback charts can be seeded without calling the Luzmo API from the browser.
+
+   **For private datasets**, add your Luzmo embedding API key and token as described in the [dashboard embedding guide](https://developer.luzmo.com/guide/dashboard-embedding--generating-an-authorization-token); the token must have "use" rights over the datasets. Set `VITE_LUZMO_EMBED_KEY` and `VITE_LUZMO_EMBED_TOKEN` in `.env`.
 
 2. Install and run:
 

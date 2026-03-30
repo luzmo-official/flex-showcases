@@ -52,7 +52,7 @@
             <h3 class="sidebar-title">Data Fields</h3>
             <p class="sidebar-hint">Click a field to add it to a slot, or drag it directly</p>
             <div class="fields-drag-panel" @click="onFieldsPanelClick">
-              <luzmo-draggable-data-fields-panel
+              <luzmo-data-field-panel
                 ref="dataFieldsPanel"
                 :apiUrl="apiHost"
                 :authKey="apiKey"
@@ -62,7 +62,7 @@
                 search="auto"
                 language="en"
               >
-              </luzmo-draggable-data-fields-panel>
+              </luzmo-data-field-panel>
             </div>
             <Transition name="dropdown">
               <div
@@ -127,7 +127,7 @@
                 <span class="collapsible-arrow" :class="{ open: slotsSectionOpen }">&#9660;</span>
               </button>
               <div v-show="slotsSectionOpen" class="collapsible-content">
-                <luzmo-item-data-drop-panel
+                <luzmo-item-slot-drop-panel
                   ref="dropPanel"
                   :apiUrl="apiHost"
                   :authKey="apiKey"
@@ -137,14 +137,14 @@
                   language="en"
                   @luzmo-slots-contents-changed="onSlotsChanged"
                 >
-                </luzmo-item-data-drop-panel>
+                </luzmo-item-slot-drop-panel>
                 <p v-if="dropPanelEmptyHint" class="drop-panel-hint">{{ dropPanelEmptyHint }}</p>
               </div>
             </div>
 
             <div class="config-section">
               <h3 class="panel-title">Chart Options</h3>
-              <luzmo-edit-item
+              <luzmo-item-option-panel
                 ref="editItem"
                 :apiUrl="apiHost"
                 :authKey="apiKey"
@@ -155,7 +155,7 @@
                 language="en"
                 @luzmo-options-changed="onOptionsChanged"
               >
-              </luzmo-edit-item>
+              </luzmo-item-option-panel>
             </div>
 
             <div class="config-section config-section-collapsible">
@@ -165,7 +165,7 @@
               </button>
               <div v-show="filtersSectionOpen" class="collapsible-content">
                 <p v-if="filterHint" class="filter-hint">{{ filterHint }}</p>
-                <luzmo-edit-filters
+                <luzmo-filters
                   ref="editFilters"
                   :apiUrl="apiHost"
                   :authKey="apiKey"
@@ -176,7 +176,7 @@
                   language="en"
                   @luzmo-filters-changed="onFiltersChanged"
                 >
-                </luzmo-edit-filters>
+                </luzmo-filters>
               </div>
             </div>
           </div>
@@ -661,7 +661,7 @@ defineExpose({
   cursor: pointer;
 }
 
-.fields-drag-panel luzmo-draggable-data-fields-panel {
+.fields-drag-panel luzmo-data-field-panel {
   display: block;
 }
 
@@ -824,7 +824,7 @@ defineExpose({
   padding-top: 12px;
 }
 
-.collapsible-content luzmo-item-data-drop-panel {
+.collapsible-content luzmo-item-slot-drop-panel {
   display: block;
   min-height: 140px;
 }

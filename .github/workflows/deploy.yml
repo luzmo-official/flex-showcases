@@ -39,6 +39,24 @@ jobs:
             outputFolder: dist/
           - name: fifa2026
             outputFolder: dist/
+          - name: the-constructor
+            outputFolder: dist/
+          - name: devops-command
+            outputFolder: frontend/dist/devops-command/browser/
+          - name: embedded-ai-chart
+            outputFolder: frontend/dist/ai-showcases-frontend/browser/
+          - name: euro2024
+            outputFolder: dist/euro2024-showcase/browser/
+          - name: cfo-cockpit
+            outputFolder: dist/cfo-angular-product/browser/
+          - name: block-type-editor
+            outputFolder: dist/
+          - name: guided-chart-creator
+            outputFolder: out/
+          - name: flexcalidraw
+            outputFolder: excalidraw-app/build/
+          - name: ack-maps-builder
+            outputFolder: dist/
 
     steps:
       - name: Checkout
@@ -71,15 +89,46 @@ jobs:
           echo "VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}" >> .env
           echo "VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}" >> .env
 
+      - name: Write ack-maps-builder .env
+        if: matrix.name == 'ack-maps-builder'
+        working-directory: ack-maps-builder
+        run: |
+          echo "VITE_LUZMO_AUTH_KEY=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_AUTH_KEY }}" > .env
+          echo "VITE_LUZMO_AUTH_TOKEN=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_AUTH_TOKEN }}" >> .env
+          echo "VITE_LUZMO_API_URL=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_API_URL }}" >> .env
+          echo "VITE_LUZMO_APP_SERVER=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_APP_SERVER }}" >> .env
+
+      - name: Write the-constructor .env
+        if: matrix.name == 'the-constructor'
+        working-directory: the-constructor
+        run: |
+          echo "VITE_LUZMO_EMBED_KEY=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_KEY }}" > .env
+          echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_TOKEN }}" >> .env
+
+      - name: Clone flexcalidraw repo
+        if: matrix.name == 'flexcalidraw'
+        run: |
+          git clone https://github.com/luzmo-official/flexcalidraw.git flexcalidraw-build
+
+      - name: Build flexcalidraw
+        if: matrix.name == 'flexcalidraw'
+        run: |
+          cd flexcalidraw-build
+          yarn install --frozen-lockfile
+          # Disable TS checker to work around pre-existing type error in LayerUI.tsx
+          sed -i 's/typescript: true/typescript: false/' excalidraw-app/vite.config.mts
+          VITE_APP_DISABLE_SENTRY=true VITE_APP_ENABLE_ESLINT=false VITE_APP_WS_SERVER_URL=https://flexcalidraw.luzmo.com yarn --cwd ./excalidraw-app vite build --base=/flexcalidraw/
+
       - name: Build front end
+        if: matrix.name != 'flexcalidraw'
         run: |
           cd ${{ matrix.name }}
           npm ci
           npm run build:ci
 
       - name: Copy Folder
+        if: github.event_name != 'pull_request' && matrix.name != 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
-        if: github.event_name != 'pull_request'
         with:
           command: cp
           source: ./${{ matrix.name }}/${{ matrix.outputFolder }}/
@@ -89,12 +138,23 @@ jobs:
           aws_region: eu-west-1
           flags: --recursive
 
+      - name: Copy Folder (flexcalidraw)
+        if: github.event_name != 'pull_request' && matrix.name == 'flexcalidraw'
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./flexcalidraw-build/${{ matrix.outputFolder }}/
+          destination: s3://examples.luzmo.com/${{ matrix.name }}/
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: eu-west-1
+          flags: --recursive
+
   Invalidate_Cloudfront:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: Build
-    if: github.event_name != 'pull_request'
-
     steps:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2

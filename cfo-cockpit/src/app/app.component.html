@@ -189,7 +189,7 @@
           </div>
         </div>
 
-        <luzmo-grid
+        <luzmo-item-grid
           #gridHost
           class="ack-grid"
           [appServer]="appServer"
@@ -206,11 +206,11 @@
           [defaultItemActionsMenu]="activeGridActionsMenu"
           [placementItemActionsMenu]="'bottom-end'"
           (click)="onGridSurfaceClick($event)"
-          (luzmo-grid-ready)="onGridReady()"
-          (luzmo-grid-changed)="onGridChanged($event)"
-          (luzmo-grid-item-action)="onGridItemAction($event)"
+          (luzmo-item-grid-ready)="onGridReady()"
+          (luzmo-item-grid-changed)="onGridChanged($event)"
+          (luzmo-item-grid-item-action)="onGridItemAction($event)"
         >
-        </luzmo-grid>
+        </luzmo-item-grid>
       </article>
     </section>
 
@@ -324,7 +324,7 @@
 
             @if (builderTab === 'data') {
               <div class="builder-body">
-                <luzmo-item-data-drop-panel
+                <luzmo-item-slot-drop-panel
                   [itemType]="selectedItem.type"
                   [slotsContents]="selectedItem.slots ?? []"
                   [language]="'en'"
@@ -336,9 +336,9 @@
                   (luzmo-slots-contents-changed)="onSlotsContentsChanged($event)"
                   (luzmo-slot-constraint-triggered)="onSlotConstraintTriggered($event)"
                 >
-                </luzmo-item-data-drop-panel>
+                </luzmo-item-slot-drop-panel>
 
-                <luzmo-draggable-data-fields-panel
+                <luzmo-data-field-panel
                   [datasetIds]="datasetIds"
                   [datasetPicker]="false"
                   [search]="'on'"
@@ -348,13 +348,13 @@
                   [authToken]="authToken"
                   [draggableDataFieldVariant]="'highlight'"
                 >
-                </luzmo-draggable-data-fields-panel>
+                </luzmo-data-field-panel>
               </div>
             }
 
             @if (builderTab === 'options') {
               <div class="builder-body">
-                <luzmo-edit-item
+                <luzmo-item-option-panel
                   [itemType]="selectedItem.type"
                   [slots]="selectedItem.slots ?? []"
                   [options]="selectedItem.options ?? {}"
@@ -364,7 +364,7 @@
                   [authToken]="authToken"
                   (luzmo-options-changed)="onOptionsChanged($event)"
                 >
-                </luzmo-edit-item>
+                </luzmo-item-option-panel>
               </div>
             }
           } @else {

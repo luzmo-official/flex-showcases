@@ -3,11 +3,12 @@ title: "DevOps Command"
 description: "Analytics for Engineering teams in a cyber-themed command centre: monitor bug queues and PR health, with on-demand chart generation."
 tags:
   - Angular
-  - Node.js
+  - ACK
   - AI
-  - Flex
+  - Node.js
 author: "Luzmo"
-image: "https://i.imgur.com/95MX7Gy.png"
+image: "https://cdn.luzmo.com/showcases/devops-command.png"
+url: "https://examples.luzmo.com/devops-command/"
 ---
 
 # DevOps Command

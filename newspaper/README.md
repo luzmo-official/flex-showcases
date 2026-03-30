@@ -3,9 +3,10 @@ title: "Newspaper Data Journalism"
 description: "A long-form data journalism page styled as a broadsheet newspaper, with interactive Luzmo Flex charts woven into the narrative — exploring global coffee consumption, latte prices by city, and the surprising link between caffeine spending and productivity."
 tags:
   - Angular
+  - ACK
   - Flex
 author: "Luzmo"
-image: "https://i.imgur.com/KDM5XG7.png"
+image: "https://cdn.luzmo.com/showcases/newspaper.png"
 url: "https://examples.luzmo.com/newspaper/"
 ---
 

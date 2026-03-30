@@ -2,14 +2,12 @@
 title: "The Constructor"
 description: "Enable users to construct their own dashboard with charts from a chart library"
 tags:
-  - API
+  - TypeScript
+  - ACK
   - Dashboard
-  - Flex
-  - Editing
   - AI
-  - Node.js
-  - Typescript
 author: "Luzmo"
+url: "https://examples.luzmo.com/the-constructor/"
 image: "https://cdn.luzmo.com/showcases/the_constructor.png"
 ---
 
