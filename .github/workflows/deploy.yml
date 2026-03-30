@@ -127,7 +127,7 @@ jobs:
           npm run build:ci
 
       - name: Copy Folder
-        if: (github.event_name != 'pull_request' || matrix.name == 'ack-maps-builder') && matrix.name != 'flexcalidraw'
+        if: github.event_name != 'pull_request' && matrix.name != 'flexcalidraw'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
