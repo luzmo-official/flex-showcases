@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:ci": "vite build --base=/ack-maps-builder/",
     "lint": "eslint .",
     "preview": "vite preview"
   },
