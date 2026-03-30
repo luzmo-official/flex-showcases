@@ -55,6 +55,8 @@ jobs:
             outputFolder: out/
           - name: flexcalidraw
             outputFolder: excalidraw-app/build/
+          - name: ack-maps-builder
+            outputFolder: dist/
 
     steps:
       - name: Checkout
@@ -86,6 +88,15 @@ jobs:
           echo "VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_ADVANCE_PROB }}" >> .env
           echo "VITE_LUZMO_COLUMN_GROUP_WIN_PROB=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_GROUP_WIN_PROB }}" >> .env
           echo "VITE_LUZMO_COLUMN_CONFEDERATION=${{ secrets.FIFA2026_VITE_LUZMO_COLUMN_CONFEDERATION }}" >> .env
+
+      - name: Write ack-maps-builder .env
+        if: matrix.name == 'ack-maps-builder'
+        working-directory: ack-maps-builder
+        run: |
+          echo "VITE_LUZMO_AUTH_KEY=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_AUTH_KEY }}" > .env
+          echo "VITE_LUZMO_AUTH_TOKEN=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_AUTH_TOKEN }}" >> .env
+          echo "VITE_LUZMO_API_URL=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_API_URL }}" >> .env
+          echo "VITE_LUZMO_APP_SERVER=${{ secrets.ACK_MAPS_BUILDER_VITE_LUZMO_APP_SERVER }}" >> .env
 
       - name: Write the-constructor .env
         if: matrix.name == 'the-constructor'
