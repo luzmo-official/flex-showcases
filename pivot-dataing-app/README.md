@@ -48,8 +48,6 @@ Example:
 ```env
 VITE_LUZMO_AUTH_KEY=your-luzmo-auth-key
 VITE_LUZMO_AUTH_TOKEN=your-luzmo-auth-token
-VITE_LUZMO_API_HOST=https://api.luzmo.com
-VITE_LUZMO_APP_SERVER=https://app.luzmo.com
 ```
 
 3. Install dependencies and start the development server:

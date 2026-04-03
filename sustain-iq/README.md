@@ -16,8 +16,6 @@ url: "https://examples.luzmo.com/sustain-iq/"
 
 An interactive analytics dashboard for tracking CO2 emissions, revenue, and sustainability metrics across cities, industries, and energy sources. Built with React, Vite, and the Luzmo Flex SDK.
 
-![SustainIQ](https://cdn.luzmo.com/showcases/SustainIQ.png)
-
 ## Features
 
 - **AI Chart Builder** — describe what you want in plain English and get a chart via the Luzmo `/aichart` API, called directly from the browser using the embed token

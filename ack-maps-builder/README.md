@@ -5,7 +5,7 @@ tags:
   - Flex
   - ACK
   - React
-  - Custom Charts
+  - Custom Chart
   - Editing
   - Maps
 author: "Luzmo"
