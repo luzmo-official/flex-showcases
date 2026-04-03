@@ -2,9 +2,9 @@
 title: "Pivot Dataing App"
 description: "A React + TypeScript + Vite app showcasing a data discovery and dashboarding flow built with Luzmo"
 tags:
-  - API
   - Dashboard
   - Flex
+  - ACK
   - AI
   - React
   - Typescript
