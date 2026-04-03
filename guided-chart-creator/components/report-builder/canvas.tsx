@@ -55,39 +55,16 @@ export function Canvas() {
     ;(el as Record<string, unknown>).items = themedItems
   }, [state.theme, themedItems])
 
-  // ── Debounced grid change handler ────────────────────────
-  const gridChangeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const pendingItemsRef = useRef<PlacedItem[] | null>(null)
-
+  // ── Grid layout change handler ───────────────────────────
   const handleGridChanged = useCallback(
-    (event: CustomEvent<{ items: PlacedItem[] }>) => {
-      const updatedItems = event.detail?.items ?? []
-
-      pendingItemsRef.current = updatedItems
-
-      if (gridChangeTimeoutRef.current) {
-        clearTimeout(gridChangeTimeoutRef.current)
+    (event: CustomEvent<{ updatedItems: PlacedItem[] }>) => {
+      const updatedItems = event.detail?.updatedItems ?? []
+      if (updatedItems.length > 0) {
+        dispatch({ type: "UPDATE_ITEM_POSITIONS", payload: updatedItems })
       }
-
-      gridChangeTimeoutRef.current = setTimeout(() => {
-        const items = pendingItemsRef.current
-        if (!items) return
-        dispatch({ type: "UPDATE_ITEM_POSITIONS", payload: items })
-        pendingItemsRef.current = null
-        gridChangeTimeoutRef.current = null
-      }, 300)
     },
     [dispatch],
   )
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (gridChangeTimeoutRef.current) {
-        clearTimeout(gridChangeTimeoutRef.current)
-      }
-    }
-  }, [])
 
   // Dev-only: log grid mount/unmount and render timing
   useEffect(() => {
@@ -106,32 +83,26 @@ export function Canvas() {
         action: string
         actionType: "toggle" | "button"
         active: boolean
-        id: string
-        items: PlacedItem[]
-        type?: string
-        slots?: VizItemSlots
-        options?: ChartOptions
-        filters?: ItemFilterGroup[]
-        deletedId?: string
+        item: PlacedItem
+        updatedItems?: PlacedItem[]
       }>,
     ) => {
-      const { action, id, deletedId } = event.detail
+      const { action, item, updatedItems } = event.detail
 
       if (action === "item-options" || action === "edit-data") {
         event.preventDefault()
         event.stopPropagation()
-        dispatch({ type: "EDIT_ITEM", payload: id })
+        dispatch({ type: "EDIT_ITEM", payload: item?.id })
         return
       }
 
-      if (action === "delete" && deletedId) {
-        dispatch({ type: "REMOVE_ITEM", payload: deletedId })
+      if (action === "delete" && item?.id) {
+        dispatch({ type: "REMOVE_ITEM", payload: item.id })
         return
       }
 
-      // After clone, sync the new items array from the grid
-      if (action === "clone" && event.detail.items) {
-        dispatch({ type: "UPDATE_ITEM_POSITIONS", payload: event.detail.items })
+      if (action === "clone" && updatedItems) {
+        dispatch({ type: "UPDATE_ITEM_POSITIONS", payload: updatedItems })
       }
     },
     [dispatch],
@@ -183,7 +154,7 @@ export function Canvas() {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             defaultItemActionsMenu={GRID_ITEM_ACTIONS as any}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onLuzmoItemGridChanged={handleGridChanged as any}
+            onLuzmoItemGridLayoutChanged={handleGridChanged as any}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onLuzmoItemGridItemAction={handleGridItemAction as any}
           />

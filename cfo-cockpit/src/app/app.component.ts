@@ -382,7 +382,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     const customEvent = event as CustomEvent<GridChangedDetail>;
-    const incomingItems = customEvent.detail?.items;
+    const incomingItems = customEvent.detail?.updatedItems;
 
     if (!incomingItems || incomingItems.length === 0) {
       return;
@@ -446,7 +446,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const customEvent = event as CustomEvent<GridItemActionDetail>;
     const action = customEvent.detail?.action;
-    const itemId = customEvent.detail?.id;
+    const itemId = customEvent.detail?.item?.id;
     const actionType = customEvent.detail?.actionType;
     const isToggleDeactivation = actionType === 'toggle' && customEvent.detail?.active === false;
 
@@ -454,15 +454,13 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (isToggleDeactivation && ['edit-data', 'edit-options'].includes(action)) {
+    if (isToggleDeactivation && ['edit-data', 'item-options'].includes(action)) {
       return;
     }
 
     if (action === 'delete') {
-      const targetId = customEvent.detail?.deletedId ?? itemId;
-
-      if (targetId) {
-        this.removeModuleFromReport(targetId);
+      if (itemId) {
+        this.removeModuleFromReport(itemId);
       }
 
       return;
@@ -477,7 +475,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (action === 'edit-options') {
+    if (action === 'item-options') {
       if (!itemId) {
         return;
       }
@@ -756,11 +754,29 @@ export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * Layout-only mutations (drag/resize) skip the full derived-state rebuild
-   * to avoid re-rendering every viz on each pointer move.
+   * to avoid re-rendering every viz on each pointer move. Only positions are
+   * patched into gridItems so the controlled grid reflects the update.
    */
   private afterLayoutMutation(): void {
     this.activeVersionId = 'live';
+    this.syncGridItemPositions();
     this.syncView();
+  }
+
+  private syncGridItemPositions(): void {
+    const positionsById = new Map(
+      this.itemsModel
+        .filter((item): item is GridItemData & { id: string } => Boolean(item.id))
+        .map((item) => [item.id, item.position])
+    );
+
+    this.gridItems = this.gridItems.map((gridItem) => {
+      const newPosition = gridItem.id ? positionsById.get(gridItem.id) : undefined;
+      if (!newPosition || newPosition === gridItem.position) {
+        return gridItem;
+      }
+      return { ...gridItem, position: newPosition };
+    });
   }
 
   private refreshDerivedState(): void {

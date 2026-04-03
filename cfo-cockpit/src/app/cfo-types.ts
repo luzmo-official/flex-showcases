@@ -83,13 +83,12 @@ export interface GridItemActionDetail {
   action?: string;
   actionType?: 'toggle' | 'button';
   active?: boolean;
-  id?: string;
-  deletedId?: string;
-  items?: GridItemData[];
+  item?: GridItemData;
+  updatedItems?: GridItemData[];
 }
 
 export interface GridChangedDetail {
-  items?: GridItemData[];
+  updatedItems?: GridItemData[];
 }
 
 export interface SlotsContentsChangedDetail {
