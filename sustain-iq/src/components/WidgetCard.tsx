@@ -233,9 +233,7 @@ export function WidgetCard({ widget, authKey, authToken, filters, contextId, onU
                 key={vizKey}
                 ref={vizRef}
                 appServer="https://app.luzmo.com"
-                apiHost={typeof navigator !== 'undefined' && /iPhone|iPad|iPod/.test(navigator.userAgent) && window.location.hostname !== 'localhost'
-                  ? window.location.origin
-                  : 'https://api.luzmo.com'}
+                apiHost="https://api.luzmo.com"
                 authKey={authKey}
                 authToken={authToken}
                 type={widget.type}

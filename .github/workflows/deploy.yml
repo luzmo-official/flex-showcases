@@ -57,6 +57,8 @@ jobs:
             outputFolder: excalidraw-app/build/
           - name: ack-maps-builder
             outputFolder: dist/
+          - name: sustain-iq
+            outputFolder: dist/
 
     steps:
       - name: Checkout
@@ -104,6 +106,14 @@ jobs:
         run: |
           echo "VITE_LUZMO_EMBED_KEY=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_KEY }}" > .env
           echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.CONSTRUCTOR_VITE_LUZMO_EMBED_TOKEN }}" >> .env
+
+      - name: Write sustain-iq .env
+        if: matrix.name == 'sustain-iq'
+        working-directory: sustain-iq
+        run: |
+          echo "VITE_LUZMO_EMBED_KEY=${{ secrets.SUSTAIN_IQ_VITE_LUZMO_EMBED_KEY }}" > .env
+          echo "VITE_LUZMO_EMBED_TOKEN=${{ secrets.SUSTAIN_IQ_VITE_LUZMO_EMBED_TOKEN }}" >> .env
+          echo "VITE_LUZMO_DATASET_ID=${{ secrets.SUSTAIN_IQ_VITE_LUZMO_DATASET_ID }}" >> .env
 
       - name: Clone flexcalidraw repo
         if: matrix.name == 'flexcalidraw'
