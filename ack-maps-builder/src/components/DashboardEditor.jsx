@@ -2,10 +2,6 @@ import { useEffect, useRef, useMemo } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import '@luzmo/analytics-components-kit/item-grid';
 
-/**
- * Builds an ItemFilterGroup[] from a geographic bounding box.
- * Uses camelCase property names (columnId / datasetId) per ACK conventions.
- */
 function buildGeoFilterGroups(selectionBounds, datasetId, latColumnId, lonColumnId) {
   if (!selectionBounds || !datasetId || !latColumnId || !lonColumnId) return [];
 
@@ -15,29 +11,17 @@ function buildGeoFilterGroups(selectionBounds, datasetId, latColumnId, lonColumn
     {
       condition: 'and',
       filters: [
-        {
-          expression: '? >= ?',
-          parameters: [{ columnId: latColumnId, datasetId }, minLat],
-        },
-        {
-          expression: '? <= ?',
-          parameters: [{ columnId: latColumnId, datasetId }, maxLat],
-        },
-        {
-          expression: '? >= ?',
-          parameters: [{ columnId: lonColumnId, datasetId }, minLon],
-        },
-        {
-          expression: '? <= ?',
-          parameters: [{ columnId: lonColumnId, datasetId }, maxLon],
-        },
+        { expression: '? >= ?', parameters: [{ columnId: latColumnId, datasetId }, minLat] },
+        { expression: '? <= ?', parameters: [{ columnId: latColumnId, datasetId }, maxLat] },
+        { expression: '? >= ?', parameters: [{ columnId: lonColumnId, datasetId }, minLon] },
+        { expression: '? <= ?', parameters: [{ columnId: lonColumnId, datasetId }, maxLon] },
       ],
       subGroups: [],
     },
   ];
 }
 
-export default function DashboardEditor({ dashboard, auth, geoContext, mapFilters = [] }) {
+export default function DashboardEditor({ dashboard, auth, geoContext, mapFilters = [], onAddItem }) {
   const gridRef = useRef(null);
   const { theme } = useTheme();
   const { items, setSelectedItemId, removeItem, cloneItem, syncPositions } = dashboard;
@@ -49,7 +33,6 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
     [theme]
   );
 
-  // ItemFilterGroup[] for the current map selection
   const geoFilterGroups = useMemo(
     () => buildGeoFilterGroups(selectionBounds, datasetId, latColumnId, lonColumnId),
     [selectionBounds, datasetId, latColumnId, lonColumnId]
@@ -139,7 +122,7 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
   return (
     <div className="dashboard-wrapper">
       {items.length === 0 && (
-        <div className="dashboard-empty">
+        <div className="dashboard-empty" onClick={onAddItem} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onAddItem?.(); }}>
           <div className="dashboard-empty-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--app-accent)' }}>
               <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -150,9 +133,7 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
           </div>
           <div className="dashboard-empty-title">No items yet</div>
           <div className="dashboard-empty-hint">
-            {hasGeoFilter
-              ? <>Area selected. Press <kbd>+ Add Item</kbd> to add Luzmo charts filtered to this region.</>
-              : <>Connect a dataset, then draw a shape on the map and press <kbd>+ Add Item</kbd> to build charts.</>}
+            Click here or press <kbd>+ Add Item</kbd> to add Luzmo charts.
           </div>
         </div>
       )}

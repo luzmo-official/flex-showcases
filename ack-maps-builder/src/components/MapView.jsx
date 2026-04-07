@@ -1,7 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
+import { useTheme } from '../hooks/useTheme';
 
 export default function MapView({ auth, mapSlots, onFiltersChanged }) {
   const vizRef = useRef(null);
+  const { theme } = useTheme();
+
+  const vizTheme = useMemo(
+    () => ({ id: theme === 'dark' ? 'default_dark' : 'default' }),
+    [theme]
+  );
 
   useEffect(() => {
     const el = vizRef.current;
@@ -14,11 +21,13 @@ export default function MapView({ auth, mapSlots, onFiltersChanged }) {
     el.authToken = auth.authToken;
     el.appServer = auth.appServer;
     el.apiHost = auth.apiHost;
+    el.theme = vizTheme;
     el.options = {
       display: { title: true },
       title: { en: 'Drill Through Map' },
+      darkMode: theme === 'dark',
     };
-  }, [auth, mapSlots]);
+  }, [auth, mapSlots, vizTheme, theme]);
 
   // Listen for DOM events dispatched by the viz item (if the embed relays them)
   useEffect(() => {

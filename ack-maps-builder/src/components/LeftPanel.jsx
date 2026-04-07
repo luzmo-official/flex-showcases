@@ -1,33 +1,40 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
+import { useTheme } from '../hooks/useTheme';
 import '@luzmo/analytics-components-kit/data-field-panel';
 import '@luzmo/analytics-components-kit/item-slot-drop-panel';
 
 const DRILL_THRU_MAP_SLOTS = [
   {
-    name: 'y-axis',
+    name: 'x-axis',
+    rotate: false,
     label: 'Latitude',
-    type: 'numeric',
-    acceptableDataFieldTypes: ['numeric'],
-    options: { isAggregationDisabled: true },
+    type: 'categorical',
+    options: { isBinningDisabled: true },
+    isRequired: true,
+    acceptableColumnTypes: ['numeric'],
   },
   {
-    name: 'x-axis',
+    name: 'y-axis',
+    rotate: false,
     label: 'Longitude',
-    type: 'numeric',
-    acceptableDataFieldTypes: ['numeric'],
-    options: { isAggregationDisabled: true },
+    type: 'categorical',
+    options: { isBinningDisabled: true },
+    isRequired: true,
+    acceptableColumnTypes: ['numeric'],
   },
   {
     name: 'name',
+    rotate: false,
     label: 'Label',
     type: 'categorical',
-    acceptableDataFieldTypes: ['hierarchy'],
     options: { isBinningDisabled: true },
+    isRequired: false,
+    acceptableColumnTypes: ['hierarchy'],
   },
 ];
 
 const GUIDE_STEPS = [
-  'Drag dataset columns to the chart slots: Latitude, Longitude, and optionally Label.',
+  'Drag numeric columns to the Latitude and Longitude slots, and optionally a Label.',
   'The Drill Through Map renders automatically with your data.',
   'Interact with the map to explore and filter geographically.',
   'Press "+ Add Item" to add additional Luzmo charts.',
@@ -36,10 +43,16 @@ const GUIDE_STEPS = [
 
 export default function LeftPanel({ luzmoData, auth }) {
   const { mapSlots, handleMapSlotsChanged } = luzmoData;
+  const { theme } = useTheme();
 
   const { authKey, authToken, apiHost, appServer } = auth;
   const fieldsRef = useRef(null);
   const dropRef = useRef(null);
+
+  const panelTheme = useMemo(
+    () => ({ id: theme === 'dark' ? 'default_dark' : 'default' }),
+    [theme]
+  );
 
   useEffect(() => {
     const el = fieldsRef.current;
@@ -51,6 +64,7 @@ export default function LeftPanel({ luzmoData, auth }) {
       el.size = 's';
       el.datasetPicker = true;
       el.grows = true;
+      el.theme = panelTheme;
       el.apiUrl = apiHost;
       el.authKey = authKey;
       el.authToken = authToken;
@@ -61,7 +75,7 @@ export default function LeftPanel({ luzmoData, auth }) {
     } else {
       sync();
     }
-  }, [apiHost, authKey, authToken]);
+  }, [apiHost, authKey, authToken, panelTheme]);
 
   useEffect(() => {
     const el = dropRef.current;
@@ -74,6 +88,7 @@ export default function LeftPanel({ luzmoData, auth }) {
       el.language = 'en';
       el.contentLanguage = 'en';
       el.size = 's';
+      el.theme = panelTheme;
       el.apiUrl = apiHost;
       el.appServer = appServer;
       el.authKey = authKey;
@@ -85,7 +100,7 @@ export default function LeftPanel({ luzmoData, auth }) {
     } else {
       sync();
     }
-  }, [mapSlots, apiHost, appServer, authKey, authToken]);
+  }, [mapSlots, apiHost, appServer, authKey, authToken, panelTheme]);
 
   useEffect(() => {
     const el = dropRef.current;
@@ -121,7 +136,7 @@ export default function LeftPanel({ luzmoData, auth }) {
         <luzmo-accordion-item label="Map Data Source" open>
           <div className="panel-section" style={{ padding: '8px 4px' }}>
             <div className="text-sm text-muted" style={{ marginBottom: 8 }}>
-              Drag columns from the dataset to configure the <strong>Drill Through Map</strong>.
+              Drag latitude and longitude columns from the dataset to configure the <strong>Drill Through Map</strong>.
             </div>
             <div style={{ display: 'flex', gap: 10, height: 380, minHeight: 280 }}>
               <div style={{ flex: '1 1 0', minWidth: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
