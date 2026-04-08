@@ -1,16 +1,30 @@
 import { useEffect, useRef, useMemo } from 'react';
+import { useTheme } from '../hooks/useTheme';
 import '@luzmo/analytics-components-kit/item-slot-picker-panel';
 import '@luzmo/analytics-components-kit/item-slot-drop-panel';
 import '@luzmo/analytics-components-kit/item-option-panel';
 import '@luzmo/analytics-components-kit/filters';
+import * as allSlotsConfigs from '@luzmo/analytics-components-kit/item-slots-configs';
+
+function getSlotsConfig(itemType) {
+  if (!itemType) return null;
+  const key = itemType.replace(/-([a-z])/g, (_, c) => c.toUpperCase()) + 'SlotsConfig';
+  return allSlotsConfigs[key] || null;
+}
 
 export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange, onOptionsChange, onFiltersChange }) {
   const pickerRef = useRef(null);
   const editRef = useRef(null);
   const filtersRef = useRef(null);
+  const { theme } = useTheme();
 
-  const { authKey, authToken, apiHost } = auth;
+  const { authKey, authToken, apiHost, appServer } = auth;
   const geoDatasetId = geoContext?.datasetId;
+
+  const panelTheme = useMemo(
+    () => ({ id: theme === 'dark' ? 'default_dark' : 'default' }),
+    [theme]
+  );
 
   // Collect all dataset IDs used by the current item + the map dataset
   const datasetIds = useMemo(() => {
@@ -27,48 +41,85 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
     return [...ids];
   }, [item?.slots, geoDatasetId]);
 
+  const slotsConfig = useMemo(() => getSlotsConfig(item?.type), [item?.type]);
+
   // Sync picker panel properties via JS
   useEffect(() => {
     const el = pickerRef.current;
     if (!el || !item) return;
-    el.itemType = item.type;
-    el.slotsContents = item.slots || [];
-    el.language = 'en';
-    el.contentLanguage = 'en';
-    el.size = 's';
-    el.datasetPicker = true;
-    el.grows = true;
-    el.apiUrl = apiHost;
-    el.authKey = authKey;
-    el.authToken = authToken;
-  }, [item?.slots, item?.type, apiHost, authKey, authToken]);
+
+    const sync = () => {
+      el.itemType = item.type;
+      if (slotsConfig) el.slotsConfiguration = slotsConfig;
+      el.slotsContents = item.slots || [];
+      el.datasetIds = datasetIds;
+      el.language = 'en';
+      el.contentLanguage = 'en';
+      el.size = 's';
+      el.datasetPicker = true;
+      el.grows = true;
+      el.theme = panelTheme;
+      el.apiUrl = apiHost;
+      el.appServer = appServer;
+      el.authKey = authKey;
+      el.authToken = authToken;
+    };
+
+    if (el.updateComplete) {
+      el.updateComplete.then(sync);
+    } else {
+      sync();
+    }
+  }, [item?.slots, item?.type, slotsConfig, datasetIds, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Sync item-option-panel properties via JS
   useEffect(() => {
     const el = editRef.current;
     if (!el || !item) return;
-    el.itemType = item.type;
-    el.options = item.options || {};
-    el.slots = item.slots || [];
-    el.language = 'en';
-    el.size = 's';
-    el.apiUrl = apiHost;
-    el.authKey = authKey;
-    el.authToken = authToken;
-  }, [item?.options, item?.slots, item?.type, apiHost, authKey, authToken]);
+
+    const sync = () => {
+      el.itemType = item.type;
+      el.options = item.options || {};
+      el.slots = item.slots || [];
+      el.language = 'en';
+      el.size = 's';
+      el.theme = panelTheme;
+      el.apiUrl = apiHost;
+      el.appServer = appServer;
+      el.authKey = authKey;
+      el.authToken = authToken;
+    };
+
+    if (el.updateComplete) {
+      el.updateComplete.then(sync);
+    } else {
+      sync();
+    }
+  }, [item?.options, item?.slots, item?.type, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Sync filter properties via JS
   useEffect(() => {
     const el = filtersRef.current;
     if (!el || !item) return;
-    el.filters = item.filters || [];
-    el.datasetIds = datasetIds;
-    el.language = 'en';
-    el.size = 's';
-    el.apiUrl = apiHost;
-    el.authKey = authKey;
-    el.authToken = authToken;
-  }, [item?.filters, item?.type, datasetIds, apiHost, authKey, authToken]);
+
+    const sync = () => {
+      el.filters = item.filters || [];
+      el.datasetIds = datasetIds;
+      el.language = 'en';
+      el.size = 's';
+      el.theme = panelTheme;
+      el.apiUrl = apiHost;
+      el.appServer = appServer;
+      el.authKey = authKey;
+      el.authToken = authToken;
+    };
+
+    if (el.updateComplete) {
+      el.updateComplete.then(sync);
+    } else {
+      sync();
+    }
+  }, [item?.filters, item?.type, datasetIds, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Event listeners
   useEffect(() => {
@@ -143,22 +194,37 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
         </div>
       )}
 
-      <luzmo-accordion allow-multiple size="s" density="spacious">
+      <luzmo-accordion allow-multiple size="s" density="spacious" key={item.id}>
         <luzmo-accordion-item label="Chart configuration" open>
           <div style={{ padding: '8px 4px' }}>
-            <luzmo-item-slot-picker-panel ref={pickerRef} />
+            <luzmo-item-slot-picker-panel
+              ref={pickerRef}
+              key={`picker-${item.id}`}
+              item-type={item.type}
+              language="en"
+              content-language="en"
+            />
           </div>
         </luzmo-accordion-item>
 
         <luzmo-accordion-item label="Options">
           <div style={{ padding: '8px 4px' }}>
-            <luzmo-item-option-panel ref={editRef} />
+            <luzmo-item-option-panel
+              ref={editRef}
+              key={`opts-${item.id}`}
+              item-type={item.type}
+              language="en"
+            />
           </div>
         </luzmo-accordion-item>
 
         <luzmo-accordion-item label="Filters">
           <div style={{ padding: '8px 4px' }}>
-            <luzmo-filters ref={filtersRef} />
+            <luzmo-filters
+              ref={filtersRef}
+              key={`filters-${item.id}`}
+              language="en"
+            />
           </div>
         </luzmo-accordion-item>
       </luzmo-accordion>

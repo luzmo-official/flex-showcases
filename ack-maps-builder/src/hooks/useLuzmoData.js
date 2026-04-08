@@ -1,15 +1,39 @@
 import { useState, useCallback, useMemo } from 'react';
 
+const DEFAULT_DATASET_ID = '20803a2a-145a-40b0-bca3-4735835b5d68';
+const DEFAULT_LAT_COLUMN_ID = 'a907788b-2054-42ca-a04f-569f7503228b';
+const DEFAULT_LON_COLUMN_ID = 'c385708a-bd7a-4349-87b5-bf62398810d1';
+
+const DEFAULT_MAP_SLOTS = [
+  {
+    name: 'x-axis',
+    content: [{
+      set: DEFAULT_DATASET_ID,
+      column: DEFAULT_LAT_COLUMN_ID,
+      datasetId: DEFAULT_DATASET_ID,
+      columnId: DEFAULT_LAT_COLUMN_ID,
+    }],
+  },
+  {
+    name: 'y-axis',
+    content: [{
+      set: DEFAULT_DATASET_ID,
+      column: DEFAULT_LON_COLUMN_ID,
+      datasetId: DEFAULT_DATASET_ID,
+      columnId: DEFAULT_LON_COLUMN_ID,
+    }],
+  },
+];
+
 export function useLuzmoData(auth) {
   const { authKey, authToken, apiHost } = auth;
 
-  const [mapSlots, setMapSlots] = useState([]);
+  const [mapSlots, setMapSlots] = useState(DEFAULT_MAP_SLOTS);
   const [points, setPoints] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const columnMapping = useMemo(() => {
-    const DEFAULT_DATASET_ID = '20803a2a-145a-40b0-bca3-4735835b5d68';
     const result = { datasetId: DEFAULT_DATASET_ID, latColumnId: null, lonColumnId: null, labelColumnId: null };
 
     for (const slot of mapSlots) {
@@ -24,10 +48,10 @@ export function useLuzmoData(auth) {
 
       const slotName = (slot.slot || slot.name || '').toLowerCase();
 
-      if (slotName.includes('y-axis') || slotName.includes('y_axis') || slotName === 'y' || slotName.includes('lat')) {
+      if (slotName === 'x-axis') {
         result.latColumnId = colId;
         result.datasetId = dsId;
-      } else if (slotName.includes('x-axis') || slotName.includes('x_axis') || slotName === 'x' || slotName.includes('lon') || slotName.includes('lng')) {
+      } else if (slotName === 'y-axis') {
         result.lonColumnId = colId;
         result.datasetId = dsId;
       } else if (
@@ -53,7 +77,7 @@ export function useLuzmoData(auth) {
 
   const fetchPoints = useCallback(async () => {
     if (!canFetch) {
-      setError('Map both Latitude and Longitude columns first.');
+      setError('Map Latitude and Longitude columns first.');
       return;
     }
 
@@ -100,12 +124,17 @@ export function useLuzmoData(auth) {
       const rows = json.data || [];
 
       const pts = rows
-        .map((row, i) => ({
-          id: i + 1,
-          lat: parseFloat(row[0]),
-          lon: parseFloat(row[1]),
-          name: labelColumnId ? String(row[2] ?? `Point ${i + 1}`) : `Point ${i + 1}`,
-        }))
+        .map((row, i) => {
+          const lat = Number(row[0]);
+          const lon = Number(row[1]);
+          const labelIdx = 2;
+          return {
+            id: i + 1,
+            lat,
+            lon,
+            name: labelColumnId ? String(row[labelIdx] ?? `Point ${i + 1}`) : `Point ${i + 1}`,
+          };
+        })
         .filter((p) => !isNaN(p.lat) && !isNaN(p.lon));
 
       setPoints(pts);

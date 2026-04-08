@@ -552,6 +552,28 @@ input[type="color"]::-webkit-color-swatch {
   background-color: var(--app-surface-raised) !important;
 }
 
+/* Dock draw tools left of the right toolbar so they do not overlap Luzmo export (top-right) */
+.map-wrapper .leaflet-top.leaflet-right > .leaflet-draw.leaflet-control {
+  position: absolute;
+  float: none !important;
+  clear: none !important;
+  right: 100%;
+  margin-right: 10px !important;
+  margin-top: 10px !important;
+  top: 0;
+}
+
+/* Cancel / finish strip: open toward map center (not under export) */
+.map-wrapper .leaflet-top.leaflet-right > .leaflet-draw.leaflet-control .leaflet-draw-actions {
+  right: auto !important;
+  left: 100%;
+  margin-left: 4px;
+}
+
+.map-wrapper .leaflet-container.leaflet-touch .leaflet-top.leaflet-right > .leaflet-draw.leaflet-control .leaflet-draw-actions {
+  left: 32px;
+}
+
 .leaflet-control-attribution {
   background: rgba(10, 14, 23, 0.75) !important;
   color: var(--app-muted) !important;
@@ -578,6 +600,18 @@ input[type="color"]::-webkit-color-swatch {
   height: 100%;
   gap: 10px;
   animation: fade-in 0.4s ease-out;
+  cursor: pointer;
+  border-radius: var(--app-radius);
+  transition: background 0.2s;
+}
+
+.dashboard-empty:hover {
+  background: var(--app-accent-dim);
+}
+
+.dashboard-empty:hover .dashboard-empty-icon {
+  border-color: var(--app-accent);
+  box-shadow: 0 0 12px var(--app-accent-glow);
 }
 
 .dashboard-empty-icon {
@@ -591,6 +625,7 @@ input[type="color"]::-webkit-color-swatch {
   justify-content: center;
   font-size: 24px;
   margin-bottom: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .dashboard-empty-title {

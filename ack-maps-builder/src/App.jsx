@@ -108,6 +108,7 @@ function App() {
             auth={auth}
             geoContext={geoContext}
             mapFilters={mapFilters}
+            onAddItem={handleOpenAddItem}
           />
         </div>
       </div>
