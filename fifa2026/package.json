@@ -16,7 +16,7 @@
     "test:run": "vitest run"
   },
   "dependencies": {
-    "@luzmo/analytics-components-kit": "1.0.1-alpha.148",
+    "@luzmo/analytics-components-kit": "1.0.1",
     "@luzmo/embed": "^6.9.0",
     "flag-icons": "^7.5.0",
     "gridstack": "^12.4.2",

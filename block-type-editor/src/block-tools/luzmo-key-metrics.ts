@@ -1,19 +1,19 @@
 import "./luzmo-key-metrics.scss";
-import "@luzmo/analytics-components-kit/edit-filters";
-import "@luzmo/analytics-components-kit/edit-item";
-import "@luzmo/analytics-components-kit/grid";
-import "@luzmo/analytics-components-kit/item-data-picker-panel";
+import "@luzmo/analytics-components-kit/filters";
+import "@luzmo/analytics-components-kit/item-option-panel";
+import "@luzmo/analytics-components-kit/item-grid";
+import "@luzmo/analytics-components-kit/item-slot-picker-panel";
 import "@luzmo/lucero/overlay";
 import type { API } from "@editorjs/editorjs";
 import type {
-  LuzmoEditFilters,
-  LuzmoEditItem,
+  LuzmoFilters,
+  LuzmoItemOptionPanel,
 } from "@luzmo/analytics-components-kit";
 import type {
   ActionGroup,
-  LuzmoGridItemActionsMenu,
-} from "@luzmo/analytics-components-kit/grid";
-import type { LuzmoItemDataPickerPanel } from "@luzmo/analytics-components-kit/item-data-picker-panel";
+  LuzmoItemGridItemActionsMenu,
+} from "@luzmo/analytics-components-kit/item-grid";
+import type { LuzmoItemSlotPickerPanel } from "@luzmo/analytics-components-kit/item-slot-picker-panel";
 import { getTheme } from "@luzmo/analytics-components-kit/utils";
 import type {
   ItemThemeConfig,
@@ -122,14 +122,14 @@ const METRIC_ACTIONS: ActionGroup[] = [
         type: "toggle",
       },
       {
-        action: "edit-options",
+        action: "item-options",
         icon: luzmoCog,
         label: "Edit options",
         tooltip: "Options",
         type: "toggle",
       },
       {
-        action: "edit-filters",
+        action: "filters",
         icon: luzmoFilterOutline,
         label: "Edit filters",
         tooltip: "Filters",
@@ -262,7 +262,7 @@ const insertOverlayBefore = (
 };
 
 interface ActiveState {
-  actionsMenu: LuzmoGridItemActionsMenu & HTMLElement;
+  actionsMenu: LuzmoItemGridItemActionsMenu & HTMLElement;
   actionsWrapper: HTMLElement;
   cardIndex: number;
   overlay: LuzmoOverlay & HTMLElement;
@@ -271,7 +271,7 @@ interface ActiveState {
 
 export default class LuzmoKeyMetrics {
   private _activeState: ActiveState | null = null;
-  private _actionsMenus: (LuzmoGridItemActionsMenu & HTMLElement)[] = [];
+  private _actionsMenus: (LuzmoItemGridItemActionsMenu & HTMLElement)[] = [];
   private _actionsWrappers: HTMLElement[] = [];
   private _cards: HTMLDivElement[] = [];
   private _container!: HTMLDivElement;
@@ -352,13 +352,13 @@ export default class LuzmoKeyMetrics {
       actionsWrapper.classList.add("number-card__actions");
 
       const actionsMenu = document.createElement(
-        "luzmo-grid-item-actions-menu",
-      ) as LuzmoGridItemActionsMenu & HTMLElement;
+        "luzmo-item-grid-item-actions-menu",
+      ) as LuzmoItemGridItemActionsMenu & HTMLElement;
       (actionsMenu as unknown as { actions: ActionGroup[] }).actions =
         structuredClone(METRIC_ACTIONS);
       (actionsMenu as unknown as { placement: string }).placement = "top-start";
 
-      actionsMenu.addEventListener("luzmo-grid-item-action", ((
+      actionsMenu.addEventListener("luzmo-item-grid-item-action", ((
         event: CustomEvent,
       ) => {
         const { action, active } = event.detail;
@@ -424,7 +424,7 @@ export default class LuzmoKeyMetrics {
     active: boolean,
     index: number,
     cardElement: HTMLElement,
-    actionsMenu: LuzmoGridItemActionsMenu & HTMLElement,
+    actionsMenu: LuzmoItemGridItemActionsMenu & HTMLElement,
     actionsWrapper: HTMLElement,
   ): void {
     if (!active) {
@@ -459,9 +459,9 @@ export default class LuzmoKeyMetrics {
     action: string,
     cardElement: HTMLElement,
   ): void {
-    if (action === "edit-filters") {
+    if (action === "filters") {
       overlay.placement = getVerticalPlacement(cardElement);
-    } else if (action === "edit-options") {
+    } else if (action === "item-options") {
       overlay.placement = getOptimalPlacement(cardElement, 320);
     } else {
       overlay.placement = getOptimalPlacement(cardElement, 420);
@@ -472,7 +472,7 @@ export default class LuzmoKeyMetrics {
     action: string,
     index: number,
     cardElement: HTMLElement,
-    actionsMenu: LuzmoGridItemActionsMenu & HTMLElement,
+    actionsMenu: LuzmoItemGridItemActionsMenu & HTMLElement,
     actionsWrapper: HTMLElement,
   ): void {
     const overlay = createOverlayForCard(cardElement);
@@ -497,10 +497,10 @@ export default class LuzmoKeyMetrics {
       case "edit-data": {
         return this.createEditDataPanel(index);
       }
-      case "edit-options": {
+      case "item-options": {
         return this.createEditOptionsPanel(index);
       }
-      case "edit-filters": {
+      case "filters": {
         return this.createEditFiltersPanel(index);
       }
       default: {
@@ -513,7 +513,7 @@ export default class LuzmoKeyMetrics {
     cardIndex: number,
     overlay: LuzmoOverlay & HTMLElement,
     popover: LuzmoPopover & HTMLElement,
-    actionsMenu: LuzmoGridItemActionsMenu & HTMLElement,
+    actionsMenu: LuzmoItemGridItemActionsMenu & HTMLElement,
     actionsWrapper: HTMLElement,
   ): void {
     this._activeState = { actionsMenu, actionsWrapper, cardIndex, overlay, popover };
@@ -559,8 +559,8 @@ export default class LuzmoKeyMetrics {
     const metric = this._data.content[index];
 
     const dataPickerPanel = document.createElement(
-      "luzmo-item-data-picker-panel",
-    ) as LuzmoItemDataPickerPanel & HTMLElement;
+      "luzmo-item-slot-picker-panel",
+    ) as LuzmoItemSlotPickerPanel & HTMLElement;
     dataPickerPanel.size = "m";
     dataPickerPanel.itemType = metric.type;
     dataPickerPanel.slotsContents = metric.slots as unknown as typeof dataPickerPanel.slotsContents;
@@ -598,8 +598,8 @@ export default class LuzmoKeyMetrics {
     const metric = this._data.content[index];
 
     const editItem = document.createElement(
-      "luzmo-edit-item",
-    ) as LuzmoEditItem & HTMLElement;
+      "luzmo-item-option-panel",
+    ) as LuzmoItemOptionPanel & HTMLElement;
     editItem.size = "m";
     editItem.itemType = metric.type;
     editItem.options = structuredClone(metric.options) as Record<
@@ -625,7 +625,7 @@ export default class LuzmoKeyMetrics {
   }
 
   private static async loadThemeForEditItem(
-    editItem: LuzmoEditItem & HTMLElement,
+    editItem: LuzmoItemOptionPanel & HTMLElement,
   ): Promise<void> {
     const theme = await getTheme("default");
     editItem.theme = theme as ItemThemeConfig;
@@ -635,8 +635,8 @@ export default class LuzmoKeyMetrics {
     const metric = this._data.content[index];
 
     const editFilters = document.createElement(
-      "luzmo-edit-filters",
-    ) as LuzmoEditFilters & HTMLElement;
+      "luzmo-filters",
+    ) as LuzmoFilters & HTMLElement;
     editFilters.size = "m";
     editFilters.language = this._settings.language || "en";
     editFilters.authKey = this._settings.authKey;

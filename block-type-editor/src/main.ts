@@ -1,6 +1,6 @@
 import "./main.scss";
-import "@luzmo/analytics-components-kit/edit-filters";
-import "@luzmo/analytics-components-kit/edit-item";
+import "@luzmo/analytics-components-kit/filters";
+import "@luzmo/analytics-components-kit/item-option-panel";
 import "@luzmo/embed";
 import "@luzmo/lucero/button";
 import EditorJS, {

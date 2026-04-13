@@ -110,7 +110,7 @@ export const REPORT_LIBRARY: ReportLibraryModule[] = [
 ];
 
 export const ADVANCED_GRID_ACTIONS_MENU: Array<{ type: 'group'; actions: string[] }> = [
-  { type: 'group', actions: ['edit-data', 'edit-options'] },
+  { type: 'group', actions: ['edit-data', 'item-options'] },
   { type: 'group', actions: ['delete'] }
 ];
 

@@ -1,13 +1,13 @@
 import "./luzmo-viz-item.scss";
-import "@luzmo/analytics-components-kit/edit-filters";
-import "@luzmo/analytics-components-kit/item-data-picker-panel";
+import "@luzmo/analytics-components-kit/filters";
+import "@luzmo/analytics-components-kit/item-slot-picker-panel";
 import "@luzmo/lucero/overlay";
 import type { API } from "@editorjs/editorjs";
 import type {
-  LuzmoEditFilters,
-  LuzmoEditItem,
+  LuzmoFilters,
+  LuzmoItemOptionPanel,
 } from "@luzmo/analytics-components-kit";
-import type { LuzmoItemDataPickerPanel } from "@luzmo/analytics-components-kit/item-data-picker-panel";
+import type { LuzmoItemSlotPickerPanel } from "@luzmo/analytics-components-kit/item-slot-picker-panel";
 import { getTheme, switchItem } from "@luzmo/analytics-components-kit/utils";
 import type {
   FilterGroup as EmbedFilterGroup,
@@ -252,7 +252,7 @@ const insertOverlay = (
 };
 
 const loadThemeAsync = async (
-  editItem: LuzmoEditItem & HTMLElement
+  editItem: LuzmoItemOptionPanel & HTMLElement
 ): Promise<void> => {
   const theme = await getTheme("default");
   editItem.theme = theme as ItemThemeConfig;
@@ -374,7 +374,7 @@ export default class LuzmoVizItem {
     });
   }
 
-  private setupEditItem(editItem: LuzmoEditItem & HTMLElement): void {
+  private setupEditItem(editItem: LuzmoItemOptionPanel & HTMLElement): void {
     editItem.size = "m";
     editItem.itemType = this._data.type;
     editItem.options = structuredClone(this._data.options) as Record<
@@ -424,8 +424,8 @@ export default class LuzmoVizItem {
     const popover = createPopover("300px");
 
     const editItem = document.createElement(
-      "luzmo-edit-item"
-    ) as LuzmoEditItem & HTMLElement;
+      "luzmo-item-option-panel"
+    ) as LuzmoItemOptionPanel & HTMLElement;
     this.setupEditItem(editItem);
 
     popover.append(editItem);
@@ -445,7 +445,7 @@ export default class LuzmoVizItem {
   }
 
   private setupDataPickerPanel(
-    dataPickerPanel: LuzmoItemDataPickerPanel & HTMLElement
+    dataPickerPanel: LuzmoItemSlotPickerPanel & HTMLElement
   ): void {
     dataPickerPanel.size = "m";
     dataPickerPanel.itemType = this._data.type;
@@ -486,8 +486,8 @@ export default class LuzmoVizItem {
     const popover = createPopover("400px");
 
     const dataPickerPanel = document.createElement(
-      "luzmo-item-data-picker-panel"
-    ) as LuzmoItemDataPickerPanel & HTMLElement;
+      "luzmo-item-slot-picker-panel"
+    ) as LuzmoItemSlotPickerPanel & HTMLElement;
     this.setupDataPickerPanel(dataPickerPanel);
 
     popover.append(dataPickerPanel);
@@ -495,7 +495,7 @@ export default class LuzmoVizItem {
     insertOverlay(overlay, blockElement);
   }
 
-  private setupEditFilters(editFilters: LuzmoEditFilters & HTMLElement): void {
+  private setupEditFilters(editFilters: LuzmoFilters & HTMLElement): void {
     editFilters.size = "m";
     editFilters.language = this._settings?.language || "en";
     editFilters.authKey = this._settings?.authKey;
@@ -544,8 +544,8 @@ export default class LuzmoVizItem {
     const popover = createPopover("400px");
 
     const editFilters = document.createElement(
-      "luzmo-edit-filters"
-    ) as LuzmoEditFilters & HTMLElement;
+      "luzmo-filters"
+    ) as LuzmoFilters & HTMLElement;
     this.setupEditFilters(editFilters);
 
     popover.append(editFilters);

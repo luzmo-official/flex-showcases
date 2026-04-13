@@ -16,7 +16,7 @@
   "dependencies": {
     "@editorjs/editorjs": "^2.31.0",
     "@editorjs/list": "^2.0.8",
-    "@luzmo/analytics-components-kit": "^1.0.1-alpha.143",
+    "@luzmo/analytics-components-kit": "1.0.1",
     "@luzmo/embed": "^6.9.0",
     "@luzmo/icons": "^1.0.1-alpha.31",
     "@luzmo/lucero": "^1.0.1-alpha.60"

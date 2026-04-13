@@ -93,26 +93,26 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
     if (!el) return;
 
     const handleChanged = (e) => {
-      const gridItems = e.detail?.items;
+      const gridItems = e.detail?.updatedItems;
       if (gridItems) syncPositions(gridItems);
     };
 
     const handleAction = (e) => {
-      const { action, id, deletedId } = e.detail || {};
+      const { action, item, updatedItems } = e.detail || {};
       if (action === 'edit-data' || action === 'item-options') {
-        setSelectedItemId(id);
+        setSelectedItemId(item?.id);
       } else if (action === 'delete') {
-        removeItem(deletedId || id);
+        removeItem(item?.id);
       } else if (action === 'clone') {
-        cloneItem(id);
+        cloneItem(item?.id);
       }
     };
 
-    el.addEventListener('luzmo-item-grid-changed', handleChanged);
+    el.addEventListener('luzmo-item-grid-layout-changed', handleChanged);
     el.addEventListener('luzmo-item-grid-item-action', handleAction);
 
     return () => {
-      el.removeEventListener('luzmo-item-grid-changed', handleChanged);
+      el.removeEventListener('luzmo-item-grid-layout-changed', handleChanged);
       el.removeEventListener('luzmo-item-grid-item-action', handleAction);
     };
   }, [syncPositions, setSelectedItemId, removeItem, cloneItem]);

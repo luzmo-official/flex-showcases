@@ -257,23 +257,23 @@ export function renderDashboard(
   // -- Listen to grid events ------------------------------------------------
 
   gridEl.addEventListener('luzmo-item-grid-item-action', ((event: CustomEvent) => {
-    const { action, id, active } = event.detail ?? {};
-    if (action === 'delete' && id) {
+    const { action, item, active } = event.detail ?? {};
+    if (action === 'delete' && item?.id) {
       event.preventDefault();
-      store.dispatch({ type: 'REMOVE_TILE', payload: { tileId: id } });
-    } else if (action === 'item-options' && id) {
+      store.dispatch({ type: 'REMOVE_TILE', payload: { tileId: item.id } });
+    } else if (action === 'item-options' && item?.id) {
       if (active === false) {
         editPanel.close();
       } else {
-        editPanel.open(id);
+        editPanel.open(item.id);
       }
     }
   }) as EventListener);
 
-  gridEl.addEventListener('luzmo-item-grid-changed', ((event: CustomEvent) => {
+  gridEl.addEventListener('luzmo-item-grid-layout-changed', ((event: CustomEvent) => {
     if (isUpdatingGrid) return;
 
-    const items: GridItemData[] = event.detail?.items ?? [];
+    const items: GridItemData[] = event.detail?.updatedItems ?? [];
     const positions: Record<string, TilePosition> = {};
 
     for (const item of items) {
