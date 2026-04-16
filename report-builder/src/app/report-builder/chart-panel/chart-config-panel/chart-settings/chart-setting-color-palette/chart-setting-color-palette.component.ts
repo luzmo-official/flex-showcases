@@ -3,11 +3,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-chart-setting-color-palette',
-  standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule],
-  templateUrl: './chart-setting-color-palette.component.html',
-  styleUrl: './chart-setting-color-palette.component.scss'
+    selector: 'app-chart-setting-color-palette',
+    imports: [MatFormFieldModule, MatSelectModule],
+    templateUrl: './chart-setting-color-palette.component.html',
+    styleUrl: './chart-setting-color-palette.component.scss'
 })
 export class ChartSettingColorPaletteComponent implements OnInit{
   label = input<string>();

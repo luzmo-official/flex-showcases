@@ -8,11 +8,10 @@ import { ChartService } from '../shared/services/chart.service';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
-  selector: 'app-chart-view',
-  standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatCheckboxModule, MatButtonToggleModule, NgxLuzmoDashboardModule],
-  templateUrl: './chart-view.component.html',
-  styleUrl: './chart-view.component.scss'
+    selector: 'app-chart-view',
+    imports: [MatButtonModule, MatIconModule, MatCheckboxModule, MatButtonToggleModule, NgxLuzmoDashboardModule],
+    templateUrl: './chart-view.component.html',
+    styleUrl: './chart-view.component.scss'
 })
 export class ChartViewComponent {
   chart = viewChild<ElementRef>('chart');

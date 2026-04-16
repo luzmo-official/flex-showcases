@@ -6,11 +6,10 @@ import { Chart } from '../../../shared/models/models';
 import { ChartService } from '../../../shared/services/chart.service';
 
 @Component({
-  selector: 'app-chart-picker',
-  standalone: true,
-  imports: [MatIconModule, MatTooltipModule],
-  templateUrl: './chart-picker.component.html',
-  styleUrl: './chart-picker.component.scss'
+    selector: 'app-chart-picker',
+    imports: [MatIconModule, MatTooltipModule],
+    templateUrl: './chart-picker.component.html',
+    styleUrl: './chart-picker.component.scss'
 })
 export class ChartPickerComponent {
   readonly chartService = inject(ChartService);

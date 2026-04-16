@@ -146,22 +146,21 @@ export type FilterSlot = {
 }
 
 @Component({
-  selector: 'app-filters-panel',
-  standalone: true,
-  imports: [
-    CdkDropList,
-    MatIcon,
-    MatButton,
-    MatIconButton,
-    MatFormField,
-    MatSelect,
-    MatOption,
-    MatLabel,
-    FormsModule,
-    MatTooltip,
-  ],
-  templateUrl: './filters-panel.component.html',
-  styleUrl: './filters-panel.component.scss'
+    selector: 'app-filters-panel',
+    imports: [
+        CdkDropList,
+        MatIcon,
+        MatButton,
+        MatIconButton,
+        MatFormField,
+        MatSelect,
+        MatOption,
+        MatLabel,
+        FormsModule,
+        MatTooltip,
+    ],
+    templateUrl: './filters-panel.component.html',
+    styleUrl: './filters-panel.component.scss'
 })
 export class FiltersPanelComponent {
   private readonly destroyRef = inject(DestroyRef);
@@ -300,29 +299,28 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'filter-editor-dialog',
-  templateUrl: 'filter-editor-dialog.html',
-  styleUrl: 'filter-editor-dialog.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatRadioGroup,
-    MatRadioButton,
-    MatIcon,
-    ReactiveFormsModule,
-    MatChipGrid,
-    MatChipRow,
-    MatChipInput,
-    MatChipRemove,
-  ],
+    selector: 'filter-editor-dialog',
+    templateUrl: 'filter-editor-dialog.html',
+    styleUrl: 'filter-editor-dialog.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatRadioGroup,
+        MatRadioButton,
+        MatIcon,
+        ReactiveFormsModule,
+        MatChipGrid,
+        MatChipRow,
+        MatChipInput,
+        MatChipRemove,
+    ]
 })
 export class FilterEditorDialog implements OnInit {
   readonly dialogRef = inject(MatDialogRef<FilterEditorDialog>);

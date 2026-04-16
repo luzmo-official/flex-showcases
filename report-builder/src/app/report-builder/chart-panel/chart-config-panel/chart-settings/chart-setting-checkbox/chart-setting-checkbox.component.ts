@@ -3,11 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-chart-setting-checkbox',
-  standalone: true,
-  imports: [FormsModule, MatCheckboxModule],
-  templateUrl: './chart-setting-checkbox.component.html',
-  styleUrl: './chart-setting-checkbox.component.scss'
+    selector: 'app-chart-setting-checkbox',
+    imports: [FormsModule, MatCheckboxModule],
+    templateUrl: './chart-setting-checkbox.component.html',
+    styleUrl: './chart-setting-checkbox.component.scss'
 })
 export class ChartSettingCheckboxComponent implements OnInit{
   label = input<string>();

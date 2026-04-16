@@ -7,11 +7,11 @@ import { provideRouter } from '@angular/router';
 import routeConfig from './app/app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgxLuzmoDashboardModule } from '@luzmo/ngx-embed';
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    ...appConfig.providers,
+    provideZoneChangeDetection(),...appConfig.providers,
     provideRouter(routeConfig),
     provideAnimationsAsync(), importProvidersFrom(NgxLuzmoDashboardModule), importProvidersFrom(NgxLuzmoDashboardModule),
   ],

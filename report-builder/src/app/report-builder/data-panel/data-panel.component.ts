@@ -36,29 +36,28 @@ type Dataset = {
 };
 
 @Component({
-  selector: 'app-data-panel',
-  standalone: true,
-  imports: [
-    CdkDrag,
-    CdkDropList,
-    CdkDropListGroup,
-    CdkAccordionModule,
-    CdkDragPreview,
-    CdkDragPlaceholder,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatMenuModule,
-    MatButton,
-    MatProgressSpinner,
-    ReactiveFormsModule,
-    MatIconButton,
-    MatSelect,
-    MatOption,
-    MatSelectTrigger,
-  ],
-  templateUrl: './data-panel.component.html',
-  styleUrl: './data-panel.component.scss',
+    selector: 'app-data-panel',
+    imports: [
+        CdkDrag,
+        CdkDropList,
+        CdkDropListGroup,
+        CdkAccordionModule,
+        CdkDragPreview,
+        CdkDragPlaceholder,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatMenuModule,
+        MatButton,
+        MatProgressSpinner,
+        ReactiveFormsModule,
+        MatIconButton,
+        MatSelect,
+        MatOption,
+        MatSelectTrigger,
+    ],
+    templateUrl: './data-panel.component.html',
+    styleUrl: './data-panel.component.scss'
 })
 export class DataPanelComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
