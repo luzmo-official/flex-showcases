@@ -37,8 +37,6 @@ jobs:
             outputFolder: dist/
           - name: devops-command
             outputFolder: frontend/dist/devops-command/browser/
-          - name: embedded-ai-chart
-            outputFolder: frontend/dist/ai-showcases-frontend/browser/
           - name: euro2024
             outputFolder: dist/euro2024-showcase/browser/
           - name: cfo-cockpit
