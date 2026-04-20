@@ -23,15 +23,9 @@ jobs:
         include:
           - name: dashboard-filter-panel
             outputFolder: dist/dashboard-filter-panel/browser/
-          - name: drag-n-drop-chart-library
-            outputFolder: build/
           - name: report-builder
             outputFolder: dist/report-builder/browser/
           - name: wearables-dashboard
-            outputFolder: dist/
-          - name: react-chart-library
-            outputFolder: dist/
-          - name: react-luzmo-iq-playground
             outputFolder: dist/
           - name: newspaper
             outputFolder: dist/newspaper/browser/
