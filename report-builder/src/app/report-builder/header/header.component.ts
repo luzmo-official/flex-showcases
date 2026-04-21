@@ -36,7 +36,6 @@ export class HeaderComponent {
             slots: this.chartService.slots(),
             options: this.chartService.options(),
             filters: this.chartService.filters(),
-            filterOperator: this.chartService.filterOperator(),
           }
         }])
     );
@@ -44,18 +43,17 @@ export class HeaderComponent {
     this.savedReports = this.getSavedReports();
   }
 
-  loadReport(report: { name: string; chart: Chart & { filterOperator: 'and' | 'or' } }): void {
+  async loadReport(report: { name: string; chart: Chart }): Promise<void> {
     if (report) {
       if (report.name) {
         this.reportName = report.name;
       }
 
       if (report.chart) {
-        this.chartService.updateType(report.chart.type);
+        await this.chartService.updateType(report.chart.type);
         this.chartService.updateSlots(report.chart.slots);
-        this.chartService.updateOptions(report.chart.settings);
+        this.chartService.updateOptions(report.chart.options);
         this.chartService.updateFilters(report.chart.filters);
-        this.chartService.setFilterOperator(report.chart.filterOperator);
       }
     }
   }
@@ -65,7 +63,7 @@ export class HeaderComponent {
     this.savedReports = this.getSavedReports();
   }
 
-  private getSavedReports(): { name: string; chart: Chart & { filterOperator: 'and' | 'or' } }[] {
+  private getSavedReports(): { name: string; chart: Chart }[] {
     const savedReports = this.localStorage.getItem('savedReports');
 
     return savedReports ? JSON.parse(savedReports) : [];
