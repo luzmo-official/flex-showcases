@@ -1,73 +1,24 @@
-import { Component, inject } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup
-} from '@angular/cdk/drag-drop';
-import { ChartService } from '../../../shared/services/chart.service';
-import { COLUMN_TYPE_ICONS } from '../../../shared/constants/charts.constant';
-import { GenericSlotContent, Slot } from '@luzmo/dashboard-contents-types';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, Output } from '@angular/core';
+
+import '@luzmo/analytics-components-kit/item-slot-drop-panel';
+import { VizItemSlot } from '@luzmo/dashboard-contents-types';
 
 @Component({
     selector: 'app-slots-display',
-    imports: [MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup],
+    imports: [],
     templateUrl: './slots-display.component.html',
-    styleUrl: './slots-display.component.scss'
+    styleUrl: './slots-display.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SlotsDisplayComponent {
-  readonly chartService = inject(ChartService);
-  columnTypeIcons = COLUMN_TYPE_ICONS;
+  @Input({ required: true }) authKey!: string;
+  @Input({ required: true }) authToken!: string;
+  @Input({ required: true }) itemType!: string;
+  @Input({ required: true }) slots!: VizItemSlot[];
 
-  drop(event: CdkDragDrop<string[]>) {
-    const column = event.item.data;
-    const slotName: Slot['name'] = event.container.id.replace('data-drop-', '') as Slot['name'];
-    const slotContent: GenericSlotContent = {
-      label: column.name,
-      set: column.securable_id,
-      column: column.id,
-      type: column.type,
-      subtype: column.subtype,
-      format: column.format
-    };
+  @Output() slotsChanged = new EventEmitter<Event>();
 
-    const slot = this.chartService.slots().find(slot => slot.name === slotName);
-
-    if (slot) {
-      slot.content.push(slotContent);
-      this.chartService.updateSlots((this.chartService.slots() ?? []));
-    }
-  }
-
-  replace(event: CdkDragDrop<string[]>, index: number) {
-    const column = event.item.data;
-    const slotNameTemp = event.container.id.replace('data-replace-', '');
-    const slotName = slotNameTemp.substring(0, slotNameTemp.lastIndexOf('-')) as Slot['name'];
-
-    const slotContent: Slot['content'][number] = {
-      label: column.name,
-      set: column.securable_id,
-      column: column.id,
-      type: column.type,
-      subtype: column.subtype,
-      format: column.format
-    };
-
-    const slot = this.chartService.slots().find(slot => slot.name === slotName);
-
-    if (slot?.content?.[index]) {
-      slot.content[index] = slotContent;
-      this.chartService.updateSlots((this.chartService.slots() ?? []));
-    }
-  }
-
-  removeColumnFromSlot(slotName: string, indexToRemove: number): void {
-    const slot = this.chartService.slots().find(slot => slot.name === slotName);
-
-    if (slot) {
-      slot.content = slot.content.filter((_: any, index: number) => index !== indexToRemove);
-      this.chartService.updateSlots((this.chartService.slots() ?? []));
-    }
+  onSlotsChanged(event: Event) {
+    this.slotsChanged.emit(event);
   }
 }

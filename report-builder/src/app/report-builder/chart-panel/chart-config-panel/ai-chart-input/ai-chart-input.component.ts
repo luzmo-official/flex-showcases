@@ -1,86 +1,70 @@
-import { Component, DestroyRef, inject, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DataService } from '../../../shared/services/data.service';
 import { ChartService } from '../../../shared/services/chart.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { tap } from 'rxjs/operators';
-import { CHARTS } from '../../../shared/constants/charts.constant';
-import { SlotsDisplayComponent } from '../slots-display/slots-display.component';
-import { ChartPickerComponent } from '../chart-picker/chart-picker.component';
+import { firstValueFrom } from 'rxjs';
 import { VizItemType } from '@luzmo/ngx-embed';
-import { Slot } from '@luzmo/dashboard-contents-types';
+import { VizItemSlot } from '@luzmo/dashboard-contents-types';
 
 @Component({
     selector: 'app-ai-chart',
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatProgressBarModule, SlotsDisplayComponent, ChartPickerComponent],
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatProgressBarModule],
     templateUrl: './ai-chart-input.component.html',
     styleUrl: './ai-chart-input.component.scss'
 })
 export class AiChartInputComponent {
   private dataService = inject(DataService);
   private chartService = inject(ChartService);
-  private readonly destroyRef = inject(DestroyRef);
   status = output<any>();
 
   question!: string;
   chartType!: VizItemType;
-  slots: any = [];
+  slots: VizItemSlot[] = [];
   _status = {
     generating: false,
-    generated: false
+    generated: false,
+    error: false,
+    errorMessage: ''
   }
 
-  generateChart() {
-    this._status.generating = true;
+  async generateChart() {
+    this._status = { generating: true, generated: false, error: false, errorMessage: '' };
     this.status.emit(this._status);
-    this.dataService.generateChart(this.question)
-    .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        tap((data) => {
-          const slots = data?.generatedChart?.slots;
-          for (const slot of slots) {
-            for (const content of slot.content) {
-              if (typeof content.label === 'string') {
-                content.label = { en: content.label };
-              }
-            }
-          }
-          const generatedChartDef = CHARTS().find((chart) => chart.type === data?.generatedChart?.type);
-          if (generatedChartDef) {
-            generatedChartDef.slots.forEach((slot) => {
-              const slotFound = slots.find((s: Slot) => s.name === slot.name);
-              if (slotFound) {
-                slotFound.label = slot?.label;
-                slotFound.type = slot?.type;
-                slotFound.canAcceptMultipleColumns = slot?.canAcceptMultipleColumns;
-              }
-              else {
-                slots.push(slot);
-              }
-            });
-          }
-
-          this.chartType = data?.generatedChart?.type;
-          this.slots = slots ?? [];
-
-          const type = data?.generatedChart?.type;
-          if (type) {
-            const chartName = CHARTS().find((chart) => chart.type === type)?.name ?? 'Column chart';
-            this.chartService.updateType(this.chartType);
-            this.chartService.updateName(chartName);
-          }
-          if (slots) {
-            this.chartService.updateSlots(this.slots);
-          }
-          this._status.generating = false;
-          this._status.generated = true;
+    
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const data = await firstValueFrom(this.dataService.generateChart(this.question));
+        
+        const chartType = data?.generatedChart?.type;
+        const slots = data?.generatedChart?.slots;
+        
+        if (!chartType || !slots?.length) {
+          throw new Error('Invalid chart data received');
+        }
+        
+        this.chartType = chartType;
+        this.slots = slots;
+        
+        await this.chartService.updateType(chartType);
+        const chartName = chartType.charAt(0).toUpperCase() + chartType.slice(1).replace(/[-_]/g, ' ');
+        this.chartService.updateName(chartName);
+        await this.chartService.updateSlots(slots);
+        
+        this._status = { generating: false, generated: true, error: false, errorMessage: '' };
+        this.status.emit(this._status);
+        return;
+        
+      } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error);
+        if (attempt === 2) {
+          this._status = { generating: false, generated: false, error: true, errorMessage: 'An unexpected error occurred, please try again later' };
           this.status.emit(this._status);
-        })
-      )
-      .subscribe();
+        }
+      }
+    }
   }
 }

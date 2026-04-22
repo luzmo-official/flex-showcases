@@ -1,12 +1,10 @@
-import { VizItemType } from "@luzmo/ngx-embed";
-import { Slot } from "@luzmo/dashboard-contents-types";
+import type { VizItemType, VizItemSlot, VizItemOptions, ItemFilterGroup } from "@luzmo/ngx-embed";
 
 export type Chart = {
   type: VizItemType,
   name: string;
   icon: string;
-  fixedOptions?: any;
-  settings: any;
-  slots: Slot[];
-  filters?: any[];
+  options: VizItemOptions;
+  slots: VizItemSlot[];
+  filters?: ItemFilterGroup[];
 }

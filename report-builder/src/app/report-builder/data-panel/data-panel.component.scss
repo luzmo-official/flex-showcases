@@ -1,30 +1,25 @@
 .data-panel-content {
   width: 18rem;
-  padding: 1rem;
-  &.collapsed {
-    width: 4rem;
-    padding: .5rem;
-  }
-}
-.column-item {
-  cursor: move;
-  opacity: 0.8;
-  &:hover {
-    opacity: 1;
-  }
-}
-.rotated {
-  transform: rotate(-90deg);
-}
-.flipped-horizontal {
-  transform: rotate(180deg);
+  padding: 0.75rem;
+  height: 100%;
+  max-height: calc(100vh - 64px); /* Account for header height */
+  overflow-y: auto;
 }
 
-::ng-deep .mdc-notched-outline__notch {
-  border-right: none !important;
-}
-
-.column-list {
-  overflow-y: scroll;
-  max-height: 75vh;
+/* Style the Luzmo Data Field Panel */
+luzmo-data-field-panel {
+  
+  /* Dataset picker styling */
+  --luzmo-data-field-panel-dataset-picker-padding-block-end: 12px;
+  --luzmo-data-field-panel-dataset-picker-margin-block-end: 12px;
+  
+  /* Search input styling */
+  --luzmo-data-field-panel-search-margin-block-end: 12px;
+  --luzmo-data-field-panel-search-edge-to-visual: 8px;
+  --luzmo-data-field-panel-search-text-to-icon: 8px;
+  
+  /* Custom scrollbar with neutral colors */
+  --luzmo-data-field-panel-scrollbar-track-background: rgba(0, 0, 0, 0.05);
+  --luzmo-data-field-panel-scrollbar-thumb-background: rgba(0, 0, 0, 0.2);
+  --luzmo-data-field-panel-scrollbar-thumb-hover-background: rgba(0, 0, 0, 0.3);
 }
