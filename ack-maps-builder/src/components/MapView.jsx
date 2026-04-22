@@ -14,7 +14,7 @@ export default function MapView({ auth, mapSlots, onFiltersChanged }) {
     const el = vizRef.current;
     if (!el) return;
 
-    el.type = 'drill-thru-map';
+    el.type = 'drill-thru-map-2';
     el.slots = mapSlots;
     el.canFilter = 'all';
     el.authKey = auth.authKey;

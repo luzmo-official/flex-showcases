@@ -48,28 +48,20 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
     const el = pickerRef.current;
     if (!el || !item) return;
 
-    const sync = () => {
-      el.itemType = item.type;
-      if (slotsConfig) el.slotsConfiguration = slotsConfig;
-      el.slotsContents = item.slots || [];
-      el.datasetIds = datasetIds;
-      el.language = 'en';
-      el.contentLanguage = 'en';
-      el.size = 's';
-      el.datasetPicker = true;
-      el.grows = true;
-      el.theme = panelTheme;
-      el.apiUrl = apiHost;
-      el.appServer = appServer;
-      el.authKey = authKey;
-      el.authToken = authToken;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.itemType = item.type;
+    if (slotsConfig) el.slotsConfiguration = slotsConfig;
+    el.slotsContents = item.slots || [];
+    el.datasetIds = datasetIds;
+    el.language = 'en';
+    el.contentLanguage = 'en';
+    el.size = 's';
+    el.datasetPicker = true;
+    el.grows = true;
+    el.theme = panelTheme;
+    el.apiUrl = apiHost;
+    el.appServer = appServer;
+    el.authKey = authKey;
+    el.authToken = authToken;
   }, [item?.slots, item?.type, slotsConfig, datasetIds, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Sync item-option-panel properties via JS
@@ -77,24 +69,16 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
     const el = editRef.current;
     if (!el || !item) return;
 
-    const sync = () => {
-      el.itemType = item.type;
-      el.options = item.options || {};
-      el.slots = item.slots || [];
-      el.language = 'en';
-      el.size = 's';
-      el.theme = panelTheme;
-      el.apiUrl = apiHost;
-      el.appServer = appServer;
-      el.authKey = authKey;
-      el.authToken = authToken;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.itemType = item.type;
+    el.options = item.options || {};
+    el.slots = item.slots || [];
+    el.language = 'en';
+    el.size = 's';
+    el.theme = panelTheme;
+    el.apiUrl = apiHost;
+    el.appServer = appServer;
+    el.authKey = authKey;
+    el.authToken = authToken;
   }, [item?.options, item?.slots, item?.type, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Sync filter properties via JS
@@ -102,23 +86,15 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
     const el = filtersRef.current;
     if (!el || !item) return;
 
-    const sync = () => {
-      el.filters = item.filters || [];
-      el.datasetIds = datasetIds;
-      el.language = 'en';
-      el.size = 's';
-      el.theme = panelTheme;
-      el.apiUrl = apiHost;
-      el.appServer = appServer;
-      el.authKey = authKey;
-      el.authToken = authToken;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.filters = item.filters || [];
+    el.datasetIds = datasetIds;
+    el.language = 'en';
+    el.size = 's';
+    el.theme = panelTheme;
+    el.apiUrl = apiHost;
+    el.appServer = appServer;
+    el.authKey = authKey;
+    el.authToken = authToken;
   }, [item?.filters, item?.type, datasetIds, panelTheme, apiHost, appServer, authKey, authToken]);
 
   // Event listeners
@@ -142,7 +118,9 @@ export default function ChartConfigPanel({ item, auth, geoContext, onSlotsChange
     };
 
     const handleFiltersChanged = (e) => {
+      console.log('[ChartConfigPanel] luzmo-filters-changed event detail:', e.detail);
       const filterGroups = e.detail?.filters;
+      console.log('[ChartConfigPanel] filterGroups:', filterGroups, 'item:', item?.id);
       if (filterGroups && item) {
         onFiltersChange(item.id, filterGroups);
       }

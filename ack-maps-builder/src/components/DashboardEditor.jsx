@@ -67,24 +67,16 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
     const el = gridRef.current;
     if (!el) return;
 
-    const sync = () => {
-      el.items = mergedItems;
-      el.theme = gridTheme;
-      el.appServer = appServer;
-      el.apiHost = apiHost;
-      el.authKey = authKey;
-      el.authToken = authToken;
-      el.language = 'en';
-      el.contentLanguage = 'en';
-      el.columns = 48;
-      el.rowHeight = 16;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.items = mergedItems;
+    el.theme = gridTheme;
+    el.appServer = appServer;
+    el.apiHost = apiHost;
+    el.authKey = authKey;
+    el.authToken = authToken;
+    el.language = 'en';
+    el.contentLanguage = 'en';
+    el.columns = 48;
+    el.rowHeight = 16;
   }, [mergedItems, gridTheme, appServer, apiHost, authKey, authToken]);
 
   // Grid event listeners
@@ -93,26 +85,28 @@ export default function DashboardEditor({ dashboard, auth, geoContext, mapFilter
     if (!el) return;
 
     const handleChanged = (e) => {
-      const gridItems = e.detail?.updatedItems;
+      const gridItems = e.detail?.items;
       if (gridItems) syncPositions(gridItems);
     };
 
     const handleAction = (e) => {
-      const { action, item, updatedItems } = e.detail || {};
+      console.log('[DashboardEditor] grid action event detail:', JSON.stringify(e.detail, (k, v) => v instanceof HTMLElement ? '<HTMLElement>' : v));
+      const { action, id, deletedId } = e.detail || {};
+      console.log('[DashboardEditor] action=%s id=%s deletedId=%s', action, id, deletedId);
       if (action === 'edit-data' || action === 'item-options') {
-        setSelectedItemId(item?.id);
+        setSelectedItemId(id);
       } else if (action === 'delete') {
-        removeItem(item?.id);
+        removeItem(deletedId || id);
       } else if (action === 'clone') {
-        cloneItem(item?.id);
+        cloneItem(id);
       }
     };
 
-    el.addEventListener('luzmo-item-grid-layout-changed', handleChanged);
+    el.addEventListener('luzmo-item-grid-changed', handleChanged);
     el.addEventListener('luzmo-item-grid-item-action', handleAction);
 
     return () => {
-      el.removeEventListener('luzmo-item-grid-layout-changed', handleChanged);
+      el.removeEventListener('luzmo-item-grid-changed', handleChanged);
       el.removeEventListener('luzmo-item-grid-item-action', handleAction);
     };
   }, [syncPositions, setSelectedItemId, removeItem, cloneItem]);

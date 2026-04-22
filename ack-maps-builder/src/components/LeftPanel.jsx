@@ -58,48 +58,32 @@ export default function LeftPanel({ luzmoData, auth }) {
     const el = fieldsRef.current;
     if (!el) return;
 
-    const sync = () => {
-      el.language = 'en';
-      el.contentLanguage = 'en';
-      el.size = 's';
-      el.datasetPicker = true;
-      el.grows = true;
-      el.theme = panelTheme;
-      el.apiUrl = apiHost;
-      el.authKey = authKey;
-      el.authToken = authToken;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.language = 'en';
+    el.contentLanguage = 'en';
+    el.size = 's';
+    el.datasetPicker = true;
+    el.grows = true;
+    el.theme = panelTheme;
+    el.apiUrl = apiHost;
+    el.authKey = authKey;
+    el.authToken = authToken;
   }, [apiHost, authKey, authToken, panelTheme]);
 
   useEffect(() => {
     const el = dropRef.current;
     if (!el) return;
 
-    const sync = () => {
-      el.itemType = 'drill-thru-map';
-      el.slotsConfiguration = DRILL_THRU_MAP_SLOTS;
-      el.slotsContents = mapSlots;
-      el.language = 'en';
-      el.contentLanguage = 'en';
-      el.size = 's';
-      el.theme = panelTheme;
-      el.apiUrl = apiHost;
-      el.appServer = appServer;
-      el.authKey = authKey;
-      el.authToken = authToken;
-    };
-
-    if (el.updateComplete) {
-      el.updateComplete.then(sync);
-    } else {
-      sync();
-    }
+    el.itemType = 'drill-thru-map-2';
+    el.slotsConfiguration = DRILL_THRU_MAP_SLOTS;
+    el.slotsContents = mapSlots;
+    el.language = 'en';
+    el.contentLanguage = 'en';
+    el.size = 's';
+    el.theme = panelTheme;
+    el.apiUrl = apiHost;
+    el.appServer = appServer;
+    el.authKey = authKey;
+    el.authToken = authToken;
   }, [mapSlots, apiHost, appServer, authKey, authToken, panelTheme]);
 
   useEffect(() => {
