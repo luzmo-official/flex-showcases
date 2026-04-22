@@ -7,16 +7,15 @@ import { STORAGE_PROVIDERS } from './shared/services/storage.service';
 import { WindowToken, windowProvider } from './shared/services/window';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports: [RouterModule, MatSidenavModule, MatIconModule],
-  providers: [
-    LocationService,
-    STORAGE_PROVIDERS,
-    { provide: WindowToken, useFactory: windowProvider },
-  ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    imports: [RouterModule, MatSidenavModule, MatIconModule],
+    providers: [
+        LocationService,
+        STORAGE_PROVIDERS,
+        { provide: WindowToken, useFactory: windowProvider },
+    ]
 })
 export class AppComponent {
   title = 'Luzmo Angular Examples';

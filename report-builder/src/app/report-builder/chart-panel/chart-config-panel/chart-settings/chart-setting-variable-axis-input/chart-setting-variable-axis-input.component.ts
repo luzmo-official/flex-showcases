@@ -4,11 +4,10 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-chart-setting-variable-axis-input',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule],
-  templateUrl: './chart-setting-variable-axis-input.component.html',
-  styleUrl: './chart-setting-variable-axis-input.component.scss'
+    selector: 'app-chart-setting-variable-axis-input',
+    imports: [MatFormFieldModule, MatInputModule, FormsModule],
+    templateUrl: './chart-setting-variable-axis-input.component.html',
+    styleUrl: './chart-setting-variable-axis-input.component.scss'
 })
 export class ChartSettingVariableAxisInputComponent {
   label = input<string>();

@@ -3,11 +3,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-chart-setting-dropdown',
-  standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule],
-  templateUrl: './chart-setting-dropdown.component.html',
-  styleUrl: './chart-setting-dropdown.component.scss'
+    selector: 'app-chart-setting-dropdown',
+    imports: [MatFormFieldModule, MatSelectModule],
+    templateUrl: './chart-setting-dropdown.component.html',
+    styleUrl: './chart-setting-dropdown.component.scss'
 })
 export class ChartSettingDropdownComponent implements OnInit{
   label = input<string>();

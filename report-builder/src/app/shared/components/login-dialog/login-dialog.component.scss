@@ -5,7 +5,7 @@ input:disabled {
 }
 
 .link {
-  color: var(--mdc-outlined-button-label-text-color);
+  color: var(--mat-button-outlined-label-text-color);
 }
 
 .login-text {
@@ -35,7 +35,7 @@ input:disabled {
     border-bottom: 2px solid transparent;
     &.active {
       color: var(--font-color) !important;
-      border-bottom: 2px solid var(--mdc-outlined-button-label-text-color);
+      border-bottom: 2px solid var(--mat-button-outlined-label-text-color);
     }
   }
 }

@@ -8,11 +8,10 @@ import { ChartPickerComponent } from './chart-picker/chart-picker.component';
 import { AiChartInputComponent } from './ai-chart-input/ai-chart-input.component';
 
 @Component({
-  selector: 'app-chart-config-panel',
-  standalone: true,
-  imports: [JsonPipe, MatIconModule, ChartPickerComponent, ChartSettingsComponent, SlotsDisplayComponent, AiChartInputComponent, MatTooltipModule],
-  templateUrl: './chart-config-panel.component.html',
-  styleUrl: './chart-config-panel.component.scss'
+    selector: 'app-chart-config-panel',
+    imports: [JsonPipe, MatIconModule, ChartPickerComponent, ChartSettingsComponent, SlotsDisplayComponent, AiChartInputComponent, MatTooltipModule],
+    templateUrl: './chart-config-panel.component.html',
+    styleUrl: './chart-config-panel.component.scss'
 })
 export class ChartConfigPanelComponent {
   mode: string = 'slots';

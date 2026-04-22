@@ -12,11 +12,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Chart } from '../shared/models/models';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule, MatInputModule, FormsModule, MatMenuModule, MatDividerModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+    selector: 'app-header',
+    imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule, MatInputModule, FormsModule, MatMenuModule, MatDividerModule],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   private readonly localStorage = inject<Storage>(LocalStorage);

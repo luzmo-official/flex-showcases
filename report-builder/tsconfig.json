@@ -13,22 +13,26 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "skipLibCheck": true,
     "paths": {
-      "process": ["./node_modules/process"],
-      "buffer": ["./node_modules/buffer"],
-      "path": ["./node_modules/path-browserify"],
+      "process": [
+        "./node_modules/process"
+      ],
+      "buffer": [
+        "./node_modules/buffer"
+      ],
+      "path": [
+        "./node_modules/path-browserify"
+      ]
     },
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

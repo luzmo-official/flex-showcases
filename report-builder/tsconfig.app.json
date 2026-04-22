@@ -11,7 +11,7 @@
     "sourceMap": false,
     "declaration": false,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,

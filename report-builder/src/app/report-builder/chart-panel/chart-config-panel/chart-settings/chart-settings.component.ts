@@ -16,23 +16,22 @@ import { ChartSettingColorsComponent } from './chart-setting-colors/chart-settin
 import { ChartSettingColorPaletteComponent } from './chart-setting-color-palette/chart-setting-color-palette.component';
 
 @Component({
-  selector: 'app-chart-settings',
-  standalone: true,
-  imports: [
-    JsonPipe,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ChartSettingCheckboxComponent,
-    ChartSettingDropdownComponent,
-    ChartSettingVariableAxisInputComponent,
-    ChartSettingTextInputComponent,
-    ChartSettingColorsComponent,
-    ChartSettingColorPaletteComponent,
-  ],
-  templateUrl: './chart-settings.component.html',
-  styleUrl: './chart-settings.component.scss',
+    selector: 'app-chart-settings',
+    imports: [
+        JsonPipe,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ChartSettingCheckboxComponent,
+        ChartSettingDropdownComponent,
+        ChartSettingVariableAxisInputComponent,
+        ChartSettingTextInputComponent,
+        ChartSettingColorsComponent,
+        ChartSettingColorPaletteComponent,
+    ],
+    templateUrl: './chart-settings.component.html',
+    styleUrl: './chart-settings.component.scss'
 })
 export class ChartSettingsComponent {
   private readonly chartService = inject(ChartService);

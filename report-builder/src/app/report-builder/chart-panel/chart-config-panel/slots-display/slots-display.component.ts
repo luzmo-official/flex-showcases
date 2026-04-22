@@ -11,11 +11,10 @@ import { COLUMN_TYPE_ICONS } from '../../../shared/constants/charts.constant';
 import { GenericSlotContent, Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
-  selector: 'app-slots-display',
-  standalone: true,
-  imports: [MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup],
-  templateUrl: './slots-display.component.html',
-  styleUrl: './slots-display.component.scss'
+    selector: 'app-slots-display',
+    imports: [MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup],
+    templateUrl: './slots-display.component.html',
+    styleUrl: './slots-display.component.scss'
 })
 export class SlotsDisplayComponent {
   readonly chartService = inject(ChartService);

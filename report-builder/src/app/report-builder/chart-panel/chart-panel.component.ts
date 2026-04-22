@@ -5,11 +5,10 @@ import { ChartConfigPanelComponent } from './chart-config-panel/chart-config-pan
 import { ChartService } from '../shared/services/chart.service';
 
 @Component({
-  selector: 'app-chart-panel',
-  standalone: true,
-  imports: [MatTabsModule, FiltersPanelComponent, ChartConfigPanelComponent],
-  templateUrl: './chart-panel.component.html',
-  styleUrl: './chart-panel.component.scss',
+    selector: 'app-chart-panel',
+    imports: [MatTabsModule, FiltersPanelComponent, ChartConfigPanelComponent],
+    templateUrl: './chart-panel.component.html',
+    styleUrl: './chart-panel.component.scss'
 })
 export class ChartPanelComponent {
   readonly chartService = inject(ChartService);

@@ -15,11 +15,10 @@ import { ItemType } from '@luzmo/ngx-embed';
 import { Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
-  selector: 'app-ai-chart',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatProgressBarModule, SlotsDisplayComponent, ChartPickerComponent],
-  templateUrl: './ai-chart-input.component.html',
-  styleUrl: './ai-chart-input.component.scss'
+    selector: 'app-ai-chart',
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatProgressBarModule, SlotsDisplayComponent, ChartPickerComponent],
+    templateUrl: './ai-chart-input.component.html',
+    styleUrl: './ai-chart-input.component.scss'
 })
 export class AiChartInputComponent {
   private dataService = inject(DataService);
