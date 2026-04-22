@@ -1,8 +1,8 @@
-import { ItemType } from "@luzmo/ngx-embed";
+import { VizItemType } from "@luzmo/ngx-embed";
 import { Slot } from "@luzmo/dashboard-contents-types";
 
 export type Chart = {
-  type: ItemType,
+  type: VizItemType,
   name: string;
   icon: string;
   fixedOptions?: any;

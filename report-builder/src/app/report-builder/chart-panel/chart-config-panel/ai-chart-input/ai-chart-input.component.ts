@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 import { CHARTS } from '../../../shared/constants/charts.constant';
 import { SlotsDisplayComponent } from '../slots-display/slots-display.component';
 import { ChartPickerComponent } from '../chart-picker/chart-picker.component';
-import { ItemType } from '@luzmo/ngx-embed';
+import { VizItemType } from '@luzmo/ngx-embed';
 import { Slot } from '@luzmo/dashboard-contents-types';
 
 @Component({
@@ -27,7 +27,7 @@ export class AiChartInputComponent {
   status = output<any>();
 
   question!: string;
-  chartType!: ItemType;
+  chartType!: VizItemType;
   slots: any = [];
   _status = {
     generating: false,
