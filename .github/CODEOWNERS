@@ -1,0 +1,27 @@
+# CODEOWNERS for luzmo-official/showcases
+#
+# Code owners are inferred from each top-level showcase directory's
+# commit history (creator and/or most active contributor). When a PR
+# touches one of these paths, the listed owner(s) will automatically
+# be requested for review.
+#
+# Format reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+/ack-maps-builder/        @aadilmufti
+/block-type-editor/       @YannickCrabbe
+/cfo-cockpit/             @fxcardi
+/custom-chart-example/    @YannickCrabbe
+/dashboard-filter-panel/  @jctello
+/dashboard-to-flex-grid/  @jasper-product
+/devops-command/          @YannickCrabbe @akramdhiabitn
+/euro2024/                @YannickCrabbe
+/fifa2026/                @jctello
+/flexcalidraw/            @joost-stessens
+/guided-chart-creator/    @steven-orant
+/newspaper/               @YannickCrabbe
+/pivot-dataing-app/       @vandeloocarmen
+/report-builder/          @joost-stessens
+/sales-compass/           @YannickCrabbe
+/sustain-iq/              @vandeloocarmen
+/the-constructor/         @vandeloocarmen
+/wearables-dashboard/     @joost-stessens
