@@ -15,20 +15,19 @@ import { switchMap, map, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'app-per-country',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgClass,
-    MatIconModule,
-    MatMenuModule,
-    HeadToHeadCountriesOffenseComponent,
-    HeadToHeadCountriesDefenseComponent,
-    HeadToHeadCountriesKeeperComponent,
-    HeadToHeadCountriesTeamComponent
-  ],
-  templateUrl: './country-vs-country.component.html',
-  styleUrl: './country-vs-country.component.scss',
+    selector: 'app-per-country',
+    imports: [
+        RouterLink,
+        NgClass,
+        MatIconModule,
+        MatMenuModule,
+        HeadToHeadCountriesOffenseComponent,
+        HeadToHeadCountriesDefenseComponent,
+        HeadToHeadCountriesKeeperComponent,
+        HeadToHeadCountriesTeamComponent
+    ],
+    templateUrl: './country-vs-country.component.html',
+    styleUrl: './country-vs-country.component.scss'
 })
 export class CountryVsCountryComponent {
   private readonly route = inject(ActivatedRoute);

@@ -14,11 +14,10 @@ import { MetricSelectorComponent } from '../../shared/components/metric-selector
 import { NumberMetricsComponent } from '../../shared/components/number-metrics/number-metrics.component';
 
 @Component({
-  selector: 'app-head-to-head-countries-team',
-  standalone: true,
-  imports: [MetricSelectorComponent, NumberMetricsComponent],
-  templateUrl: './head-to-head-countries-team.component.html',
-  styleUrl: './head-to-head-countries-team.component.scss',
+    selector: 'app-head-to-head-countries-team',
+    imports: [MetricSelectorComponent, NumberMetricsComponent],
+    templateUrl: './head-to-head-countries-team.component.html',
+    styleUrl: './head-to-head-countries-team.component.scss'
 })
 export class HeadToHeadCountriesTeamComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);

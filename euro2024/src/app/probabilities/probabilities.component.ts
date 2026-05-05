@@ -22,18 +22,17 @@ import { DataService } from '../shared/services/data.service';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-probabilities',
-  standalone: true,
-  imports: [
-    NgClass,
-    NgxLuzmoVizItemComponent,
-    MatIconModule,
-    MatMenuModule,
-    MatSliderModule,
-    MatButtonModule
-  ],
-  templateUrl: './probabilities.component.html',
-  styleUrl: './probabilities.component.scss',
+    selector: 'app-probabilities',
+    imports: [
+        NgClass,
+        NgxLuzmoVizItemComponent,
+        MatIconModule,
+        MatMenuModule,
+        MatSliderModule,
+        MatButtonModule
+    ],
+    templateUrl: './probabilities.component.html',
+    styleUrl: './probabilities.component.scss'
 })
 export class ProbabilitiesComponent implements OnInit {
   private readonly authService = inject(AuthService);
