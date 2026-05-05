@@ -12,20 +12,19 @@ import { CountryStatsOffenseComponent } from './country-stats-offense/country-st
 import { CountryStatsKeeperComponent } from './country-stats-keeper/country-stats-keeper.component';
 
 @Component({
-  selector: 'app-per-country',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgClass,
-    MatIconModule,
-    MatMenuModule,
-    CountryStatsDefenseComponent,
-    CountryStatsOffenseComponent,
-    CountryStatsKeeperComponent,
-    CountryStatsTeamComponent
-  ],
-  templateUrl: './country-stats.component.html',
-  styleUrl: './country-stats.component.scss',
+    selector: 'app-per-country',
+    imports: [
+        RouterLink,
+        NgClass,
+        MatIconModule,
+        MatMenuModule,
+        CountryStatsDefenseComponent,
+        CountryStatsOffenseComponent,
+        CountryStatsKeeperComponent,
+        CountryStatsTeamComponent
+    ],
+    templateUrl: './country-stats.component.html',
+    styleUrl: './country-stats.component.scss'
 })
 export class CountryStatsComponent {
   private readonly route = inject(ActivatedRoute);

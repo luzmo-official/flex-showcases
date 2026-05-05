@@ -10,11 +10,10 @@ import { MetricSelectorComponent } from '../../shared/components/metric-selector
 import { NumberMetricsComponent } from '../../shared/components/number-metrics/number-metrics.component';
 
 @Component({
-  selector: 'app-head-to-head-countries-defense',
-  standalone: true,
-  imports: [MetricSelectorComponent, NumberMetricsComponent],
-  templateUrl: './head-to-head-countries-defense.component.html',
-  styleUrl: './head-to-head-countries-defense.component.scss',
+    selector: 'app-head-to-head-countries-defense',
+    imports: [MetricSelectorComponent, NumberMetricsComponent],
+    templateUrl: './head-to-head-countries-defense.component.html',
+    styleUrl: './head-to-head-countries-defense.component.scss'
 })
 export class HeadToHeadCountriesDefenseComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);

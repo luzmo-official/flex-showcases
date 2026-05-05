@@ -12,11 +12,10 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-metric-selector',
-  standalone: true,
-  imports: [NgxLuzmoVizItemComponent, MatMenuModule, MatSelectModule, MatIconModule],
-  templateUrl: './metric-selector.component.html',
-  styleUrl: './metric-selector.component.scss'
+    selector: 'app-metric-selector',
+    imports: [NgxLuzmoVizItemComponent, MatMenuModule, MatSelectModule, MatIconModule],
+    templateUrl: './metric-selector.component.html',
+    styleUrl: './metric-selector.component.scss'
 })
 export class MetricSelectorComponent implements OnInit{
   private readonly authService = inject(AuthService);

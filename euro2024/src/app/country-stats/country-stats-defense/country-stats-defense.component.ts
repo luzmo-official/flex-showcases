@@ -10,11 +10,10 @@ import { MetricSelectorComponent } from '../../shared/components/metric-selector
 import { NumberMetricsComponent } from '../../shared/components/number-metrics/number-metrics.component';
 
 @Component({
-  selector: 'app-country-stats-defense',
-  standalone: true,
-  imports: [MetricSelectorComponent, NumberMetricsComponent],
-  templateUrl: './country-stats-defense.component.html',
-  styleUrl: './country-stats-defense.component.scss',
+    selector: 'app-country-stats-defense',
+    imports: [MetricSelectorComponent, NumberMetricsComponent],
+    templateUrl: './country-stats-defense.component.html',
+    styleUrl: './country-stats-defense.component.scss'
 })
 export class CountryStatsDefenseComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);

@@ -9,11 +9,10 @@ import { DOCUMENT } from '@angular/common';
 import { COUNTRIES } from '../shared/constants/countries.constant';
 
 @Component({
-  selector: 'app-calendar',
-  standalone: true,
-  imports: [NgClass, RouterLink],
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss'
+    selector: 'app-calendar',
+    imports: [NgClass, RouterLink],
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent implements OnInit{
   private readonly dataService = inject(DataService);

@@ -9,11 +9,10 @@ import { LIGHTTHEME, DARKTHEME } from '../../constants/theme.constant';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'app-number-metrics',
-  standalone: true,
-  imports: [NgxLuzmoVizItemComponent],
-  templateUrl: './number-metrics.component.html',
-  styleUrl: './number-metrics.component.scss'
+    selector: 'app-number-metrics',
+    imports: [NgxLuzmoVizItemComponent],
+    templateUrl: './number-metrics.component.html',
+    styleUrl: './number-metrics.component.scss'
 })
 export class NumberMetricsComponent implements OnChanges {
   private readonly authService = inject(AuthService);
