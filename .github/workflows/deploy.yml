@@ -14,43 +14,124 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Detect changed showcases
+    runs-on: ubuntu-latest
+    outputs:
+      dashboard_filter_panel: ${{ steps.filter.outputs.dashboard_filter_panel }}
+      report_builder: ${{ steps.filter.outputs.report_builder }}
+      wearables_dashboard: ${{ steps.filter.outputs.wearables_dashboard }}
+      newspaper: ${{ steps.filter.outputs.newspaper }}
+      dashboard_to_flex_grid: ${{ steps.filter.outputs.dashboard_to_flex_grid }}
+      fifa2026: ${{ steps.filter.outputs.fifa2026 }}
+      the_constructor: ${{ steps.filter.outputs.the_constructor }}
+      devops_command: ${{ steps.filter.outputs.devops_command }}
+      euro2024: ${{ steps.filter.outputs.euro2024 }}
+      cfo_cockpit: ${{ steps.filter.outputs.cfo_cockpit }}
+      block_type_editor: ${{ steps.filter.outputs.block_type_editor }}
+      guided_chart_creator: ${{ steps.filter.outputs.guided_chart_creator }}
+      flexcalidraw: ${{ steps.filter.outputs.flexcalidraw }}
+      ack_maps_builder: ${{ steps.filter.outputs.ack_maps_builder }}
+      sustain_iq: ${{ steps.filter.outputs.sustain_iq }}
+      workflow: ${{ steps.filter.outputs.workflow }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute path changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            workflow:
+              - '.github/workflows/deploy.yml'
+            dashboard_filter_panel:
+              - 'dashboard-filter-panel/**'
+            report_builder:
+              - 'report-builder/**'
+            wearables_dashboard:
+              - 'wearables-dashboard/**'
+            newspaper:
+              - 'newspaper/**'
+            dashboard_to_flex_grid:
+              - 'dashboard-to-flex-grid/**'
+            fifa2026:
+              - 'fifa2026/**'
+            the_constructor:
+              - 'the-constructor/**'
+            devops_command:
+              - 'devops-command/**'
+            euro2024:
+              - 'euro2024/**'
+            cfo_cockpit:
+              - 'cfo-cockpit/**'
+            block_type_editor:
+              - 'block-type-editor/**'
+            guided_chart_creator:
+              - 'guided-chart-creator/**'
+            flexcalidraw:
+              - 'flexcalidraw/**'
+            ack_maps_builder:
+              - 'ack-maps-builder/**'
+            sustain_iq:
+              - 'sustain-iq/**'
+
   Build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    needs: changes
     strategy:
       fail-fast: false
       matrix:
         include:
           - name: dashboard-filter-panel
+            changeKey: dashboard_filter_panel
             outputFolder: dist/dashboard-filter-panel/browser/
           - name: report-builder
+            changeKey: report_builder
             outputFolder: dist/report-builder/browser/
           - name: wearables-dashboard
+            changeKey: wearables_dashboard
             outputFolder: dist/
           - name: newspaper
+            changeKey: newspaper
             outputFolder: dist/newspaper/browser/
           - name: dashboard-to-flex-grid
+            changeKey: dashboard_to_flex_grid
             outputFolder: dist/
           - name: fifa2026
+            changeKey: fifa2026
             outputFolder: dist/
           - name: the-constructor
+            changeKey: the_constructor
             outputFolder: dist/
           - name: devops-command
+            changeKey: devops_command
             outputFolder: frontend/dist/devops-command/browser/
           - name: euro2024
+            changeKey: euro2024
             outputFolder: dist/euro2024-showcase/browser/
           - name: cfo-cockpit
+            changeKey: cfo_cockpit
             outputFolder: dist/cfo-angular-product/browser/
           - name: block-type-editor
+            changeKey: block_type_editor
             outputFolder: dist/
           - name: guided-chart-creator
+            changeKey: guided_chart_creator
             outputFolder: out/
           - name: flexcalidraw
+            changeKey: flexcalidraw
             outputFolder: excalidraw-app/build/
           - name: ack-maps-builder
+            changeKey: ack_maps_builder
             outputFolder: dist/
           - name: sustain-iq
+            changeKey: sustain_iq
             outputFolder: dist/
+    if: ${{ needs.changes.outputs.workflow == 'true' || needs.changes.outputs[matrix.changeKey] == 'true' }}
 
     steps:
       - name: Checkout
