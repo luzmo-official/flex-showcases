@@ -1,0 +1,16 @@
+/* ============================================
+   Luzmo Item Slot Drop Panel Styling
+   ============================================ */
+
+luzmo-item-slot-drop-panel {
+  display: block;
+  margin-top: var(--luzmo-spacing-3);
+  
+  /* Panel layout */
+  --luzmo-item-slot-drop-height: var(--luzmo-component-height-l);
+  
+  /* Drag-accept state */
+  --luzmo-item-slot-drop-accept-drag-background-color: rgba(var(--luzmo-primary-rgb), 0.08);
+  --luzmo-item-slot-drop-accept-drag-border-color: rgba(var(--luzmo-primary-rgb), 0.5);
+  --luzmo-item-slot-drop-accept-drag-font-color: var(--luzmo-primary);
+}

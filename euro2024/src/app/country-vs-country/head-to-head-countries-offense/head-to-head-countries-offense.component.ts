@@ -12,11 +12,10 @@ import { MetricSelectorComponent } from '../../shared/components/metric-selector
 import { NumberMetricsComponent } from '../../shared/components/number-metrics/number-metrics.component';
 
 @Component({
-  selector: 'app-head-to-head-countries-offense',
-  standalone: true,
-  imports: [MetricSelectorComponent, NumberMetricsComponent],
-  templateUrl: './head-to-head-countries-offense.component.html',
-  styleUrl: './head-to-head-countries-offense.component.scss',
+    selector: 'app-head-to-head-countries-offense',
+    imports: [MetricSelectorComponent, NumberMetricsComponent],
+    templateUrl: './head-to-head-countries-offense.component.html',
+    styleUrl: './head-to-head-countries-offense.component.scss'
 })
 export class HeadToHeadCountriesOffenseComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);

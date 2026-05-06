@@ -14,7 +14,7 @@
   </button>
 </div>
 <div
-  style="height: 40vh; max-width: 80rem"
+  style="height: 40vh; min-width: 20rem; min-height: 15rem;"
   class="flex justify-center w-full p-5"
 >
   <!-- Remove $any when dashboard-content-schema has correct types for slot.  -->
@@ -26,7 +26,7 @@
     [type]="chartService.type()"
     [options]="chartService.options()"
     [slots]="$any(chartService.slots())"
-    [filters]="chartService.filtersForFlexChart()"
+    [filters]="chartService.filters()"
   >
   </luzmo-viz-item>
 </div>
@@ -52,7 +52,7 @@
       [type]="chartService.tableType()"
       [authKey]="authKey"
       [authToken]="authToken"
-      [filters]="chartService.filtersForFlexChart()"
+      [filters]="chartService.filters()"
       [options]="tableOptions"
       [slots]="$any(chartService.tableSlots())"
     ></luzmo-viz-item>

@@ -5,24 +5,30 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:ci": "npx ng build --configuration=ci --base-href=/euro2024/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:euro2024-showcase": "node dist/euro2024-showcase/server/server.mjs"
   },
   "private": true,
+  "overrides": {
+    "serialize-javascript": "7.0.5",
+    "tar": "7.5.13",
+    "uuid": "14.0.0"
+  },
   "dependencies": {
-    "@angular/animations": "^18.0.1",
+    "@angular/animations": "^19.2.21",
     "@angular/cdk": "^18.0.1",
-    "@angular/common": "^18.0.1",
-    "@angular/compiler": "^18.0.1",
-    "@angular/core": "^18.0.1",
-    "@angular/forms": "^18.0.1",
+    "@angular/common": "^19.2.21",
+    "@angular/compiler": "^19.2.21",
+    "@angular/core": "^19.2.21",
+    "@angular/forms": "^19.2.21",
     "@angular/material": "^18.0.1",
-    "@angular/platform-browser": "^18.0.1",
-    "@angular/platform-browser-dynamic": "^18.0.1",
-    "@angular/platform-server": "^18.0.1",
-    "@angular/router": "^18.0.1",
-    "@angular/ssr": "^18.0.2",
+    "@angular/platform-browser": "^19.2.21",
+    "@angular/platform-browser-dynamic": "^19.2.21",
+    "@angular/platform-server": "^19.2.21",
+    "@angular/router": "^19.2.21",
+    "@angular/ssr": "^19.2.25",
     "@luzmo/ngx-embed": "^6.2.0-beta.7",
     "@luzmo/nodejs-sdk": "^1.2.1",
     "dotenv": "^16.4.5",
@@ -32,12 +38,13 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "userflow.js": "^2.12.1",
-    "zone.js": "~0.14.3"
+    "zod": "^4.3.6",
+    "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.0.2",
-    "@angular/cli": "^18.0.2",
-    "@angular/compiler-cli": "^18.0.1",
+    "@angular-devkit/build-angular": "^19.2.25",
+    "@angular/cli": "^19.2.25",
+    "@angular/compiler-cli": "^19.2.21",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
@@ -50,6 +57,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
-    "typescript": "~5.4.2"
+    "typescript": "~5.8.3"
   }
 }

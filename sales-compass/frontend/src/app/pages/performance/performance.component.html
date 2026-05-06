@@ -1,0 +1,146 @@
+<div class="px-4 md:px-8 py-6 bg-surface flex flex-col gap-4 h-full">
+  <!-- Role Tabs and Filters -->
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+    <div class="flex w-full items-center gap-4 overflow-hidden">
+      <luzmo-tabs-overflow>
+        <luzmo-tabs
+          class="flex-1 min-w-0"
+          emphasized
+          quiet
+          direction="horizontal"
+          size="l"
+          [selected]="activeDashboard().id"
+          (change)="onTabChange($event)"
+        >
+          @for (dashboard of availableDashboards; track dashboard.id) {
+            <luzmo-tab
+              class="px-5"
+              [value]="dashboard.id"
+            >
+              {{ dashboard.translationKey ? (dashboard.translationKey | translate) : dashboard.label }}
+            </luzmo-tab>
+          }
+        </luzmo-tabs>
+      </luzmo-tabs-overflow>
+      <luzmo-button
+        class="hidden md:inline-flex"
+        variant="primary"
+        treatment="outline"
+        size="m"
+        no-wrap
+        (click)="navigateToReportBuilder()"
+      >
+        <luzmo-icon
+          slot="icon"
+          [icon]="luzmoPlus"
+        >
+        </luzmo-icon>
+        {{ 'performance.add-custom-dashboard' | translate }}
+      </luzmo-button>
+    </div>
+
+    <div class="flex w-full lg:w-auto items-center justify-end gap-3">
+      @if (activeDashboard().type === 'custom' && globalDashboardEditMode === 'modular-report-builder') {
+        <luzmo-button
+          variant="primary"
+          treatment="outline"
+          size="m"
+          no-wrap
+          (click)="editDashboardInModularReportBuilder(activeDashboard())"
+        >
+          <luzmo-icon
+            slot="icon"
+            [icon]="luzmoEdit"
+          >
+          </luzmo-icon>
+          {{ 'performance.edit-dashboard' | translate }}
+        </luzmo-button>
+      }
+      @if (activeDashboard().type === 'predefined' && globalDashboardEditMode === 'full-ede') {
+        <luzmo-button
+          variant="primary"
+          treatment="outline"
+          size="m"
+          no-wrap
+          (click)="editDashboardInFullEDE(activeDashboard())"
+        >
+          <luzmo-icon
+            slot="icon"
+            [icon]="luzmoEdit"
+          >
+          </luzmo-icon>
+          {{ 'performance.edit-dashboard' | translate }}
+        </luzmo-button>
+      }
+      @if (activeDashboard().type === 'predefined') {
+        <luzmo-button
+          variant="primary"
+          no-wrap
+          size="m"
+          [disabled]="isExporting()"
+          (click)="downloadDashboardAsPDF()"
+        >
+          <luzmo-icon
+            slot="icon"
+            [icon]="luzmoDownload"
+          >
+          </luzmo-icon>
+          {{ isExporting() ? ('performance.downloading' | translate) : ('performance.download-pdf' | translate) }}
+        </luzmo-button>
+      } @else {
+        <div class="flex w-full lg:w-auto items-center justify-end">
+          <luzmo-button
+            variant="negative"
+            no-wrap
+            size="m"
+            (click)="deleteDashboard(activeDashboard())"
+          >
+            <luzmo-icon
+              slot="icon"
+              [icon]="luzmoTrash"
+            >
+            </luzmo-icon>
+            {{ 'performance.delete-dashboard' | translate }}
+          </luzmo-button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="flex-grow">
+    <!-- Predefined Dashboard -->
+    @if (activeDashboard().type === 'predefined') {
+      <luzmo-dashboard
+        #luzmoDashboard
+        class="luzmo-dashboard-component block h-full ml-[-16px] mr-[-16px]"
+        [authKey]="luzmoEmbedCredentials().key"
+        [authToken]="luzmoEmbedCredentials().token"
+        [dashboardId]="globalDashboardEditMode === 'full-ede' ? activeDashboard().edeDashboardId : activeDashboard().dashboardId"
+        [language]="languageService.getCurrentLanguage()"
+        [loaderBackground]="getLuzmoLoaderStyles().loaderBackground"
+        [loaderFontColor]="getLuzmoLoaderStyles().loaderFontColor"
+        [loaderSpinnerColor]="getLuzmoLoaderStyles().loaderSpinnerColor"
+        [mainColor]="getLuzmoLoaderStyles().mainColor"
+        [accentColor]="getLuzmoLoaderStyles().accentColor"
+        [appServer]="environment.luzmoAppServer"
+        [apiHost]="environment.luzmoApiUrl"
+        (customEvent)="onCustomEvent($event)"
+      >
+      </luzmo-dashboard>
+    }
+
+    <!-- Custom Dashboard: Flex items in a Grid -->
+    @if (activeDashboard().type === 'custom' && activeDashboard().customDashboard) {
+      <luzmo-grid
+        [authKey]="luzmoEmbedCredentials().key"
+        [authToken]="luzmoEmbedCredentials().token"
+        [language]="currentLanguage()"
+        [contentLanguage]="currentLanguage()"
+        [theme]="luzmoDashboardTheme"
+        [items]="activeDashboard().customDashboard!.items"
+        [viewMode]="true"
+      >
+      </luzmo-grid>
+    }
+  </div>
+</div>

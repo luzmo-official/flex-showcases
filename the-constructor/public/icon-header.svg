@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Col 1 (2 bricks) -->
+  <rect x="3"  y="35" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="3"  y="49" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.18"/>
+  <!-- Col 2 (3 bricks) -->
+  <rect x="23" y="21" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="23" y="35" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.18"/>
+  <rect x="23" y="49" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.12"/>
+  <!-- Col 3 (4 bricks, orange top) -->
+  <rect x="43" y="7"  width="17" height="12" rx="2" fill="#ff6b2b"/>
+  <rect x="43" y="21" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.18"/>
+  <rect x="43" y="35" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="43" y="49" width="17" height="12" rx="2" fill="#ffffff" fill-opacity="0.18"/>
+</svg>

@@ -1,0 +1,42 @@
+/**
+ * Base Styles
+ * 
+ * Global HTML element styles and reusable component classes.
+ * Uses Tailwind's @apply directive.
+ */
+
+/* Base styles */
+html {
+  @apply h-full;
+}
+
+body {
+  @apply text-default bg-surface h-full m-0 font-poppins;
+  letter-spacing: -0.25px;
+}
+
+/* Typography */
+h1 {
+  @apply text-xl lg:text-2xl text-active mb-6;
+}
+
+h2 {
+  @apply text-lg lg:text-xl text-active mb-4;
+}
+
+/* Component classes */
+.interactive {
+  @apply transition-all duration-[250ms];
+}
+
+.card {
+  @apply bg-surface-raised rounded-lg shadow-sm px-3 py-3 md:px-6 md:py-6;
+}
+
+.pill {
+  @apply px-3 py-1 text-xs rounded-lg bg-primary-600 text-primary-inverse w-fit;
+}
+
+.pill-secondary {
+  @apply px-3 py-1 text-xs rounded-lg bg-secondary-600 text-secondary-inverse w-fit;
+}

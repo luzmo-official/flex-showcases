@@ -1,0 +1,158 @@
+// ============================================================
+// Component Styles
+// ============================================================
+
+// Editor Button Container
+.editor-button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--luzmo-spacing-4);
+  margin: var(--luzmo-spacing-5) 0;
+}
+
+// Summary Cards (Key Metrics)
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(var(--key-metrics-columns, 2), 1fr);
+  gap: var(--luzmo-spacing-5);
+  margin-bottom: calc(var(--luzmo-spacing-5) * 2);
+}
+
+.number-card {
+  border-left: 4px solid var(--luzmo-primary);
+  min-height: 94px;
+}
+
+// Viz Item
+.viz-item-wrapper {
+  position: relative;
+  height: 300px;
+  margin-bottom: var(--luzmo-spacing-5);
+}
+
+// Insights Box
+.insights {
+  background: rgba(var(--luzmo-primary-rgb), 0.1);
+  padding: var(--luzmo-spacing-5);
+  border-left: 4px solid var(--luzmo-primary);
+
+  h3 {
+    margin-top: 0;
+    color: var(--luzmo-primary);
+  }
+}
+
+// Tables
+.table-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--luzmo-spacing-5);
+}
+
+th,
+td {
+  padding: var(--luzmo-spacing-4);
+  text-align: left;
+  border-bottom: 1px solid var(--luzmo-border-color);
+}
+
+th {
+  background-color: var(--luzmo-background-color-highlight);
+  font-weight: 600;
+  color: var(--luzmo-font-color);
+}
+
+td.positive {
+  color: var(--luzmo-positive-color);
+}
+
+td.negative {
+  color: var(--luzmo-negative-color);
+}
+
+tr:hover {
+  background-color: var(--luzmo-background-color-highlight);
+}
+
+// Links
+.web-link {
+  background: var(--luzmo-primary);
+  color: var(--luzmo-primary-inverse-color);
+  padding: var(--luzmo-spacing-4) var(--luzmo-spacing-5);
+  text-decoration: none;
+  border-radius: var(--luzmo-border-radius);
+  display: inline-block;
+}
+
+.mail-link {
+  color: var(--luzmo-primary);
+  text-decoration: none;
+}
+
+// Alignment Utilities
+.align-right {
+  text-align: right;
+}
+
+// ============================================================
+// Responsive — Tablet
+// ============================================================
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: repeat(var(--key-metrics-columns, 2), 1fr);
+    gap: var(--luzmo-spacing-4);
+    margin-bottom: var(--luzmo-spacing-5);
+  }
+
+  .viz-item-wrapper {
+    height: 250px;
+  }
+
+  .insights {
+    padding: var(--luzmo-spacing-4);
+  }
+
+  th,
+  td {
+    padding: var(--luzmo-spacing-3);
+    font-size: var(--luzmo-font-size-s);
+  }
+
+  .web-link {
+    padding: var(--luzmo-spacing-3) var(--luzmo-spacing-4);
+  }
+}
+
+// ============================================================
+// Responsive — Mobile
+// ============================================================
+@media (max-width: 480px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .number-card {
+    min-height: 80px;
+  }
+
+  .viz-item-wrapper {
+    height: 200px;
+  }
+
+  .editor-button-container {
+    gap: var(--luzmo-spacing-3);
+    padding: 0 var(--luzmo-spacing-4);
+  }
+
+  th,
+  td {
+    padding: var(--luzmo-spacing-2);
+    white-space: nowrap;
+  }
+}

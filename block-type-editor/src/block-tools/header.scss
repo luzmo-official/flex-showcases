@@ -1,0 +1,16 @@
+h2 {
+  color: var(--luzmo-font-color-down);
+  border-bottom: 2px solid var(--luzmo-primary);
+  padding-bottom: var(--luzmo-spacing-4);
+  margin-bottom: var(--luzmo-spacing-5);
+  margin-top: calc(var(--luzmo-spacing-5) * 2.5);
+}
+.luzmo-report-header {
+  line-height: 1.25em;
+  outline: none;
+  p,
+  div {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

@@ -1,0 +1,615 @@
+<!-- ========================================= -->
+<!-- DESKTOP VIEW (>= 768px)                   -->
+<!-- ========================================= -->
+<div class="px-8 py-6 bg-surface overflow-hidden">
+  <div class="w-full grid grid-cols-1 md:grid-cols-5 xl:grid-cols-4 gap-6 h-full">
+    <!-- Left Panel - Data Selection -->
+    <div class="col-span-2 xl:col-span-1 h-full overflow-hidden">
+      <div class="card p-6 bg-surface-raised flex flex-col h-[calc(100vh-8rem)]">
+        <luzmo-draggable-data-fields-panel
+          class="h-full"
+          size="m"
+          variant="highlight"
+          dataset-picker
+          search
+          [datasetIds]="datasetIds"
+          [apiUrl]="environment.luzmoApiUrl"
+          [authKey]="state.luzmoEmbedCredentials().key"
+          [authToken]="state.luzmoEmbedCredentials().token"
+          [language]="state.currentLanguage()"
+          (luzmo-dataset-changed)="onDatasetChanged($any($event))"
+        >
+        </luzmo-draggable-data-fields-panel>
+      </div>
+    </div>
+
+    <!-- Right Panel - Chart Builder & Preview -->
+    <div class="col-span-3 xl:col-span-3">
+      <div class="card p-6 bg-surface-raised">
+        <div class="w-full flex justify-between items-start gap-8 mb-8">
+          <luzmo-tabs
+            direction="horizontal"
+            quiet
+            emphasized
+            size="l"
+            [selected]="state.modularReportBuilderMode()"
+            (change)="onTabChange($event)"
+          >
+            <luzmo-tab
+              class="px-3"
+              value="chart-builder"
+            >
+              <luzmo-icon
+                slot="icon"
+                [icon]="state.luzmoSliderHorizontal"
+              >
+              </luzmo-icon>
+              {{ 'report-builder.chart-builder' | translate }}
+            </luzmo-tab>
+            <luzmo-tab
+              class="px-3"
+              value="ai-description"
+            >
+              <luzmo-icon
+                slot="icon"
+                [icon]="state.luzmoFont"
+              >
+              </luzmo-icon>
+              {{ 'report-builder.describe' | translate }}
+            </luzmo-tab>
+            <luzmo-tab
+              class="px-3"
+              value="popular-insights"
+            >
+              <luzmo-icon
+                slot="icon"
+                [icon]="state.luzmoStar"
+              >
+              </luzmo-icon>
+              {{ 'report-builder.popular-insights' | translate }}
+            </luzmo-tab>
+          </luzmo-tabs>
+        </div>
+
+        <div class="rounded-lg flex gap-6">
+          @if (state.modularReportBuilderMode() === 'chart-builder') {
+            <div class="flex flex-col gap-2">
+              @for (chart of state.luzmoCharts(); track chart.type) {
+                <div
+                  class="px-4 py-2 border border-transparent interactive cursor-pointer text-sm text-default flex items-center gap-3 rounded-sm whitespace-nowrap"
+                  [class.bg-secondary]="state.activeChartType() === chart.type"
+                  [class.text-secondary-inverse]="state.activeChartType() === chart.type"
+                  [class.hover:text-active]="state.activeChartType() !== chart.type"
+                  [class.hover:bg-surface]="state.activeChartType() !== chart.type"
+                  (click)="state.setActiveChart(chart.type)"
+                >
+                  @if (getChartIcon(chart.type); as iconDef) {
+                    <luzmo-icon
+                      block
+                      class="!text-xl !w-5 !h-5 !leading-[1.25rem]"
+                      [icon]="iconDef"
+                    >
+                    </luzmo-icon>
+                  }
+                  <span>{{ getChartLabel(chart.type) | translate }}</span>
+                </div>
+              }
+            </div>
+          }
+          <!-- Drop Zones -->
+          <div class="flex flex-col flex-grow gap-4">
+            @if (state.modularReportBuilderMode() === 'chart-builder') {
+              <luzmo-item-data-drop-panel
+                grows
+                size="m"
+                [language]="state.currentLanguage()"
+                slotMenuPlacement="bottom-end"
+                [itemType]="state.activeChartType()"
+                [slotsConfiguration]="state.activeChartSlots()"
+                [slotsContents]="state.activeChartSlotContents()"
+                [hideDelete]="false"
+                (luzmo-slots-contents-changed)="onSlotsContentsChanged($any($event))"
+              >
+              </luzmo-item-data-drop-panel>
+
+              <!-- Chart Preview + Side Panel Container -->
+              <div class="chart-panel-container flex gap-4">
+                <!-- Chart Preview -->
+                <div
+                  class="chart-preview-wrapper relative border border-default rounded-lg h-[400px] transition-all duration-200 ease-in-out"
+                  [class.flex-1]="!activeConfigPanel"
+                  [class.w-[60%]]="activeConfigPanel"
+                >
+                  <!-- Config buttons - top right corner -->
+                  @if (!state.isChartEmpty()) {
+                    <div class="absolute top-3 right-3 z-10 flex gap-2">
+                      <luzmo-action-button
+                        class="chart-config-button"
+                        size="l"
+                        [class.active]="activeConfigPanel === 'options'"
+                        [attr.title]="'report-builder.config-tab-options' | translate"
+                        (click)="toggleOptionsPanel()"
+                      >
+                        <luzmo-icon
+                          slot="icon"
+                          [icon]="state.luzmoCog"
+                        ></luzmo-icon>
+                      </luzmo-action-button>
+                      <luzmo-action-button
+                        class="chart-config-button"
+                        size="l"
+                        [class.active]="activeConfigPanel === 'filters'"
+                        [attr.title]="'report-builder.config-tab-filters' | translate"
+                        (click)="toggleFiltersPanel()"
+                      >
+                        <luzmo-icon
+                          slot="icon"
+                          [icon]="state.luzmoFilter"
+                        ></luzmo-icon>
+                      </luzmo-action-button>
+                    </div>
+                  }
+
+                  @if (state.isChartEmpty()) {
+                    <div class="absolute inset-0 flex items-center justify-center z-[99]">
+                      <div class="bg-surface px-6 py-3 rounded-lg border border-default select-none text-default text-sm">
+                        {{ 'report-builder.drag-drop-columns' | translate }}
+                      </div>
+                    </div>
+                  }
+                  <luzmo-viz-item
+                    class="block h-full w-full transition duration-200 ease-in-out"
+                    [class.opacity-50]="state.isChartEmpty()"
+                    [class.pointer-events-none]="state.isChartEmpty()"
+                    [ngClass]="{ 'blur-[2px]': state.isChartEmpty() }"
+                    [authKey]="state.luzmoEmbedCredentials().key"
+                    [authToken]="state.luzmoEmbedCredentials().token"
+                    [options]="state.getChartOptions(state.activeChartOptions())"
+                    [slots]="state.activeChartSlotContents()"
+                    [type]="state.activeChartType()"
+                    [filters]="state.activeChartFilters()"
+                    [appServer]="environment.luzmoAppServer"
+                    [apiHost]="environment.luzmoApiUrl"
+                  >
+                  </luzmo-viz-item>
+                </div>
+
+                <!-- Side Panel for Options/Filters -->
+                @if (activeConfigPanel) {
+                  <div
+                    class="side-panel w-[40%] border border-default rounded-lg bg-surface-raised overflow-hidden flex flex-col animate-slide-in"
+                  >
+                    <!-- Panel Header -->
+                    <div class="panel-header flex items-center justify-between px-4 py-3 border-b border-default bg-surface">
+                      <span class="text-sm font-medium text-active">
+                        @if (activeConfigPanel === 'options') {
+                          {{ 'report-builder.config-tab-options' | translate }}
+                        } @else {
+                          {{ 'report-builder.config-tab-filters' | translate }}
+                        }
+                      </span>
+                      <luzmo-action-button
+                        quiet
+                        size="s"
+                        (click)="closePanel()"
+                      >
+                        <luzmo-icon
+                          slot="icon"
+                          [icon]="state.luzmoClose"
+                        ></luzmo-icon>
+                      </luzmo-action-button>
+                    </div>
+
+                    <!-- Panel Content -->
+                    <div class="panel-content flex-1 overflow-auto p-4">
+                      @if (activeConfigPanel === 'options') {
+                        <luzmo-edit-item
+                          size="m"
+                          [itemType]="state.activeChartType()"
+                          [language]="state.currentLanguage()"
+                          [options]="state.activeChartOptions()"
+                          [slots]="state.activeChartSlotContents()"
+                          [theme]="state.luzmoDashboardTheme()"
+                          [apiUrl]="environment.luzmoApiUrl"
+                          [authKey]="state.luzmoEmbedCredentials().key"
+                          [authToken]="state.luzmoEmbedCredentials().token"
+                          (luzmo-options-changed)="onChartOptionsChanged($any($event))"
+                        >
+                        </luzmo-edit-item>
+                      } @else if (activeConfigPanel === 'filters') {
+                        <luzmo-edit-filters
+                          size="m"
+                          [datasetIds]="datasetIds"
+                          [filters]="state.activeChartRawFilters()"
+                          [language]="state.currentLanguage()"
+                          [contentLanguage]="state.currentLanguage()"
+                          [apiUrl]="environment.luzmoApiUrl"
+                          [authKey]="state.luzmoEmbedCredentials().key"
+                          [authToken]="state.luzmoEmbedCredentials().token"
+                          (luzmo-filters-changed)="onChartFiltersChanged($any($event))"
+                        >
+                        </luzmo-edit-filters>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else if (state.modularReportBuilderMode() === 'ai-description') {
+              @if (state.aiChartSuggestions().length > 0) {
+                <div class="flex flex-col gap-2">
+                  <span class="text-sm text-default">{{ 'report-builder.ai-chart-suggestions' | translate }}</span>
+                  <div class="flex flex-wrap gap-2">
+                    @for (suggestion of state.aiChartSuggestions(); track suggestion.title) {
+                      <div
+                        class="px-4 py-2 interactive cursor-pointer text-sm text-default flex items-center gap-3 rounded-sm whitespace-nowrap bg-primary-10 hover:bg-primary-20 text-primary"
+                        (click)="state.aiChartDescriptionClicked(suggestion.title)"
+                      >
+                        <span>{{ suggestion.title }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+              <div class="relative">
+                <luzmo-text-field
+                  size="m"
+                  multiline
+                  rows="4"
+                  class="w-full"
+                  [placeholder]="'report-builder.describe-chart' | translate"
+                  [value]="state.aiChartDescription()"
+                  [disabled]="state.generatingAIChart()"
+                  (input)="state.onAIChartDescriptionInput($event)"
+                  (keydown.enter)="$event.preventDefault(); state.generateAIChart()"
+                >
+                </luzmo-text-field>
+
+                <luzmo-button
+                  variant="primary"
+                  size="m"
+                  class="absolute bottom-4 right-4"
+                  [disabled]="state.generatingAIChart() || state.aiChartDescription().length === 0"
+                  [pending]="state.generatingAIChart()"
+                  (click)="state.generateAIChart()"
+                >
+                  {{ 'report-builder.create-chart' | translate }}
+                </luzmo-button>
+              </div>
+            }
+
+            @if (state.aiPreviewReady() && !state.isChartEmpty()) {
+              <div class="relative border border-default rounded-lg h-[400px]">
+                <luzmo-viz-item
+                  [authKey]="state.luzmoEmbedCredentials().key"
+                  [authToken]="state.luzmoEmbedCredentials().token"
+                  [options]="state.getChartOptions(state.activeChartOptions())"
+                  [slots]="state.activeChartSlotContents()"
+                  [type]="state.activeChartType()"
+                  [appServer]="environment.luzmoAppServer"
+                  [apiHost]="environment.luzmoApiUrl"
+                >
+                </luzmo-viz-item>
+              </div>
+            }
+
+            @if (state.modularReportBuilderMode() === 'popular-insights') {
+              <div class="flex flex-col gap-4">
+                @if (state.loadingDashboards()) {
+                  <div class="flex items-center justify-center gap-3 h-[300px] w-full">
+                    <luzmo-progress-circle
+                      indeterminate
+                      static-color="var(--color-primary)"
+                      size="s"
+                    >
+                    </luzmo-progress-circle>
+                    <div class="loader-message">
+                      {{ 'report-builder.loading-popular-insights' | translate }}
+                    </div>
+                  </div>
+                } @else if (state.dashboardsError()) {
+                  <div class="error-message">
+                    <div class="error-icon">
+                      <luzmo-icon
+                        block
+                        [icon]="state.luzmoExclamationCircle"
+                      >
+                      </luzmo-icon>
+                    </div>
+                    <div class="error-text">
+                      {{ 'report-builder.dashboards-error' | translate }}
+                    </div>
+                    <luzmo-button
+                      variant="primary"
+                      size="m"
+                      class="mt-2"
+                      (click)="state.loadDashboards()"
+                    >
+                      <luzmo-icon
+                        slot="icon"
+                        [icon]="state.luzmoRetry"
+                      >
+                      </luzmo-icon>
+                      {{ 'report-builder.retry' | translate }}
+                    </luzmo-button>
+                  </div>
+                } @else {
+                  <div class="grid grid-cols-2 gap-4 group/popular">
+                    @for (chart of state.paginatedInsights(); track chart.id ?? chart.type) {
+                      <div
+                        class="group relative h-[250px] border border-default rounded-lg transition-all duration-200 ease-in-out hover:z-10"
+                      >
+                        <div
+                          class="h-full w-full transition duration-200 ease-in-out group-hover/popular:opacity-60 group-hover/popular:blur-[1px] group-hover:opacity-60 group-hover:blur-[1px]"
+                        >
+                          <luzmo-viz-item
+                            class="h-full w-full transition duration-200 ease-in-out group-hover:pointer-events-none"
+                            [authKey]="state.luzmoEmbedCredentials().key"
+                            [authToken]="state.luzmoEmbedCredentials().token"
+                            [options]="state.getChartOptions(chart.options)"
+                            [slots]="chart.slots"
+                            [type]="chart.type"
+                            [filters]="chart.filters ?? []"
+                            [appServer]="environment.luzmoAppServer"
+                            [apiHost]="environment.luzmoApiUrl"
+                          >
+                          </luzmo-viz-item>
+                        </div>
+                        <div
+                          class="absolute inset-0 z-20 flex items-center justify-center rounded-lg opacity-0 pointer-events-none transition-opacity duration-200 ease-in-out bg-[rgba(0,0,0,0.65)] group-hover:opacity-100 group-hover:pointer-events-auto"
+                        >
+                          <div class="flex flex-wrap gap-2 items-center justify-center z-[99]">
+                            <luzmo-button
+                              variant="primary"
+                              treatment="outline"
+                              class="default-outline raised"
+                              size="m"
+                              no-wrap
+                              (click)="state.editPopularInsightInBuilder(chart)"
+                            >
+                              <luzmo-icon
+                                slot="icon"
+                                [icon]="state.luzmoEdit"
+                              >
+                              </luzmo-icon>
+                              {{ 'report-builder.edit-in-builder' | translate }}
+                            </luzmo-button>
+                            <luzmo-button
+                              variant="primary"
+                              size="m"
+                              no-wrap
+                              (click)="state.addInsightToDashboard(chart)"
+                            >
+                              <luzmo-icon
+                                slot="icon"
+                                [icon]="state.luzmoPlus"
+                              >
+                              </luzmo-icon>
+                              {{ 'report-builder.add-to-dashboard' | translate }}
+                            </luzmo-button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  <div class="flex justify-end items-center mb-2">
+                    <div class="flex items-center gap-2">
+                      @if (state.currentPage() !== 1) {
+                        <luzmo-action-button
+                          quiet
+                          size="m"
+                          (click)="state.previousPage()"
+                        >
+                          <luzmo-icon
+                            slot="icon"
+                            [icon]="state.luzmoAngleLeft"
+                          >
+                          </luzmo-icon>
+                        </luzmo-action-button>
+                      }
+                      <span
+                        class="text-sm bg-primary-50 text-primary-inverse rounded-full w-6 h-6 flex items-center justify-center select-none"
+                        >{{ state.currentPage() }}</span
+                      >
+                      <span class="text-sm text-default select-none">/</span>
+                      <span
+                        class="text-sm bg-primary-50 text-primary-inverse rounded-full w-6 h-6 flex items-center justify-center select-none"
+                        >{{ state.totalPages() }}</span
+                      >
+                      @if (state.currentPage() !== state.totalPages()) {
+                        <luzmo-action-button
+                          quiet
+                          size="m"
+                          (click)="state.nextPage()"
+                        >
+                          <luzmo-icon
+                            slot="icon"
+                            [icon]="state.luzmoAngleRight"
+                          >
+                          </luzmo-icon>
+                        </luzmo-action-button>
+                      } @else {
+                        <!-- Empty space to prevent layout shift -->
+                        <div class="w-8 h-8"></div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        @if (state.modularReportBuilderMode() === 'chart-builder') {
+          <div class="mt-8 flex items-center justify-end gap-4">
+            @if (state.isEditingChart()) {
+              <luzmo-button-group>
+                <luzmo-button
+                  class="default-outline"
+                  variant="primary"
+                  treatment="outline"
+                  size="m"
+                  (click)="state.resetChartBuilder(); state.currentlyEditingChartId.set(null)"
+                >
+                  {{ 'report-builder.stop-editing-chart' | translate }}
+                </luzmo-button>
+                <luzmo-button
+                  variant="primary"
+                  size="m"
+                  (click)="state.updateChart()"
+                >
+                  <luzmo-icon
+                    slot="icon"
+                    [icon]="state.luzmoCheck"
+                  >
+                  </luzmo-icon>
+                  {{ 'report-builder.update-chart' | translate }}
+                </luzmo-button>
+              </luzmo-button-group>
+            } @else if (!state.isEditingChart() && !state.isChartEmpty()) {
+              <luzmo-button
+                variant="primary"
+                size="m"
+                (click)="state.addChartToDashboard()"
+              >
+                <luzmo-icon
+                  slot="icon"
+                  [icon]="state.luzmoPlus"
+                >
+                </luzmo-icon>
+                {{ 'report-builder.add-to-dashboard' | translate }}
+              </luzmo-button>
+            }
+          </div>
+        } @else if (state.modularReportBuilderMode() === 'ai-description') {
+          <div class="mt-8 flex items-center justify-end gap-4">
+            @if (state.isEditingChart()) {
+              <luzmo-button
+                class="default-outline"
+                variant="primary"
+                treatment="outline"
+                size="m"
+                (click)="state.resetChartBuilder(); state.currentlyEditingChartId.set(null)"
+              >
+                {{ 'report-builder.stop-editing-chart' | translate }}
+              </luzmo-button>
+            }
+            @if (state.aiPreviewReady()) {
+              <luzmo-button
+                class="default-outline raised"
+                variant="primary"
+                treatment="outline"
+                size="m"
+                (click)="state.changeMode('chart-builder')"
+              >
+                <luzmo-icon
+                  slot="icon"
+                  [icon]="state.luzmoEdit"
+                >
+                </luzmo-icon>
+                {{ 'report-builder.edit-in-builder' | translate }}
+              </luzmo-button>
+            }
+            @if (state.aiPreviewReady() && !state.isChartEmpty()) {
+              <luzmo-button
+                variant="primary"
+                size="m"
+                (click)="state.addChartToDashboard()"
+              >
+                <luzmo-icon
+                  slot="icon"
+                  [icon]="state.isEditingChart() ? state.luzmoCheck : state.luzmoPlus"
+                >
+                </luzmo-icon>
+                {{ state.isEditingChart() ? ('report-builder.update-chart' | translate) : ('report-builder.add-to-dashboard' | translate) }}
+              </luzmo-button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Dashboard Layout -->
+      <div class="card bg-surface-raised mt-6">
+        <div class="mb-4 flex items-center gap-4">
+          <luzmo-text-field
+            size="m"
+            class="flex-grow"
+            [placeholder]="'report-builder.enter-dashboard-name' | translate"
+            [value]="state.dashboardConfig().name"
+            (input)="state.onDashboardNameInput($event)"
+          >
+          </luzmo-text-field>
+
+          @if (state.currentlyEditingDashboardId()) {
+            <luzmo-button-group>
+              <luzmo-button
+                class="default-outline"
+                variant="primary"
+                treatment="outline"
+                size="m"
+                (click)="state.stopDashboardEditing()"
+              >
+                {{ 'report-builder.stop-editing-dashboard' | translate }}
+              </luzmo-button>
+              <luzmo-button
+                variant="primary"
+                size="m"
+                [disabled]="state.isSaveDisabled()"
+                (click)="state.updateSavedDashboard()"
+              >
+                {{ 'report-builder.update-dashboard' | translate }}
+              </luzmo-button>
+            </luzmo-button-group>
+          } @else {
+            <luzmo-button
+              variant="primary"
+              size="m"
+              [disabled]="state.isSaveDisabled()"
+              (click)="state.saveDashboard()"
+            >
+              {{ 'report-builder.save-dashboard' | translate }}
+            </luzmo-button>
+          }
+        </div>
+        @if (state.savedDashboardState().success && state.dashboardConfig().items.length === 0) {
+          <div class="mb-4 px-4 py-2 flex items-center gap-2 rounded-sm bg-primary-10 text-primary">
+            <luzmo-icon
+              block
+              class="text-xl"
+              [icon]="state.luzmoCheck"
+            >
+            </luzmo-icon>
+            <span
+              class="text-sm"
+              [innerHTML]="
+                'report-builder.dashboard-saved-successfully'
+                  | translate: { dashboardName: state.savedDashboardState().dashboardName ?? '' }
+              "
+            >
+            </span>
+            <span
+              class="text-sm text-primary underline opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+              (click)="state.viewSavedDashboard()"
+            >
+              {{ 'report-builder.view' | translate }}
+            </span>
+          </div>
+        }
+        <div class="grid-container min-h-[800px] rounded-lg bg-surface">
+          <luzmo-grid
+            #luzmoGrid
+            class="h-full w-full rounded-lg block bg-surface overflow-hidden p-2"
+            [authKey]="state.luzmoEmbedCredentials().key"
+            [authToken]="state.luzmoEmbedCredentials().token"
+            [language]="state.currentLanguage()"
+            [contentLanguage]="state.currentLanguage()"
+            [theme]="state.luzmoDashboardTheme()"
+            [items]="state.dashboardConfig().items"
+            [defaultItemActionsMenu]="[{ type: 'group', actions: ['edit-data', 'clone', 'delete'] }]"
+            (luzmo-grid-item-action)="state.onGridAction($any($event))"
+          >
+          </luzmo-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

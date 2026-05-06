@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Renderer2, inject, ViewChild } from '@angular/core';
+import { Component, PLATFORM_ID, Renderer2, inject, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,17 +23,12 @@ import { ThemeService } from './shared/services/theme.service';
 import { ThemeMode } from './shared/models/common.model';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ScrollService } from './shared/services/scroll.service';
-import userflow from 'userflow.js'
-
-userflow.init('ct_65z5oczamna45bveai47cpcbpe');
-userflow.identifyAnonymous();
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, MatButtonModule, MatToolbarModule, MatIconModule, NgxLuzmoVizItemComponent, MatTabsModule, RouterLink, MatSidenavModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, MatButtonModule, MatToolbarModule, MatIconModule, NgxLuzmoVizItemComponent, MatTabsModule, RouterLink, MatSidenavModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   private readonly router = inject(Router);
@@ -41,6 +36,7 @@ export class AppComponent {
   private readonly authService = inject(AuthService);
   private readonly scrollService = inject(ScrollService);
   private readonly http = inject(HttpClient);
+  private readonly platformId = inject(PLATFORM_ID);
   // needed to log & initialize analytics
   private readonly analyticsService = inject(AnalyticsService);
   private readonly themeService = inject(ThemeService);
@@ -68,6 +64,8 @@ export class AppComponent {
   ];
 
   constructor() {
+    this.initUserflow();
+
     this.breakpointObserver.observe(`(max-width: 1023px)`)
       .pipe(takeUntilDestroyed())
       .subscribe(state => {
@@ -109,6 +107,17 @@ export class AppComponent {
 
     this.fetchDatasetLastUpdatedDate()
       .subscribe(date => this.datasetLastModifiedDate = new Date(date).toLocaleString());
+  }
+
+  private initUserflow(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // `userflow.js` accesses `document` during import, so SSR must avoid loading it.
+    void import('userflow.js').then((m: any) => {
+      const userflow = m?.default ?? m;
+      userflow.init('ct_65z5oczamna45bveai47cpcbpe');
+      userflow.identifyAnonymous();
+    });
   }
 
   fetchDatasetLastUpdatedDate(): Observable<string> {

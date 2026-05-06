@@ -13,3 +13,93 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 20px !important;
   width: 20px !important;
 }
+
+/* Luzmo Analytics Components Kit Theme Variables */
+:root {
+  /* Brand colors matching Material violet theme */
+  --luzmo-primary: #7d00fa;
+  --luzmo-primary-hover: #6d00e0;
+  --luzmo-primary-down: #5d00c0;
+  --luzmo-primary-focus: #6d00e0;
+  --luzmo-primary-rgb: 125, 0, 250;
+  --luzmo-primary-inverse-color: #ffffff;
+  
+  /* Secondary colors */
+  --luzmo-secondary: #7d00fa;
+  --luzmo-secondary-hover: #6d00e0;
+  --luzmo-secondary-down: #5d00c0;
+  --luzmo-secondary-focus: #6d00e0;
+  --luzmo-secondary-rgb: 125, 0, 250;
+  --luzmo-secondary-inverse-color: #ffffff;
+  
+  /* Background colors */
+  --luzmo-background-color: #ffffff;
+  --luzmo-background-color-rgb: 255, 255, 255;
+  --luzmo-background-color-hover: rgb(245, 243, 255);
+  --luzmo-background-color-down: rgb(237, 233, 254);
+  --luzmo-background-color-focus: rgb(245, 243, 255);
+  --luzmo-background-color-highlight: rgb(240, 240, 252);
+  --luzmo-background-color-highlight-hover: rgb(237, 233, 254);
+  --luzmo-background-color-alt-1: rgb(250, 250, 250);
+  --luzmo-background-color-alt-2: rgb(245, 245, 245);
+  
+  /* Border styling */
+  --luzmo-border-color: rgba(125, 0, 250, 0.12);
+  --luzmo-border-color-hover: rgba(125, 0, 250, 0.18);
+  --luzmo-border-color-down: rgba(125, 0, 250, 0.25);
+  --luzmo-border-color-focus: rgba(125, 0, 250, 0.18);
+  --luzmo-border-color-rgb: 125, 0, 250;
+  --luzmo-border-color-full: rgb(200, 180, 230);
+  --luzmo-border-color-full-hover: rgb(180, 150, 220);
+  --luzmo-border-radius: 6px;
+  --luzmo-border-radius-s: 4px;
+  --luzmo-border-radius-l: 8px;
+  --luzmo-border-width: 1px;
+  
+  /* Typography */
+  --luzmo-font-family: Roboto, "Helvetica Neue", sans-serif;
+  --luzmo-font-size: 14px;
+  --luzmo-font-size-s: 12px;
+  --luzmo-font-size-m: 14px;
+  --luzmo-font-size-l: 16px;
+  --luzmo-font-color: #333333;
+  --luzmo-font-color-hard: #1a1a1a;
+  --luzmo-font-weight: 400;
+  --luzmo-font-weight-semibold: 500;
+  --luzmo-font-weight-bold: 600;
+  
+  /* Spacing to match Material Design */
+  --luzmo-spacing-1: 2px;
+  --luzmo-spacing-2: 4px;
+  --luzmo-spacing-3: 8px;
+  --luzmo-spacing-4: 12px;
+  --luzmo-spacing-5: 16px;
+  
+  /* Component heights */
+  --luzmo-component-height: 32px;
+  --luzmo-component-height-s: 28px;
+  --luzmo-component-height-l: 40px;
+  
+  /* Scrollbar styling */
+  --luzmo-scrollbar-size: 6px;
+  --luzmo-scrollbar-width: thin;
+  --luzmo-scrollbar-track-background: transparent;
+  --luzmo-scrollbar-thumb-background: rgba(125, 0, 250, 0.2);
+  --luzmo-scrollbar-thumb-hover-background: rgba(125, 0, 250, 0.35);
+  --luzmo-scrollbar-thumb-border-radius: 4px;
+  
+  /* Selected state colors */
+  --luzmo-selected-color: rgb(125, 0, 250);
+  --luzmo-selected-color-hover: rgb(105, 0, 230);
+  --luzmo-selected-color-down: rgb(95, 0, 210);
+  
+  /* Informational colors - harmonized with violet theme */
+  --luzmo-color-informative: #6366f1;
+  --luzmo-color-informative-rgb: 99, 102, 241;
+  --luzmo-positive-color: #9333ea;
+  --luzmo-positive-color-hover: #7e22ce;
+  --luzmo-positive-color-rgb: 147, 51, 234;
+  --luzmo-negative-color: #dc2626;
+  --luzmo-negative-color-hover: #b91c1c;
+  --luzmo-negative-color-rgb: 220, 38, 38;
+}

@@ -2,8 +2,8 @@
 title: "Custom chart example"
 description: "A Luzmo Custom Chart, showing sales representatives and their deals in an interactive circular layout. Built with D3.js and TypeScript, featuring zoom/pan, filtering, and detailed tooltips."
 tags:
+  - TypeScript
   - Custom Chart
-  - Chart
 author: "Luzmo"
 image: "https://cdn.prod.website-files.com/64be9847db6f59a691b3503f/6879ffdb9bd0a04f86116df5_customchart.png"
 url: "https://app.luzmo.com/s/custom-charts-example-network-chart-zmanlony95a44r9l"

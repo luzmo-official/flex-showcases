@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "import", "jsdoc", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "off",
+    "perf": "warn",
+    "restriction": "off",
+    "style": "off"
+  },
+  "rules": {
+    "no-await-in-loop": "warn",
+    "no-promise-executor-return": "error",
+    "no-constructor-return": "error",
+    "no-template-curly-in-string": "warn",
+    "no-self-compare": "error",
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "no-console": ["error", { "allow": ["error", "warn"] }],
+    "require-await": "warn",
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/await-thenable": "error",
+    "@typescript-eslint/no-unnecessary-condition": "warn",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-extraneous-class": "off",
+    "unicorn/no-useless-spread": "warn",
+    "unicorn/no-array-sort": "off",
+    "import/no-unassigned-import": "off"
+  },
+  "ignorePatterns": ["dist/**", "*.d.ts", "*.js", "*.mjs", "assets/**"]
+}

@@ -12,14 +12,13 @@ userflow.init('ct_65z5oczamna45bveai47cpcbpe');
 userflow.identifyAnonymous();
 
 @Component({
-  selector: 'app-report-builder',
-  standalone: true,
-  imports: [ChartPanelComponent, ChartViewComponent, DataPanelComponent, MatSelectModule, HeaderComponent],
-  templateUrl: './report-builder.component.html',
-  styleUrls: ['./report-builder.component.scss'],
-  providers: [
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
-  ]
+    selector: 'app-report-builder',
+    imports: [ChartPanelComponent, ChartViewComponent, DataPanelComponent, MatSelectModule, HeaderComponent],
+    templateUrl: './report-builder.component.html',
+    styleUrls: ['./report-builder.component.scss'],
+    providers: [
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
+    ]
 })
 
 export class ReportBuilderComponent {

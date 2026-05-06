@@ -1,6 +1,6 @@
 
-import { DOCUMENT, Location } from '@angular/common';
-import { Inject, Injectable, inject } from '@angular/core';
+import { Location } from '@angular/common';
+import { Inject, Injectable, inject, DOCUMENT } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';

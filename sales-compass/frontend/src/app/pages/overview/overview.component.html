@@ -1,0 +1,154 @@
+<div class="px-4 md:px-8 py-6">
+  <section class="mb-8">
+    <div class="flex justify-between items-center mb-4">
+      @if (currentUser(); as user) {
+        <h2 class="text-xl text-active mb-0">{{ getGreeting() }}, {{ user.firstName }}.</h2>
+      }
+    </div>
+    <div class="mb-4 flex flex-col items-start gap-3">
+      <span
+        class="bg-primary-10 border border-primary px-[6px] py-[2px] rounded-sm text-primary uppercase text-sm font-medium select-none shrink-0"
+        >{{ 'overview.top-insights' | translate }} {{ getCurrentDateFormatted() }}</span
+      >
+      @if (luzmoAISummaryError()) {
+        <div class="flex gap-2 items-center text-danger">
+          <luzmo-icon [icon]="luzmoAlert"></luzmo-icon>
+          <div class="text-sm">
+            {{ 'overview.summary-error' | translate }}
+          </div>
+        </div>
+      } @else if (luzmoAISummary(); as summary) {
+        <div
+          class="text-sm leading-6 luzmo-ai-summary"
+          [innerHTML]="summary"
+        ></div>
+      } @else {
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 text-sm w-full">
+          <div class="luzmo-state-loader">
+            <div class="luzmo-state-loader-shimmer">{{ luzmoAIState() }}...</div>
+          </div>
+          <p class="text-default">
+            {{ 'overview.key-insights' | translate }}
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Performance At A Glance -->
+  <section class="mb-8">
+    <h2 class="text-xl text-active mb-4">
+      {{ 'overview.performance-at-a-glance' | translate }}
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="card">
+        <div class="flex flex-col xl:flex-row justify-between items-start gap-4 mb-4">
+          <h2 class="text-lg font-medium mb-0">
+            {{ 'overview.quarterly-revenue' | translate }}
+          </h2>
+          <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:justify-end xl:w-auto">
+            <!-- TODO: uncomment once Flex regression fixed -->
+            <!-- @if (subregions().length > 0) {
+              <div class="relative w-full md:w-auto">
+                <luzmo-picker
+                  class="dataset-picker w-full md:w-48 sized-40px"
+                  size="m"
+                  variant="highlight"
+                  [value]="subRegionFilterValue()"
+                  [label]="'overview.filter-by-subregion' | translate"
+                  (change)="onSubregionFilterChange($any($event))">
+                  @for (subregion of subregions(); track subregion.id) {
+                    <luzmo-menu-item [value]="subregion.id">
+                      <div class="dataset-info">
+                        <span>{{ subregion.name[this.languageService.getCurrentLanguage()] }}</span>
+                      </div>
+                    </luzmo-menu-item>
+                  }
+                </luzmo-picker>
+                @if (subRegionFilterActive()) {
+                  <span
+                    class="p-2 absolute top-1 right-6 cursor-pointer"
+                    (click)="onSubregionFilterChange(null)">
+                    <luzmo-icon
+                      block
+                      class="interactive text-dimmed hover:text-default text-xs"
+                      [icon]="luzmoClose"></luzmo-icon>
+                  </span>
+                }
+              </div>
+            } -->
+            <luzmo-button
+              variant="primary"
+              size="m"
+              (click)="navigateToPerformance()"
+            >
+              {{ 'overview.view-full-report' | translate }}
+            </luzmo-button>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col md:flex-row gap-3 order-last md:order-first">
+            <div class="w-full md:flex-1 h-[160px]">
+              <luzmo-viz-item
+                #actualRevenueChart
+                class="w-full h-full"
+                [authKey]="luzmoEmbedCredentials().key"
+                [authToken]="luzmoEmbedCredentials().token"
+                [options]="$any(luzmoActualRevenueChart.options)"
+                [slots]="luzmoActualRevenueChart.slots"
+                [type]="luzmoActualRevenueChart.type"
+                [filters]="luzmoActualRevenueChart.filters || []"
+                [appServer]="environment.luzmoAppServer"
+                [apiHost]="environment.luzmoApiUrl"
+              >
+              </luzmo-viz-item>
+            </div>
+            <div class="w-full md:flex-1 h-[160px]">
+              <luzmo-viz-item
+                #expectedRevenueChart
+                class="w-full h-full"
+                [authKey]="luzmoEmbedCredentials().key"
+                [authToken]="luzmoEmbedCredentials().token"
+                [options]="$any(luzmoExpectedRevenueChart.options)"
+                [slots]="luzmoExpectedRevenueChart.slots"
+                [type]="luzmoExpectedRevenueChart.type"
+                [filters]="luzmoExpectedRevenueChart.filters || []"
+                [appServer]="environment.luzmoAppServer"
+                [apiHost]="environment.luzmoApiUrl"
+              >
+              </luzmo-viz-item>
+            </div>
+          </div>
+          <div class="h-[24rem] order-first md:order-last">
+            <luzmo-viz-item
+              #revenueEvolutionChart
+              [authKey]="luzmoEmbedCredentials().key"
+              [authToken]="luzmoEmbedCredentials().token"
+              [options]="$any(luzmoRevenueEvolutionChart.options)"
+              [slots]="luzmoRevenueEvolutionChart.slots"
+              [type]="luzmoRevenueEvolutionChart.type"
+              [filters]="luzmoRevenueEvolutionChart.filters || []"
+              [appServer]="environment.luzmoAppServer"
+              [apiHost]="environment.luzmoApiUrl"
+            >
+            </luzmo-viz-item>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flex flex-col">
+        <h2 class="text-lg font-medium mb-4">
+          {{ 'overview.ask-sales-compass' | translate }}
+        </h2>
+        <div class="bg-surface-raised grow block">
+          <luzmo-iq-chat
+            [authKey]="luzmoEmbedCredentials().key"
+            [authToken]="luzmoEmbedCredentials().token"
+            [options]="luzmoIQOptions"
+          >
+          </luzmo-iq-chat>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

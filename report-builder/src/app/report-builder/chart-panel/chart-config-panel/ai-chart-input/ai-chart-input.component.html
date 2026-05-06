@@ -1,6 +1,11 @@
 @if (_status.generating) {
   <mat-progress-bar class="mb-3" mode="indeterminate"></mat-progress-bar>
 }
+@if (_status.error) {
+  <div class="mb-3 p-3 bg-red-100 text-red-800 rounded">
+    {{ _status.errorMessage }}
+  </div>
+}
 <mat-form-field class="w-full mt-0 rounded-0" floatLabel="always">
   <mat-label>Generate chart</mat-label>
   <textarea matInput placeholder="What do you want to see..." [(ngModel)]="question" (keyup.enter)="generateChart()"></textarea>

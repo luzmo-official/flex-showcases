@@ -1,0 +1,243 @@
+<aside class="w-64 lg:w-72 h-full bg-surface-raised border-r border-light flex flex-col">
+  <!-- Logo -->
+  <div class="px-4 py-6 flex items-center gap-3">
+    <img
+      alt="Sales Compass Logo"
+      class="w-10 h-10"
+      src="assets/icon.svg"
+    />
+    <h2 class="font-medium mb-0">Sales Compass</h2>
+  </div>
+
+  <!-- Navigation -->
+  <div class="p-4 flex-grow">
+    <luzmo-tabs
+      direction="vertical"
+      quiet
+      emphasized
+      style="--luzmo-tabs-start-to-edge: 1rem; --luzmo-tabs-font-size: 16px; --luzmo-font-weight: 400"
+      [selected]="currentRoute()"
+      (change)="onTabChange($event)"
+    >
+      <luzmo-tab value="/overview">
+        {{ 'navigation.overview' | translate }}
+      </luzmo-tab>
+      <luzmo-tab value="/performance">
+        {{ 'navigation.performance' | translate }}
+      </luzmo-tab>
+      <luzmo-tab value="/report-builder">
+        {{ 'navigation.report-builder' | translate }}
+      </luzmo-tab>
+    </luzmo-tabs>
+  </div>
+
+  <div class="p-4 border-t border-default flex flex-col gap-2 select-none">
+    <p class="text-sm text-active">
+      {{ 'navigation.luzmo-reference-1' | translate }}
+    </p>
+    <p class="text-sm text-default">
+      <a
+        href="https://luzmo.com/"
+        target="_blank"
+        class="flex items-center gap-2"
+      >
+        <span>
+          {{ 'navigation.luzmo-reference-2' | translate }}
+        </span>
+        <img
+          alt="Luzmo Logo"
+          class="h-[0.875rem]"
+          [src]="isDarkMode() ? 'assets/logos/logo-full-dark-theme.svg' : 'assets/logos/logo-full.svg'"
+        />
+      </a>
+    </p>
+  </div>
+
+  <!-- User Profile -->
+  <div class="mt-auto p-4 border-t border-default flex flex-col gap-5">
+    @if (currentUser(); as user) {
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center border border-2 border-secondary">
+          @if (user.imageUrl) {
+            <img
+              alt="{{ user.name }}"
+              class="w-full h-full object-cover"
+              [src]="user.imageUrl"
+            />
+          } @else {
+            <span class="text-secondary-inverse text-sm">{{ user.initials }}</span>
+          }
+        </div>
+        <div>
+          <p class="flex items-center gap-2">
+            <span class="text-active text-sm font-medium">{{ user.name }}</span>
+            <luzmo-action-button
+              quiet
+              size="s"
+              (click)="logout()"
+            >
+              <luzmo-icon
+                slot="icon"
+                size="s"
+                [icon]="luzmoBracketArrowLeft"
+              >
+              </luzmo-icon>
+            </luzmo-action-button>
+          </p>
+          <p class="text-xs text-default">{{ user.titleKey | translate }}</p>
+        </div>
+      </div>
+    }
+
+    <div>
+      <luzmo-picker
+        class="w-full sized-40px"
+        size="m"
+        [value]="isCustomThemeActive() ? 'custom' : (selectedPresetId() ?? 'default')"
+        (change)="onPresetChange($event)"
+      >
+        <span slot="label">
+          @if (isCustomThemeActive()) {
+            {{ 'theme.custom-theme' | translate }}
+          } @else if (selectedPreset(); as preset) {
+            {{ preset.translationKey | translate }}
+          } @else {
+            {{ 'theme.default-theme' | translate }}
+          }
+        </span>
+        <luzmo-menu-item value="default">
+          <span class="flex items-center gap-3">
+            <span class="flex items-center flex-shrink-0">
+              <span
+                class="w-5 h-5 rounded-full border"
+                [style.background]="defaultThemeColors().surface"
+                [style.border-color]="defaultThemeColors().borderHard"
+              >
+              </span>
+              <span
+                class="w-5 h-5 rounded-full border -ml-2"
+                [style.background]="defaultThemeColors().primary"
+                [style.border-color]="defaultThemeColors().borderHard"
+              >
+              </span>
+              <span
+                class="w-5 h-5 rounded-full border -ml-2"
+                [style.background]="defaultThemeColors().secondary"
+                [style.border-color]="defaultThemeColors().borderHard"
+              >
+              </span>
+            </span>
+            <span>{{ 'theme.default-theme' | translate }}</span>
+          </span>
+        </luzmo-menu-item>
+        @for (preset of themePresets; track preset.id) {
+          <luzmo-menu-item [value]="preset.id">
+            <span class="flex items-center gap-3">
+              <span class="flex items-center flex-shrink-0">
+                <span
+                  class="w-5 h-5 rounded-full border"
+                  [style.background]="preset.colors.surface"
+                  [style.border-color]="preset.colors.borderHard"
+                >
+                </span>
+                <span
+                  class="w-5 h-5 rounded-full border -ml-2"
+                  [style.background]="preset.colors.primary"
+                  [style.border-color]="preset.colors.borderHard"
+                >
+                </span>
+                <span
+                  class="w-5 h-5 rounded-full border -ml-2"
+                  [style.background]="preset.colors.secondary"
+                  [style.border-color]="preset.colors.borderHard"
+                >
+                </span>
+              </span>
+              <span>{{ preset.translationKey | translate }}</span>
+            </span>
+          </luzmo-menu-item>
+        }
+        <luzmo-menu-item value="custom">
+          <span class="flex items-center gap-3">
+            <span class="flex items-center flex-shrink-0">
+              <span
+                class="w-5 h-5 rounded-full border"
+                [style.background]="isCustomThemeActive() ? 'var(--color-surface)' : 'transparent'"
+                style="border-color: var(--color-border-hard)"
+              >
+              </span>
+              <span
+                class="w-5 h-5 rounded-full border -ml-2"
+                [style.background]="isCustomThemeActive() ? 'var(--color-primary)' : 'transparent'"
+                style="border-color: var(--color-border-hard)"
+              >
+              </span>
+              <span
+                class="w-5 h-5 rounded-full border -ml-2"
+                [style.background]="isCustomThemeActive() ? 'var(--color-secondary)' : 'transparent'"
+                style="border-color: var(--color-border-hard)"
+              >
+              </span>
+            </span>
+            <span>{{ 'theme.custom-theme' | translate }}</span>
+          </span>
+        </luzmo-menu-item>
+      </luzmo-picker>
+      @if (currentLanguage(); as currentLanguage) {
+        <div class="mt-1">
+          <luzmo-picker
+            class="w-full sized-40px"
+            size="m"
+            [value]="currentLanguage"
+            (change)="onLanguageChange($event)"
+          >
+            <span slot="label">
+              @switch (currentLanguage) {
+                @case ('en') {
+                  English
+                }
+                @case ('fr') {
+                  Français
+                }
+                @case ('de') {
+                  Deutsch
+                }
+                @case ('es') {
+                  Español
+                }
+                @case ('nl') {
+                  Nederlands
+                }
+              }
+            </span>
+            <luzmo-menu-item value="en">
+              <span class="flex items-center gap-3">
+                <span>English</span>
+              </span>
+            </luzmo-menu-item>
+            <luzmo-menu-item value="fr">
+              <span class="flex items-center gap-3">
+                <span>Français</span>
+              </span>
+            </luzmo-menu-item>
+            <luzmo-menu-item value="de">
+              <span class="flex items-center gap-3">
+                <span>Deutsch</span>
+              </span>
+            </luzmo-menu-item>
+            <luzmo-menu-item value="es">
+              <span class="flex items-center gap-3">
+                <span>Español</span>
+              </span>
+            </luzmo-menu-item>
+            <luzmo-menu-item value="nl">
+              <span class="flex items-center gap-3">
+                <span>Nederlands</span>
+              </span>
+            </luzmo-menu-item>
+          </luzmo-picker>
+        </div>
+      }
+    </div>
+  </div>
+</aside>

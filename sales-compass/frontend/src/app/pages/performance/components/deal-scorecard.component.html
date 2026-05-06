@@ -1,0 +1,140 @@
+<div class="modal-body relative p-4 md:p-6">
+  <luzmo-action-button
+    class="absolute top-4 right-4"
+    quiet
+    size="m"
+    aria-label="Close"
+    (click)="closeModal()"
+  >
+    <luzmo-icon
+      slot="icon"
+      [icon]="luzmoClose"
+    >
+    </luzmo-icon>
+  </luzmo-action-button>
+  <div class="w-full flex items-center gap-4 mb-6">
+    <div class="text-2xl text-active font-medium mb-0">{{ clickedDealData.companyName }}</div>
+    <div class="pill-secondary">{{ clickedDealData.companySegment }}</div>
+  </div>
+
+  <div class="w-full h-auto md:h-[220px] grid grid-cols-1 md:grid-cols-3 gap-0 bg-surface rounded-lg border border-default">
+    <div class="h-[200px] md:h-full border-b md:border-b-0 md:border-r border-default px-4">
+      @if (dealProbabilityChart) {
+        <luzmo-viz-item
+          class="w-full h-full"
+          [authKey]="luzmoEmbedCredentials.key"
+          [authToken]="luzmoEmbedCredentials.token"
+          [type]="dealProbabilityChart.type"
+          [slots]="dealProbabilityChart.slots"
+          [options]="$any(dealProbabilityChart.options)"
+          [filters]="dealProbabilityChart.filters || []"
+          [appServer]="environment.luzmoAppServer"
+          [apiHost]="environment.luzmoApiUrl"
+        >
+        </luzmo-viz-item>
+      }
+    </div>
+    <div
+      class="h-[120px] md:h-full border-b md:border-b-0 md:border-r border-default px-4 flex flex-col justify-center items-center gap-4 md:gap-8 py-4 md:py-0"
+    >
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-active rounded-full px-2 py-1 bg-primary-30">{{ clickedDealData.dealStageNumber }}</span>
+        <div class="text-xl text-active font-medium mb-0">{{ clickedDealData.dealStage }}</div>
+      </div>
+      <div class="bar-container">
+        <div
+          class="bar"
+          [style.width.%]="stageProgressPercentage"
+        ></div>
+      </div>
+    </div>
+    <div class="h-[160px] md:h-full px-4">
+      @if (dealAmountChart) {
+        <luzmo-viz-item
+          class="w-full h-full"
+          [authKey]="luzmoEmbedCredentials.key"
+          [authToken]="luzmoEmbedCredentials.token"
+          [slots]="dealAmountChart.slots"
+          [type]="dealAmountChart.type"
+          [options]="$any(dealAmountChart.options)"
+          [filters]="dealAmountChart.filters || []"
+          [appServer]="environment.luzmoAppServer"
+          [apiHost]="environment.luzmoApiUrl"
+        >
+        </luzmo-viz-item>
+      }
+    </div>
+  </div>
+
+  <div class="timeline-container mt-4 bg-surface p-4 border border-default rounded-lg">
+    <p class="text-sm text-active font-medium mb-4">
+      {{ 'performance.deal-timeline' | translate }}
+    </p>
+    <div class="progress-timeline">
+      <div
+        class="progress-bar"
+        [style.width.%]="calculateTimelineProgress()"
+      >
+        <!-- Progress marker at today's position -->
+        <div
+          class="today-circle"
+          [style.right.px]="0"
+        ></div>
+      </div>
+      <!-- Date markers -->
+      <div class="date-marker start">
+        <span class="date-label">{{ 'performance.created' | translate }}</span>
+        <span class="date-value">{{ formatDate(clickedDealData.createdDate) }}</span>
+      </div>
+
+      <div class="date-marker end">
+        <span class="date-label">{{ 'performance.expected-close' | translate }}</span>
+        <span class="date-value">{{ formatDate(clickedDealData.expectedCloseDate) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 bg-surface p-4 border border-default rounded-lg">
+    <p class="text-sm text-active font-medium mb-4">
+      {{ 'performance.deal-details' | translate }}
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-x-12 md:gap-y-4">
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.industry' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.industry }}
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.product' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.product }}
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.region' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.region }}
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.sales-rep' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.salesRep }}
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.manager' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.manager }}
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-dimmed">{{ 'performance.competitor' | translate }}</div>
+        <span class="bg-primary-20 text-primary px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap">
+          {{ clickedDealData.competitor }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

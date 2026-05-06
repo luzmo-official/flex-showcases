@@ -16,11 +16,10 @@ import { DARKTHEME, LIGHTTHEME } from '../shared/constants/theme.constant';
 import { DATASETS } from '../shared/constants/datasets.constant';
 
 @Component({
-  selector: 'app-player',
-  standalone: true,
-  imports: [NgClass, RouterLink, MatIconModule, NgxLuzmoVizItemComponent],
-  templateUrl: './player.component.html',
-  styleUrl: './player.component.scss'
+    selector: 'app-player',
+    imports: [NgClass, RouterLink, MatIconModule, NgxLuzmoVizItemComponent],
+    templateUrl: './player.component.html',
+    styleUrl: './player.component.scss'
 })
 export class PlayerComponent{
   private readonly route = inject(ActivatedRoute);

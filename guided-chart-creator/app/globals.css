@@ -1,0 +1,424 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Light theme ──────────────────────────────────── */
+:root {
+  --background: oklch(0.985 0.002 247);
+  --foreground: oklch(0.21 0.034 264);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.034 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.034 264);
+  --primary: oklch(0.55 0.19 260);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.008 260);
+  --secondary-foreground: oklch(0.25 0.03 264);
+  --muted: oklch(0.96 0.008 260);
+  --muted-foreground: oklch(0.55 0.02 264);
+  --accent: oklch(0.93 0.02 260);
+  --accent-foreground: oklch(0.25 0.03 264);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.91 0.012 260);
+  --input: oklch(0.91 0.012 260);
+  --ring: oklch(0.55 0.19 260);
+  --chart-1: oklch(0.55 0.19 260);
+  --chart-2: oklch(0.65 0.18 165);
+  --chart-3: oklch(0.70 0.15 50);
+  --chart-4: oklch(0.60 0.22 310);
+  --chart-5: oklch(0.75 0.12 80);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* canvas */
+  --canvas: oklch(0.97 0.005 260);
+  --canvas-foreground: oklch(0.45 0.02 264);
+  --canvas-grid: oklch(0.90 0.012 260);
+  --tray: oklch(0.98 0.004 260);
+  --tray-foreground: oklch(0.30 0.03 264);
+}
+
+/* ── Dark theme ───────────────────────────────────── */
+.dark {
+  --background: oklch(0.17 0.02 264);
+  --foreground: oklch(0.94 0.01 264);
+  --card: oklch(0.17 0.02 264);
+  --card-foreground: oklch(0.94 0.01 264);
+  --popover: oklch(0.20 0.02 264);
+  --popover-foreground: oklch(0.94 0.01 264);
+  --primary: oklch(0.65 0.19 260);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.22 0.02 264);
+  --secondary-foreground: oklch(0.94 0.01 264);
+  --muted: oklch(0.22 0.02 264);
+  --muted-foreground: oklch(0.65 0.015 264);
+  --accent: oklch(0.24 0.025 264);
+  --accent-foreground: oklch(0.94 0.01 264);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.24 0.02 264);
+  --input: oklch(0.24 0.02 264);
+  --ring: oklch(0.65 0.19 260);
+  --chart-1: oklch(0.65 0.19 260);
+  --chart-2: oklch(0.70 0.16 165);
+  --chart-3: oklch(0.75 0.15 50);
+  --chart-4: oklch(0.65 0.20 310);
+  --chart-5: oklch(0.78 0.12 80);
+  --sidebar: oklch(0.17 0.02 264);
+  --sidebar-foreground: oklch(0.94 0.01 264);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.22 0.02 264);
+  --sidebar-accent-foreground: oklch(0.94 0.01 264);
+  --sidebar-border: oklch(0.24 0.02 264);
+  --sidebar-ring: oklch(0.439 0 0);
+
+  /* canvas */
+  --canvas: oklch(0.13 0.015 264);
+  --canvas-foreground: oklch(0.70 0.015 264);
+  --canvas-grid: oklch(0.20 0.02 264);
+  --tray: oklch(0.17 0.02 264);
+  --tray-foreground: oklch(0.88 0.01 264);
+}
+
+/* ─── Dark-mode overrides for Luzmo ACK shadow-DOM ── */
+/* These cascade into shadow roots so ACK components   */
+/* (data-field-panel, item-option-panel, filters, slots) */
+/* respect the dark palette instead of defaulting to   */
+/* their built-in light theme.                         */
+.dark {
+  --luzmo-background-color: #0b0f18;
+  --luzmo-background-color-rgb: 11, 15, 24;
+  --luzmo-background-color-hover: #161b28;
+  --luzmo-background-color-down: #1a2030;
+  --luzmo-background-color-focus: #161b28;
+  --luzmo-background-color-highlight: #1e2538;
+  --luzmo-background-color-highlight-hover: #252d42;
+  --luzmo-background-color-highlight-down: #2a3348;
+  --luzmo-background-color-highlight-focus: #252d42;
+  --luzmo-background-color-alt-1: #111620;
+  --luzmo-background-color-alt-2: #161b28;
+  --luzmo-background-color-disabled: #111620;
+
+  --luzmo-font-color: #e0dfe6;
+  --luzmo-font-color-hard: #f4f4f8;
+  --luzmo-font-color-disabled: #555a6a;
+  --luzmo-font-color-extra-dimmed: #6b7085;
+  --luzmo-font-color-hover: #eeedf3;
+  --luzmo-font-color-down: #d0cfda;
+  --luzmo-font-color-focus: #eeedf3;
+
+  --luzmo-border-color-rgb: 200, 200, 220;
+  --luzmo-border-color-full: #3a3f52;
+  --luzmo-border-color-full-hover: #4a5068;
+  --luzmo-border-color-full-down: #5a6178;
+  --luzmo-border-color-full-focus: #4a5068;
+  --luzmo-border-color-disabled: #2a2f3e;
+
+  --luzmo-primary: #818cf8;
+  --luzmo-primary-hover: #6366f1;
+  --luzmo-primary-down: #4f46e5;
+  --luzmo-primary-focus: #6366f1;
+  --luzmo-primary-inverse-color: #0b0f18;
+  --luzmo-primary-rgb: 129, 140, 248;
+
+  --luzmo-secondary: #a78bfa;
+  --luzmo-secondary-hover: #8b5cf6;
+  --luzmo-secondary-down: #7c3aed;
+
+  --luzmo-indicator-color: #818cf8;
+
+  --luzmo-scrollbar-track-background: transparent;
+  --luzmo-scrollbar-thumb-background: rgba(200, 200, 220, 0.2);
+  --luzmo-scrollbar-thumb-hover-background: rgba(200, 200, 220, 0.35);
+}
+
+/* ── Windows 95 theme ─────────────────────────────── */
+/* Classic silver #C0C0C0 ~ oklch(0.83 0 0) */
+.win95 {
+  --background: oklch(0.83 0 0);
+  --foreground: oklch(0.0 0 0);
+  --card: oklch(0.83 0 0);
+  --card-foreground: oklch(0.0 0 0);
+  --popover: oklch(0.83 0 0);
+  --popover-foreground: oklch(0.0 0 0);
+  --primary: oklch(0.83 0 0);
+  --primary-foreground: oklch(0.0 0 0);
+  --secondary: oklch(0.78 0 0);
+  --secondary-foreground: oklch(0.0 0 0);
+  --muted: oklch(0.78 0 0);
+  --muted-foreground: oklch(0.35 0 0);
+  --accent: oklch(0.75 0 0);
+  --accent-foreground: oklch(0.0 0 0);
+  --destructive: oklch(0.50 0.20 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.50 0 0);
+  --input: oklch(0.97 0 0);
+  --ring: oklch(0.25 0.12 260);
+  --chart-1: oklch(0.25 0.12 260);
+  --chart-2: oklch(0.50 0.15 140);
+  --chart-3: oklch(0.55 0.20 27);
+  --chart-4: oklch(0.60 0.18 310);
+  --chart-5: oklch(0.70 0.12 80);
+  --radius: 0px;
+  --sidebar: oklch(0.83 0 0);
+  --sidebar-foreground: oklch(0.0 0 0);
+  --sidebar-primary: oklch(0.25 0.12 260);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.75 0 0);
+  --sidebar-accent-foreground: oklch(0.0 0 0);
+  --sidebar-border: oklch(0.50 0 0);
+  --sidebar-ring: oklch(0.25 0.12 260);
+
+  /* canvas -- classic teal desktop */
+  --canvas: oklch(0.28 0.08 260);
+  --canvas-foreground: oklch(0.99 0 0);
+  --canvas-grid: oklch(0.33 0.08 260);
+  --tray: oklch(0.83 0 0);
+  --tray-foreground: oklch(0.0 0 0);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-canvas: var(--canvas);
+  --color-canvas-foreground: var(--canvas-foreground);
+  --color-canvas-grid: var(--canvas-grid);
+  --color-tray: var(--tray);
+  --color-tray-foreground: var(--tray-foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  luzmo-item-grid {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    --luzmo-item-grid-background: var(--canvas);
+  }
+}
+
+/* ─── Win95 overrides ─────────────────────────────── */
+/* Classic colors for bevel edges */
+/* highlight = #ffffff, light = #dfdfdf, shadow = #808080, darkShadow = #000000 */
+.win95 {
+  --radius: 0px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+
+  /* Zero radius for Luzmo ACK shadow-DOM components (inherited into shadow roots) */
+  --luzmo-border-radius: 0px;
+  --luzmo-border-radius-s: 0px;
+  --luzmo-border-radius-l: 0px;
+  --luzmo-border-radius-xl: 0px;
+  --luzmo-border-radius-full: 0px;
+  --luzmo-item-grid-item-border-radius: 0px;
+  --luzmo-item-grid-resize-handle-border-radius: 0px;
+}
+
+.win95 * {
+  border-radius: 0 !important;
+}
+
+/* ── Classic raised button (grey CTA, not blue) ──── */
+.win95 [data-slot="button"] {
+  border: none !important;
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset  1px  1px 0 #fff,
+    inset -2px -2px 0 #808080,
+    inset  2px  2px 0 #dfdfdf;
+  background: #c0c0c0 !important;
+  color: #000 !important;
+  font-weight: 400;
+  text-shadow: none;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.win95 [data-slot="button"]:hover {
+  background: #d0d0d0 !important;
+}
+
+.win95 [data-slot="button"]:active,
+.win95 [data-slot="button"]:focus-visible {
+  box-shadow:
+    inset -1px -1px 0 #fff,
+    inset  1px  1px 0 #000,
+    inset -2px -2px 0 #dfdfdf,
+    inset  2px  2px 0 #808080;
+}
+
+/* ── Classic raised panel (dialog, card) ─────────── */
+.win95 [data-slot="dialog-content"],
+.win95 [data-slot="card"] {
+  border: none !important;
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset  1px  1px 0 #fff,
+    inset -2px -2px 0 #808080,
+    inset  2px  2px 0 #dfdfdf;
+}
+
+/* ── Sunken input / content areas ────────────────── */
+.win95 [data-slot="input"],
+.win95 textarea,
+.win95 select {
+  border: none !important;
+  box-shadow:
+    inset -1px -1px 0 #fff,
+    inset  1px  1px 0 #000,
+    inset -2px -2px 0 #dfdfdf,
+    inset  2px  2px 0 #808080;
+  background: #fff !important;
+}
+
+/* ── Tabs ────────────────────────────────────────── */
+.win95 [data-slot="tabs-list"] {
+  background: #c0c0c0;
+  border: none;
+  gap: 2px;
+}
+
+.win95 [data-slot="tabs-trigger"] {
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset  1px  1px 0 #fff,
+    inset -2px -2px 0 #808080,
+    inset  2px  2px 0 #dfdfdf;
+}
+
+.win95 [data-slot="tabs-trigger"][data-state="active"] {
+  background: #c0c0c0;
+  font-weight: 700;
+  box-shadow:
+    inset -1px  0px 0 #000,
+    inset  1px  1px 0 #fff,
+    inset -2px  0px 0 #808080,
+    inset  2px  2px 0 #dfdfdf;
+}
+
+/* ── Tray headers look like classic title bars ───── */
+.win95 .win95-titlebar,
+.win95 [data-tray-header] {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.win95 [data-tray-header] .text-muted-foreground {
+  color: #fff !important;
+}
+
+.win95 [data-tray-header] [data-slot="button"] {
+  background: #c0c0c0 !important;
+  color: #000 !important;
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset  1px  1px 0 #fff,
+    inset -2px -2px 0 #808080,
+    inset  2px  2px 0 #dfdfdf;
+}
+
+/* ── Borders between panels ──────────────────────── */
+.win95 .border-r,
+.win95 .border-l,
+.win95 .border-b,
+.win95 .border-t {
+  border-color: #808080 !important;
+}
+
+/* ── Stepper: completed & upcoming steps readable ── */
+/* Done steps: black text, light raised border so they pop on grey */
+.win95 nav[aria-label="Wizard progress"] button {
+  color: #000 !important;
+  background: #c0c0c0 !important;
+  box-shadow:
+    inset -1px -1px 0 #808080,
+    inset  1px  1px 0 #fff;
+}
+
+/* Active step: classic blue highlight bar */
+.win95 nav[aria-label="Wizard progress"] button:has(.bg-primary-foreground\/20) {
+  background: #000080 !important;
+  color: #fff !important;
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset  1px  1px 0 #1084d0;
+}
+
+/* The number/check circle inside done steps */
+.win95 nav[aria-label="Wizard progress"] button .bg-primary\/20 {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Chevron separators */
+.win95 nav[aria-label="Wizard progress"] svg {
+  color: #808080 !important;
+}
+
+/* ── Canvas empty state: readable on navy desktop ── */
+.win95 [data-canvas-empty-icon] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.win95 [data-canvas-empty-title] {
+  color: #fff !important;
+}
+
+.win95 [data-canvas-empty] p {
+  color: #fff !important;
+}

@@ -1,0 +1,23 @@
+<div class="block md:flex px-8 py-6 bg-surface overflow-hidden h-full flex-col min-h-0">
+  <div class="w-full flex-1 min-h-0">
+    @if (predefinedDashboardId) {
+      <luzmo-dashboard
+        class="block h-full ml-[-16px] mr-[-16px] w-[calc(100%+2rem)]"
+        [authKey]="luzmoEmbedCredentials().key"
+        [authToken]="luzmoEmbedCredentials().token"
+        [dashboardId]="predefinedDashboardId"
+        [language]="currentLanguage()"
+        [editorLanguage]="currentLanguage()"
+        [loaderBackground]="getLuzmoLoaderStyles().loaderBackground"
+        [loaderFontColor]="getLuzmoLoaderStyles().loaderFontColor"
+        [loaderSpinnerColor]="getLuzmoLoaderStyles().loaderSpinnerColor"
+        [mainColor]="getLuzmoLoaderStyles().mainColor"
+        [accentColor]="getLuzmoLoaderStyles().accentColor"
+        [appServer]="environment.luzmoAppServer"
+        [apiHost]="environment.luzmoApiUrl"
+        [editMode]="'editLimited'"
+      >
+      </luzmo-dashboard>
+    }
+  </div>
+</div>

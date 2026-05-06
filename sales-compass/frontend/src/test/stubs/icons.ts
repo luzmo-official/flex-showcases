@@ -1,0 +1,51 @@
+export type IconDefinition = {
+  icon: unknown;
+  name: string;
+};
+
+export const IconDefinition = {} as unknown as IconDefinition;
+
+const icon = (name: string): IconDefinition => ({ icon: [32, 32, 'M0 0'], name });
+
+export const luzmoAlert = icon('alert');
+export const luzmoAngleLeft = icon('angle-left');
+export const luzmoAngleRight = icon('angle-right');
+export const luzmoBarchart = icon('barchart');
+export const luzmoBarChartSimple = icon('bar-chart-simple');
+export const luzmoBracketArrowLeft = icon('bracket-arrow-left');
+export const luzmoBubbleChartSimple = icon('bubble-chart-simple');
+export const luzmoChartBar = icon('chart-bar');
+export const luzmoCheck = icon('check');
+export const luzmoClose = icon('close');
+export const luzmoColumnChartSimple = icon('column-chart-simple');
+export const luzmoDashboard = icon('dashboard');
+export const luzmoDataset = icon('dataset');
+export const luzmoDonutChartSimple = icon('donut-chart-simple');
+export const luzmoDotExpanded = icon('dot-expanded');
+export const luzmoDownload = icon('download');
+export const luzmoEdit = icon('edit');
+export const luzmoEllipsisVertical = icon('ellipsis-vertical');
+export const luzmoEvolutionNumberSimple = icon('evolution-number-simple');
+export const luzmoExclamationCircle = icon('exclamation-circle');
+export const luzmoFont = icon('font');
+export const luzmoFormula = icon('formula');
+export const luzmoFunnelChartSimple = icon('funnel-chart-simple');
+export const luzmoLineChartSimple = icon('line-chart-simple');
+export const luzmoPlugin = icon('plugin');
+export const luzmoPlus = icon('plus');
+export const luzmoRegularTableSimple = icon('regular-table-simple');
+export const luzmoRetry = icon('retry');
+export const luzmoSearch = icon('search');
+export const luzmoShare = icon('share');
+export const luzmoSliderHorizontal = icon('slider-horizontal');
+export const luzmoStar = icon('star');
+export const luzmoTrash = icon('trash');
+export const luzmoTreemapChartSimple = icon('treemap-chart-simple');
+export const luzmoTypeCurrency14 = icon('type-currency-14');
+export const luzmoTypeDate14 = icon('type-date-14');
+export const luzmoTypeDatetime14 = icon('type-datetime-14');
+export const luzmoTypeHierarchy14 = icon('type-hierarchy-14');
+export const luzmoTypeNumeric14 = icon('type-numeric-14');
+export const luzmoTypeSpatial14 = icon('type-spatial-14');
+export const luzmoTypeTime14 = icon('type-time-14');
+export const luzmoTypeTopography14 = icon('type-topography-14');

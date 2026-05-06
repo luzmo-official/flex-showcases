@@ -1,0 +1,269 @@
+<nav class="md:hidden sticky top-0 z-50 px-5 py-3 bg-surface border-b border-light">
+  <div class="flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 shrink-0">
+      <img
+        alt="Sales Compass Logo"
+        class="w-10 h-10"
+        src="assets/icon.svg"
+      />
+      <span class="text-sm text-active hidden sm:inline whitespace-nowrap">Sales Compass</span>
+    </div>
+    <div class="flex-1 px-2 min-w-0">
+      <p class="text-sm font-medium text-active text-right truncate">
+        {{ headerTitle() }}
+      </p>
+    </div>
+    <div class="relative shrink-0">
+      <luzmo-action-button
+        size="m"
+        class="round-action-button sized-40px"
+        aria-label="Toggle navigation menu"
+        (click)="toggleMobileMenu()"
+      >
+        <luzmo-icon
+          slot="icon"
+          [icon]="mobileMenuOpen() ? luzmoClose : luzmoEllipsisVerticalIcon"
+        >
+        </luzmo-icon>
+      </luzmo-action-button>
+      @if (mobileMenuOpen()) {
+        <div class="absolute right-0 mt-2 w-56 bg-surface-raised border border-default rounded-sm shadow-lg overflow-hidden z-50">
+          <a
+            routerLink="/overview"
+            routerLinkActive="bg-primary-20 text-active"
+            class="block px-4 py-2 text-sm text-default hover:bg-primary-10 hover:text-active"
+            (click)="closeMobileMenu()"
+          >
+            {{ 'navigation.overview' | translate }}
+          </a>
+          <a
+            routerLink="/performance"
+            routerLinkActive="bg-primary-20 text-active"
+            class="block px-4 py-2 text-sm text-default hover:bg-primary-10 hover:text-active"
+            (click)="closeMobileMenu()"
+          >
+            {{ 'navigation.performance' | translate }}
+          </a>
+          <a
+            routerLink="/report-builder"
+            routerLinkActive="bg-primary-20 text-active"
+            class="block px-4 py-2 text-sm text-default hover:bg-primary-10 hover:text-active"
+            (click)="closeMobileMenu()"
+          >
+            {{ 'navigation.report-builder' | translate }}
+          </a>
+          <div class="border-t border-light"></div>
+          <!-- Theme Picker -->
+          <div class="px-3 pt-2 pb-1">
+            <luzmo-field-label size="m">{{ 'theme.theme' | translate }}</luzmo-field-label>
+            @if (isCustomThemeActive()) {
+              <div class="flex items-center gap-2 px-2 py-1 bg-surface rounded border border-default h-[32px]">
+                <span class="flex-grow text-xs text-default">
+                  {{ 'theme.custom-theme' | translate }}
+                </span>
+                <luzmo-action-button
+                  class="hover-effect"
+                  quiet
+                  size="xs"
+                  [title]="'theme.reset-to-defaults' | translate"
+                  (click)="resetToDefaultTheme()"
+                >
+                  <luzmo-icon
+                    slot="icon"
+                    size="xs"
+                    [icon]="luzmoRetryIcon"
+                  >
+                  </luzmo-icon>
+                </luzmo-action-button>
+              </div>
+            } @else {
+              <luzmo-picker
+                class="w-full"
+                [value]="selectedPresetId() ?? 'default'"
+                (change)="onPresetChange($event)"
+              >
+                <span slot="label">
+                  @if (selectedPreset(); as preset) {
+                    {{ preset.translationKey | translate }}
+                  } @else {
+                    {{ 'theme.default-theme' | translate }}
+                  }
+                </span>
+                <luzmo-menu-item value="default">
+                  <span class="flex items-center gap-2">
+                    <span class="flex items-center flex-shrink-0">
+                      <span
+                        class="w-4 h-4 rounded-full border"
+                        [style.background]="defaultThemeColors().surface"
+                        [style.border-color]="defaultThemeColors().borderHard"
+                      >
+                      </span>
+                      <span
+                        class="w-4 h-4 rounded-full border -ml-1.5"
+                        [style.background]="defaultThemeColors().primary"
+                        [style.border-color]="defaultThemeColors().borderHard"
+                      >
+                      </span>
+                      <span
+                        class="w-4 h-4 rounded-full border -ml-1.5"
+                        [style.background]="defaultThemeColors().secondary"
+                        [style.border-color]="defaultThemeColors().borderHard"
+                      >
+                      </span>
+                    </span>
+                    <span>{{ 'theme.default-theme' | translate }}</span>
+                  </span>
+                </luzmo-menu-item>
+                @for (preset of themePresets; track preset.id) {
+                  <luzmo-menu-item [value]="preset.id">
+                    <span class="flex items-center gap-2">
+                      <span class="flex items-center flex-shrink-0">
+                        <span
+                          class="w-4 h-4 rounded-full border"
+                          [style.background]="preset.colors.surface"
+                          [style.border-color]="preset.colors.borderHard"
+                        >
+                        </span>
+                        <span
+                          class="w-4 h-4 rounded-full border -ml-1.5"
+                          [style.background]="preset.colors.primary"
+                          [style.border-color]="preset.colors.borderHard"
+                        >
+                        </span>
+                        <span
+                          class="w-4 h-4 rounded-full border -ml-1.5"
+                          [style.background]="preset.colors.secondary"
+                          [style.border-color]="preset.colors.borderHard"
+                        >
+                        </span>
+                      </span>
+                      <span>{{ preset.translationKey | translate }}</span>
+                    </span>
+                  </luzmo-menu-item>
+                }
+              </luzmo-picker>
+            }
+          </div>
+          <!-- Language Picker -->
+          @if (currentLanguage(); as lang) {
+            <div class="px-3 pt-1 pb-2">
+              <luzmo-field-label size="m">{{ 'theme.language' | translate }}</luzmo-field-label>
+              <luzmo-picker
+                class="w-full"
+                [value]="lang"
+                (change)="onLanguageChange($event)"
+              >
+                <span slot="label">
+                  @switch (lang) {
+                    @case ('en') {
+                      English
+                    }
+                    @case ('fr') {
+                      Français
+                    }
+                    @case ('de') {
+                      Deutsch
+                    }
+                    @case ('es') {
+                      Español
+                    }
+                    @case ('nl') {
+                      Nederlands
+                    }
+                  }
+                </span>
+                <luzmo-menu-item value="en">English</luzmo-menu-item>
+                <luzmo-menu-item value="fr">Français</luzmo-menu-item>
+                <luzmo-menu-item value="de">Deutsch</luzmo-menu-item>
+                <luzmo-menu-item value="es">Español</luzmo-menu-item>
+                <luzmo-menu-item value="nl">Nederlands</luzmo-menu-item>
+              </luzmo-picker>
+            </div>
+          }
+          <div class="border-t border-light"></div>
+          <a
+            routerLink="/login"
+            routerLinkActive="bg-primary-20 text-active"
+            class="block px-4 py-2 text-sm text-default hover:bg-primary-10 hover:text-active"
+            (click)="logout()"
+          >
+            {{ 'header.log-out' | translate }}
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</nav>
+
+<header class="hidden md:flex justify-between items-center gap-6 px-8 py-6 bg-surface border-b border-light">
+  <h1 class="mb-0 text-[20px]">{{ headerTitle() }}</h1>
+
+  <div class="hidden md:flex items-center gap-4">
+    <div class="relative header-search">
+      <luzmo-search
+        hold-value-on-escape
+        class="w-48 lg:w-96 sized-40px"
+        [placeholder]="'header.ask-question' | translate"
+        [value]="searchQuery()"
+        (input)="onSearchInput($event)"
+        (submit)="onSearchSubmit($event)"
+        (focus)="onSearchFocus()"
+        (blur)="onSearchBlur()"
+      ></luzmo-search>
+      @if (searchQuery() && isSearchFocused()) {
+        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+          <span class="inline-block px-2 py-0.5 text-xs text-dimmed bg-surface border border-default rounded">Enter</span>
+        </div>
+      }
+      @if (isOverlayOpen()) {
+        <div
+          class="search-overlay absolute left-0 right-0 mt-2 bg-surface-raised border border-default rounded-sm shadow-lg p-4 z-50"
+          role="dialog"
+        >
+          <luzmo-action-button
+            quiet
+            size="m"
+            class="absolute top-2 right-2"
+            (click)="closeOverlay()"
+          >
+            <luzmo-icon
+              slot="icon"
+              [icon]="luzmoClose"
+            >
+            </luzmo-icon>
+          </luzmo-action-button>
+          @if (!aiAnswer() && !aiError()) {
+            <div class="flex items-center gap-2 pr-8">
+              <div class="luzmo-state-loader">
+                <div class="luzmo-state-loader-shimmer">{{ aiState() }}...</div>
+              </div>
+            </div>
+          } @else if (!aiAnswer() && aiError()) {
+            <div class="flex items-center gap-2 pr-8">
+              <span class="text-xs text-danger">{{ aiError() }}</span>
+            </div>
+          }
+          @if (aiAnswer()) {
+            <div class="ai-answer text-sm text-default whitespace-pre-wrap pr-8">
+              {{ aiAnswer() }}
+            </div>
+          }
+          @if (aiChart(); as chart) {
+            <div class="ai-chart">
+              <luzmo-viz-item
+                class="!h-[350px] mt-5"
+                [options]="$any(chart.options)"
+                [slots]="chart.slots"
+                [type]="chart.type"
+                [filters]="chart.filters || []"
+                [appServer]="environment.luzmoAppServer"
+                [apiHost]="environment.luzmoApiUrl"
+              >
+              </luzmo-viz-item>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</header>

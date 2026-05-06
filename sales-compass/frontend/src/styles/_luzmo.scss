@@ -1,0 +1,303 @@
+/**
+ * Luzmo Component Integration
+ * 
+ * CSS custom properties and overrides for Luzmo components.
+ * Includes theming for:
+ * - Core component variables
+ * - Button variants
+ * - Text fields
+ * - Search component
+ * - IQ Chat component
+ */
+
+/* Luzmo component integration */
+html,
+body,
+:root,
+:host {
+  /* Background colors */
+  --luzmo-background-color: var(--color-surface);
+  --luzmo-background-color-disabled: var(--color-surface);
+  --luzmo-background-color-hover: var(--color-surface);
+  --luzmo-background-color-down: var(--color-surface);
+  --luzmo-background-color-focus: var(--color-surface);
+  --luzmo-background-color-highlight: var(--color-surface);
+  --luzmo-background-color-highlight-disabled: var(--color-surface);
+  --luzmo-background-color-highlight-hover: var(--color-surface);
+  --luzmo-background-color-highlight-down: var(--color-surface);
+  --luzmo-background-color-highlight-focus: var(--color-surface);
+
+  /* Borders */
+  --luzmo-border-color: var(--color-border);
+  --luzmo-border-color-disabled: var(--color-border-light);
+  --luzmo-border-color-hover: var(--color-border-hard);
+  --luzmo-border-radius: var(--border-radius-default);
+
+  /* Indicator */
+  --luzmo-indicator-color: var(--color-primary);
+  --luzmo-indicator-width: 0.0625rem;
+  --luzmo-indicator-gap: 0.125rem;
+
+  /* Font colors */
+  --luzmo-font-family: var(--font-family-base);
+  --luzmo-disabled-color: var(--color-text-dimmed);
+  --luzmo-font-color: var(--color-text);
+  --luzmo-font-color-hard: var(--color-text-active);
+  --luzmo-font-color-focus: var(--color-text-active);
+  --luzmo-font-color-hover: var(--color-text);
+  --luzmo-font-color-down: var(--color-text);
+
+  /* Primary/secondary colors */
+  --luzmo-primary: var(--color-primary);
+  --luzmo-primary-down: var(--color-primary-darker);
+  --luzmo-primary-hover: var(--color-primary);
+  --luzmo-primary-focus: var(--color-primary);
+  --luzmo-primary-inverse-color: var(--color-primary-inverse);
+  --luzmo-primary-rgb: var(--color-primary-rgb);
+  --luzmo-secondary: var(--color-secondary);
+  --luzmo-secondary-down: var(--color-secondary-darker);
+  --luzmo-secondary-hover: var(--color-secondary);
+  --luzmo-secondary-focus: var(--color-secondary);
+  --luzmo-secondary-inverse-color: var(--color-secondary-inverse);
+  --luzmo-secondary-rgb: var(--color-secondary-rgb);
+
+  /* Luzmo components */
+  --luzmo-droppable-slot-background-color: var(--color-surface);
+
+  /* Text field */
+  --luzmo-text-field-border-color-hover: var(--color-primary);
+  --luzmo-text-field-text-color: var(--color-text);
+  --luzmo-text-field-text-color-hover: var(--color-text);
+  --luzmo-text-field-text-color-keyboard-focus: var(--color-text);
+
+  /* Divider */
+  --luzmo-divider-background-color: var(--color-border);
+
+  /* Droppable slot */
+  --luzmo-droppable-slot-font-color: var(--color-text);
+  --luzmo-droppable-slot-height: 2.25rem;
+  --luzmo-droppable-slot-border-style: solid;
+
+  /* Tabs */
+  --luzmo-tabs-color-hover-emphasized: var(--color-text-active);
+  --luzmo-tabs-item-height: 3rem;
+
+  /* Picker */
+  --luzmo-picker-border-radius: var(--border-radius-default);
+  --luzmo-picker-border-color-default: var(--color-border);
+  --luzmo-picker-border-color-hover: var(--color-border-hard);
+  --luzmo-picker-box-shadow: none;
+  --luzmo-picker-spacing-edge-to-text: 0.75rem;
+  --luzmo-picker-spacing-edge-to-disclosure-icon: 0.75rem;
+  --luzmo-picker-border-default-open: rgba(var(--color-primary-rgb), 0.5);
+  --luzmo-menu-item-background-color-hover: rgba(var(--color-primary-rgb), 0.3);
+
+  /* Draggable data item */
+  --luzmo-draggable-data-field-level-border-color: var(--color-border);
+  --luzmo-draggable-data-field-level-background-color-hover: rgba(var(--color-secondary-rgb), 0.3);
+  --luzmo-draggable-data-field-level-sublevel-background-color-hover: rgba(var(--color-secondary-rgb), 0.3);
+  --luzmo-draggable-data-field-level-font-color-hover: var(--color-text-active);
+  --luzmo-draggable-data-field-level-border-color-hover: var(--color-border-hard);
+  --luzmo-animation-duration: 0.3s;
+  --luzmo-draggable-data-field-level-height: 2.25rem;
+}
+
+/* Text field sizing */
+luzmo-text-field {
+  &[size='m'] {
+    --luzmo-text-field-height: 2.5rem;
+  }
+}
+
+/* Button component */
+luzmo-button {
+  /* Size medium */
+  &[size='m'] {
+    --luzmo-button-height: 2.375rem;
+    --luzmo-button-top-to-text: 0.6875rem;
+    --luzmo-button-top-to-icon: 0.5625rem;
+  }
+
+  /* Primary fill variant */
+  &[variant='primary'][treatment='fill'] {
+    --luzmo-button-border-color-hover: var(--color-primary);
+    --luzmo-button-border-color-down: var(--color-primary);
+    --luzmo-button-border-color-focus: var(--color-primary);
+    --luzmo-button-background-color-hover: var(--color-primary-darker);
+    --luzmo-button-background-color-down: var(--color-primary-darker);
+    --luzmo-button-background-color-focus: var(--color-primary-darker);
+
+    &[disabled] {
+      --luzmo-button-content-color-disabled: var(--color-text);
+      --luzmo-button-background-color-disabled: var(--color-primary);
+      opacity: 0.6;
+    }
+  }
+
+  /* Default outline variant */
+  &.default-outline {
+    --luzmo-button-content-color-default: var(--color-text);
+    --luzmo-button-content-color-hover: var(--color-text-active);
+    --luzmo-button-content-color-down: var(--color-text-active);
+    --luzmo-button-content-color-focus: var(--color-text-active);
+    --luzmo-button-border-color-default: var(--color-border);
+    --luzmo-button-border-color-hover: var(--color-border-hard);
+    --luzmo-button-border-color-down: var(--color-border-hard);
+    --luzmo-button-border-color-focus: var(--color-border-hard);
+
+    &.raised {
+      --luzmo-button-background-color-default: var(--color-surface-raised);
+    }
+  }
+}
+
+/* Round action button */
+luzmo-action-button {
+  &.round-action-button {
+    --luzmo-action-button-border-radius: 50%;
+  }
+
+  /* Hover effect for action buttons */
+  &.hover-effect {
+    --luzmo-action-button-background-color-hover: rgba(var(--color-primary-rgb), 0.15);
+    --luzmo-action-button-content-color-hover: var(--color-text-active);
+  }
+}
+
+luzmo-search {
+  --luzmo-text-field-content-color: var(--color-text);
+  --luzmo-text-field-content-color-hover: var(--color-text-active);
+  --luzmo-text-field-content-color-down: var(--color-text-active);
+  --luzmo-text-field-content-color-focus: var(--color-text-active);
+  --luzmo-search-border-color-default: var(--color-border);
+  --luzmo-search-border-color-hover: var(--color-primary);
+  --luzmo-search-border-color-down: var(--color-primary);
+  --luzmo-search-border-color-focus: var(--color-primary);
+  --luzmo-search-background-color-hover: var(--color-primary-darker);
+  --luzmo-search-background-color-down: var(--color-primary-darker);
+  --luzmo-search-background-color-focus: var(--color-primary-darker);
+}
+
+luzmo-draggable-data-fields-panel {
+  --luzmo-component-height: 2.5rem;
+  --luzmo-draggable-data-fields-panel-dataset-picker-divider-height: 0;
+  --draggable-data-fields-panel-dataset-picker-divider-height: 0;
+  --luzmo-draggable-data-fields-panel-dataset-picker-padding-block-end: 0;
+  --luzmo-draggable-data-fields-panel-dataset-picker-margin-block-end: 0.75rem;
+  --luzmo-draggable-data-fields-panel-search-margin-block-end: 0.75rem;
+  --luzmo-draggable-data-fields-panel-scrollbar-thumb-background: var(--color-border-hard);
+  --luzmo-draggable-data-fields-panel-scrollbar-track-background: var(--color-surface-raised);
+}
+
+luzmo-data-fields-select {
+  --luzmo-component-height: 2.5rem;
+}
+
+luzmo-item-data-picker-panel {
+  --luzmo-component-height: 2.5rem;
+  --luzmo-picker-block-size: 2.5rem;
+  --luzmo-item-data-picker-panel-dataset-picker-border-width: 0;
+  --luzmo-item-data-picker-panel-dataset-picker-margin-block-end: 0;
+}
+
+luzmo-draggable-data-fields-panel::part(data-fields-list) {
+  padding-right: 0.5rem;
+}
+
+/* IQ Chat component */
+luzmo-iq-chat-component {
+  font-size: var(--font-size-base);
+
+  /* Core IQ variables */
+  --luzmo-iq-background-color: var(--color-surface-raised);
+  --luzmo-iq-border-color: var(--color-border);
+  --luzmo-iq-border-width: 0.0625rem;
+  --luzmo-iq-chart-answer-border-width: 0;
+  --luzmo-iq-font-color: var(--color-text);
+  --luzmo-iq-font-family: var(--font-family-base);
+  --luzmo-iq-font-size: var(--font-size-base);
+
+  /* Message styles */
+  --luzmo-iq-human-message-background: var(--color-primary);
+  --luzmo-iq-human-message-color: var(--color-primary-inverse);
+  --luzmo-iq-system-message-background: var(--color-surface);
+  --luzmo-iq-system-message-color: var(--color-text);
+
+  /* Message container */
+  --luzmo-iq-messages-container-horizontal-padding: 0;
+  --luzmo-iq-messages-container-vertical-padding: 0;
+
+  /* Prompt styles */
+  --luzmo-iq-prompt-background-color: var(--color-surface);
+  --luzmo-iq-prompt-background: var(--color-surface);
+  --luzmo-iq-prompt-container-horizontal-padding: 0;
+  --luzmo-iq-prompt-font-size: var(--font-size-base);
+  --luzmo-iq-prompt-height: 2.25rem;
+
+  /* Spinner and state loader */
+  --luzmo-iq-spinner-color: var(--color-primary);
+  --luzmo-iq-state-loader-background: var(--color-text);
+  --luzmo-iq-state-loader-font-size: var(--font-size-base);
+
+  /* Suggestion styles */
+  --luzmo-iq-suggestion-background-color: transparent;
+  --luzmo-iq-suggestion-background-hover-color: var(--color-primary);
+  --luzmo-iq-suggestion-border-color: var(--color-primary);
+  --luzmo-iq-suggestion-border-width: 0.0625rem;
+  --luzmo-iq-suggestion-color: var(--color-primary);
+  --luzmo-iq-suggestion-font-size: var(--font-size-base);
+  --luzmo-iq-suggestion-hover-color: var(--color-primary-inverse);
+
+  /* Chart config */
+  --luzmo-iq-background-active-color: var(--color-primary);
+  --luzmo-iq-button-toggle-background-color: var(--color-surface);
+  --luzmo-iq-button-toggle-background-hover: rgba(var(--color-primary-rgb), 0.3);
+  --luzmo-iq-button-toggle-border-radius: var(--border-radius-default);
+  --luzmo-iq-button-toggle-color-active: var(--color-primary-inverse);
+  --luzmo-iq-button-toggle-color-hover: var(--color-text-active);
+  --luzmo-iq-button-toggle-font-size: var(--font-size-base);
+
+  /* Chart action items */
+  --luzmo-iq-chart-action-item-background-color: var(--color-surface);
+  --luzmo-iq-chart-action-item-border-radius: var(--border-radius-default);
+  --luzmo-iq-chart-action-item-dropdown-horizontal-padding: 0.75rem;
+  --luzmo-iq-chart-action-item-font-size: var(--font-size-base);
+  --luzmo-iq-chart-action-item-height: 2.375rem;
+  --luzmo-iq-chart-action-item-horizontal-padding: 0;
+  --luzmo-iq-chart-actions-container-gap: 0.5rem;
+
+  /* Chart config items */
+  --luzmo-iq-chart-config-background-color: var(--color-surface);
+  --luzmo-iq-chart-config-font-size: var(--font-size-base);
+  --luzmo-iq-chart-config-item-background-color: var(--color-surface-raised);
+  --luzmo-iq-chart-config-item-border-radius: var(--border-radius-default);
+  --luzmo-iq-chart-config-item-dropdown-horizontal-padding: 0.75rem;
+  --luzmo-iq-chart-config-item-font-size: var(--font-size-base);
+  --luzmo-iq-chart-config-item-height: 2.375rem;
+  --luzmo-iq-chart-config-item-horizontal-padding: 0;
+  --luzmo-iq-chart-config-row-item-gap: 1rem;
+  --luzmo-iq-chart-config-row-items-gap: 0.75rem;
+
+  /* Menu and datepicker */
+  --luzmo-iq-datepicker-hover-background-color: rgba(var(--color-primary-rgb), 0.3);
+  --luzmo-iq-menu-dropdown-item-active-background-color: var(--color-primary);
+  --luzmo-iq-menu-dropdown-item-active-color: var(--color-primary-inverse);
+  --luzmo-iq-menu-dropdown-item-font-size: var(--font-size-base);
+  --luzmo-iq-menu-dropdown-item-hover-background-color: rgba(var(--color-primary-rgb), 0.3);
+  --luzmo-iq-menu-input-border-radius: var(--border-radius-default);
+  --luzmo-iq-menu-input-font-size: var(--font-size-base);
+
+  /* Material datepicker integration */
+  --mat-datepicker-calendar-date-selected-state-background-color: var(--color-primary);
+  --mat-datepicker-calendar-date-selected-state-text-color: var(--color-primary-inverse);
+
+  /* Progress steps */
+  --luzmo-progress-steps-background-color: var(--color-border-hard);
+  --luzmo-border-color-extra-dimmed: var(--color-border);
+}
+
+/* Explicit component height override - apply .sized-40px class to specific elements */
+.sized-40px {
+  --luzmo-component-height: 2.5rem;
+  --luzmo-picker-block-size: 2.5rem;
+}

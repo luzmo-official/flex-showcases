@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:ci": "tsc && vite build --base=/dashboard-to-flex-grid/",
     "preview": "vite preview"
   },
   "devDependencies": {
