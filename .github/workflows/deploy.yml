@@ -33,7 +33,8 @@ jobs:
       flexcalidraw: ${{ steps.filter.outputs.flexcalidraw }}
       ack_maps_builder: ${{ steps.filter.outputs.ack_maps_builder }}
       sustain_iq: ${{ steps.filter.outputs.sustain_iq }}
-      workflow: ${{ steps.filter.outputs.workflow }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      has_changes: ${{ steps.matrix.outputs.has_changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,8 +48,6 @@ jobs:
           base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
           filters: |
-            workflow:
-              - '.github/workflows/deploy.yml'
             dashboard_filter_panel:
               - 'dashboard-filter-panel/**'
             report_builder:
@@ -82,7 +81,6 @@ jobs:
 
       - name: Debug changed outputs
         run: |
-          echo "workflow=${{ steps.filter.outputs.workflow }}"
           echo "dashboard_filter_panel=${{ steps.filter.outputs.dashboard_filter_panel }}"
           echo "report_builder=${{ steps.filter.outputs.report_builder }}"
           echo "wearables_dashboard=${{ steps.filter.outputs.wearables_dashboard }}"
@@ -99,60 +97,63 @@ jobs:
           echo "ack_maps_builder=${{ steps.filter.outputs.ack_maps_builder }}"
           echo "sustain_iq=${{ steps.filter.outputs.sustain_iq }}"
 
+      - name: Build matrix
+        id: matrix
+        env:
+          DASHBOARD_FILTER_PANEL_CHANGED: ${{ steps.filter.outputs.dashboard_filter_panel }}
+          REPORT_BUILDER_CHANGED: ${{ steps.filter.outputs.report_builder }}
+          WEARABLES_DASHBOARD_CHANGED: ${{ steps.filter.outputs.wearables_dashboard }}
+          NEWSPAPER_CHANGED: ${{ steps.filter.outputs.newspaper }}
+          DASHBOARD_TO_FLEX_GRID_CHANGED: ${{ steps.filter.outputs.dashboard_to_flex_grid }}
+          FIFA2026_CHANGED: ${{ steps.filter.outputs.fifa2026 }}
+          THE_CONSTRUCTOR_CHANGED: ${{ steps.filter.outputs.the_constructor }}
+          DEVOPS_COMMAND_CHANGED: ${{ steps.filter.outputs.devops_command }}
+          EURO2024_CHANGED: ${{ steps.filter.outputs.euro2024 }}
+          CFO_COCKPIT_CHANGED: ${{ steps.filter.outputs.cfo_cockpit }}
+          BLOCK_TYPE_EDITOR_CHANGED: ${{ steps.filter.outputs.block_type_editor }}
+          GUIDED_CHART_CREATOR_CHANGED: ${{ steps.filter.outputs.guided_chart_creator }}
+          FLEXCALIDRAW_CHANGED: ${{ steps.filter.outputs.flexcalidraw }}
+          ACK_MAPS_BUILDER_CHANGED: ${{ steps.filter.outputs.ack_maps_builder }}
+          SUSTAIN_IQ_CHANGED: ${{ steps.filter.outputs.sustain_iq }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const showcases = [
+            { name: 'dashboard-filter-panel', changed: process.env.DASHBOARD_FILTER_PANEL_CHANGED, outputFolder: 'dist/dashboard-filter-panel/browser/' },
+            { name: 'report-builder', changed: process.env.REPORT_BUILDER_CHANGED, outputFolder: 'dist/report-builder/browser/' },
+            { name: 'wearables-dashboard', changed: process.env.WEARABLES_DASHBOARD_CHANGED, outputFolder: 'dist/' },
+            { name: 'newspaper', changed: process.env.NEWSPAPER_CHANGED, outputFolder: 'dist/newspaper/browser/' },
+            { name: 'dashboard-to-flex-grid', changed: process.env.DASHBOARD_TO_FLEX_GRID_CHANGED, outputFolder: 'dist/' },
+            { name: 'fifa2026', changed: process.env.FIFA2026_CHANGED, outputFolder: 'dist/' },
+            { name: 'the-constructor', changed: process.env.THE_CONSTRUCTOR_CHANGED, outputFolder: 'dist/' },
+            { name: 'devops-command', changed: process.env.DEVOPS_COMMAND_CHANGED, outputFolder: 'frontend/dist/devops-command/browser/' },
+            { name: 'euro2024', changed: process.env.EURO2024_CHANGED, outputFolder: 'dist/euro2024-showcase/browser/' },
+            { name: 'cfo-cockpit', changed: process.env.CFO_COCKPIT_CHANGED, outputFolder: 'dist/cfo-angular-product/browser/' },
+            { name: 'block-type-editor', changed: process.env.BLOCK_TYPE_EDITOR_CHANGED, outputFolder: 'dist/' },
+            { name: 'guided-chart-creator', changed: process.env.GUIDED_CHART_CREATOR_CHANGED, outputFolder: 'out/' },
+            { name: 'flexcalidraw', changed: process.env.FLEXCALIDRAW_CHANGED, outputFolder: 'excalidraw-app/build/' },
+            { name: 'ack-maps-builder', changed: process.env.ACK_MAPS_BUILDER_CHANGED, outputFolder: 'dist/' },
+            { name: 'sustain-iq', changed: process.env.SUSTAIN_IQ_CHANGED, outputFolder: 'dist/' },
+          ];
+
+          const include = showcases.filter((showcase) => showcase.changed === 'true');
+
+          const matrix = JSON.stringify({ include });
+          console.log(matrix);
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${matrix}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `has_changes=${include.length > 0}\n`);
+          NODE
+
   Build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: changes
+    if: ${{ needs.changes.outputs.has_changes == 'true' }}
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - name: dashboard-filter-panel
-            changed: ${{ needs.changes.outputs.dashboard_filter_panel }}
-            outputFolder: dist/dashboard-filter-panel/browser/
-          - name: report-builder
-            changed: ${{ needs.changes.outputs.report_builder }}
-            outputFolder: dist/report-builder/browser/
-          - name: wearables-dashboard
-            changed: ${{ needs.changes.outputs.wearables_dashboard }}
-            outputFolder: dist/
-          - name: newspaper
-            changed: ${{ needs.changes.outputs.newspaper }}
-            outputFolder: dist/newspaper/browser/
-          - name: dashboard-to-flex-grid
-            changed: ${{ needs.changes.outputs.dashboard_to_flex_grid }}
-            outputFolder: dist/
-          - name: fifa2026
-            changed: ${{ needs.changes.outputs.fifa2026 }}
-            outputFolder: dist/
-          - name: the-constructor
-            changed: ${{ needs.changes.outputs.the_constructor }}
-            outputFolder: dist/
-          - name: devops-command
-            changed: ${{ needs.changes.outputs.devops_command }}
-            outputFolder: frontend/dist/devops-command/browser/
-          - name: euro2024
-            changed: ${{ needs.changes.outputs.euro2024 }}
-            outputFolder: dist/euro2024-showcase/browser/
-          - name: cfo-cockpit
-            changed: ${{ needs.changes.outputs.cfo_cockpit }}
-            outputFolder: dist/cfo-angular-product/browser/
-          - name: block-type-editor
-            changed: ${{ needs.changes.outputs.block_type_editor }}
-            outputFolder: dist/
-          - name: guided-chart-creator
-            changed: ${{ needs.changes.outputs.guided_chart_creator }}
-            outputFolder: out/
-          - name: flexcalidraw
-            changed: ${{ needs.changes.outputs.flexcalidraw }}
-            outputFolder: excalidraw-app/build/
-          - name: ack-maps-builder
-            changed: ${{ needs.changes.outputs.ack_maps_builder }}
-            outputFolder: dist/
-          - name: sustain-iq
-            changed: ${{ needs.changes.outputs.sustain_iq }}
-            outputFolder: dist/
-    if: ${{ needs.changes.outputs.workflow == 'true' || matrix.changed == 'true' }}
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
 
     steps:
       - name: Checkout
