@@ -14,47 +14,80 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Detect changed showcases
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed showcases
+        id: detect
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          REF_SHA: ${{ github.sha }}
+        run: |
+          if [[ "$BASE_SHA" =~ ^0+$ ]]; then
+            BASE_SHA="$(git rev-list --max-parents=0 "$REF_SHA")"
+          fi
+
+          git diff --name-only "$BASE_SHA" "$REF_SHA" > changed-files.txt
+          echo "Changed files:"
+          cat changed-files.txt
+
+          node <<'NODE'
+          const fs = require('fs');
+
+          const showcases = [
+            { name: 'dashboard-filter-panel', outputFolder: 'dist/dashboard-filter-panel/browser/' },
+            { name: 'report-builder', outputFolder: 'dist/report-builder/browser/' },
+            { name: 'wearables-dashboard', outputFolder: 'dist/' },
+            { name: 'newspaper', outputFolder: 'dist/newspaper/browser/' },
+            { name: 'dashboard-to-flex-grid', outputFolder: 'dist/' },
+            { name: 'fifa2026', outputFolder: 'dist/' },
+            { name: 'the-constructor', outputFolder: 'dist/' },
+            { name: 'devops-command', outputFolder: 'frontend/dist/devops-command/browser/' },
+            { name: 'euro2024', outputFolder: 'dist/euro2024-showcase/browser/' },
+            { name: 'cfo-cockpit', outputFolder: 'dist/cfo-angular-product/browser/' },
+            { name: 'block-type-editor', outputFolder: 'dist/' },
+            { name: 'guided-chart-creator', outputFolder: 'out/' },
+            { name: 'flexcalidraw', outputFolder: 'excalidraw-app/build/' },
+            { name: 'ack-maps-builder', outputFolder: 'dist/' },
+            { name: 'sustain-iq', outputFolder: 'dist/' },
+          ];
+
+          const changedFiles = fs.readFileSync('changed-files.txt', 'utf8')
+            .split(/\r?\n/)
+            .filter(Boolean);
+          const include = showcases.filter((showcase) =>
+            changedFiles.some((file) => file === showcase.name || file.startsWith(`${showcase.name}/`))
+          );
+
+          const matrix = JSON.stringify({ include });
+          console.log(`Build matrix: ${matrix}`);
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${matrix}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `has_changes=${include.length > 0}\n`);
+          NODE
+
   Build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    needs: changes
+    if: ${{ needs.changes.outputs.has_changes == 'true' }}
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - name: dashboard-filter-panel
-            outputFolder: dist/dashboard-filter-panel/browser/
-          - name: report-builder
-            outputFolder: dist/report-builder/browser/
-          - name: wearables-dashboard
-            outputFolder: dist/
-          - name: newspaper
-            outputFolder: dist/newspaper/browser/
-          - name: dashboard-to-flex-grid
-            outputFolder: dist/
-          - name: fifa2026
-            outputFolder: dist/
-          - name: the-constructor
-            outputFolder: dist/
-          - name: devops-command
-            outputFolder: frontend/dist/devops-command/browser/
-          - name: euro2024
-            outputFolder: dist/euro2024-showcase/browser/
-          - name: cfo-cockpit
-            outputFolder: dist/cfo-angular-product/browser/
-          - name: block-type-editor
-            outputFolder: dist/
-          - name: guided-chart-creator
-            outputFolder: out/
-          - name: flexcalidraw
-            outputFolder: excalidraw-app/build/
-          - name: ack-maps-builder
-            outputFolder: dist/
-          - name: sustain-iq
-            outputFolder: dist/
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup node
         uses: actions/setup-node@v4
