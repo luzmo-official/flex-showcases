@@ -44,6 +44,8 @@ jobs:
         id: filter
         uses: dorny/paths-filter@v3
         with:
+          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
           filters: |
             workflow:
               - '.github/workflows/deploy.yml'
@@ -77,6 +79,25 @@ jobs:
               - 'ack-maps-builder/**'
             sustain_iq:
               - 'sustain-iq/**'
+
+      - name: Debug changed outputs
+        run: |
+          echo "workflow=${{ steps.filter.outputs.workflow }}"
+          echo "dashboard_filter_panel=${{ steps.filter.outputs.dashboard_filter_panel }}"
+          echo "report_builder=${{ steps.filter.outputs.report_builder }}"
+          echo "wearables_dashboard=${{ steps.filter.outputs.wearables_dashboard }}"
+          echo "newspaper=${{ steps.filter.outputs.newspaper }}"
+          echo "dashboard_to_flex_grid=${{ steps.filter.outputs.dashboard_to_flex_grid }}"
+          echo "fifa2026=${{ steps.filter.outputs.fifa2026 }}"
+          echo "the_constructor=${{ steps.filter.outputs.the_constructor }}"
+          echo "devops_command=${{ steps.filter.outputs.devops_command }}"
+          echo "euro2024=${{ steps.filter.outputs.euro2024 }}"
+          echo "cfo_cockpit=${{ steps.filter.outputs.cfo_cockpit }}"
+          echo "block_type_editor=${{ steps.filter.outputs.block_type_editor }}"
+          echo "guided_chart_creator=${{ steps.filter.outputs.guided_chart_creator }}"
+          echo "flexcalidraw=${{ steps.filter.outputs.flexcalidraw }}"
+          echo "ack_maps_builder=${{ steps.filter.outputs.ack_maps_builder }}"
+          echo "sustain_iq=${{ steps.filter.outputs.sustain_iq }}"
 
   Build:
     runs-on: ubuntu-latest
