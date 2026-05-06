@@ -18,129 +18,58 @@ jobs:
     name: Detect changed showcases
     runs-on: ubuntu-latest
     outputs:
-      dashboard_filter_panel: ${{ steps.filter.outputs.dashboard_filter_panel }}
-      report_builder: ${{ steps.filter.outputs.report_builder }}
-      wearables_dashboard: ${{ steps.filter.outputs.wearables_dashboard }}
-      newspaper: ${{ steps.filter.outputs.newspaper }}
-      dashboard_to_flex_grid: ${{ steps.filter.outputs.dashboard_to_flex_grid }}
-      fifa2026: ${{ steps.filter.outputs.fifa2026 }}
-      the_constructor: ${{ steps.filter.outputs.the_constructor }}
-      devops_command: ${{ steps.filter.outputs.devops_command }}
-      euro2024: ${{ steps.filter.outputs.euro2024 }}
-      cfo_cockpit: ${{ steps.filter.outputs.cfo_cockpit }}
-      block_type_editor: ${{ steps.filter.outputs.block_type_editor }}
-      guided_chart_creator: ${{ steps.filter.outputs.guided_chart_creator }}
-      flexcalidraw: ${{ steps.filter.outputs.flexcalidraw }}
-      ack_maps_builder: ${{ steps.filter.outputs.ack_maps_builder }}
-      sustain_iq: ${{ steps.filter.outputs.sustain_iq }}
-      matrix: ${{ steps.matrix.outputs.matrix }}
-      has_changes: ${{ steps.matrix.outputs.has_changes }}
+      matrix: ${{ steps.detect.outputs.matrix }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Compute path changes
-        id: filter
-        uses: dorny/paths-filter@v3
-        with:
-          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          filters: |
-            dashboard_filter_panel:
-              - 'dashboard-filter-panel/**'
-            report_builder:
-              - 'report-builder/**'
-            wearables_dashboard:
-              - 'wearables-dashboard/**'
-            newspaper:
-              - 'newspaper/**'
-            dashboard_to_flex_grid:
-              - 'dashboard-to-flex-grid/**'
-            fifa2026:
-              - 'fifa2026/**'
-            the_constructor:
-              - 'the-constructor/**'
-            devops_command:
-              - 'devops-command/**'
-            euro2024:
-              - 'euro2024/**'
-            cfo_cockpit:
-              - 'cfo-cockpit/**'
-            block_type_editor:
-              - 'block-type-editor/**'
-            guided_chart_creator:
-              - 'guided-chart-creator/**'
-            flexcalidraw:
-              - 'flexcalidraw/**'
-            ack_maps_builder:
-              - 'ack-maps-builder/**'
-            sustain_iq:
-              - 'sustain-iq/**'
-
-      - name: Debug changed outputs
-        run: |
-          echo "dashboard_filter_panel=${{ steps.filter.outputs.dashboard_filter_panel }}"
-          echo "report_builder=${{ steps.filter.outputs.report_builder }}"
-          echo "wearables_dashboard=${{ steps.filter.outputs.wearables_dashboard }}"
-          echo "newspaper=${{ steps.filter.outputs.newspaper }}"
-          echo "dashboard_to_flex_grid=${{ steps.filter.outputs.dashboard_to_flex_grid }}"
-          echo "fifa2026=${{ steps.filter.outputs.fifa2026 }}"
-          echo "the_constructor=${{ steps.filter.outputs.the_constructor }}"
-          echo "devops_command=${{ steps.filter.outputs.devops_command }}"
-          echo "euro2024=${{ steps.filter.outputs.euro2024 }}"
-          echo "cfo_cockpit=${{ steps.filter.outputs.cfo_cockpit }}"
-          echo "block_type_editor=${{ steps.filter.outputs.block_type_editor }}"
-          echo "guided_chart_creator=${{ steps.filter.outputs.guided_chart_creator }}"
-          echo "flexcalidraw=${{ steps.filter.outputs.flexcalidraw }}"
-          echo "ack_maps_builder=${{ steps.filter.outputs.ack_maps_builder }}"
-          echo "sustain_iq=${{ steps.filter.outputs.sustain_iq }}"
-
-      - name: Build matrix
-        id: matrix
+      - name: Detect changed showcases
+        id: detect
         env:
-          DASHBOARD_FILTER_PANEL_CHANGED: ${{ steps.filter.outputs.dashboard_filter_panel }}
-          REPORT_BUILDER_CHANGED: ${{ steps.filter.outputs.report_builder }}
-          WEARABLES_DASHBOARD_CHANGED: ${{ steps.filter.outputs.wearables_dashboard }}
-          NEWSPAPER_CHANGED: ${{ steps.filter.outputs.newspaper }}
-          DASHBOARD_TO_FLEX_GRID_CHANGED: ${{ steps.filter.outputs.dashboard_to_flex_grid }}
-          FIFA2026_CHANGED: ${{ steps.filter.outputs.fifa2026 }}
-          THE_CONSTRUCTOR_CHANGED: ${{ steps.filter.outputs.the_constructor }}
-          DEVOPS_COMMAND_CHANGED: ${{ steps.filter.outputs.devops_command }}
-          EURO2024_CHANGED: ${{ steps.filter.outputs.euro2024 }}
-          CFO_COCKPIT_CHANGED: ${{ steps.filter.outputs.cfo_cockpit }}
-          BLOCK_TYPE_EDITOR_CHANGED: ${{ steps.filter.outputs.block_type_editor }}
-          GUIDED_CHART_CREATOR_CHANGED: ${{ steps.filter.outputs.guided_chart_creator }}
-          FLEXCALIDRAW_CHANGED: ${{ steps.filter.outputs.flexcalidraw }}
-          ACK_MAPS_BUILDER_CHANGED: ${{ steps.filter.outputs.ack_maps_builder }}
-          SUSTAIN_IQ_CHANGED: ${{ steps.filter.outputs.sustain_iq }}
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          REF_SHA: ${{ github.sha }}
         run: |
+          if [[ "$BASE_SHA" =~ ^0+$ ]]; then
+            BASE_SHA="$(git rev-list --max-parents=0 "$REF_SHA")"
+          fi
+
+          git diff --name-only "$BASE_SHA" "$REF_SHA" > changed-files.txt
+          echo "Changed files:"
+          cat changed-files.txt
+
           node <<'NODE'
           const fs = require('fs');
 
           const showcases = [
-            { name: 'dashboard-filter-panel', changed: process.env.DASHBOARD_FILTER_PANEL_CHANGED, outputFolder: 'dist/dashboard-filter-panel/browser/' },
-            { name: 'report-builder', changed: process.env.REPORT_BUILDER_CHANGED, outputFolder: 'dist/report-builder/browser/' },
-            { name: 'wearables-dashboard', changed: process.env.WEARABLES_DASHBOARD_CHANGED, outputFolder: 'dist/' },
-            { name: 'newspaper', changed: process.env.NEWSPAPER_CHANGED, outputFolder: 'dist/newspaper/browser/' },
-            { name: 'dashboard-to-flex-grid', changed: process.env.DASHBOARD_TO_FLEX_GRID_CHANGED, outputFolder: 'dist/' },
-            { name: 'fifa2026', changed: process.env.FIFA2026_CHANGED, outputFolder: 'dist/' },
-            { name: 'the-constructor', changed: process.env.THE_CONSTRUCTOR_CHANGED, outputFolder: 'dist/' },
-            { name: 'devops-command', changed: process.env.DEVOPS_COMMAND_CHANGED, outputFolder: 'frontend/dist/devops-command/browser/' },
-            { name: 'euro2024', changed: process.env.EURO2024_CHANGED, outputFolder: 'dist/euro2024-showcase/browser/' },
-            { name: 'cfo-cockpit', changed: process.env.CFO_COCKPIT_CHANGED, outputFolder: 'dist/cfo-angular-product/browser/' },
-            { name: 'block-type-editor', changed: process.env.BLOCK_TYPE_EDITOR_CHANGED, outputFolder: 'dist/' },
-            { name: 'guided-chart-creator', changed: process.env.GUIDED_CHART_CREATOR_CHANGED, outputFolder: 'out/' },
-            { name: 'flexcalidraw', changed: process.env.FLEXCALIDRAW_CHANGED, outputFolder: 'excalidraw-app/build/' },
-            { name: 'ack-maps-builder', changed: process.env.ACK_MAPS_BUILDER_CHANGED, outputFolder: 'dist/' },
-            { name: 'sustain-iq', changed: process.env.SUSTAIN_IQ_CHANGED, outputFolder: 'dist/' },
+            { name: 'dashboard-filter-panel', outputFolder: 'dist/dashboard-filter-panel/browser/' },
+            { name: 'report-builder', outputFolder: 'dist/report-builder/browser/' },
+            { name: 'wearables-dashboard', outputFolder: 'dist/' },
+            { name: 'newspaper', outputFolder: 'dist/newspaper/browser/' },
+            { name: 'dashboard-to-flex-grid', outputFolder: 'dist/' },
+            { name: 'fifa2026', outputFolder: 'dist/' },
+            { name: 'the-constructor', outputFolder: 'dist/' },
+            { name: 'devops-command', outputFolder: 'frontend/dist/devops-command/browser/' },
+            { name: 'euro2024', outputFolder: 'dist/euro2024-showcase/browser/' },
+            { name: 'cfo-cockpit', outputFolder: 'dist/cfo-angular-product/browser/' },
+            { name: 'block-type-editor', outputFolder: 'dist/' },
+            { name: 'guided-chart-creator', outputFolder: 'out/' },
+            { name: 'flexcalidraw', outputFolder: 'excalidraw-app/build/' },
+            { name: 'ack-maps-builder', outputFolder: 'dist/' },
+            { name: 'sustain-iq', outputFolder: 'dist/' },
           ];
 
-          const include = showcases.filter((showcase) => showcase.changed === 'true');
+          const changedFiles = fs.readFileSync('changed-files.txt', 'utf8')
+            .split(/\r?\n/)
+            .filter(Boolean);
+          const include = showcases.filter((showcase) =>
+            changedFiles.some((file) => file === showcase.name || file.startsWith(`${showcase.name}/`))
+          );
 
           const matrix = JSON.stringify({ include });
-          console.log(matrix);
+          console.log(`Build matrix: ${matrix}`);
 
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${matrix}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `has_changes=${include.length > 0}\n`);
