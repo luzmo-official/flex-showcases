@@ -6,7 +6,7 @@ import type { VizItemType } from '@luzmo/dashboard-contents-types';
 import { LuzmoFlexChart } from '../luzmo-constants';
 import { LUZMO_CONTROL_CENTRE_THEME, LUZMO_CONTROL_CENTRE_LOADER_OPTIONS } from '../luzmo-theme.config';
 
-import '@luzmo/analytics-components-kit/item-data-picker-panel';
+import '@luzmo/analytics-components-kit/item-slot-picker-panel';
 
 export interface ChatMessage {
   type: 'user' | 'system';
