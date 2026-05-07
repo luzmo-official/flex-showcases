@@ -108,7 +108,7 @@
             [class.w-0]="dataPickerCollapsed()"
             [class.opacity-0]="dataPickerCollapsed()"
           >
-            <luzmo-item-data-picker-panel
+            <luzmo-item-slot-picker-panel
               class="block"
               [itemType]="$any(chart.type)"
               language="en"
@@ -120,7 +120,7 @@
               [datasetIds]="datasetIds()"
               [slotsContents]="chart.slots"
               (luzmo-slots-contents-changed)="onSlotsContentsChanged($event)">
-            </luzmo-item-data-picker-panel>
+            </luzmo-item-slot-picker-panel>
           </div>
 
           <!-- Generated chart (right) -->
