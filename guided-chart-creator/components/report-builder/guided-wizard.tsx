@@ -10,15 +10,13 @@ import { FlexVizPreview } from "./flex-viz-preview"
 import { ChartTypeSelector } from "./chart-type-selector"
 import { Stepper } from "./stepper"
 
-// ACK web component registrations (side-effect imports)
-import "@luzmo/analytics-components-kit/data-field-panel"
-import "@luzmo/analytics-components-kit/item-slot-drop"
-import "@luzmo/analytics-components-kit/item-slot-drop-panel"
-import "@luzmo/analytics-components-kit/item-option-panel"
-import "@luzmo/analytics-components-kit/filters"
-
-// ACK React wrappers
-import { LuzmoItemOptionPanel, LuzmoFilters } from "@luzmo/analytics-components-kit/react"
+import {
+  LuzmoDataFieldPanel,
+  LuzmoItemSlotDrop,
+  LuzmoItemSlotDropPanel,
+  LuzmoItemOptionPanel,
+  LuzmoFilters,
+} from "@luzmo/analytics-components-kit/react"
 
 import type { DraftItem, VizItemSlots } from "@/lib/luzmo-types"
 import {
@@ -55,10 +53,6 @@ export function GuidedWizard() {
 
   const [showDebug, setShowDebug] = useState(false)
 
-  // ── Refs for ACK web components ───────────────────────────
-  const dropPanelRef = useRef<HTMLElement>(null)
-  const measureSlotRef = useRef<HTMLElement>(null)
-  const dimensionSlotRef = useRef<HTMLElement>(null)
   const dataFieldsPanelRef = useScrollFixRef()
 
   // Ref to hold current draft — avoids stale closures in event handlers
@@ -183,116 +177,44 @@ export function GuidedWizard() {
     },
   }
 
-  // ─── Step 1: Sync droppable-slot properties ─────────────
-  useEffect(() => {
-    if (step !== 1) return
-    const slots = normalizeSlotsContents(draft.slotsContents)
+  const normalizedSlots = useMemo(
+    () => normalizeSlotsContents(draft.slotsContents),
+    [draft.slotsContents],
+  )
 
-    const refs: [React.RefObject<HTMLElement | null>, string][] = [
-      [measureSlotRef, "measure"],
-      [dimensionSlotRef, "y-axis"],
-    ]
+  const handleSlotContentsChanged = useCallback(
+    (slotName: string, e: CustomEvent<{ slotContents: unknown[] }>) => {
+      const newContent = Array.isArray(e.detail?.slotContents)
+        ? (e.detail.slotContents as VizItemSlots[0]["content"])
+        : []
 
-    for (const [ref, slotName] of refs) {
-      const el = ref.current as Record<string, unknown> | null
-      if (!el) continue
-      el.slotsContents = slots
-      el.slotConfiguration = step1SlotConfigs[slotName]
-    }
-  }, [step, draft.slotsContents])
-
-  // ─── Step 1: Wire droppable-slot event listeners ────────
-  useEffect(() => {
-    if (step !== 1) return
-
-    const pairs: [React.RefObject<HTMLElement | null>, string][] = [
-      [measureSlotRef, "measure"],
-      [dimensionSlotRef, "y-axis"],
-    ]
-
-    const cleanups: (() => void)[] = []
-
-    for (const [ref, slotName] of pairs) {
-      const el = ref.current
-      if (!el) continue
-
-      const handler = (e: Event) => {
-        const detail = (
-          e as CustomEvent<{
-            slotContents: unknown[]
-            linkedDatasetsIds: string[]
-          }>
-        ).detail
-        const currentSlots = normalizeSlotsContents(
-          draftRef.current.slotsContents,
+      const currentSlots = normalizeSlotsContents(draft.slotsContents)
+      const existingIdx = currentSlots.findIndex((s) => s.name === slotName)
+      let updated: VizItemSlots
+      if (existingIdx >= 0) {
+        updated = currentSlots.map((s, i) =>
+          i === existingIdx ? { ...s, content: newContent } : s,
         )
-        const newContent = Array.isArray(detail?.slotContents)
-          ? (detail.slotContents as VizItemSlots[0]["content"])
-          : []
-
-        const existingIdx = currentSlots.findIndex((s) => s.name === slotName)
-        let updated: VizItemSlots
-        if (existingIdx >= 0) {
-          updated = currentSlots.map((s, i) =>
-            i === existingIdx ? { ...s, content: newContent } : s,
-          )
-        } else {
-          updated = [...currentSlots, { name: slotName, content: newContent }]
-        }
-
-        console.log(`[SLOT] ${slotName} changed:`, newContent)
-        updateDraftSlots(updated)
+      } else {
+        updated = [...currentSlots, { name: slotName, content: newContent }]
       }
 
-      el.addEventListener("luzmo-slot-contents-changed", handler)
-      cleanups.push(() =>
-        el.removeEventListener("luzmo-slot-contents-changed", handler),
-      )
-    }
+      console.log(`[SLOT] ${slotName} changed:`, newContent)
+      updateDraftSlots(updated)
+    },
+    [draft.slotsContents, updateDraftSlots],
+  )
 
-    return () => cleanups.forEach((fn) => fn())
-  }, [step, updateDraftSlots])
-
-  // ─── Steps 2 & 4: Sync drop panel properties ───────────
-  // CRITICAL: `step` in deps ensures re-run when panel mounts.
-  useEffect(() => {
-    const panel = dropPanelRef.current
-    if (!panel) return
-    const normalizedSlots = normalizeSlotsContents(draft.slotsContents)
-    ;(panel as Record<string, unknown>).itemType = draft.type
-    ;(panel as Record<string, unknown>).slotsContents = normalizedSlots
-    ;(panel as Record<string, unknown>).grows = true
-    console.log(
-      "[DROP PANEL] synced — type:",
-      draft.type,
-      "slots:",
-      normalizedSlots,
-    )
-  }, [step, draft.type, draft.slotsContents])
-
-  // ─── Steps 2 & 4: Wire drop panel event listener ───────
-  useEffect(() => {
-    const panel = dropPanelRef.current
-    if (!panel) return
-
-    const handler = (e: Event) => {
-      const detail = (e as CustomEvent<{ slotsContents: VizItemSlots }>).detail
-      const newSlots = normalizeSlotsContents(detail?.slotsContents)
+  const handleDropPanelSlotsChanged = useCallback(
+    (e: CustomEvent<{ slotsContents: VizItemSlots }>) => {
+      const newSlots = normalizeSlotsContents(e.detail?.slotsContents)
       console.log("[ACK] luzmo-slots-contents-changed:", newSlots)
-      // One-way data flow per docs: re-apply normalized state
-      ;(panel as Record<string, unknown>).slotsContents = newSlots
       updateDraftSlots(newSlots)
-    }
+    },
+    [updateDraftSlots],
+  )
 
-    panel.addEventListener("luzmo-slots-contents-changed", handler)
-    return () => {
-      panel.removeEventListener("luzmo-slots-contents-changed", handler)
-    }
-  }, [step, updateDraftSlots])
-
-  // ─── Step 4: Callbacks for edit-item / edit-filters ──────
-  // These use the React wrapper event props so they fire regardless
-  // of when the tab content mounts (no ref timing issues).
+  // ─── Callbacks for edit-item / edit-filters ──────────────
   const handleOptionsChanged = useCallback(
     (e: CustomEvent) => {
       const newOptions = e.detail?.options ?? {}
@@ -386,12 +308,11 @@ export function GuidedWizard() {
 
   // ─── Shared: data-field-panel ────────────────────────────
   const renderDataFieldsPanel = () => (
-    // @ts-expect-error -- ACK web component
-    <luzmo-data-field-panel
+    <LuzmoDataFieldPanel
       ref={dataFieldsPanelRef}
-      dataset-ids={JSON.stringify(allowedDatasetIds)}
-      api-url={API_URL}
-      dataset-picker
+      datasetIds={allowedDatasetIds}
+      apiUrl={API_URL}
+      datasetPicker
       search="auto"
       language="en"
       size="m"
@@ -408,14 +329,15 @@ export function GuidedWizard() {
   // ─── Shared: drop panel (Steps 2, 4) ───────────────────
   const renderDropPanel = () => (
     <div className="shrink-0 border-b bg-muted/30 p-2 overflow-auto max-h-48">
-      {/* @ts-expect-error -- ACK web component */}
-      <luzmo-item-slot-drop-panel
-        ref={dropPanelRef}
-        item-type={draft.type}
-        api-url={API_URL}
+      <LuzmoItemSlotDropPanel
+        itemType={draft.type}
+        slotsContents={normalizedSlots}
+        grows
+        apiUrl={API_URL}
         language="en"
-        content-language="en"
+        contentLanguage="en"
         size="m"
+        onLuzmoSlotsContentsChanged={handleDropPanelSlotsChanged}
       />
     </div>
   )
@@ -549,15 +471,18 @@ export function GuidedWizard() {
                 title={copy.step1.dimension.title}
                 description={copy.step1.dimension.description}
               >
-                {/* @ts-expect-error -- ACK web component */}
-                <luzmo-item-slot-drop
-                  ref={dimensionSlotRef}
-                  item-type={draft.type}
-                  slot-name="y-axis"
+                <LuzmoItemSlotDrop
+                  itemType={draft.type}
+                  slotName="y-axis"
+                  slotsContents={normalizedSlots}
+                  slotConfiguration={step1SlotConfigs["y-axis"]}
                   label="Drop a dimension here"
-                  api-url={API_URL}
+                  apiUrl={API_URL}
                   language="en"
                   size="m"
+                  onLuzmoSlotContentsChanged={(e) =>
+                    handleSlotContentsChanged("y-axis", e)
+                  }
                 />
               </SlotSection>
 
@@ -565,15 +490,18 @@ export function GuidedWizard() {
                 title={copy.step1.measure.title}
                 description={copy.step1.measure.description}
               >
-                {/* @ts-expect-error -- ACK web component */}
-                <luzmo-item-slot-drop
-                  ref={measureSlotRef}
-                  item-type={draft.type}
-                  slot-name="measure"
+                <LuzmoItemSlotDrop
+                  itemType={draft.type}
+                  slotName="measure"
+                  slotsContents={normalizedSlots}
+                  slotConfiguration={step1SlotConfigs.measure}
                   label="Drop a measure here"
-                  api-url={API_URL}
+                  apiUrl={API_URL}
                   language="en"
                   size="m"
+                  onLuzmoSlotContentsChanged={(e) =>
+                    handleSlotContentsChanged("measure", e)
+                  }
                 />
               </SlotSection>
 
@@ -719,7 +647,7 @@ export function GuidedWizard() {
                   <LuzmoItemOptionPanel
                     itemType={draft.type}
                     options={draft.options}
-                    slots={normalizeSlotsContents(draft.slotsContents)}
+                    slots={normalizedSlots}
                     language="en"
                     size="m"
                     onLuzmoOptionsChanged={handleOptionsChanged}
