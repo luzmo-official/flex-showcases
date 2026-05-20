@@ -40,6 +40,23 @@ export function normalizeSlotsContents(
 }
 
 /**
+ * Unique dataset IDs linked by fields in chart/table slots.
+ * Used by luzmo-filters (not the env picker allow-list).
+ */
+export function getDatasetIdsFromSlots(
+  slots: VizItemSlots | undefined | null,
+): string[] {
+  const ids = new Set<string>()
+  for (const slot of normalizeSlotsContents(slots)) {
+    for (const content of slot.content) {
+      const id = content.datasetId ?? content.set
+      if (id) ids.add(id)
+    }
+  }
+  return [...ids]
+}
+
+/**
  * Remap internal singular slot names to the names the Flex embed expects
  * for a given table type.
  *

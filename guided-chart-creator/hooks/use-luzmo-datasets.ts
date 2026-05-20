@@ -3,21 +3,22 @@
 import { useMemo } from "react"
 
 /**
- * Reads Luzmo dataset IDs from the NEXT_PUBLIC_LUZMO_DATASET_IDS env var.
+ * Optional picker allow-list from NEXT_PUBLIC_LUZMO_DATASET_IDS.
+ * Does not drive luzmo-filters — filters use datasets from chart slots.
  */
 export function useLuzmoDatasets() {
   return useMemo(() => {
     const raw = process.env.NEXT_PUBLIC_LUZMO_DATASET_IDS ?? ""
 
-    const datasetIds = raw
+    const allowedDatasetIds = raw
       .split(",")
       .map((id) => id.trim())
       .filter(Boolean)
 
     return {
-      datasetIds,
+      allowedDatasetIds,
       error:
-        datasetIds.length === 0
+        allowedDatasetIds.length === 0
           ? "No NEXT_PUBLIC_LUZMO_DATASET_IDS configured"
           : null,
     }

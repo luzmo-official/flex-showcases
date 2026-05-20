@@ -22,6 +22,7 @@ import {
   getNextItemPosition,
   normalizeSlotsContents,
   remapSlotsForTableType,
+  getDatasetIdsFromSlots,
 } from "@/lib/luzmo-types"
 import { tableBuilder as copy } from "@/lib/guidance-copy"
 import { SlotSection } from "./slot-section"
@@ -37,8 +38,12 @@ const SLOT_COLUMN = "column"
 const SLOT_MEASURE = "measure"
 
 export function TableBuilder() {
-  const { state, dispatch, datasetIds } = useApp()
+  const { state, dispatch, allowedDatasetIds } = useApp()
   const draft = state.modal.draft
+  const filterDatasetIds = useMemo(
+    () => getDatasetIdsFromSlots(draft.slotsContents),
+    [draft.slotsContents],
+  )
 
   const columnSlotRef = useRef<HTMLElement>(null)
   const rowSlotRef = useRef<HTMLElement>(null)
@@ -281,7 +286,18 @@ export function TableBuilder() {
           </div>
           <div>
             <div className="font-semibold text-muted-foreground">Datasets</div>
-            <div>datasets: {datasetIds.length > 0 ? datasetIds.join(", ") : "NONE"}</div>
+            <div>
+              allowed (env):{" "}
+              {allowedDatasetIds.length > 0
+                ? allowedDatasetIds.join(", ")
+                : "NONE"}
+            </div>
+            <div>
+              chart (slots):{" "}
+              {filterDatasetIds.length > 0
+                ? filterDatasetIds.join(", ")
+                : "NONE"}
+            </div>
           </div>
         </div>
         <details className="mt-1">
@@ -335,7 +351,7 @@ export function TableBuilder() {
           {/* @ts-expect-error -- ACK web component */}
           <luzmo-data-field-panel
             ref={dataFieldsPanelRef}
-            dataset-ids={JSON.stringify(datasetIds)}
+            dataset-ids={JSON.stringify(allowedDatasetIds)}
             api-url={API_URL}
             dataset-picker
             search="auto"
@@ -468,7 +484,7 @@ export function TableBuilder() {
 
             <TabsContent value="filters" className="flex-1 overflow-auto p-2">
               <LuzmoFilters
-                datasetIds={datasetIds}
+                datasetIds={filterDatasetIds}
                 filters={draft.filters ?? []}
                 apiUrl={API_URL}
                 language="en"

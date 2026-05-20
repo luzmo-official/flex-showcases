@@ -256,14 +256,15 @@ function reducer(state: AppState, action: Action): AppState {
 interface AppContextValue {
   state: AppState
   dispatch: React.Dispatch<Action>
-  datasetIds: string[]
+  /** Optional env allow-list for luzmo-data-field-panel only */
+  allowedDatasetIds: string[]
 }
 
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { datasetIds } = useLuzmoDatasets()
+  const { allowedDatasetIds } = useLuzmoDatasets()
 
   // Theme persistence
   useEffect(() => {
@@ -317,7 +318,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       value={{
         state,
         dispatch,
-        datasetIds,
+        allowedDatasetIds,
       }}
     >
       {children}

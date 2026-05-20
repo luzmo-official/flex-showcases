@@ -36,11 +36,13 @@ Users select data fields, pick a chart type, fine-tune options and filters, then
 
 ## Getting Started
 
-1. Copy `.env.example` to `.env.local` and configure your datasets:
+1. (Optional) Copy `.env.example` to `.env.local` to restrict the data-field picker to specific datasets:
 
    ```env
    NEXT_PUBLIC_LUZMO_DATASET_IDS=your-dataset-id-1,your-dataset-id-2
    ```
+
+   Public datasets work without this file. Chart filters use the dataset(s) linked in the chart slots, not this env var.
 
    No API keys or embed tokens are needed — the app works directly with public datasets.
 
