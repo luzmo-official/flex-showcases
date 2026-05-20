@@ -1,21 +1,18 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Database, Settings, Bug, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { useApp } from "./context"
 import { Tray } from "./tray"
 import { FlexVizPreview } from "./flex-viz-preview"
-
-// ACK web component registrations (side-effect imports)
-import "@luzmo/analytics-components-kit/data-field-panel"
-import "@luzmo/analytics-components-kit/item-slot-drop"
-import "@luzmo/analytics-components-kit/item-option-panel"
-import "@luzmo/analytics-components-kit/filters"
-
-// ACK React wrappers
-import { LuzmoItemOptionPanel, LuzmoFilters } from "@luzmo/analytics-components-kit/react"
+import {
+  LuzmoDataFieldPanel,
+  LuzmoItemSlotDrop,
+  LuzmoItemOptionPanel,
+  LuzmoFilters,
+} from "@luzmo/analytics-components-kit/react"
 
 import type { DraftItem, VizItemSlots } from "@/lib/luzmo-types"
 import {
@@ -45,13 +42,7 @@ export function TableBuilder() {
     [draft.slotsContents],
   )
 
-  const columnSlotRef = useRef<HTMLElement>(null)
-  const rowSlotRef = useRef<HTMLElement>(null)
-  const measureSlotRef = useRef<HTMLElement>(null)
   const dataFieldsPanelRef = useScrollFixRef()
-
-  const draftRef = useRef(draft)
-  draftRef.current = draft
 
   const editingItemId = state.modal.editingItemId
   const isEditing = editingItemId !== null
@@ -108,72 +99,35 @@ export function TableBuilder() {
     [dispatch],
   )
 
-  // ─── Slot refs keyed by singular slot name ────────────────
-  const slotRefs: Record<string, React.RefObject<HTMLElement | null>> = {
-    [SLOT_COLUMN]: columnSlotRef,
-    [SLOT_ROW]: rowSlotRef,
-    [SLOT_MEASURE]: measureSlotRef,
-  }
+  const normalizedSlots = useMemo(
+    () => normalizeSlotsContents(draft.slotsContents),
+    [draft.slotsContents],
+  )
 
-  // Sync slotsContents property to all mounted droppable-slots
-  useEffect(() => {
-    const slots = normalizeSlotsContents(draft.slotsContents)
-    for (const ref of Object.values(slotRefs)) {
-      if (ref.current) {
-        ;(ref.current as Record<string, unknown>).slotsContents = slots
-      }
-    }
-  }, [draft.slotsContents, isPivotMode]) // eslint-disable-line react-hooks/exhaustive-deps
+  const handleSlotContentsChanged = useCallback(
+    (slotName: string, e: CustomEvent<{ slotContents: unknown[] }>) => {
+      const newContent = Array.isArray(e.detail?.slotContents)
+        ? (e.detail.slotContents as VizItemSlots[0]["content"])
+        : []
 
-  // Wire droppable-slot event listeners (re-run when measure slot appears/disappears)
-  useEffect(() => {
-    const pairs: [React.RefObject<HTMLElement | null>, string][] = [
-      [columnSlotRef, SLOT_COLUMN],
-      [rowSlotRef, SLOT_ROW],
-      [measureSlotRef, SLOT_MEASURE],
-    ]
-
-    const cleanups: (() => void)[] = []
-
-    for (const [ref, slotName] of pairs) {
-      const el = ref.current
-      if (!el) continue
-
-      const handler = (e: Event) => {
-        const detail = (
-          e as CustomEvent<{ slotContents: unknown[]; linkedDatasetsIds: string[] }>
-        ).detail
-        const currentSlots = normalizeSlotsContents(draftRef.current.slotsContents)
-        const newContent = Array.isArray(detail?.slotContents)
-          ? (detail.slotContents as VizItemSlots[0]["content"])
-          : []
-
-        const existingIdx = currentSlots.findIndex((s) => s.name === slotName)
-        let updated: VizItemSlots
-        if (existingIdx >= 0) {
-          updated = currentSlots.map((s, i) =>
-            i === existingIdx ? { ...s, content: newContent } : s,
-          )
-        } else {
-          updated = [...currentSlots, { name: slotName, content: newContent }]
-        }
-
-        console.log(`[TABLE SLOT] ${slotName} changed:`, newContent)
-        updateDraftSlots(updated)
+      const currentSlots = normalizeSlotsContents(draft.slotsContents)
+      const existingIdx = currentSlots.findIndex((s) => s.name === slotName)
+      let updated: VizItemSlots
+      if (existingIdx >= 0) {
+        updated = currentSlots.map((s, i) =>
+          i === existingIdx ? { ...s, content: newContent } : s,
+        )
+      } else {
+        updated = [...currentSlots, { name: slotName, content: newContent }]
       }
 
-      el.addEventListener("luzmo-slot-contents-changed", handler)
-      cleanups.push(() =>
-        el.removeEventListener("luzmo-slot-contents-changed", handler),
-      )
-    }
-
-    return () => cleanups.forEach((fn) => fn())
-  }, [updateDraftSlots, isPivotMode])
+      console.log(`[TABLE SLOT] ${slotName} changed:`, newContent)
+      updateDraftSlots(updated)
+    },
+    [draft.slotsContents, updateDraftSlots],
+  )
 
   // ─── Callbacks for edit-item / edit-filters ──────────────
-  // React wrappers handle property setting and event wiring via
-  // JSX props — no ref timing issues, no stale listeners.
   const handleOptionsChanged = useCallback(
     (e: CustomEvent) => {
       const newOptions = e.detail?.options ?? {}
@@ -348,12 +302,11 @@ export function TableBuilder() {
           title="Data Fields"
           icon={<Database className="size-3.5 text-muted-foreground" />}
         >
-          {/* @ts-expect-error -- ACK web component */}
-          <luzmo-data-field-panel
+          <LuzmoDataFieldPanel
             ref={dataFieldsPanelRef}
-            dataset-ids={JSON.stringify(allowedDatasetIds)}
-            api-url={API_URL}
-            dataset-picker
+            datasetIds={allowedDatasetIds}
+            apiUrl={API_URL}
+            datasetPicker
             search="auto"
             language="en"
             size="m"
@@ -377,15 +330,17 @@ export function TableBuilder() {
                   title={copy.columns.title}
                   description={copy.columns.description}
                 >
-                  {/* @ts-expect-error -- ACK web component */}
-                  <luzmo-item-slot-drop
-                    ref={columnSlotRef}
-                    item-type="pivot-table"
-                    slot-name={SLOT_COLUMN}
+                  <LuzmoItemSlotDrop
+                    itemType="pivot-table"
+                    slotName={SLOT_COLUMN}
+                    slotsContents={normalizedSlots}
                     label="Drop columns here"
-                    api-url={API_URL}
+                    apiUrl={API_URL}
                     language="en"
                     size="m"
+                    onLuzmoSlotContentsChanged={(e) =>
+                      handleSlotContentsChanged(SLOT_COLUMN, e)
+                    }
                   />
                 </SlotSection>
               </div>
@@ -395,15 +350,17 @@ export function TableBuilder() {
                   title={copy.rows.title}
                   description={copy.rows.description}
                 >
-                  {/* @ts-expect-error -- ACK web component */}
-                  <luzmo-item-slot-drop
-                    ref={rowSlotRef}
-                    item-type="pivot-table"
-                    slot-name={SLOT_ROW}
+                  <LuzmoItemSlotDrop
+                    itemType="pivot-table"
+                    slotName={SLOT_ROW}
+                    slotsContents={normalizedSlots}
                     label="Drop rows here for pivot"
-                    api-url={API_URL}
+                    apiUrl={API_URL}
                     language="en"
                     size="m"
+                    onLuzmoSlotContentsChanged={(e) =>
+                      handleSlotContentsChanged(SLOT_ROW, e)
+                    }
                   />
                 </SlotSection>
               </div>
@@ -414,18 +371,18 @@ export function TableBuilder() {
                   description={copy.measures.description}
                 >
                   {isPivotMode ? (
-                    <>
-                      {/* @ts-expect-error -- ACK web component */}
-                      <luzmo-item-slot-drop
-                        ref={measureSlotRef}
-                        item-type="pivot-table"
-                        slot-name={SLOT_MEASURE}
-                        label="Drop measures here"
-                        api-url={API_URL}
-                        language="en"
-                        size="m"
-                      />
-                    </>
+                    <LuzmoItemSlotDrop
+                      itemType="pivot-table"
+                      slotName={SLOT_MEASURE}
+                      slotsContents={normalizedSlots}
+                      label="Drop measures here"
+                      apiUrl={API_URL}
+                      language="en"
+                      size="m"
+                      onLuzmoSlotContentsChanged={(e) =>
+                        handleSlotContentsChanged(SLOT_MEASURE, e)
+                      }
+                    />
                   ) : (
                     <div className="flex items-center rounded-md border border-dashed border-muted-foreground/25 bg-muted/20 px-3 py-2.5">
                       <p className="text-xs text-muted-foreground/70">
@@ -475,7 +432,7 @@ export function TableBuilder() {
               <LuzmoItemOptionPanel
                 itemType={effectiveTableType}
                 options={draft.options ?? {}}
-                slots={normalizeSlotsContents(draft.slotsContents)}
+                slots={normalizedSlots}
                 language="en"
                 size="m"
                 onLuzmoOptionsChanged={handleOptionsChanged}
