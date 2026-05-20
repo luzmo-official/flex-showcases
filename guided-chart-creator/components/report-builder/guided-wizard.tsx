@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowDown, Database, Settings, Bug, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -21,7 +21,12 @@ import "@luzmo/analytics-components-kit/filters"
 import { LuzmoItemOptionPanel, LuzmoFilters } from "@luzmo/analytics-components-kit/react"
 
 import type { DraftItem, VizItemSlots } from "@/lib/luzmo-types"
-import { getNextItemPosition, normalizeSlotsContents, inferChartType } from "@/lib/luzmo-types"
+import {
+  getNextItemPosition,
+  normalizeSlotsContents,
+  inferChartType,
+  getDatasetIdsFromSlots,
+} from "@/lib/luzmo-types"
 import { guidedWizard as copy } from "@/lib/guidance-copy"
 import { SlotSection } from "./slot-section"
 import { useScrollFixRef } from "@/hooks/use-scroll-fix-ref"
@@ -34,8 +39,12 @@ import {
 const API_URL = "https://api.luzmo.com"
 
 export function GuidedWizard() {
-  const { state, dispatch, datasetIds } = useApp()
+  const { state, dispatch, allowedDatasetIds } = useApp()
   const draft = state.modal.draft
+  const filterDatasetIds = useMemo(
+    () => getDatasetIdsFromSlots(draft.slotsContents),
+    [draft.slotsContents],
+  )
 
   const isEditMode = state.modal.editingItemId !== null
   const [step, setStep] = useState(() => {
@@ -380,7 +389,7 @@ export function GuidedWizard() {
     // @ts-expect-error -- ACK web component
     <luzmo-data-field-panel
       ref={dataFieldsPanelRef}
-      dataset-ids={JSON.stringify(datasetIds)}
+      dataset-ids={JSON.stringify(allowedDatasetIds)}
       api-url={API_URL}
       dataset-picker
       search="auto"
@@ -461,6 +470,18 @@ export function GuidedWizard() {
             <div>itemType: <span className="text-blue-500">{draft.type}</span></div>
             <div>hasContent: {String(hasContent)}</div>
             <div>isEditing: {String(isEditing)}</div>
+            <div className="mt-1">
+              allowed (env):{" "}
+              {allowedDatasetIds.length > 0
+                ? allowedDatasetIds.join(", ")
+                : "NONE"}
+            </div>
+            <div>
+              chart (slots):{" "}
+              {filterDatasetIds.length > 0
+                ? filterDatasetIds.join(", ")
+                : "NONE"}
+            </div>
           </div>
           <div>
             <div className="font-semibold text-muted-foreground">
@@ -710,7 +731,7 @@ export function GuidedWizard() {
                   className="flex-1 overflow-auto p-2"
                 >
                   <LuzmoFilters
-                    datasetIds={datasetIds}
+                    datasetIds={filterDatasetIds}
                     filters={draft.filters ?? []}
                     apiUrl={API_URL}
                     language="en"
