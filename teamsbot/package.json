@@ -1,0 +1,30 @@
+{
+  "name": "luzmo-analyst-teamsbot",
+  "version": "1.0.0",
+  "description": "Microsoft Teams bot that answers data questions via Luzmo /AIPrompt (agent: analyst)",
+  "main": "dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "type-check": "tsc --noEmit",
+    "test": "tsx --test src/*.test.ts",
+    "package": "node scripts/package-app.mjs"
+  },
+  "dependencies": {
+    "@luzmo/nodejs-sdk": "^2.1.1",
+    "botbuilder": "^4.23.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

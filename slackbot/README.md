@@ -16,6 +16,8 @@ url: "https://github.com/luzmo-official/showcases/tree/main/slackbot"
 
 A Slack bot that answers data questions via Luzmo's hosted **`/AIPrompt`** API (`agent: analyst`), streams progress updates into Slack, and uploads chart PNGs when Luzmo returns a visualization.
 
+A Microsoft Teams version of this bot is in [`teamsbot`](../teamsbot).
+
 ## Prerequisites
 
 - Node.js 20+

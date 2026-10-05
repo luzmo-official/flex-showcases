@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.0",
+  "id": "c0ffee00-5a1e-4b07-a11a-000000005f53",
+  "developer": {
+    "name": "Luzmo",
+    "websiteUrl": "https://www.luzmo.com",
+    "privacyUrl": "https://www.luzmo.com/information-pages/privacy-policy",
+    "termsOfUseUrl": "https://www.luzmo.com/information-pages/terms-of-use"
+  },
+  "name": {
+    "short": "Luzmo Analyst",
+    "full": "Luzmo Analyst for Microsoft Teams"
+  },
+  "description": {
+    "short": "Ask data questions and get chart answers.",
+    "full": "Answers data questions in Microsoft Teams via Luzmo's hosted /AIPrompt API (agent: analyst). Streams progress into the chat and posts a chart image when Luzmo returns a visualization."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#0B3D5C",
+  "bots": [
+    {
+      "botId": "{{MICROSOFT_APP_ID}}",
+      "scopes": ["personal", "team", "groupChat"],
+      "supportsFiles": false,
+      "isNotificationOnly": false,
+      "commandLists": [
+        {
+          "scopes": ["personal", "team", "groupChat"],
+          "commands": [
+            {
+              "title": "Ask a question",
+              "description": "What are the top categories by revenue?"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": ["identity"],
+  "validDomains": []
+}
