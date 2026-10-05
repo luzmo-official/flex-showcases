@@ -129,4 +129,4 @@ npm test
 
 ## Reference
 
-See [createAIPrompt.md](https://developer.luzmo.com/api/createAIPrompt.md). Sibling pattern: the [Luzmo Analyst Slackbot](https://github.com/luzmo-official/showcases/tree/main/slackbot) in this repository.
+See [createAIPrompt.md](https://developer.luzmo.com/api/createAIPrompt.md). Sibling patterns: the [Luzmo Analyst Slackbot](https://github.com/luzmo-official/showcases/tree/main/slackbot) and the [email analyst](../emailbot) in this repository.
